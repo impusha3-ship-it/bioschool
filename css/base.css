@@ -1,0 +1,313 @@
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Шапка: тот же фон, что и полотно. Другой цвет разрезал бы страницу
+   на «мир шапки» и «мир содержимого» — хватает тонкой границы. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: calc(var(--step) * 3.5) calc(var(--step) * 4.5);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header__home {
+  color: var(--moss);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.app {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: calc(var(--step) * 5) calc(var(--step) * 4.5) calc(var(--step) * 14);
+}
+
+.site-footer {
+  padding: 0 calc(var(--step) * 4.5) calc(var(--step) * 8);
+  text-align: center;
+  font-size: 13px;
+}
+
+.site-footer a {
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+
+a { color: var(--moss); }
+
+h1 {
+  margin: 0 0 calc(var(--step) * 3);
+  font-size: 27px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+h2 {
+  margin: calc(var(--step) * 7) 0 calc(var(--step) * 2.5);
+  font-size: 15px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 650;
+}
+
+.loading,
+.empty {
+  color: var(--ink-faint);
+  padding: calc(var(--step) * 3) 0;
+}
+
+/* Кнопка */
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  margin-top: calc(var(--step) * 3);
+  padding: 0 calc(var(--step) * 5);
+  border-radius: 999px;
+  background: var(--moss);
+  color: var(--paper-raised);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ── Главная ─────────────────────────────────────────────── */
+
+.home__lead {
+  margin: 0 0 calc(var(--step) * 6);
+  color: var(--ink-soft);
+}
+
+.grades {
+  display: grid;
+  gap: calc(var(--step) * 3);
+}
+
+.grade-card {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px calc(var(--step) * 3.5);
+  align-items: center;
+  min-height: 78px;
+  padding: calc(var(--step) * 3.5) calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Цвет метки растёт от росткового к мшистому: он означает взросление
+   ученика через годы, а не украшает карточку. */
+.grade-card__num {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--wash);
+  color: var(--grade);
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.grade-card[data-grade="5"] { --grade: var(--grade-5); }
+.grade-card[data-grade="6"] { --grade: var(--grade-6); }
+.grade-card[data-grade="7"] { --grade: var(--grade-7); }
+.grade-card[data-grade="8"] { --grade: var(--grade-8); }
+.grade-card[data-grade="9"] { --grade: var(--grade-9); }
+
+.grade-card__title { font-weight: 650; }
+
+.grade-card__sub {
+  color: var(--ink-faint);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* ── Класс ───────────────────────────────────────────────── */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  margin-bottom: calc(var(--step) * 1);
+  color: var(--ink-soft);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.course__sub {
+  margin: calc(var(--step) * -1) 0 calc(var(--step) * 6);
+  color: var(--ink-soft);
+}
+
+.section {
+  margin: calc(var(--step) * 5) 0;
+  padding: calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+}
+
+.section__title { margin: 0; }
+
+.section__hours {
+  margin: calc(var(--step) * 1) 0 calc(var(--step) * 2);
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.section__lessons { margin: 0; padding: 0; list-style: none; }
+
+.lesson-link {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: calc(var(--step) * 2.5) 0;
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ── Урок ────────────────────────────────────────────────── */
+
+.lesson__title { margin-top: calc(var(--step) * 1); }
+
+.tabs {
+  display: flex;
+  gap: calc(var(--step) * 5);
+  margin: calc(var(--step) * 4) calc(var(--step) * -4.5) calc(var(--step) * 6);
+  padding: 0 calc(var(--step) * 4.5);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+/* Не таблетка с заливкой, а подчёркивание, которое прорастает из центра. */
+.tabs__item {
+  position: relative;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--ink-faint);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.tabs__item--active {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.tabs__item--active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--moss);
+}
+
+/* Проза урока — засечки. Это единственное место, где они появляются. */
+.block p,
+.block__list {
+  font-family: var(--font-prose);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.block p { margin: 0 0 calc(var(--step) * 4); }
+
+.block__list { padding-left: calc(var(--step) * 5); }
+
+.block__list li { margin-bottom: calc(var(--step) * 2.5); }
+
+.terms__list { margin: 0; }
+
+.terms__list dt {
+  margin-top: calc(var(--step) * 3.5);
+  font-weight: 650;
+  color: var(--methylene);
+}
+
+.terms__list dd {
+  margin: 2px 0 0;
+  font-family: var(--font-prose);
+  color: var(--ink-soft);
+}
+
+/*
+  Гербарный ярлык: наклеен чуть криво, как настоящая этикетка на листе.
+  Полградуса — на грани заметности, и в этом всё дело.
+*/
+.keypoints {
+  margin: calc(var(--step) * 9) 0 0;
+  padding: calc(var(--step) * 5) calc(var(--step) * 5) calc(var(--step) * 4);
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transform: rotate(-0.4deg);
+}
+
+.keypoints h2 {
+  margin-top: 0;
+  color: var(--moss-deep);
+}
+
+.keypoints__list {
+  margin: 0;
+  padding-left: calc(var(--step) * 5);
+  font-family: var(--font-prose);
+}
+
+.keypoints__list li { margin-bottom: calc(var(--step) * 2.5); }
+.keypoints__list li:last-child { margin-bottom: 0; }
+
+.materials { margin: 0; padding: 0; list-style: none; }
+
+.materials li {
+  padding: calc(var(--step) * 3) 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ── Ошибки ──────────────────────────────────────────────── */
+
+.error h1 { color: var(--fuchsin); }
+
+/* ── Широкий экран ───────────────────────────────────────── */
+
+@media (min-width: 700px) {
+  body { font-size: 18px; }
+  h1 { font-size: 34px; }
+  .app { padding: calc(var(--step) * 8) calc(var(--step) * 6) calc(var(--step) * 18); }
+  .grades { grid-template-columns: 1fr 1fr; }
+  .block p, .block__list { font-size: 19px; }
+}

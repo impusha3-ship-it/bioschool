@@ -1,0 +1,99 @@
+/*
+  Палитра взята из мира предмета: гербарный лист, чернила, хлорофилл под
+  микроскопом и красители школьной лаборатории. Не «тёплая и дружелюбная»
+  вообще, а из конкретного места.
+*/
+:root {
+  color-scheme: light dark;
+
+  /* Бумага гербарного листа */
+  --paper: #f7f3ea;
+  --paper-raised: #fffdf7;
+  --paper-sunk: #efe9dc;
+
+  /* Чернила: тёмно-зелёные, не чёрные */
+  --ink: #232a24;
+  --ink-soft: #5f6a60;
+  --ink-faint: #8d968c;
+  --ink-muted: #b3b9b0;
+
+  /* Границы — разбавленные чернила, а не серый хекс */
+  --line-soft: rgba(35, 42, 36, 0.06);
+  --line: rgba(35, 42, 36, 0.10);
+  --line-strong: rgba(35, 42, 36, 0.18);
+
+  /* Хлорофилл под микроскопом и молодой росток */
+  --moss: #2e6b46;
+  --moss-deep: #1f4d32;
+  --sprout: #8fbf5a;
+  --wash: #e8f0e2;
+
+  /* Красители школьной лаборатории — используются по смыслу, не для красоты */
+  --methylene: #3a5fa8;
+  --fuchsin: #a8386b;
+  --iodine: #b5761f;
+
+  /* Ступени взросления: от прорастания к зрелости */
+  --grade-5: #9ccb63;
+  --grade-6: #7bb95d;
+  --grade-7: #57a052;
+  --grade-8: #3d8449;
+  --grade-9: #2a6640;
+
+  /* Тень тёплая, а не серая: серая тень на тёплой бумаге выглядит грязью */
+  --shadow-rest: 0 1px 2px rgba(58, 45, 25, 0.05), 0 2px 8px rgba(58, 45, 25, 0.04);
+  --shadow-lift: 0 2px 4px rgba(58, 45, 25, 0.06), 0 6px 16px rgba(58, 45, 25, 0.06);
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+
+  --step: 4px;
+  --tap: 44px;
+
+  /* Встроенные кривые слишком вялые. Эти дают ощущение намеренности. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Засечки для прозы урока — полевой дневник, и длинный текст так читается
+     лучше. Рубленый для интерфейса. Оба системные, ничего не загружается. */
+  --font-prose: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Ночью тот же мир, но при другом свете. Тени на тёмном фоне не видны —
+   структуру держат границы. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #161a16;
+    --paper-raised: #1e241f;
+    --paper-sunk: #121614;
+
+    --ink: #e9efe7;
+    --ink-soft: #a6b0a5;
+    --ink-faint: #7c857b;
+    --ink-muted: #5a625a;
+
+    --line-soft: rgba(233, 239, 231, 0.06);
+    --line: rgba(233, 239, 231, 0.11);
+    --line-strong: rgba(233, 239, 231, 0.20);
+
+    --moss: #6cc48d;
+    --moss-deep: #8fd7a8;
+    --sprout: #a8d472;
+    --wash: #22302a;
+
+    --methylene: #7a9de0;
+    --fuchsin: #d9799f;
+    --iodine: #d9a05a;
+
+    --grade-5: #b4dd82;
+    --grade-6: #9bd071;
+    --grade-7: #7fc267;
+    --grade-8: #66b163;
+    --grade-9: #4f9c5c;
+
+    --shadow-rest: none;
+    --shadow-lift: none;
+  }
+}
