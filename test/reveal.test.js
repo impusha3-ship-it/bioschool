@@ -57,3 +57,72 @@ test('обработчик показывает только пересёкши�
   assert.ok(shown.has('reveal--shown'));
   assert.ok(!hidden.has('reveal--shown'));
 });
+
+test('страховка показывает всё, если наблюдатель ни разу не отчитался', () => {
+  let fire = null;
+  const controller = createRevealController({
+    observerFactory: () => ({ observe() {}, unobserve() {}, disconnect() {} }),
+    scheduleFallback: (fn) => {
+      fire = fn;
+      return 1;
+    },
+  });
+
+  const a = fakeElement();
+  const b = fakeElement();
+  controller.observe(a);
+  controller.observe(b);
+
+  assert.ok(!a.has('reveal--shown'), 'до срабатывания страховки показывать рано');
+  fire();
+  assert.ok(a.has('reveal--shown'), 'страховка обязана показать текст');
+  assert.ok(b.has('reveal--shown'));
+});
+
+test('страховка молчит, если наблюдатель уже работает', () => {
+  let fire = null;
+  let saved = null;
+  const controller = createRevealController({
+    observerFactory: (cb) => {
+      saved = cb;
+      return { observe() {}, unobserve() {}, disconnect() {} };
+    },
+    scheduleFallback: (fn) => {
+      fire = fn;
+      return 1;
+    },
+  });
+
+  const видимый = fakeElement();
+  const ниже = fakeElement();
+  controller.observe(видимый);
+  controller.observe(ниже);
+
+  // Наблюдатель отчитался: видимый пересёкся, нижний пока нет.
+  saved([
+    { target: видимый, isIntersecting: true },
+    { target: ниже, isIntersecting: false },
+  ]);
+
+  fire();
+
+  assert.ok(видимый.has('reveal--shown'));
+  assert.ok(!ниже.has('reveal--shown'), 'наблюдатель жив — страховка не должна вмешиваться');
+});
+
+test('страховка ставится один раз на всю пачку элементов', () => {
+  let calls = 0;
+  const controller = createRevealController({
+    observerFactory: () => ({ observe() {}, unobserve() {}, disconnect() {} }),
+    scheduleFallback: () => {
+      calls += 1;
+      return 1;
+    },
+  });
+
+  controller.observe(fakeElement());
+  controller.observe(fakeElement());
+  controller.observe(fakeElement());
+
+  assert.equal(calls, 1);
+});
