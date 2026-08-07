@@ -1,0 +1,219 @@
+/* ── Игры ────────────────────────────────────────────────── */
+
+.game__prompt {
+  margin: 0 0 calc(var(--step) * 4);
+  font-weight: 600;
+}
+
+.game__bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--step) * 2);
+  margin-bottom: calc(var(--step) * 5);
+}
+
+/* Фишка — то, что ученик берёт пальцем. Минимум 44 пикселя по высоте. */
+.game__chip {
+  min-height: var(--tap);
+  padding: 0 calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out),
+    border-color 140ms var(--ease-out);
+}
+
+/* Выбранная фишка «поднята» — видно, что она сейчас в руке. */
+.game__chip--selected {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--paper-raised);
+  font-weight: 600;
+}
+
+.game__chip--placed {
+  background: var(--wash);
+  border-color: var(--moss);
+}
+
+.game__chip:active { transform: scale(0.97); }
+
+.game__buckets {
+  display: grid;
+  gap: calc(var(--step) * 3);
+}
+
+.game__bucket {
+  display: block;
+  width: 100%;
+  min-height: 96px;
+  padding: calc(var(--step) * 3.5);
+  background: var(--paper-raised);
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius);
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 140ms var(--ease-out), background-color 140ms var(--ease-out);
+}
+
+.game__bucket-title {
+  display: block;
+  margin-bottom: calc(var(--step) * 2);
+  color: var(--ink-soft);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 650;
+}
+
+.game__bucket-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--step) * 2);
+}
+
+.game__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--step) * 3);
+}
+
+.game__column {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 2);
+}
+
+.game__cell {
+  min-height: var(--tap);
+  padding: calc(var(--step) * 2) calc(var(--step) * 3);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out);
+}
+
+.game__cell--selected {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--paper-raised);
+}
+
+.game__cell--used {
+  background: var(--wash);
+  border-color: var(--moss);
+}
+
+.game__cell:active { transform: scale(0.97); }
+
+.game__chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--step) * 2);
+  margin: 0 0 calc(var(--step) * 4);
+  padding: calc(var(--step) * 3);
+  min-height: 64px;
+  list-style: none;
+  background: var(--wash);
+  border-radius: var(--radius);
+}
+
+.game__chain-item { display: block; }
+
+.game__chain-item button[disabled] {
+  opacity: 0.75;
+  cursor: default;
+}
+
+.game__stage {
+  position: relative;
+  margin-bottom: calc(var(--step) * 5);
+}
+
+.game__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Точка на схеме: координаты в процентах, поэтому не съезжает при масштабе. */
+.game__point {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  padding: 0 calc(var(--step) * 2);
+  background: var(--paper-raised);
+  border: 2px solid var(--moss);
+  border-radius: 999px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out);
+}
+
+.game__point--filled {
+  background: var(--wash);
+  font-weight: 600;
+}
+
+.game__point:active { transform: translate(-50%, -50%) scale(0.94); }
+
+.practice__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--step) * 3);
+  margin-top: calc(var(--step) * 5);
+  padding-top: calc(var(--step) * 4);
+  border-top: 1px solid var(--line);
+}
+
+.game__score {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.game__score--win { color: var(--moss); font-weight: 650; }
+.game__score--miss { color: var(--iodine); font-weight: 650; }
+
+.button--quiet {
+  margin-top: 0;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .game__chip:hover { border-color: var(--moss); }
+  .game__bucket:hover { border-color: var(--moss); background: var(--wash); }
+  .game__cell:hover { border-color: var(--moss); }
+  .game__point:hover { transform: translate(-50%, -50%) scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game__chip:active,
+  .game__cell:active { transform: none; }
+  .game__point:active,
+  .game__point:hover { transform: translate(-50%, -50%); }
+}
+
+@media (min-width: 700px) {
+  .game__buckets { grid-template-columns: 1fr 1fr; }
+}
