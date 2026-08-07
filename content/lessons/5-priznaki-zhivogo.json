@@ -63,6 +63,24 @@
       "Вирусы не имеют клеточного строения, поэтому их положение спорно."
     ]
   },
+  "game": {
+    "type": "sort",
+    "prompt": "Разложи объекты на живые и неживые. Помни: важен весь набор признаков, а не один.",
+    "buckets": [
+      { "id": "alive", "title": "Живое" },
+      { "id": "not", "title": "Неживое" }
+    ],
+    "items": [
+      { "id": "hare", "text": "Заяц", "bucket": "alive" },
+      { "id": "oak", "text": "Дуб", "bucket": "alive" },
+      { "id": "mushroom", "text": "Подберёзовик", "bucket": "alive" },
+      { "id": "bacteria", "text": "Бактерия", "bucket": "alive" },
+      { "id": "crystal", "text": "Кристалл соли", "bucket": "not" },
+      { "id": "fire", "text": "Огонь", "bucket": "not" },
+      { "id": "river", "text": "Река", "bucket": "not" },
+      { "id": "cloud", "text": "Облако", "bucket": "not" }
+    ]
+  },
   "materials": [
     {
       "title": "Видеоурок: Свойства живого (Пётр Гамбарян)",
