@@ -1,6 +1,7 @@
 import { el } from '../ui/dom.js';
 import { loadLesson } from '../content.js';
 import { loadFigure, parseSvg } from '../ui/figure.js';
+import { createGame } from '../games/index.js';
 
 const TAB_TITLES = {
   summary: 'Конспект',
@@ -50,6 +51,7 @@ function renderTabs(lesson, active) {
 function renderTabBody(lesson, tab) {
   if (tab === 'summary') return renderSummary(lesson.summary);
   if (tab === 'materials') return renderMaterials(lesson.materials ?? []);
+  if (tab === 'practice') return renderPractice(lesson.game);
   return renderComingSoon(TAB_TITLES[tab]);
 }
 
@@ -135,6 +137,55 @@ function renderMaterials(materials) {
       el('li', {}, [el('a', { href: m.url, target: '_blank', rel: 'noopener' }, m.title)]),
     ),
   );
+}
+
+/**
+ * Свободный режим: играть можно сколько угодно, результат никуда не идёт.
+ * Нужен, чтобы ученик познакомился с механикой до оцениваемой попытки
+ * и не терял баллы из-за незнакомого интерфейса.
+ */
+function renderPractice(config) {
+  if (!config) {
+    return el('div', { class: 'empty' }, [
+      el('p', {}, 'К этому уроку тренажёр ещё не готов.'),
+    ]);
+  }
+
+  let game;
+  try {
+    game = createGame(config);
+  } catch (error) {
+    return el('div', { class: 'empty' }, [
+      el('p', {}, 'Тренажёр не запустился.'),
+      el('p', {}, error.message),
+    ]);
+  }
+
+  const score = el('p', { class: 'game__score' });
+  const again = el('button', { class: 'button button--quiet', type: 'button' }, 'Начать заново');
+  again.addEventListener('click', () => game.reset());
+
+  function updateScore() {
+    const { correct, total } = game.getResult();
+    if (!game.isComplete()) {
+      score.textContent = `Разобрано ${correct} из ${total}`;
+      score.className = 'game__score';
+      return;
+    }
+    score.textContent =
+      correct === total
+        ? `Всё верно: ${correct} из ${total}`
+        : `Верно ${correct} из ${total} — попробуй ещё раз`;
+    score.className = correct === total ? 'game__score game__score--win' : 'game__score game__score--miss';
+  }
+
+  game.onChange(updateScore);
+  updateScore();
+
+  return el('div', { class: 'practice' }, [
+    game.element,
+    el('div', { class: 'practice__footer' }, [score, again]),
+  ]);
 }
 
 function renderComingSoon(title) {
