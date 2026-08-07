@@ -145,18 +145,29 @@ function renderMaterials(materials) {
  * и не терял баллы из-за незнакомого интерфейса.
  */
 function renderPractice(config) {
-  if (!config) {
+  // В уроке может быть одно задание или несколько подряд.
+  const configs = Array.isArray(config) ? config : config ? [config] : [];
+
+  if (!configs.length) {
     return el('div', { class: 'empty' }, [
       el('p', {}, 'К этому уроку тренажёр ещё не готов.'),
     ]);
   }
 
+  return el(
+    'div',
+    { class: 'practice' },
+    configs.map((one, index) => renderExercise(one, index, configs.length)),
+  );
+}
+
+function renderExercise(config, index, total) {
   let game;
   try {
     game = createGame(config);
   } catch (error) {
     return el('div', { class: 'empty' }, [
-      el('p', {}, 'Тренажёр не запустился.'),
+      el('p', {}, 'Задание не запустилось.'),
       el('p', {}, error.message),
     ]);
   }
@@ -166,24 +177,26 @@ function renderPractice(config) {
   again.addEventListener('click', () => game.reset());
 
   function updateScore() {
-    const { correct, total } = game.getResult();
+    const { correct, total: всего } = game.getResult();
     if (!game.isComplete()) {
-      score.textContent = `Разобрано ${correct} из ${total}`;
+      score.textContent = `Разобрано ${correct} из ${всего}`;
       score.className = 'game__score';
       return;
     }
     score.textContent =
-      correct === total
-        ? `Всё верно: ${correct} из ${total}`
-        : `Верно ${correct} из ${total} — попробуй ещё раз`;
-    score.className = correct === total ? 'game__score game__score--win' : 'game__score game__score--miss';
+      correct === всего
+        ? `Всё верно: ${correct} из ${всего}`
+        : `Верно ${correct} из ${всего} — попробуй ещё раз`;
+    score.className = correct === всего ? 'game__score game__score--win' : 'game__score game__score--miss';
   }
 
   game.onChange(updateScore);
   updateScore();
 
-  return el('div', { class: 'practice' }, [
+  return el('section', { class: 'exercise' }, [
+    total > 1 ? el('p', { class: 'exercise__num' }, `Задание ${index + 1} из ${total}`) : null,
     game.element,
+    config.afterword ? el('p', { class: 'exercise__afterword' }, config.afterword) : null,
     el('div', { class: 'practice__footer' }, [score, again]),
   ]);
 }
