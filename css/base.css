@@ -371,3 +371,6 @@ h2 {
 .figure__svg .d-leaf path { fill: var(--wash); stroke: var(--moss); stroke-width: 1.5; }
 .figure__svg .d-midrib line { stroke: var(--moss); }
 .figure__svg .d-label { fill: var(--ink); }
+
+/* Второстепенная капсула в схемах: подчинена главной, но тоже группирует. */
+.figure__svg .d-sub { fill: var(--wash); stroke: var(--line-strong); stroke-width: 1; }
