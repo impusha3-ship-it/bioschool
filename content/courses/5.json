@@ -14,7 +14,14 @@
         { "id": "5-istochniki-znaniy", "title": "Источники биологических знаний. Кабинет биологии" }
       ]
     },
-    { "id": "metody", "title": "Методы изучения живой природы", "hours": 4, "lessons": [] },
+    {
+      "id": "metody",
+      "title": "Методы изучения живой природы",
+      "hours": 4,
+      "lessons": [
+        { "id": "5-metody-nauki", "title": "Научные методы изучения живой природы" }
+      ]
+    },
     { "id": "organizmy", "title": "Организмы — тела живой природы", "hours": 10, "lessons": [] },
     { "id": "sredy", "title": "Организмы и среда обитания", "hours": 6, "lessons": [] },
     { "id": "soobshchestva", "title": "Природные сообщества", "hours": 6, "lessons": [] },

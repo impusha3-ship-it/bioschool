@@ -389,3 +389,7 @@ h2 {
 .figure__svg .d-step-2 rect { fill: var(--wash); stroke: var(--moss); stroke-width: 1; }
 .figure__svg .d-step-3 rect { fill: none; stroke: var(--line-strong); stroke-width: 1; }
 .figure__svg .d-step-4 rect { fill: none; stroke: var(--iodine); stroke-width: 1.5; stroke-dasharray: 5 4; }
+
+/* Пронумерованные шаги в схемах-последовательностях. */
+.figure__svg .d-num-circle circle { fill: var(--moss); }
+.figure__svg .d-num-text { fill: var(--paper-raised); }
