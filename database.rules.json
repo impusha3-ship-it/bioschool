@@ -1,0 +1,75 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "schools": {
+      "apts": {
+
+        "teachers": {
+          "$uid": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid && auth.token.email != null && !root.child('schools/apts/teachers').exists()",
+            ".validate": "newData.isBoolean()"
+          }
+        },
+
+        "classes": {
+          ".read": true,
+          ".write": "root.child('schools/apts/teachers').child(auth.uid).exists()"
+        },
+
+        "students": {
+          ".read": true,
+          ".write": "root.child('schools/apts/teachers').child(auth.uid).exists()",
+          "$studentId": {
+            ".validate": "newData.hasChildren(['name', 'classId', 'salt'])"
+          }
+        },
+
+        "secrets": {
+          ".read": false,
+          ".write": "root.child('schools/apts/teachers').child(auth.uid).exists()"
+        },
+
+        "bindings": {
+          ".read": "root.child('schools/apts/teachers').child(auth.uid).exists()",
+          "$studentId": {
+            ".read": false,
+            ".write": "auth != null && (newData.child('uid').val() === auth.uid && newData.child('proof').val() === root.child('schools/apts/secrets').child($studentId).child('pinHash').val() || root.child('schools/apts/teachers').child(auth.uid).exists())",
+            ".validate": "newData.hasChildren(['uid', 'proof'])"
+          }
+        },
+
+        "assignments": {
+          ".read": true,
+          ".write": "root.child('schools/apts/teachers').child(auth.uid).exists()"
+        },
+
+        "submissions": {
+          ".read": "root.child('schools/apts/teachers').child(auth.uid).exists()",
+          "$studentId": {
+            ".read": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
+            "$lessonId": {
+              ".write": "root.child('schools/apts/teachers').child(auth.uid).exists() || (root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid && root.child('schools/apts/assignments').child(root.child('schools/apts/students').child($studentId).child('classId').val()).child($lessonId).child('isOpen').val() === true && !newData.hasChild('manualScore'))",
+              ".validate": "newData.hasChildren(['attempt', 'submittedAt'])"
+            }
+          }
+        },
+
+        "progress": {
+          ".read": "root.child('schools/apts/teachers').child(auth.uid).exists()",
+          "$studentId": {
+            ".read": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
+            ".write": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()"
+          }
+        },
+
+        "overrides": {
+          ".read": true,
+          ".write": "root.child('schools/apts/teachers').child(auth.uid).exists()"
+        }
+      }
+    }
+  }
+}
