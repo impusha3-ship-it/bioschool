@@ -93,8 +93,8 @@ test('loadLesson на несуществующем уроке бросает п�
   clearContentCache();
   const fetchFn = fakeFetch({});
   await assert.rejects(
-    () => loadLesson('нет-такого', { fetchFn }),
-    /Урок не найден: нет-такого/,
+    () => loadLesson('net-takogo-uroka', { fetchFn }),
+    /Урок не найден: net-takogo-uroka/,
   );
 });
 
@@ -103,6 +103,19 @@ test('loadLesson отвергает идентификатор с посторо
   const fetchFn = fakeFetch({});
   await assert.rejects(
     () => loadLesson('../../secret', { fetchFn }),
+    /Недопустимый идентификатор урока/,
+  );
+  assert.equal(fetchFn.calls.length, 0);
+});
+
+// Идентификатор урока — это имя файла в репозитории и кусок адреса страницы,
+// поэтому он намеренно ограничен латиницей: кириллица дала бы файлы с русскими
+// именами и процентное кодирование в ссылках на GitHub Pages.
+test('loadLesson отвергает кириллический идентификатор', async () => {
+  clearContentCache();
+  const fetchFn = fakeFetch({});
+  await assert.rejects(
+    () => loadLesson('признаки-живого', { fetchFn }),
     /Недопустимый идентификатор урока/,
   );
   assert.equal(fetchFn.calls.length, 0);
