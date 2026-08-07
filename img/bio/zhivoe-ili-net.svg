@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 236" role="img" aria-label="Таблица: четыре объекта проверены по четырём признакам живого. У зайца есть все четыре. Кристалл соли только растёт. Огонь питается, растёт и размножается, но не имеет клеток. Вирус только размножается, и то внутри чужой клетки.">
+  <g class="d-grid">
+    <line x1="6" y1="54" x2="314" y2="54"/>
+    <line x1="6" y1="92" x2="314" y2="92"/>
+    <line x1="6" y1="130" x2="314" y2="130"/>
+    <line x1="6" y1="168" x2="314" y2="168"/>
+    <line x1="6" y1="206" x2="314" y2="206"/>
+    <line x1="104" y1="14" x2="104" y2="206"/>
+  </g>
+
+  <g class="d-head" font-size="11" text-anchor="middle">
+    <text x="131" y="40">Клетки</text>
+    <text x="185" y="40">Питание</text>
+    <text x="239" y="40">Рост</text>
+    <text x="293" y="33">Размно-</text>
+    <text x="293" y="45">жение</text>
+  </g>
+
+  <g class="d-row" font-size="12.5">
+    <text x="6" y="77">Заяц</text>
+    <text x="6" y="115">Кристалл соли</text>
+    <text x="6" y="153">Огонь</text>
+    <text x="6" y="191">Вирус</text>
+  </g>
+
+  <g class="d-yes" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M126 73 l4 5 l9 -11"/>
+    <path d="M180 73 l4 5 l9 -11"/>
+    <path d="M234 73 l4 5 l9 -11"/>
+    <path d="M288 73 l4 5 l9 -11"/>
+
+    <path d="M234 111 l4 5 l9 -11"/>
+
+    <path d="M180 149 l4 5 l9 -11"/>
+    <path d="M234 149 l4 5 l9 -11"/>
+    <path d="M288 149 l4 5 l9 -11"/>
+  </g>
+
+  <g class="d-no" stroke-width="2.2" stroke-linecap="round">
+    <line x1="125" y1="111" x2="138" y2="111"/>
+    <line x1="179" y1="111" x2="192" y2="111"/>
+    <line x1="287" y1="111" x2="300" y2="111"/>
+
+    <line x1="125" y1="149" x2="138" y2="149"/>
+
+    <line x1="125" y1="187" x2="138" y2="187"/>
+    <line x1="179" y1="187" x2="192" y2="187"/>
+    <line x1="233" y1="187" x2="246" y2="187"/>
+  </g>
+
+  <g class="d-warn" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M285 187 l4 5 l9 -11"/>
+  </g>
+  <text class="d-warn-t" x="302" y="185" font-size="12">*</text>
+
+  <text class="d-verdict" x="6" y="228" font-size="12">Живой только заяц: у него есть весь набор.</text>
+</svg>

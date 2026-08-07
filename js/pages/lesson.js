@@ -1,5 +1,6 @@
 import { el } from '../ui/dom.js';
 import { loadLesson } from '../content.js';
+import { loadFigure, parseSvg } from '../ui/figure.js';
 
 const TAB_TITLES = {
   summary: 'Конспект',
@@ -61,6 +62,9 @@ function renderSummary(summary) {
 }
 
 function renderBlock(block) {
+  if (block.type === 'figure') {
+    return renderFigure(block);
+  }
   if (block.type === 'list') {
     return el('div', { class: 'block' }, [
       block.heading ? el('h2', {}, block.heading) : null,
@@ -70,6 +74,31 @@ function renderBlock(block) {
   return el('div', { class: 'block' }, [
     block.heading ? el('h2', {}, block.heading) : null,
     el('p', {}, block.body),
+  ]);
+}
+
+/**
+ * Схема грузится асинхронно и вставляется в уже отрисованную рамку.
+ * Подпись появляется сразу и остаётся, даже если файл не загрузился, —
+ * тогда ученик хотя бы прочитает, о чём была картинка.
+ */
+function renderFigure(block) {
+  const holder = el('div', { class: 'figure__holder' });
+
+  loadFigure(block.src)
+    .then((text) => {
+      const svg = parseSvg(text);
+      if (!svg) return;
+      svg.setAttribute('class', 'figure__svg');
+      holder.append(svg);
+    })
+    .catch(() => {
+      holder.append(el('p', { class: 'figure__missing' }, 'Схема не загрузилась.'));
+    });
+
+  return el('figure', { class: 'figure' }, [
+    holder,
+    block.caption ? el('figcaption', { class: 'figure__caption' }, block.caption) : null,
   ]);
 }
 

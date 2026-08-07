@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 372" role="img" aria-label="Семь признаков живого показаны как листья на одном стебле: клеточное строение, питание, дыхание, выделение, рост и развитие, размножение, раздражимость. Все семь растут из общего стебля — живого организма.">
+  <rect class="d-capsule" x="90" y="16" width="140" height="32" rx="16"/>
+  <text class="d-capsule-t" x="160" y="37" font-size="13.5" text-anchor="middle">Живой организм</text>
+
+  <line class="d-stem" x1="160" y1="48" x2="160" y2="348" stroke-width="2.5" stroke-linecap="round"/>
+  <circle class="d-stem-end" cx="160" cy="350" r="4"/>
+
+  <g class="d-leaf">
+    <path d="M156 88 Q143 77 130 88 Q143 99 156 88 Z"/>
+    <path d="M164 130 Q177 119 190 130 Q177 141 164 130 Z"/>
+    <path d="M156 172 Q143 161 130 172 Q143 183 156 172 Z"/>
+    <path d="M164 214 Q177 203 190 214 Q177 225 164 214 Z"/>
+    <path d="M156 256 Q143 245 130 256 Q143 267 156 256 Z"/>
+    <path d="M164 298 Q177 287 190 298 Q177 309 164 298 Z"/>
+    <path d="M156 340 Q143 329 130 340 Q143 351 156 340 Z"/>
+  </g>
+
+  <g class="d-midrib" stroke-width="1" stroke-linecap="round">
+    <line x1="156" y1="88" x2="132" y2="88"/>
+    <line x1="164" y1="130" x2="188" y2="130"/>
+    <line x1="156" y1="172" x2="132" y2="172"/>
+    <line x1="164" y1="214" x2="188" y2="214"/>
+    <line x1="156" y1="256" x2="132" y2="256"/>
+    <line x1="164" y1="298" x2="188" y2="298"/>
+    <line x1="156" y1="340" x2="132" y2="340"/>
+  </g>
+
+  <g class="d-label" font-size="13">
+    <text x="122" y="85" text-anchor="end">Клеточное</text>
+    <text x="122" y="99" text-anchor="end">строение</text>
+    <text x="198" y="135" text-anchor="start">Питание</text>
+    <text x="122" y="177" text-anchor="end">Дыхание</text>
+    <text x="198" y="219" text-anchor="start">Выделение</text>
+    <text x="122" y="261" text-anchor="end">Рост и развитие</text>
+    <text x="198" y="303" text-anchor="start">Размножение</text>
+    <text x="122" y="345" text-anchor="end">Раздражимость</text>
+  </g>
+</svg>

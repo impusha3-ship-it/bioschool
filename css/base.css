@@ -311,3 +311,63 @@ h2 {
   .grades { grid-template-columns: 1fr 1fr; }
   .block p, .block__list { font-size: 19px; }
 }
+
+/* ── Схемы ───────────────────────────────────────────────── */
+
+.figure {
+  margin: calc(var(--step) * 7) 0;
+  padding: calc(var(--step) * 4) calc(var(--step) * 3) calc(var(--step) * 3);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+}
+
+.figure__holder {
+  display: flex;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.figure__svg {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.figure__caption {
+  margin-top: calc(var(--step) * 3);
+  padding-top: calc(var(--step) * 2.5);
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.figure__missing {
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 14px;
+}
+
+/*
+  Схемы одеваются в цвета темы отсюда, а не хранят их у себя: так один и тот же
+  файл читается и на светлой бумаге, и на тёмной, и палитра остаётся в одном месте.
+*/
+.figure__svg .d-grid line { stroke: var(--line); }
+.figure__svg .d-head { fill: var(--ink-soft); }
+.figure__svg .d-row { fill: var(--ink); }
+.figure__svg .d-yes { stroke: var(--moss); }
+.figure__svg .d-no { stroke: var(--ink-muted); }
+.figure__svg .d-warn { stroke: var(--iodine); }
+.figure__svg .d-warn-t { fill: var(--iodine); }
+.figure__svg .d-verdict { fill: var(--moss); font-weight: 600; }
+
+.figure__svg .d-capsule { fill: var(--wash); stroke: var(--moss); stroke-width: 1.5; }
+.figure__svg .d-capsule-t { fill: var(--moss-deep); font-weight: 650; }
+.figure__svg .d-stem { stroke: var(--moss); }
+.figure__svg .d-stem-end { fill: var(--moss); }
+.figure__svg .d-leaf path { fill: var(--wash); stroke: var(--moss); stroke-width: 1.5; }
+.figure__svg .d-midrib line { stroke: var(--moss); }
+.figure__svg .d-label { fill: var(--ink); }
