@@ -1,0 +1,20 @@
+{
+  "grade": 5,
+  "title": "5 класс",
+  "subtitle": "Введение в биологию",
+  "sections": [
+    {
+      "id": "nauka",
+      "title": "Биология — наука о живой природе",
+      "hours": 4,
+      "lessons": [
+        { "id": "5-priznaki-zhivogo", "title": "Живая и неживая природа. Признаки живого" }
+      ]
+    },
+    { "id": "metody", "title": "Методы изучения живой природы", "hours": 4, "lessons": [] },
+    { "id": "organizmy", "title": "Организмы — тела живой природы", "hours": 10, "lessons": [] },
+    { "id": "sredy", "title": "Организмы и среда обитания", "hours": 6, "lessons": [] },
+    { "id": "soobshchestva", "title": "Природные сообщества", "hours": 6, "lessons": [] },
+    { "id": "chelovek", "title": "Живая природа и человек", "hours": 3, "lessons": [] }
+  ]
+}
