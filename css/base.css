@@ -374,3 +374,18 @@ h2 {
 
 /* Второстепенная капсула в схемах: подчинена главной, но тоже группирует. */
 .figure__svg .d-sub { fill: var(--wash); stroke: var(--line-strong); stroke-width: 1; }
+
+/* Акцентная полоска слева от блока в схемах. */
+.figure__svg .d-accent-bar rect { fill: var(--moss); }
+
+/* Ось «сверху вниз» в схемах-лестницах. */
+.figure__svg .d-axis { stroke: var(--ink-muted); }
+
+/*
+  Ступени надёжности: чем ниже, тем бледнее заливка и тем ближе к предупреждению.
+  Цвет здесь несёт смысл, а не украшает, — он и есть содержание схемы.
+*/
+.figure__svg .d-step-1 rect { fill: var(--wash); stroke: var(--moss); stroke-width: 1.5; }
+.figure__svg .d-step-2 rect { fill: var(--wash); stroke: var(--moss); stroke-width: 1; }
+.figure__svg .d-step-3 rect { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.figure__svg .d-step-4 rect { fill: none; stroke: var(--iodine); stroke-width: 1.5; stroke-dasharray: 5 4; }
