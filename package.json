@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Сайт для преподавания биологии 5-9 класс",
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test \"test/**/*.test.js\"",
     "dev": "node scripts/serve.mjs"
   }
 }
