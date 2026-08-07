@@ -1,5 +1,6 @@
 import { startRouter } from './router.js';
 import { el, clear } from './ui/dom.js';
+import { createRevealController } from './ui/reveal.js';
 import { renderHomePage } from './pages/home.js';
 import { renderClassPage } from './pages/class.js';
 import { renderLessonPage } from './pages/lesson.js';
@@ -14,6 +15,7 @@ const PAGES = {
 
 const mount = document.getElementById('app');
 let currentToken = 0;
+let revealController = null;
 
 startRouter(async (route) => {
   const token = ++currentToken;
@@ -37,6 +39,12 @@ startRouter(async (route) => {
   clear(mount);
   mount.append(view);
   window.scrollTo(0, 0);
+
+  revealController?.disconnect();
+  revealController = createRevealController();
+  for (const node of mount.querySelectorAll('.reveal')) {
+    revealController.observe(node);
+  }
 });
 
 async function renderSourcesPage() {

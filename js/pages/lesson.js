@@ -87,7 +87,11 @@ function renderTerms(terms) {
 function renderKeyPoints(points) {
   return el('div', { class: 'keypoints' }, [
     el('h2', {}, 'Главное за 30 секунд'),
-    el('ol', { class: 'keypoints__list' }, points.map((p) => el('li', {}, p))),
+    el(
+      'ol',
+      { class: 'keypoints__list' },
+      points.map((p) => el('li', { class: 'reveal' }, p)),
+    ),
   ]);
 }
 

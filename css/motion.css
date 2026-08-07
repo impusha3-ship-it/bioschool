@@ -1,0 +1,121 @@
+/*
+  Подпись проекта: всё прорастает. Содержимое разворачивается снизу вверх,
+  как лист из почки; подчёркивание вкладки растёт из центра; элемент под
+  пальцем подаётся. Это признаки живого из первого урока, показанные
+  поведением интерфейса.
+*/
+
+@keyframes sprout-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underline-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Каскад по прямым детям страницы. Задержки короткие: длинные делают
+   интерфейс медленным, а каскад — украшение, он не должен задерживать. */
+.app > section > * {
+  animation: sprout-in 300ms var(--ease-out) both;
+}
+
+.app > section > *:nth-child(1) { animation-delay: 0ms; }
+.app > section > *:nth-child(2) { animation-delay: 40ms; }
+.app > section > *:nth-child(3) { animation-delay: 80ms; }
+.app > section > *:nth-child(4) { animation-delay: 120ms; }
+.app > section > *:nth-child(5) { animation-delay: 160ms; }
+.app > section > *:nth-child(n + 6) { animation-delay: 200ms; }
+
+/* Подчёркивание активной вкладки прорастает из центра. */
+.tabs__item--active::after {
+  transform-origin: center;
+  animation: underline-grow 220ms var(--ease-out) both;
+}
+
+/* Нажатие: мгновенная обратная связь, что интерфейс услышал.
+   Переход стоит на базовом состоянии, чтобы отпускание тоже было плавным. */
+.grade-card,
+.lesson-link,
+.button,
+.tabs__item {
+  transition: transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+}
+
+.grade-card:active,
+.lesson-link:active,
+.button:active,
+.tabs__item:active {
+  transform: scale(0.97);
+}
+
+.grade-card:active {
+  box-shadow: var(--shadow-rest);
+}
+
+/* Наведение только там, где есть настоящий курсор. На тач-экране :hover
+   срабатывает по тапу и залипает. */
+@media (hover: hover) and (pointer: fine) {
+  .grade-card:hover {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
+  }
+
+  .lesson-link:hover { color: var(--moss); }
+  .tabs__item:hover { color: var(--ink-soft); }
+}
+
+/* Пункты «Главного» проявляются по одному при попадании в вид —
+   как проращивание. Один раз, дальше остаются на месте. */
+.reveal {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+}
+
+.reveal--shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+  Уменьшенное движение — не «выключить всё», а «убрать перемещение,
+  оставить прозрачность». Прозрачность помогает понять, что произошло,
+  и не вызывает укачивания.
+*/
+@media (prefers-reduced-motion: reduce) {
+  @keyframes sprout-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes underline-grow {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .app > section > * {
+    animation-duration: 200ms;
+    animation-delay: 0ms !important;
+  }
+
+  .grade-card:active,
+  .lesson-link:active,
+  .button:active,
+  .tabs__item:active,
+  .grade-card:hover {
+    transform: none;
+  }
+
+  .keypoints { transform: none; }
+
+  .reveal { transform: none; }
+  .reveal--shown { transform: none; }
+}
