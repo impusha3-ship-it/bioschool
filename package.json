@@ -1,0 +1,11 @@
+{
+  "name": "bioschool",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Сайт для преподавания биологии 5-9 класс",
+  "scripts": {
+    "test": "node --test test/",
+    "dev": "node scripts/serve.mjs"
+  }
+}
