@@ -66,6 +66,11 @@ async function renderSourcesPage() {
     el('h1', {}, 'Источники материалов'),
     el('p', {}, 'Иллюстрации и симуляции используются по открытым лицензиям:'),
     el('ul', {}, [
+      el(
+        'li',
+        {},
+        'Схема микроскопа — рисунок участника Tomia, Викисклад, CC BY 2.5, переработан: подписи и цвета заменены',
+      ),
       el('li', {}, 'Servier Medical Art — CC BY 4.0, smart.servier.com'),
       el('li', {}, 'NIH BioArt Source — public domain, bioart.niaid.nih.gov'),
       el('li', {}, 'BioIcons — bioicons.com'),

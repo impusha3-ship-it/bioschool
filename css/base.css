@@ -449,6 +449,28 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/*
+  Микроскоп. Рисунок пришёл с Викисклада с зашитой раскраской и градиентами;
+  здесь она заменена на три ступени светлоты, и рельеф прибора держится
+  на них, а не на светотени. Штатив зелёный — он же силуэт, по которому
+  микроскоп узнаётся с одного взгляда.
+*/
+.figure__svg .d-mic-none { fill: none; }
+.figure__svg .d-mic-body { fill: var(--wash); }
+.figure__svg .d-mic-metal-light { fill: var(--paper-raised); }
+.figure__svg .d-mic-metal { fill: var(--paper-sunk); }
+.figure__svg .d-mic-metal-dark { fill: var(--ink-muted); }
+.figure__svg .d-mic-lens { fill: var(--methylene); fill-opacity: 0.35; }
+.figure__svg .d-mic-mirror { fill: var(--methylene); }
+.figure__svg .d-mic-beam { fill: var(--iodine); fill-opacity: 0.28; }
+
+.figure__svg [class^='d-mic-'] {
+  stroke: var(--ink-soft);
+  stroke-width: 1;
+}
+
+.figure__svg .d-mic-body { stroke: var(--moss); }
+
 /* ── Вход ────────────────────────────────────────────────── */
 
 .login__step {
