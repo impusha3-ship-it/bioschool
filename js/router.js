@@ -32,7 +32,8 @@ export function parseRoute(hash) {
   }
 
   if (parts[0] === 'teacher') {
-    const view = parts[1] === 'check' ? 'check' : 'journal';
+    const виды = ['check', 'classes', 'assign'];
+    const view = виды.includes(parts[1]) ? parts[1] : 'journal';
     return { name: 'teacher', params: { view } };
   }
 

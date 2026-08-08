@@ -590,3 +590,76 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .check__score:active { transform: none; }
 }
+
+/* Классы и назначение уроков. */
+.tblock { margin: calc(var(--step) * 6) 0; }
+.tform { display: flex; flex-wrap: wrap; gap: calc(var(--step) * 3); align-items: center; margin-bottom: calc(var(--step) * 3); }
+.tform .login__field { flex: 1 1 12rem; }
+
+.tstudents { margin: 0 0 calc(var(--step) * 4); padding: 0; list-style: none; }
+.tstudents__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--step) * 3);
+  padding: calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.tstudents__name { flex: 1 1 10rem; }
+.tstudents__code { color: var(--ink-faint); font-size: 14px; font-variant-numeric: tabular-nums; }
+.tstudents__code--new { color: var(--fuchsin); font-weight: 700; font-size: 17px; }
+
+/*
+  Коды видны один раз: в базе только хеш. Поэтому блок выдачи кричит,
+  а не прячется — второй раз их не покажет никто.
+*/
+.tcodes__box {
+  margin-top: calc(var(--step) * 4);
+  padding: calc(var(--step) * 4);
+  background: var(--wash);
+  border: 2px solid var(--iodine);
+  border-radius: var(--radius);
+}
+.tcodes__warn { margin: 0 0 calc(var(--step) * 4); color: var(--iodine); font-weight: 650; }
+.tcodes__list { margin: 0 0 calc(var(--step) * 4); padding: 0; list-style: none; }
+.tcodes__list li {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--step) * 3);
+  padding: calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--line);
+}
+.tcodes__name { font-weight: 600; }
+.tcodes__pin { font-size: 20px; font-weight: 700; letter-spacing: 0.15em; font-variant-numeric: tabular-nums; }
+
+.tlessons { margin: 0; padding: 0; list-style: none; }
+.tlessons__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--step) * 3);
+  padding: calc(var(--step) * 3) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.tlessons__grade {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--wash);
+  color: var(--moss);
+  font-size: 13px;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+.tlessons__title { flex: 1 1 12rem; }
+.tlessons__state { font-size: 13px; color: var(--ink-faint); }
+.tlessons__state--on { color: var(--moss); font-weight: 650; }
+
+/* На печати остаются только коды — раздать детям и не тратить бумагу. */
+@media print {
+  .site-header, .site-footer, .tabs, .tform, .tstudents, .q__open, .button { display: none !important; }
+  .tcodes__box { border: 0; background: none; }
+  .tcodes__pin { font-size: 22px; }
+}

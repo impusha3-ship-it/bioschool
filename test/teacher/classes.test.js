@@ -1,0 +1,176 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  транслитерировать,
+  разобратьСписок,
+  построитьИдентификаторы,
+  придуматьPin,
+  createClassAdmin,
+} from '../../js/teacher/classes.js';
+
+// ── Транслитерация ───────────────────────────────────────────
+
+test('фамилия превращается в латинский идентификатор', () => {
+  assert.equal(транслитерировать('Иванов Иван'), 'ivanov-ivan');
+});
+
+test('шипящие и мягкий знак не ломают идентификатор', () => {
+  assert.equal(транслитерировать('Щербакова Ольга'), 'scherbakova-olga');
+  assert.equal(транслитерировать('Жужин Юрий'), 'zhuzhin-yuriy');
+});
+
+test('«ё» не теряется и не остаётся кириллицей', () => {
+  assert.equal(транслитерировать('Фёдоров'), 'fedorov');
+});
+
+test('дефисные фамилии остаются одним идентификатором', () => {
+  assert.equal(транслитерировать('Римская-Корсакова Анна'), 'rimskaya-korsakova-anna');
+});
+
+test('в идентификаторе не остаётся ничего, кроме латиницы, цифр и дефиса', () => {
+  const id = транслитерировать('Пётр  «Первый», 2-й ');
+  assert.match(id, /^[a-z0-9-]+$/);
+  assert.equal(id.startsWith('-'), false);
+  assert.equal(id.endsWith('-'), false);
+});
+
+// ── Разбор вставленного списка ───────────────────────────────
+
+test('список из строк разбирается по фамилиям', () => {
+  assert.deepEqual(разобратьСписок('Иванов Иван\nПетрова Мария\n'), ['Иванов Иван', 'Петрова Мария']);
+});
+
+// Нумерацию вставляют вместе с текстом из журнала, и она попала бы в имя.
+test('нумерация из журнала отбрасывается', () => {
+  const список = разобратьСписок('1. Иванов Иван\n2) Петрова Мария\n3 — Сидоров Пётр');
+  assert.deepEqual(список, ['Иванов Иван', 'Петрова Мария', 'Сидоров Пётр']);
+});
+
+test('пустые строки и лишние пробелы не создают учеников-призраков', () => {
+  assert.deepEqual(разобратьСписок('  Иванов Иван  \n\n\n   \nПетрова Мария'), ['Иванов Иван', 'Петрова Мария']);
+});
+
+test('повторы в списке отсеиваются', () => {
+  assert.deepEqual(разобратьСписок('Иванов Иван\nИванов Иван'), ['Иванов Иван']);
+});
+
+test('пустой список не роняет разбор', () => {
+  assert.deepEqual(разобратьСписок(''), []);
+  assert.deepEqual(разобратьСписок(null), []);
+});
+
+// ── Уникальность идентификаторов ─────────────────────────────
+
+// Два Иванова в классе — обычное дело, и второй не должен затереть первого.
+test('однофамильцы получают разные идентификаторы', () => {
+  const пары = построитьИдентификаторы(['Иванов Иван', 'Иванов Иван']);
+  assert.deepEqual(пары.map((п) => п.id), ['ivanov-ivan', 'ivanov-ivan-2']);
+});
+
+test('идентификатор не совпадает с уже существующим в базе', () => {
+  const пары = построитьИдентификаторы(['Иванов Иван'], new Set(['ivanov-ivan']));
+  assert.equal(пары[0].id, 'ivanov-ivan-2');
+});
+
+test('имя без латинского следа всё равно получает идентификатор', () => {
+  assert.equal(построитьИдентификаторы(['???'])[0].id, 'uchenik');
+});
+
+// ── Коды ─────────────────────────────────────────────────────
+
+test('код — ровно четыре цифры, включая ведущие нули', () => {
+  assert.equal(придуматьPin(() => 0), '0000');
+  assert.equal(придуматьPin(() => 0.0001), '0001');
+  assert.match(придуматьPin(), /^\d{4}$/);
+});
+
+// ── Работа с базой ───────────────────────────────────────────
+
+function собрать() {
+  const записи = [];
+  const api = {
+    dbPut: async (path, value) => { записи.push({ path, value }); return value; },
+    dbPatch: async (path, value) => { записи.push({ path, value, patch: true }); return value; },
+    dbGet: async (path) => (path.includes('/students/') ? { name: 'Иванов Иван', classId: '5a', salt: 'старая' } : null),
+  };
+  const admin = createClassAdmin({
+    api,
+    getToken: async () => 'т',
+    hash: async (код, соль) => `хеш:${соль}`,
+    salt: () => 'соль-' + записи.length,
+    pin: () => '1234',
+  });
+  return { admin, записи };
+}
+
+test('класс создаётся с латинским идентификатором', async () => {
+  const { admin, записи } = собрать();
+  const класс = await admin.создатьКласс({ title: '5А', grade: 5 });
+  assert.equal(класс.id, '5a');
+  assert.match(записи[0].path, /classes\/5a$/);
+  assert.deepEqual(записи[0].value, { title: '5А', grade: 5 });
+});
+
+test('ученик заводится, а его код возвращается для выдачи', async () => {
+  const { admin, записи } = собрать();
+  const выданные = await admin.добавитьУчеников('5a', ['Иванов Иван']);
+
+  assert.equal(выданные[0].код, '1234');
+  assert.equal(выданные[0].id, 'ivanov-ivan');
+  assert.match(записи[0].path, /students\/ivanov-ivan$/);
+  assert.match(записи[1].path, /secrets\/ivanov-ivan$/);
+});
+
+// Это главное свойство схемы: PIN нигде не сохраняется, только его хеш.
+test('сам код в базу не попадает — только хеш', async () => {
+  const { admin, записи } = собрать();
+  await admin.добавитьУчеников('5a', ['Иванов Иван']);
+  assert.equal(JSON.stringify(записи).includes('1234'), false);
+});
+
+test('сброс кода меняет соль и стирает старую привязку', async () => {
+  const { admin, записи } = собрать();
+  const результат = await admin.сброситьPin('ivanov-ivan');
+
+  assert.equal(результат.код, '1234');
+  const привязка = записи.find((з) => з.path.includes('/bindings/'));
+  assert.equal(привязка.value, null, 'старое устройство больше не этот ученик');
+  const ученик = записи.find((з) => з.path.includes('/students/'));
+  assert.notEqual(ученик.value.salt, 'старая', 'соль должна смениться');
+  assert.equal(ученик.value.name, 'Иванов Иван', 'имя не должно потеряться');
+});
+
+test('сброс кода несуществующему ученику даёт понятный отказ', async () => {
+  const admin = createClassAdmin({
+    api: { dbGet: async () => null },
+    getToken: async () => 'т',
+  });
+  await assert.rejects(() => admin.сброситьPin('нет-такого'), /Такого ученика нет/);
+});
+
+test('урок задаётся классу и открывается', async () => {
+  const { admin, записи } = собрать();
+  await admin.задатьУрок({ classId: '5a', lessonId: '5-priznaki-zhivogo', dueAt: 999 });
+  assert.match(записи[0].path, /assignments\/5a\/5-priznaki-zhivogo$/);
+  assert.equal(записи[0].value.isOpen, true);
+  assert.equal(записи[0].value.dueAt, 999);
+});
+
+test('урок без срока задаётся без поля срока', async () => {
+  const { admin, записи } = собрать();
+  await admin.задатьУрок({ classId: '5a', lessonId: 'у' });
+  assert.equal('dueAt' in записи[0].value, false);
+});
+
+// Закрыть — не значит стереть: журнал должен сохранить сданное.
+test('закрытие урока не удаляет назначение', async () => {
+  const { admin, записи } = собрать();
+  await admin.закрытьУрок({ classId: '5a', lessonId: 'у' });
+  assert.equal(записи[0].patch, true);
+  assert.deepEqual(записи[0].value, { isOpen: false });
+});
+
+test('без сессии ничего не пишется', async () => {
+  const admin = createClassAdmin({ api: {}, getToken: async () => null });
+  await assert.rejects(() => admin.создатьКласс({ title: '5А', grade: 5 }), /войти заново/);
+});

@@ -1,6 +1,7 @@
 import { el, clear } from '../ui/dom.js';
 import { auth } from './login.js';
 import { createTeacherData, собратьЖурнал, очередьПроверки, СТАТУСЫ } from '../teacher/data.js';
+import { показатьКлассы, показатьНазначение } from './teacher-classes.js';
 
 const data = createTeacherData({ getToken: () => auth.token() });
 
@@ -29,6 +30,8 @@ export async function renderTeacherPage({ view = 'journal' } = {}) {
     el('nav', { class: 'tabs', 'aria-label': 'Разделы панели' }, [
       вкладка('journal', 'Журнал', view),
       вкладка('check', 'Проверка', view),
+      вкладка('classes', 'Классы', view),
+      вкладка('assign', 'Задать урок', view),
     ]),
     тело,
   ]);
@@ -57,7 +60,15 @@ async function наполнить(тело, view) {
   }
 
   clear(тело);
-  тело.append(view === 'check' ? показатьПроверку(всё, тело, view) : показатьЖурнал(всё));
+  const перезагрузить = ({ тихо = false } = {}) => {
+    if (тихо) return;
+    наполнить(тело, view);
+  };
+
+  if (view === 'check') тело.append(показатьПроверку(всё, тело, view));
+  else if (view === 'classes') тело.append(показатьКлассы(всё, перезагрузить));
+  else if (view === 'assign') тело.append(показатьНазначение(всё, перезагрузить));
+  else тело.append(показатьЖурнал(всё));
 }
 
 // ── Журнал ───────────────────────────────────────────────────
