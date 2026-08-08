@@ -393,3 +393,98 @@ h2 {
 /* Пронумерованные шаги в схемах-последовательностях. */
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
+
+/* ── Вход ────────────────────────────────────────────────── */
+
+.login__step {
+  margin: 0 0 calc(var(--step) * 4);
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.login__hint { margin: calc(var(--step) * -2) 0 calc(var(--step) * 4); color: var(--ink-soft); }
+
+.login__grid { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--step) * 3); }
+
+.login__tile {
+  min-height: 72px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+  color: var(--ink);
+  font: inherit;
+  font-size: 20px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+
+.login__list { display: flex; flex-direction: column; gap: calc(var(--step) * 2); }
+
+.login__name {
+  min-height: var(--tap);
+  padding: calc(var(--step) * 2) calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+
+.login__tile:active, .login__name:active { transform: scale(0.97); }
+
+.login__form { display: flex; flex-wrap: wrap; gap: calc(var(--step) * 3); align-items: center; }
+.login__form--teacher { flex-direction: column; align-items: stretch; max-width: 22rem; }
+
+/* Крупные цифры и разрядка: код набирают пальцем и сверяют глазами. */
+.login__pin {
+  width: 8rem;
+  min-height: 52px;
+  padding: 0 calc(var(--step) * 3);
+  background: var(--paper-raised);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+
+.login__field {
+  min-height: var(--tap);
+  padding: 0 calc(var(--step) * 3);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+
+.login__pin:focus-visible, .login__field:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 1px;
+}
+
+.login__error { min-height: 1.4em; margin: calc(var(--step) * 3) 0 0; color: var(--fuchsin); font-weight: 600; }
+.login__who { font-size: 18px; font-weight: 650; }
+.login__actions { display: flex; flex-wrap: wrap; gap: calc(var(--step) * 3); align-items: center; }
+.login__teacher-link { margin-top: calc(var(--step) * 10); font-size: 14px; }
+.login__teacher-link a { color: var(--ink-faint); }
+
+.back-link--button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; color: var(--ink-soft); }
+
+@media (hover: hover) and (pointer: fine) {
+  .login__tile:hover, .login__name:hover { border-color: var(--moss); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login__tile:active, .login__name:active { transform: none; }
+}

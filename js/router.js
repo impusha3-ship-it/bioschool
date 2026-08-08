@@ -23,6 +23,14 @@ export function parseRoute(hash) {
     return { name: 'lesson', params: { lessonId: parts[1], tab } };
   }
 
+  if (parts[0] === 'login' && parts.length === 1) {
+    return { name: 'login', params: {} };
+  }
+
+  if (parts[0] === 'teacher-login' && parts.length === 1) {
+    return { name: 'teacherLogin', params: {} };
+  }
+
   if (parts[0] === 'sources' && parts.length === 1) {
     return { name: 'sources', params: {} };
   }

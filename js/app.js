@@ -4,11 +4,14 @@ import { createRevealController } from './ui/reveal.js';
 import { renderHomePage } from './pages/home.js';
 import { renderClassPage } from './pages/class.js';
 import { renderLessonPage } from './pages/lesson.js';
+import { renderLoginPage, renderTeacherLoginPage, auth } from './pages/login.js';
 
 const PAGES = {
   home: renderHomePage,
   class: renderClassPage,
   lesson: renderLessonPage,
+  login: renderLoginPage,
+  teacherLogin: renderTeacherLoginPage,
   sources: renderSourcesPage,
   notfound: renderNotFoundPage,
 };
