@@ -59,25 +59,58 @@ function renderTabBody(lesson, tab) {
 
 function renderSummary(summary) {
   return el('div', { class: 'summary' }, [
-    ...summary.blocks.map(renderBlock),
+    ...summary.blocks.map((block) => renderBlock(block)),
     summary.terms?.length ? renderTerms(summary.terms) : null,
     renderKeyPoints(summary.key_points),
   ]);
 }
 
-function renderBlock(block) {
+export function renderBlock(block, { document: doc = globalThis.document } = {}) {
+  const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
+
   if (block.type === 'figure') {
-    return renderFigure(block);
+    return renderFigure(block, e);
+  }
+  if (block.type === 'lab') {
+    return renderLab(block, e);
   }
   if (block.type === 'list') {
-    return el('div', { class: 'block' }, [
-      block.heading ? el('h2', {}, block.heading) : null,
-      el('ul', { class: 'block__list' }, block.items.map((item) => el('li', {}, item))),
+    return e('div', { class: 'block' }, [
+      block.heading ? e('h2', {}, block.heading) : null,
+      e('ul', { class: 'block__list' }, block.items.map((item) => e('li', {}, item))),
     ]);
   }
-  return el('div', { class: 'block' }, [
-    block.heading ? el('h2', {}, block.heading) : null,
-    el('p', {}, block.body),
+  return e('div', { class: 'block' }, [
+    block.heading ? e('h2', {}, block.heading) : null,
+    e('p', {}, block.body),
+  ]);
+}
+
+/*
+  Механики `lab` пока нет, поэтому лабораторная живёт текстом: оборудование,
+  ход работы, что записать. Метка о будущем интерактиве задана здесь, а не в
+  файлах уроков: лабораторных в 5 классе семь, и одинаковая фраза, размноженная
+  по семи файлам, вычищалась бы тоже из семи. Появится механика — уйдёт отсюда.
+*/
+const LAB_PENDING = 'Интерактивная версия появится позже — пока работа выполняется в кабинете.';
+
+function renderLab(block, e) {
+  return e('div', { class: 'lab' }, [
+    block.kind ? e('p', { class: 'lab__kind' }, block.kind) : null,
+    e('h2', { class: 'lab__title' }, block.title),
+    block.goal ? e('p', { class: 'lab__goal' }, block.goal) : null,
+    block.equipment?.length
+      ? e('div', { class: 'lab__equipment' }, [
+          e('h3', {}, 'Что понадобится'),
+          e('ul', {}, block.equipment.map((item) => e('li', {}, item))),
+        ])
+      : null,
+    e('div', { class: 'lab__steps' }, [
+      e('h3', {}, 'Ход работы'),
+      e('ol', {}, block.steps.map((step) => e('li', {}, step))),
+    ]),
+    block.conclusion ? e('p', { class: 'lab__conclusion' }, block.conclusion) : null,
+    e('p', { class: 'lab__pending' }, LAB_PENDING),
   ]);
 }
 
@@ -86,8 +119,8 @@ function renderBlock(block) {
  * Подпись появляется сразу и остаётся, даже если файл не загрузился, —
  * тогда ученик хотя бы прочитает, о чём была картинка.
  */
-function renderFigure(block) {
-  const holder = el('div', { class: 'figure__holder' });
+function renderFigure(block, e) {
+  const holder = e('div', { class: 'figure__holder' });
 
   loadFigure(block.src)
     .then((text) => {
@@ -97,12 +130,12 @@ function renderFigure(block) {
       holder.append(svg);
     })
     .catch(() => {
-      holder.append(el('p', { class: 'figure__missing' }, 'Схема не загрузилась.'));
+      holder.append(e('p', { class: 'figure__missing' }, 'Схема не загрузилась.'));
     });
 
-  return el('figure', { class: 'figure' }, [
+  return e('figure', { class: 'figure' }, [
     holder,
-    block.caption ? el('figcaption', { class: 'figure__caption' }, block.caption) : null,
+    block.caption ? e('figcaption', { class: 'figure__caption' }, block.caption) : null,
   ]);
 }
 

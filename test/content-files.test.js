@@ -28,6 +28,20 @@ test('все файлы уроков — валидный JSON с обязате
   }
 });
 
+test('у блока лабораторной работы есть заголовок и ход работы', async () => {
+  const dir = join(ROOT, 'content', 'lessons');
+  for (const file of (await readdir(dir)).filter((f) => f.endsWith('.json'))) {
+    const lesson = await readJson('content', 'lessons', file);
+    for (const block of lesson.summary.blocks.filter((b) => b.type === 'lab')) {
+      assert.ok(block.title, `${file}: у лабораторной нет заголовка`);
+      assert.ok(
+        Array.isArray(block.steps) && block.steps.length > 0,
+        `${file}: у лабораторной «${block.title}» нет хода работы`,
+      );
+    }
+  }
+});
+
 test('курсы ссылаются только на существующие уроки', async () => {
   const lessonDir = join(ROOT, 'content', 'lessons');
   const existing = new Set(

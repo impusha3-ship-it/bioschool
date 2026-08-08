@@ -291,6 +291,61 @@ h2 {
 .keypoints__list li { margin-bottom: calc(var(--step) * 2.5); }
 .keypoints__list li:last-child { margin-bottom: 0; }
 
+/*
+  Лабораторная работа: карточка отделена от прозы полосой метиленового синего —
+  того самого красителя со стола в кабинете. Цвет отличает её от «Главного»,
+  которое зелёное: ученик должен видеть с одного взгляда, что это не чтение,
+  а работа руками.
+*/
+.lab {
+  margin: calc(var(--step) * 7) 0;
+  padding: calc(var(--step) * 4) calc(var(--step) * 5);
+  background: var(--paper-sunk);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--methylene);
+  border-radius: var(--radius-sm);
+}
+
+.lab__kind {
+  margin: 0;
+  color: var(--methylene);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lab__title { margin: calc(var(--step) * 1.5) 0 calc(var(--step) * 3); font-size: 20px; }
+
+.lab__goal { margin: 0 0 calc(var(--step) * 4); color: var(--ink-soft); }
+
+.lab h3 {
+  margin: 0 0 calc(var(--step) * 2);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.lab ul, .lab ol { margin: 0 0 calc(var(--step) * 4); padding-left: calc(var(--step) * 5); }
+
+.lab li { margin-bottom: calc(var(--step) * 1.5); }
+
+.lab__conclusion {
+  margin: 0;
+  padding-top: calc(var(--step) * 3);
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--font-prose);
+}
+
+.lab__pending {
+  margin: calc(var(--step) * 3) 0 0;
+  color: var(--ink-faint);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .materials { margin: 0; padding: 0; list-style: none; }
 
 .materials li {
