@@ -83,15 +83,45 @@ const неверное = await hashPin('9999', ivanov.salt);
   ),
 );
 
-// ── Сдача работы по назначенному уроку ───────────────────────
+// ── Сдача работы ─────────────────────────────────────────────
+// Сдавать проверяем Сидоровым: работа записывается один раз навсегда,
+// поэтому нужен ученик, который ещё не сдавал. Скрипт остаётся
+// перезапускаемым — если Сидоров уже сдал, проверяется только отказ.
+const sidorov = ученики['test-sidorov'];
+const сессияС = await signInAnonymously(cfg);
+await dbPut(
+  `${ROOT}/bindings/test-sidorov`,
+  { uid: сессияС.uid, proof: await hashPin('3333', sidorov.salt) },
+  { token: сессияС.idToken, ...cfg },
+);
+
+const работаЕсть = Boolean(
+  await dbGet(`${ROOT}/submissions/test-sidorov/5-priznaki-zhivogo`, { token: сессияС.idToken, ...cfg }),
+);
+
+const сдать = () =>
+  dbPut(
+    `${ROOT}/submissions/test-sidorov/5-priznaki-zhivogo`,
+    { attempt: 1, submittedAt: Date.now(), correct: 7, total: 8, percent: 88 },
+    { token: сессияС.idToken, ...cfg },
+  );
+
+if (!работаЕсть) {
+  итог('работа по назначенному уроку записывается', 'разрешено', await попытка(сдать));
+} else {
+  console.log('  --   │ работа уже сдана с прошлого запуска — сдачу пропускаю');
+}
+
+итог('ГЛАВНОЕ: сдать ту же работу второй раз нельзя', 'отказано', await попытка(сдать));
+
 итог(
-  'работа по назначенному уроку записывается',
+  'тренировка после сдачи пишется в прогресс',
   'разрешено',
   await попытка(() =>
     dbPut(
-      `${ROOT}/submissions/test-ivanov/5-priznaki-zhivogo`,
-      { attempt: 1, submittedAt: Date.now(), autoScore: 7 },
-      { token: сессия.idToken, ...cfg },
+      `${ROOT}/progress/test-sidorov/practice/5-priznaki-zhivogo`,
+      { at: Date.now(), correct: 8, total: 8 },
+      { token: сессияС.idToken, ...cfg },
     ),
   ),
 );

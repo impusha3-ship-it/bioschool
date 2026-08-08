@@ -2,6 +2,7 @@ import { el } from '../ui/dom.js';
 import { loadLesson } from '../content.js';
 import { loadFigure, parseSvg } from '../ui/figure.js';
 import { createGame } from '../games/index.js';
+import { renderHomework } from './homework.js';
 
 const TAB_TITLES = {
   summary: 'Конспект',
@@ -52,6 +53,7 @@ function renderTabBody(lesson, tab) {
   if (tab === 'summary') return renderSummary(lesson.summary);
   if (tab === 'materials') return renderMaterials(lesson.materials ?? []);
   if (tab === 'practice') return renderPractice(lesson.game);
+  if (tab === 'homework') return renderHomework(lesson);
   return renderComingSoon(TAB_TITLES[tab]);
 }
 

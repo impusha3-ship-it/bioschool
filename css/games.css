@@ -243,3 +243,104 @@
   font-size: 15px;
   line-height: 1.55;
 }
+
+/* ── Домашнее задание ────────────────────────────────────── */
+
+.homework__due {
+  margin: 0 0 calc(var(--step) * 5);
+  padding: calc(var(--step) * 2.5) calc(var(--step) * 3.5);
+  background: var(--wash);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.homework__due--late { background: none; border: 1px solid var(--iodine); color: var(--iodine); }
+
+.q {
+  margin: calc(var(--step) * 7) 0;
+  padding: calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Пометка «ВПР» или «Проверяет учитель»: ученик должен видеть, что это другое. */
+.q__exam {
+  display: inline-block;
+  margin-bottom: calc(var(--step) * 2);
+  padding: 2px calc(var(--step) * 2);
+  background: var(--wash);
+  border-radius: 999px;
+  color: var(--moss-deep);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.q__text { margin: 0 0 calc(var(--step) * 3); font-weight: 600; }
+.q__hint { margin: calc(var(--step) * -2) 0 calc(var(--step) * 3); color: var(--ink-soft); font-size: 14px; }
+.q__body { display: flex; flex-direction: column; gap: calc(var(--step) * 2); }
+
+.q__option {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--step) * 3);
+  min-height: var(--tap);
+  padding: calc(var(--step) * 1.5) calc(var(--step) * 2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.q__input { width: 22px; height: 22px; accent-color: var(--moss); flex: 0 0 auto; }
+
+.q__short, .q__open {
+  width: 100%;
+  padding: calc(var(--step) * 2.5) calc(var(--step) * 3);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+
+.q__short { min-height: var(--tap); }
+.q__open { font-family: var(--font-prose); line-height: 1.6; resize: vertical; }
+
+.q__short:focus-visible, .q__open:focus-visible { outline: 2px solid var(--moss); outline-offset: 1px; }
+
+.homework__submit {
+  margin-top: calc(var(--step) * 8);
+  padding-top: calc(var(--step) * 5);
+  border-top: 1px solid var(--line);
+}
+
+/* Предупреждение перед необратимым действием — не мелким шрифтом внизу. */
+.homework__warn { margin: 0 0 calc(var(--step) * 3); color: var(--iodine); font-weight: 600; }
+.homework__error { min-height: 1.4em; margin: calc(var(--step) * 3) 0 0; color: var(--fuchsin); font-weight: 600; }
+
+.homework__done {
+  padding: calc(var(--step) * 5);
+  background: var(--wash);
+  border-radius: var(--radius);
+}
+
+.homework__done-title { margin: 0; font-size: 19px; font-weight: 700; color: var(--moss-deep); }
+.homework__done-score { margin: calc(var(--step) * 2) 0 0; font-size: 17px; font-variant-numeric: tabular-nums; }
+.homework__done-when { margin: calc(var(--step) * 1) 0 0; color: var(--ink-soft); font-size: 14px; }
+.homework__await { margin: calc(var(--step) * 4) 0 0; color: var(--iodine); font-weight: 600; }
+.homework__manual { margin: calc(var(--step) * 4) 0 0; font-weight: 650; }
+.homework__comment {
+  margin: calc(var(--step) * 3) 0 0;
+  padding: calc(var(--step) * 3);
+  background: var(--paper-raised);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-prose);
+}
+.homework__hint { margin: calc(var(--step) * 4) 0 0; color: var(--ink-faint); font-size: 14px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .q__option:hover { background: var(--wash); }
+}
