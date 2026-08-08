@@ -488,3 +488,19 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .login__tile:active, .login__name:active { transform: none; }
 }
+
+/* Шапка: слева название, справа кто вошёл. */
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--step) * 3); }
+
+.site-header__who {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 calc(var(--step) * 3);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}

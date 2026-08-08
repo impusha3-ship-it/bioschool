@@ -17,6 +17,15 @@ const PAGES = {
 };
 
 const mount = document.getElementById('app');
+const who = document.getElementById('who');
+
+/** Шапка показывает, кто вошёл: ученику — имя, учителю — пометку. */
+function updateWho() {
+  const s = auth.current();
+  if (!s) { who.textContent = 'Войти'; return; }
+  who.textContent = s.kind === 'teacher' ? 'Учитель' : s.name.split(' ')[0];
+}
+updateWho();
 let currentToken = 0;
 let revealController = null;
 
