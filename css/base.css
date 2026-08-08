@@ -504,3 +504,89 @@ h2 {
   text-decoration: none;
   white-space: nowrap;
 }
+
+/* ── Панель учителя ──────────────────────────────────────── */
+
+.jclass { margin: calc(var(--step) * 8) 0; }
+.jclass__sub { margin: calc(var(--step) * -2) 0 calc(var(--step) * 4); color: var(--ink-soft); font-size: 14px; }
+
+/* Журнал шире телефона — прокручивается внутри себя, страница остаётся на месте. */
+.jscroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+
+.journal { border-collapse: collapse; width: 100%; font-size: 14px; }
+.journal th, .journal td { padding: calc(var(--step) * 2.5); text-align: center; border-bottom: 1px solid var(--line-soft); }
+.journal thead th { background: var(--paper-raised); color: var(--ink-soft); font-size: 12px; font-weight: 650; }
+
+.journal__name {
+  position: sticky;
+  left: 0;
+  min-width: 9rem;
+  background: var(--paper-raised);
+  text-align: left !important;
+  white-space: nowrap;
+}
+
+.journal__lesson { min-width: 3rem; }
+
+.cell { font-variant-numeric: tabular-nums; }
+.cell--none { color: var(--ink-muted); }
+.cell--done { background: var(--wash); color: var(--moss-deep); font-weight: 650; }
+.cell--late { background: var(--wash); color: var(--iodine); font-weight: 650; }
+/* Ждёт действия учителя — единственный статус, который должен бросаться в глаза. */
+.cell--await { background: var(--moss); color: var(--paper-raised); font-weight: 700; }
+
+.jlegend { margin: calc(var(--step) * 3) 0 0; padding-left: calc(var(--step) * 5); color: var(--ink-faint); font-size: 12px; }
+.jlegend li { margin-bottom: 2px; }
+
+.check__count { margin: calc(var(--step) * 4) 0; font-weight: 650; }
+
+.check__card {
+  margin-bottom: calc(var(--step) * 5);
+  padding: calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.check__card--done { background: var(--wash); opacity: 0.75; }
+.check__who { margin: 0 0 calc(var(--step) * 2); color: var(--ink-soft); font-size: 13px; font-weight: 650; }
+
+.check__answer {
+  margin: 0 0 calc(var(--step) * 4);
+  padding: calc(var(--step) * 3);
+  background: var(--paper);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-prose);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.check__scores { display: flex; align-items: center; gap: calc(var(--step) * 2); margin-top: calc(var(--step) * 3); }
+.check__label { color: var(--ink-soft); font-size: 14px; }
+
+/* Три кнопки в один ряд: проверка одного ответа должна занимать секунды. */
+.check__score {
+  min-width: var(--tap);
+  min-height: var(--tap);
+  background: var(--paper);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+
+.check__score:active { transform: scale(0.97); }
+.check__score[disabled] { opacity: 0.5; cursor: default; }
+.check__state { min-height: 1.3em; margin: calc(var(--step) * 2) 0 0; color: var(--moss); font-size: 14px; font-weight: 600; }
+
+@media (hover: hover) and (pointer: fine) {
+  .check__score:hover:not([disabled]) { border-color: var(--moss); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check__score:active { transform: none; }
+}

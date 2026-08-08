@@ -5,12 +5,14 @@ import { renderHomePage } from './pages/home.js';
 import { renderClassPage } from './pages/class.js';
 import { renderLessonPage } from './pages/lesson.js';
 import { renderLoginPage, renderTeacherLoginPage, auth } from './pages/login.js';
+import { renderTeacherPage } from './pages/teacher.js';
 
 const PAGES = {
   home: renderHomePage,
   class: renderClassPage,
   lesson: renderLessonPage,
   login: renderLoginPage,
+  teacher: renderTeacherPage,
   teacherLogin: renderTeacherLoginPage,
   sources: renderSourcesPage,
   notfound: renderNotFoundPage,
