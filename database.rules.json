@@ -51,7 +51,7 @@
           "$studentId": {
             ".read": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
             "$lessonId": {
-              ".write": "root.child('schools/apts/teachers').child(auth.uid).exists() || (root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid && root.child('schools/apts/assignments').child(root.child('schools/apts/students').child($studentId).child('classId').val()).child($lessonId).child('isOpen').val() === true && !newData.hasChild('manualScore'))",
+              ".write": "root.child('schools/apts/teachers').child(auth.uid).exists() || (root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid && root.child('schools/apts/assignments').child(root.child('schools/apts/students').child($studentId).child('classId').val()).child($lessonId).child('isOpen').val() === true && !newData.hasChild('manualScore') && !data.exists())",
               ".validate": "newData.hasChildren(['attempt', 'submittedAt'])"
             }
           }
