@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 274" role="img" aria-label="Сравнение расплывчатого слова и результата измерения в трёх примерах. Про лист говорят «большой» — линейкой измеряют длину и получают 12 сантиметров. Про воду говорят «тёплая» — термометром измеряют температуру и получают 40 градусов Цельсия. Про камень говорят «тяжёлый» — весами измеряют массу и получают 300 граммов. В каждой строке расплывчатое слово заменяется числом с единицей измерения.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Так говорят</text>
+    <text x="114" y="14">Чем меряют</text>
+    <text x="224" y="14">Так измерили</text>
+  </g>
+
+  <g class="d-grid">
+    <line x1="8" y1="22" x2="312" y2="22"/>
+    <line x1="8" y1="88" x2="312" y2="88"/>
+    <line x1="8" y1="154" x2="312" y2="154"/>
+    <line x1="8" y1="220" x2="312" y2="220"/>
+  </g>
+
+  <g class="d-sub">
+    <rect x="8" y="32" width="86" height="44" rx="8"/>
+    <rect x="8" y="98" width="86" height="44" rx="8"/>
+    <rect x="8" y="164" width="86" height="44" rx="8"/>
+  </g>
+  <g class="d-vague" font-size="13" font-family="system-ui, sans-serif">
+    <text x="16" y="51">Большой</text>
+    <text x="16" y="67">лист</text>
+    <text x="16" y="117">Тёплая</text>
+    <text x="16" y="133">вода</text>
+    <text x="16" y="183">Тяжёлый</text>
+    <text x="16" y="199">камень</text>
+  </g>
+
+  <g class="d-stem" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M98 54 H110"/>
+    <path d="M110 54 l-5 -4 M110 54 l-5 4"/>
+    <path d="M98 120 H110"/>
+    <path d="M110 120 l-5 -4 M110 120 l-5 4"/>
+    <path d="M98 186 H110"/>
+    <path d="M110 186 l-5 -4 M110 186 l-5 4"/>
+    <path d="M208 54 H220"/>
+    <path d="M220 54 l-5 -4 M220 54 l-5 4"/>
+    <path d="M208 120 H220"/>
+    <path d="M220 120 l-5 -4 M220 120 l-5 4"/>
+    <path d="M208 186 H220"/>
+    <path d="M220 186 l-5 -4 M220 186 l-5 4"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="114" y="32" width="90" height="44" rx="8"/>
+    <rect x="114" y="98" width="90" height="44" rx="8"/>
+    <rect x="114" y="164" width="90" height="44" rx="8"/>
+  </g>
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="122" y="51">Линейка</text>
+    <text x="122" y="117">Термометр</text>
+    <text x="122" y="183">Весы</text>
+  </g>
+  <g class="d-measured" font-size="11" font-family="system-ui, sans-serif">
+    <text x="122" y="67">длина</text>
+    <text x="122" y="133">температура</text>
+    <text x="122" y="199">масса</text>
+  </g>
+
+  <g class="d-step-1">
+    <rect x="224" y="32" width="88" height="44" rx="8"/>
+    <rect x="224" y="98" width="88" height="44" rx="8"/>
+    <rect x="224" y="164" width="88" height="44" rx="8"/>
+  </g>
+  <g font-family="system-ui, sans-serif">
+    <text class="d-number" x="238" y="60" font-size="17" font-weight="700">12</text>
+    <text class="d-unit" x="262" y="60" font-size="14" font-weight="650">см</text>
+    <text class="d-number" x="238" y="126" font-size="17" font-weight="700">40</text>
+    <text class="d-unit" x="262" y="126" font-size="14" font-weight="650">°C</text>
+    <text class="d-number" x="238" y="192" font-size="17" font-weight="700">300</text>
+    <text class="d-unit" x="272" y="192" font-size="14" font-weight="650">г</text>
+  </g>
+
+  <g font-size="11" font-family="system-ui, sans-serif">
+    <text class="d-number" x="8" y="236" font-weight="700">число</text>
+    <text class="d-unit-note" x="42" y="236">и</text>
+    <text class="d-unit" x="52" y="236" font-weight="650">единица</text>
+    <text class="d-unit-note" x="98" y="236">— вместе, иначе это не ответ.</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="256">Одно «12» не говорит ничего: двенадцать чего?</text>
+    <text x="8" y="270">Сантиметров, градусов, граммов?</text>
+  </g>
+</svg>

@@ -450,6 +450,16 @@ h2 {
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
 /*
+  Расплывчатое слово против измеренного числа. Слово приглушено намеренно:
+  на схеме видно, что оно проигрывает, ещё до того как прочитан текст.
+*/
+.figure__svg .d-vague { fill: var(--ink-faint); }
+.figure__svg .d-measured { fill: var(--ink-soft); }
+.figure__svg .d-number { fill: var(--moss-deep); }
+.figure__svg .d-unit { fill: var(--iodine); }
+.figure__svg .d-unit-note { fill: var(--ink-soft); }
+
+/*
   Микроскоп. Рисунок пришёл с Викисклада с зашитой раскраской и градиентами;
   здесь она заменена на три ступени светлоты, и рельеф прибора держится
   на них, а не на светотени. Штатив зелёный — он же силуэт, по которому
