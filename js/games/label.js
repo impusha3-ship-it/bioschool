@@ -50,7 +50,9 @@ export function createLabelGame(config, { document: doc = globalThis.document, r
     .then((text) => {
       const svg = parseSvg(text);
       if (!svg) return;
-      svg.setAttribute('class', 'game__image');
+      // Схеме нужен и класс конспекта: цвета всех схем описаны для него, и без
+      // него рисунок в игре остаётся без заливок, то есть чёрным силуэтом.
+      svg.setAttribute('class', 'figure__svg game__image');
       stage.append(svg);
     })
     .catch(() => {
