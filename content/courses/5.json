@@ -25,7 +25,14 @@
         { "id": "5-metod-opisaniya", "title": "Метод описания" }
       ]
     },
-    { "id": "organizmy", "title": "Организмы — тела живой природы", "hours": 10, "lessons": [] },
+    {
+      "id": "organizmy",
+      "title": "Организмы — тела живой природы",
+      "hours": 10,
+      "lessons": [
+        { "id": "5-ponyatie-ob-organizme", "title": "Понятие об организме" }
+      ]
+    },
     { "id": "sredy", "title": "Организмы и среда обитания", "hours": 6, "lessons": [] },
     { "id": "soobshchestva", "title": "Природные сообщества", "hours": 6, "lessons": [] },
     { "id": "chelovek", "title": "Живая природа и человек", "hours": 3, "lessons": [] }
