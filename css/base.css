@@ -316,7 +316,19 @@ h2 {
   text-transform: uppercase;
 }
 
-.lab__title { margin: calc(var(--step) * 1.5) 0 calc(var(--step) * 3); font-size: 20px; }
+/*
+  Название работы идёт обычным письмом, а не капсом, как прочие h2 конспекта:
+  «Изучение лабораторного оборудования» капсом занимает три строки и кричит,
+  хотя это просто название того, что предстоит сделать.
+*/
+.lab__title {
+  margin: calc(var(--step) * 1.5) 0 calc(var(--step) * 3);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
 
 .lab__goal { margin: 0 0 calc(var(--step) * 4); color: var(--ink-soft); }
 
@@ -448,6 +460,38 @@ h2 {
 /* Пронумерованные шаги в схемах-последовательностях. */
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
+
+/*
+  Опыт и контроль. Одинаковое приглушено, единственное отличие выделено:
+  на схеме должно быть видно, что меняли ровно одно, — в этом вся тема.
+*/
+.figure__svg .d-pot path { fill: var(--iodine); fill-opacity: 0.35; stroke: var(--iodine); }
+.figure__svg .d-soil rect { fill: var(--ink-muted); }
+.figure__svg .d-sun circle { fill: var(--iodine); fill-opacity: 0.4; stroke: var(--iodine); }
+.figure__svg .d-sun path { stroke: var(--iodine); }
+.figure__svg .d-dark rect { fill: var(--ink-soft); stroke: var(--ink-soft); }
+.figure__svg .d-dark-t { fill: var(--paper-raised); }
+.figure__svg .d-same { fill: var(--ink-faint); }
+.figure__svg .d-diff { fill: var(--fuchsin); }
+
+/*
+  Лабораторное оборудование. Значки взяты из открытых наборов, где у каждого
+  была своя раскраска: стекло голубое, весы латунные, термометр красный.
+  Здесь все пять сведены к трём ступеням светлоты — иначе пять значков из
+  трёх наборов не читались бы как один набор.
+*/
+.figure__svg .d-eq-none { fill: none; }
+.figure__svg .d-eq-light { fill: var(--paper-raised); }
+.figure__svg .d-eq-mid { fill: var(--wash); }
+.figure__svg .d-eq-accent { fill: var(--methylene); fill-opacity: 0.5; }
+.figure__svg [class^='d-eq-']:not(.d-eq-name):not(.d-eq-note):not(.d-eq-rule) {
+  stroke: var(--ink-soft);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.figure__svg .d-eq-name { fill: var(--ink); stroke: none; }
+.figure__svg .d-eq-note { fill: var(--ink-soft); stroke: none; }
+.figure__svg .d-eq-rule { stroke: var(--line); }
 
 /*
   Расплывчатое слово против измеренного числа. Слово приглушено намеренно:

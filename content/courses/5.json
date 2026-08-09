@@ -20,7 +20,8 @@
       "hours": 4,
       "lessons": [
         { "id": "5-metody-nauki", "title": "Научные методы изучения живой природы" },
-        { "id": "5-izmerenie", "title": "Методы изучения живой природы: измерение" }
+        { "id": "5-izmerenie", "title": "Методы изучения живой природы: измерение" },
+        { "id": "5-nablyudenie-i-eksperiment", "title": "Наблюдение и эксперимент" }
       ]
     },
     { "id": "organizmy", "title": "Организмы — тела живой природы", "hours": 10, "lessons": [] },

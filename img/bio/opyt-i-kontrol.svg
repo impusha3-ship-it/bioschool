@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 278" role="img" aria-label="Опыт с двумя горшками. Слева контрольный вариант: горшок стоит на свету, полив обычный, земля та же, семена те же. Справа опытный вариант: всё то же самое, кроме одного — горшок убран в темноту. Внизу подпись: отличается одно условие, поэтому разницу в результате объяснить можно. Если бы отличались два условия, стало бы непонятно, что именно подействовало.">
+  <g class="d-head" font-size="12" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="30" y="14">Контроль</text>
+    <text x="188" y="14">Опыт</text>
+  </g>
+
+  <g class="d-sub">
+    <rect x="8" y="22" width="140" height="150" rx="10"/>
+    <rect x="172" y="22" width="140" height="150" rx="10"/>
+  </g>
+
+  <g class="d-pot">
+    <path d="M40 130 h48 l-6 26 h-36 z"/>
+    <path d="M204 130 h48 l-6 26 h-36 z"/>
+  </g>
+  <g class="d-soil">
+    <rect x="41" y="130" width="46" height="6"/>
+    <rect x="205" y="130" width="46" height="6"/>
+  </g>
+
+  <g class="d-stem" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M64 130 V96"/>
+    <path d="M228 130 V108"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M64 112 c-14 -4 -18 -12 -18 -12 c8 -4 16 2 18 12 z"/>
+    <path d="M64 104 c14 -4 18 -12 18 -12 c-8 -4 -16 2 -18 12 z"/>
+    <path d="M228 120 c-11 -3 -14 -9 -14 -9 c6 -3 13 1 14 9 z"/>
+  </g>
+
+  <g class="d-sun">
+    <circle cx="112" cy="48" r="11"/>
+    <g stroke-width="2" stroke-linecap="round">
+      <path d="M112 31 V34"/><path d="M112 62 V65"/>
+      <path d="M95 48 H98"/><path d="M126 48 H129"/>
+      <path d="M100 36 l2 2"/><path d="M122 58 l2 2"/>
+      <path d="M124 36 l-2 2"/><path d="M102 58 l-2 2"/>
+    </g>
+  </g>
+  <g class="d-dark">
+    <rect x="246" y="34" width="48" height="28" rx="6"/>
+  </g>
+  <g class="d-dark-t" font-size="11" font-weight="650" font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="270" y="52">темно</text>
+  </g>
+
+  <g class="d-diff" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="18" y="190">свет есть</text>
+    <text x="182" y="190">света нет</text>
+  </g>
+  <g class="d-same" font-size="11" font-family="system-ui, sans-serif">
+    <text x="18" y="206">та же земля</text>
+    <text x="18" y="220">те же семена</text>
+    <text x="18" y="234">тот же полив</text>
+    <text x="182" y="206">та же земля</text>
+    <text x="182" y="220">те же семена</text>
+    <text x="182" y="234">тот же полив</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="256">Отличается одно условие — значит, разницу</text>
+    <text x="8" y="268">в результате объяснить можно.</text>
+  </g>
+</svg>
