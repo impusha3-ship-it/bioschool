@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 288" role="img" aria-label="Четыре ступени увеличения и что на каждой становится видно. Глаз без прибора, увеличение один раз: муравей, песчинка, жилки на листе; предел глаза — примерно одна десятая миллиметра. Лупа, стекло в оправе, от двух до двадцати раз: глаза насекомого, волоски на стебле, чешуйки крыла бабочки. Световой микроскоп, от ста до тысячи раз: клетки кожицы лука, инфузория, бактерия. Электронный микроскоп, до ста тысяч раз, в школе не бывает: вирусы и части клетки. Внизу подпись: каждый следующий прибор показывает не то же самое покрупнее, а то, чего предыдущий не показывал вовсе.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="13">Чем смотрим</text>
+    <text x="152" y="13">Что становится видно</text>
+  </g>
+
+  <g class="d-grid">
+    <line x1="8" y1="20" x2="312" y2="20"/>
+    <line x1="8" y1="78" x2="312" y2="78"/>
+    <line x1="8" y1="134" x2="312" y2="134"/>
+    <line x1="8" y1="190" x2="312" y2="190"/>
+    <line x1="8" y1="240" x2="312" y2="240"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="8" y="28" width="136" height="42" rx="7"/>
+    <rect x="8" y="86" width="136" height="40" rx="7"/>
+    <rect x="8" y="142" width="136" height="40" rx="7"/>
+    <rect x="8" y="198" width="136" height="34" rx="7"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="18" y="44">Глаз</text>
+    <text x="18" y="102">Лупа</text>
+    <text x="18" y="157" font-size="11">Световой микроскоп</text>
+    <text x="18" y="212" font-size="11">Электронный</text>
+  </g>
+  <g class="d-number" font-size="14" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="18" y="62">1×</text>
+    <text x="18" y="119">2–20×</text>
+    <text x="18" y="175">100–1000×</text>
+    <text x="18" y="227" font-size="12">до 100 000×</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="152" y="44">муравей, песчинка,</text>
+    <text x="152" y="56">жилки листа</text>
+    <text x="152" y="100">глаза насекомого,</text>
+    <text x="152" y="112">волоски, чешуйки</text>
+    <text x="152" y="156">клетки кожицы лука,</text>
+    <text x="152" y="168">инфузория, бактерия</text>
+    <text x="152" y="214">вирусы, части клетки</text>
+  </g>
+  <g class="d-warn-t" font-size="10" font-family="system-ui, sans-serif">
+    <text x="152" y="68">предел глаза — 0,1 мм</text>
+  </g>
+  <g class="d-same" font-size="10" font-family="system-ui, sans-serif">
+    <text x="152" y="226">в школе такого нет</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="258">Каждый прибор показывает не то же самое</text>
+    <text x="8" y="272">покрупнее, а то, чего предыдущий не показывал</text>
+    <text x="8" y="286">вовсе: лупа открыла чешуйки, микроскоп — клетку.</text>
+  </g>
+</svg>

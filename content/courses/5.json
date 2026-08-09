@@ -30,7 +30,8 @@
       "title": "Организмы — тела живой природы",
       "hours": 10,
       "lessons": [
-        { "id": "5-ponyatie-ob-organizme", "title": "Понятие об организме" }
+        { "id": "5-ponyatie-ob-organizme", "title": "Понятие об организме" },
+        { "id": "5-uvelichitelnye-pribory", "title": "Увеличительные приборы для исследований" }
       ]
     },
     { "id": "sredy", "title": "Организмы и среда обитания", "hours": 6, "lessons": [] },
