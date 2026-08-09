@@ -462,6 +462,26 @@ h2 {
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
 /*
+  Растительная клетка на уровне 5 класса: оболочка, цитоплазма, ядро, вакуоль
+  и хлоропласты — ровно то, что видно в школьный микроскоп и названо в
+  программе. Готовые рисунки в открытых наборах нарисованы для старших
+  классов: там аппарат Гольджи и рибосомы, и отрезать их нечем — контуры
+  идут без группировки.
+*/
+.figure__svg .d-cell-wall rect,
+.game__image .d-cell-wall rect {
+  fill: var(--wash);
+  stroke: var(--moss);
+  stroke-width: 3;
+}
+.figure__svg .d-cell-cytoplasm rect { fill: var(--paper-raised); stroke: var(--line-strong); }
+.figure__svg .d-cell-vacuole rect { fill: var(--methylene); fill-opacity: 0.18; stroke: var(--methylene); }
+.figure__svg .d-cell-nucleus circle { fill: var(--moss); fill-opacity: 0.3; stroke: var(--moss-deep); stroke-width: 2; }
+.figure__svg .d-cell-nucleolus circle { fill: var(--moss-deep); }
+.figure__svg .d-cell-chloroplast ellipse { fill: var(--sprout); fill-opacity: 0.55; stroke: var(--moss); }
+.figure__svg .d-lead { stroke: var(--ink-muted); }
+
+/*
   Опыт и контроль. Одинаковое приглушено, единственное отличие выделено:
   на схеме должно быть видно, что меняли ровно одно, — в этом вся тема.
 */
