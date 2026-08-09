@@ -461,6 +461,17 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/* Путь воды через растение: стакан, корни, ток вверх, испарение. */
+.figure__svg .d-glass path { fill: var(--paper-raised); stroke: var(--ink-muted); stroke-width: 1.5; }
+.figure__svg .d-water path { fill: var(--methylene); fill-opacity: 0.22; stroke: var(--methylene); }
+.figure__svg .d-root { stroke: var(--iodine); }
+.figure__svg .d-root-t { fill: var(--iodine); }
+.figure__svg .d-flow { stroke: var(--methylene); }
+.figure__svg .d-flow-t { fill: var(--methylene); }
+.figure__svg .d-evap { stroke: var(--methylene); }
+.figure__svg .d-evap-t { fill: var(--methylene); }
+.figure__svg .d-mark { stroke: var(--ink-muted); }
+
 /*
   Растительная клетка на уровне 5 класса: оболочка, цитоплазма, ядро, вакуоль
   и хлоропласты — ровно то, что видно в школьный микроскоп и названо в
