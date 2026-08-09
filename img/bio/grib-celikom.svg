@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 272" role="img" aria-label="Строение шляпочного гриба. Над землёй видна только шляпка на ножке — это плодовое тело, оно нужно грибу для размножения и живёт несколько дней. Под землёй раскинулась грибница из тонких нитей, занимающая площадь во много раз больше и живущая годами. Внизу подпись: срывая гриб, забирают не весь организм, а лишь его небольшую часть, поэтому грибница остаётся и вырастит новые грибы.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="13">Что мы видим и что есть на самом деле</text>
+  </g>
+
+  <g class="d-sky">
+    <rect x="8" y="22" width="304" height="86" rx="6"/>
+  </g>
+  <g class="d-soil-block">
+    <rect x="8" y="108" width="304" height="94" rx="6"/>
+  </g>
+
+  <g class="d-cap">
+    <path d="M60 92 c0 -26 44 -26 44 0 z"/>
+  </g>
+  <g class="d-stalk">
+    <rect x="76" y="90" width="12" height="20" rx="3"/>
+  </g>
+
+  <g class="d-mycelium" stroke-width="1.2" stroke-linecap="round" fill="none">
+    <path d="M82 110 C60 118 40 124 20 132"/>
+    <path d="M82 110 C120 118 190 124 262 132"/>
+    <path d="M82 110 C74 130 62 150 42 170"/>
+    <path d="M82 110 C96 132 118 152 152 172"/>
+    <path d="M82 110 C82 138 80 164 78 190"/>
+    <path d="M46 124 C34 138 28 152 20 170"/>
+    <path d="M150 128 C186 142 214 156 246 174"/>
+    <path d="M64 142 C46 152 36 160 28 190"/>
+    <path d="M112 146 C150 158 180 170 212 190"/>
+    <path d="M60 162 C50 174 46 182 42 192"/>
+    <path d="M124 166 C146 176 158 184 170 192"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1" fill="none">
+    <path d="M108 76 H136"/>
+    <path d="M96 152 H128"/>
+  </g>
+  <g class="d-number" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="140" y="72">Плодовое тело</text>
+  </g>
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="140" y="86">живёт несколько дней,</text>
+    <text x="140" y="98">нужно для размножения</text>
+  </g>
+  <g class="d-diff" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="132" y="150">Грибница</text>
+  </g>
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="132" y="164">нити под землёй,</text>
+    <text x="132" y="176">живёт годами</text>
+    <text x="132" y="188">и занимает во много</text>
+    <text x="132" y="200">раз больше места</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="224">Срывая гриб, забирают не организм,</text>
+    <text x="8" y="238">а его небольшую часть. Грибница остаётся</text>
+    <text x="8" y="252">в земле и вырастит новые.</text>
+  </g>
+</svg>

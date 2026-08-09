@@ -461,6 +461,13 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/* Гриб целиком: над землёй плодовое тело, под землёй грибница. */
+.figure__svg .d-sky rect { fill: var(--paper-raised); stroke: var(--line); }
+.figure__svg .d-soil-block rect { fill: var(--iodine); fill-opacity: 0.12; stroke: var(--iodine); stroke-opacity: 0.4; }
+.figure__svg .d-cap path { fill: var(--iodine); fill-opacity: 0.5; stroke: var(--iodine); }
+.figure__svg .d-stalk rect { fill: var(--paper-raised); stroke: var(--iodine); }
+.figure__svg .d-mycelium { stroke: var(--moss); }
+
 /* Полоса соотношения: большая доля приглушена, малая выделена. */
 .figure__svg .d-bar-most rect { fill: var(--wash); stroke: var(--moss); }
 .figure__svg .d-bar-few rect { fill: var(--fuchsin); }
