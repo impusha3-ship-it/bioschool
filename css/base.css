@@ -461,6 +461,10 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/* Полоса соотношения: большая доля приглушена, малая выделена. */
+.figure__svg .d-bar-most rect { fill: var(--wash); stroke: var(--moss); }
+.figure__svg .d-bar-few rect { fill: var(--fuchsin); }
+
 /* Путь воды через растение: стакан, корни, ток вверх, испарение. */
 .figure__svg .d-glass path { fill: var(--paper-raised); stroke: var(--ink-muted); stroke-width: 1.5; }
 .figure__svg .d-water path { fill: var(--methylene); fill-opacity: 0.22; stroke: var(--methylene); }
