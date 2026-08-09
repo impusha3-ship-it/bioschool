@@ -34,7 +34,8 @@
         { "id": "5-uvelichitelnye-pribory", "title": "Увеличительные приборы для исследований" },
         { "id": "5-citologiya", "title": "Цитология — наука о клетке" },
         { "id": "5-zhiznedeyatelnost", "title": "Жизнедеятельность организмов" },
-        { "id": "5-svoystva-organizmov", "title": "Свойства живых организмов" }
+        { "id": "5-svoystva-organizmov", "title": "Свойства живых организмов" },
+        { "id": "5-klassifikaciya", "title": "Разнообразие организмов и их классификация" }
       ]
     },
     { "id": "sredy", "title": "Организмы и среда обитания", "hours": 6, "lessons": [] },

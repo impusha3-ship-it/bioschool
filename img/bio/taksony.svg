@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 296" role="img" aria-label="Лестница групп, по которым учёные распределяют организмы, от самой широкой к самой узкой, на примере волка. Царство — животные. Тип — хордовые. Класс — млекопитающие. Отряд — хищные. Семейство — псовые. Род — волки. Вид — волк серый. Полоски сужаются сверху вниз: чем ниже группа, тем меньше в ней организмов и тем больше у них общего. Внизу подпись: вид — единственная группа, которая существует в природе сама по себе, остальные придуманы людьми для порядка.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="13">Группа</text>
+    <text x="216" y="13">Волк попадает в</text>
+  </g>
+
+  <g class="d-sub">
+    <rect x="8" y="22" width="196" height="26" rx="6"/>
+    <rect x="8" y="52" width="172" height="26" rx="6"/>
+    <rect x="8" y="82" width="148" height="26" rx="6"/>
+    <rect x="8" y="112" width="124" height="26" rx="6"/>
+    <rect x="8" y="142" width="100" height="26" rx="6"/>
+    <rect x="8" y="172" width="76" height="26" rx="6"/>
+  </g>
+  <g class="d-capsule">
+    <rect x="8" y="202" width="60" height="26" rx="6"/>
+  </g>
+
+  <g class="d-row" font-size="12" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="16" y="39">Царство</text>
+    <text x="16" y="69">Тип</text>
+    <text x="16" y="99">Класс</text>
+    <text x="16" y="129">Отряд</text>
+    <text x="16" y="159">Семейство</text>
+    <text x="16" y="189">Род</text>
+  </g>
+  <g class="d-capsule-t" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="16" y="219">Вид</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="216" y="39">Животные</text>
+    <text x="216" y="69">Хордовые</text>
+    <text x="216" y="99">Млекопитающие</text>
+    <text x="216" y="129">Хищные</text>
+    <text x="216" y="159">Псовые</text>
+    <text x="216" y="189">Волки</text>
+  </g>
+  <g class="d-number" font-size="11" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="216" y="219">Волк серый</text>
+  </g>
+
+  <g class="d-axis" stroke-width="1.5" stroke-linecap="round" fill="none">
+    <path d="M300 26 V228"/>
+    <path d="M300 228 l-4 -6 M300 228 l4 -6"/>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="252">Чем ниже, тем меньше организмов в группе</text>
+    <text x="8" y="266">и тем больше у них общего. Вид существует</text>
+    <text x="8" y="280">в природе сам по себе, остальные группы</text>
+    <text x="8" y="292">придуманы людьми для порядка.</text>
+  </g>
+</svg>
