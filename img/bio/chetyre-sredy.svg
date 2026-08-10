@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" role="img" aria-label="Четыре среды обитания и главная трудность каждой. Водная среда: кислорода мало, с глубиной темнеет; зато вода держит тело. Наземно-воздушная: воздух не держит, вода быстро уходит, температура скачет; зато кислорода и света вдоволь. Почвенная: темно и тесно, двигаться тяжело; зато влажно и температура ровная. Организм как среда: главная трудность — защита хозяина; зато еды сколько угодно. Внизу подпись: у каждой среды свои трудности и свои удобства, поэтому ни одна не пустует.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="13">Среда</text>
+    <text x="118" y="13">Чем трудна</text>
+    <text x="228" y="13">Чем удобна</text>
+  </g>
+
+  <g class="d-grid">
+    <line x1="8" y1="20" x2="312" y2="20"/>
+    <line x1="8" y1="80" x2="312" y2="80"/>
+    <line x1="8" y1="140" x2="312" y2="140"/>
+    <line x1="8" y1="196" x2="312" y2="196"/>
+    <line x1="8" y1="248" x2="312" y2="248"/>
+  </g>
+
+  <g class="d-water">
+    <rect x="8" y="28" width="102" height="44" rx="7"/>
+  </g>
+  <g class="d-sky">
+    <rect x="8" y="88" width="102" height="44" rx="7"/>
+  </g>
+  <g class="d-soil-block">
+    <rect x="8" y="148" width="102" height="40" rx="7"/>
+  </g>
+  <g class="d-capsule">
+    <rect x="8" y="204" width="102" height="36" rx="7"/>
+  </g>
+
+  <g class="d-row" font-size="12" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="16" y="46">Водная</text>
+    <text x="16" y="106" font-size="11">Наземно-</text>
+    <text x="16" y="119" font-size="11">воздушная</text>
+    <text x="16" y="166">Почвенная</text>
+  </g>
+  <g class="d-capsule-t" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="16" y="220">Другой</text>
+    <text x="16" y="233">организм</text>
+  </g>
+  <g class="d-same" font-size="10" font-family="system-ui, sans-serif">
+    <text x="16" y="62">рыбы, раки</text>
+    <text x="16" y="182">крот, червь</text>
+  </g>
+
+  <g class="d-diff" font-size="11" font-family="system-ui, sans-serif">
+    <text x="118" y="42">кислорода мало,</text>
+    <text x="118" y="56">с глубиной темно</text>
+    <text x="118" y="102">воздух не держит,</text>
+    <text x="118" y="116">вода уходит,</text>
+    <text x="118" y="130">жара и мороз</text>
+    <text x="118" y="162">темно и тесно,</text>
+    <text x="118" y="176">двигаться тяжело</text>
+    <text x="118" y="218">хозяин защищается,</text>
+    <text x="118" y="232">надо попасть внутрь</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="228" y="42">вода держит,</text>
+    <text x="228" y="56">не высохнешь</text>
+    <text x="228" y="102">кислорода</text>
+    <text x="228" y="116">и света</text>
+    <text x="228" y="130">вдоволь</text>
+    <text x="228" y="162">влажно,</text>
+    <text x="228" y="176">тепло ровное</text>
+    <text x="228" y="218">еды сколько</text>
+    <text x="228" y="232">угодно</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="268">У каждой среды свои трудности и свои удобства.</text>
+    <text x="8" y="282">Идеальной нет, поэтому не пустует ни одна:</text>
+    <text x="8" y="296">везде нашлись те, кому это подошло.</text>
+  </g>
+</svg>
