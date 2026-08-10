@@ -8,10 +8,22 @@
       "title": "Биология — наука о живой природе",
       "hours": 4,
       "lessons": [
-        { "id": "5-priznaki-zhivogo", "title": "Живая и неживая природа. Признаки живого" },
-        { "id": "5-sistema-nauk", "title": "Биология — система наук о живой природе" },
-        { "id": "5-biologiya-i-chelovek", "title": "Роль биологии в жизни человека" },
-        { "id": "5-istochniki-znaniy", "title": "Источники биологических знаний. Кабинет биологии" }
+        {
+          "id": "5-priznaki-zhivogo",
+          "title": "Живая и неживая природа. Признаки живого"
+        },
+        {
+          "id": "5-sistema-nauk",
+          "title": "Биология — система наук о живой природе"
+        },
+        {
+          "id": "5-biologiya-i-chelovek",
+          "title": "Роль биологии в жизни человека"
+        },
+        {
+          "id": "5-istochniki-znaniy",
+          "title": "Источники биологических знаний. Кабинет биологии"
+        }
       ]
     },
     {
@@ -19,10 +31,22 @@
       "title": "Методы изучения живой природы",
       "hours": 4,
       "lessons": [
-        { "id": "5-metody-nauki", "title": "Научные методы изучения живой природы" },
-        { "id": "5-izmerenie", "title": "Методы изучения живой природы: измерение" },
-        { "id": "5-nablyudenie-i-eksperiment", "title": "Наблюдение и эксперимент" },
-        { "id": "5-metod-opisaniya", "title": "Метод описания" }
+        {
+          "id": "5-metody-nauki",
+          "title": "Научные методы изучения живой природы"
+        },
+        {
+          "id": "5-izmerenie",
+          "title": "Методы изучения живой природы: измерение"
+        },
+        {
+          "id": "5-nablyudenie-i-eksperiment",
+          "title": "Наблюдение и эксперимент"
+        },
+        {
+          "id": "5-metod-opisaniya",
+          "title": "Метод описания"
+        }
       ]
     },
     {
@@ -30,16 +54,46 @@
       "title": "Организмы — тела живой природы",
       "hours": 10,
       "lessons": [
-        { "id": "5-ponyatie-ob-organizme", "title": "Понятие об организме" },
-        { "id": "5-uvelichitelnye-pribory", "title": "Увеличительные приборы для исследований" },
-        { "id": "5-citologiya", "title": "Цитология — наука о клетке" },
-        { "id": "5-zhiznedeyatelnost", "title": "Жизнедеятельность организмов" },
-        { "id": "5-svoystva-organizmov", "title": "Свойства живых организмов" },
-        { "id": "5-klassifikaciya", "title": "Разнообразие организмов и их классификация" },
-        { "id": "5-rasteniya", "title": "Многообразие и значение растений" },
-        { "id": "5-zhivotnye", "title": "Многообразие и значение животных" },
-        { "id": "5-griby", "title": "Многообразие и значение грибов" },
-        { "id": "5-bakterii-i-virusy", "title": "Бактерии и вирусы как форма жизни" }
+        {
+          "id": "5-ponyatie-ob-organizme",
+          "title": "Понятие об организме"
+        },
+        {
+          "id": "5-uvelichitelnye-pribory",
+          "title": "Увеличительные приборы для исследований"
+        },
+        {
+          "id": "5-citologiya",
+          "title": "Цитология — наука о клетке"
+        },
+        {
+          "id": "5-zhiznedeyatelnost",
+          "title": "Жизнедеятельность организмов"
+        },
+        {
+          "id": "5-svoystva-organizmov",
+          "title": "Свойства живых организмов"
+        },
+        {
+          "id": "5-klassifikaciya",
+          "title": "Разнообразие организмов и их классификация"
+        },
+        {
+          "id": "5-rasteniya",
+          "title": "Многообразие и значение растений"
+        },
+        {
+          "id": "5-zhivotnye",
+          "title": "Многообразие и значение животных"
+        },
+        {
+          "id": "5-griby",
+          "title": "Многообразие и значение грибов"
+        },
+        {
+          "id": "5-bakterii-i-virusy",
+          "title": "Бактерии и вирусы как форма жизни"
+        }
       ]
     },
     {
@@ -47,12 +101,30 @@
       "title": "Организмы и среда обитания",
       "hours": 6,
       "lessons": [
-        { "id": "5-sredy-obitaniya", "title": "Среды обитания организмов" },
-        { "id": "5-vodnaya-sreda", "title": "Водная среда обитания организмов" },
-        { "id": "5-nazemno-vozdushnaya-sreda", "title": "Наземно-воздушная среда обитания" },
-        { "id": "5-pochvennaya-sreda", "title": "Почвенная среда обитания" },
-        { "id": "5-organizm-kak-sreda", "title": "Организмы как среда обитания" },
-        { "id": "5-sezonnye-izmeneniya", "title": "Сезонные изменения в жизни организмов" }
+        {
+          "id": "5-sredy-obitaniya",
+          "title": "Среды обитания организмов"
+        },
+        {
+          "id": "5-vodnaya-sreda",
+          "title": "Водная среда обитания организмов"
+        },
+        {
+          "id": "5-nazemno-vozdushnaya-sreda",
+          "title": "Наземно-воздушная среда обитания"
+        },
+        {
+          "id": "5-pochvennaya-sreda",
+          "title": "Почвенная среда обитания"
+        },
+        {
+          "id": "5-organizm-kak-sreda",
+          "title": "Организмы как среда обитания"
+        },
+        {
+          "id": "5-sezonnye-izmeneniya",
+          "title": "Сезонные изменения в жизни организмов"
+        }
       ]
     },
     {
@@ -60,12 +132,30 @@
       "title": "Природные сообщества",
       "hours": 6,
       "lessons": [
-        { "id": "5-prirodnoe-soobshchestvo", "title": "Понятие о природном сообществе" },
-        { "id": "5-vzaimosvyazi", "title": "Взаимосвязи организмов в природных сообществах" },
-        { "id": "5-pishchevye-svyazi", "title": "Пищевые связи в природных сообществах" },
-        { "id": "5-raznoobrazie-soobshchestv", "title": "Разнообразие природных сообществ" },
-        { "id": "5-iskusstvennye-soobshchestva", "title": "Искусственные сообщества" },
-        { "id": "5-prirodnye-zony", "title": "Природные зоны Земли, их обитатели" }
+        {
+          "id": "5-prirodnoe-soobshchestvo",
+          "title": "Понятие о природном сообществе"
+        },
+        {
+          "id": "5-vzaimosvyazi",
+          "title": "Взаимосвязи организмов в природных сообществах"
+        },
+        {
+          "id": "5-pishchevye-svyazi",
+          "title": "Пищевые связи в природных сообществах"
+        },
+        {
+          "id": "5-raznoobrazie-soobshchestv",
+          "title": "Разнообразие природных сообществ"
+        },
+        {
+          "id": "5-iskusstvennye-soobshchestva",
+          "title": "Искусственные сообщества"
+        },
+        {
+          "id": "5-prirodnye-zony",
+          "title": "Природные зоны Земли, их обитатели"
+        }
       ]
     },
     {
@@ -73,9 +163,29 @@
       "title": "Живая природа и человек",
       "hours": 3,
       "lessons": [
-        { "id": "5-vliyanie-cheloveka", "title": "Влияние человека на живую природу" },
-        { "id": "5-globalnye-problemy", "title": "Глобальные экологические проблемы" },
-        { "id": "5-sohranenie-raznoobraziya", "title": "Пути сохранения биологического разнообразия" }
+        {
+          "id": "5-vliyanie-cheloveka",
+          "title": "Влияние человека на живую природу"
+        },
+        {
+          "id": "5-globalnye-problemy",
+          "title": "Глобальные экологические проблемы"
+        },
+        {
+          "id": "5-sohranenie-raznoobraziya",
+          "title": "Пути сохранения биологического разнообразия"
+        }
+      ]
+    },
+    {
+      "id": "itog",
+      "title": "Обобщение за год",
+      "hours": 1,
+      "lessons": [
+        {
+          "id": "5-obobshchenie",
+          "title": "Обобщение по материалу 5 класса"
+        }
       ]
     }
   ]
