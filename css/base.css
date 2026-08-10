@@ -470,6 +470,12 @@ h2 {
 .figure__svg .d-layer-3 rect { fill: var(--iodine); fill-opacity: 0.18; stroke: var(--iodine); stroke-opacity: 0.4; }
 .figure__svg .d-layer-4 rect { fill: var(--ink-muted); fill-opacity: 0.35; stroke: var(--ink-muted); }
 
+/* Строгость охраны: чем строже, тем плотнее заливка. */
+.figure__svg .d-strict-1 rect { fill: var(--moss); fill-opacity: 0.45; stroke: var(--moss-deep); stroke-width: 2; }
+.figure__svg .d-strict-2 rect { fill: var(--moss); fill-opacity: 0.3; stroke: var(--moss); }
+.figure__svg .d-strict-3 rect { fill: var(--moss); fill-opacity: 0.16; stroke: var(--moss); stroke-opacity: 0.7; }
+.figure__svg .d-strict-4 rect { fill: none; stroke: var(--moss); stroke-opacity: 0.5; stroke-dasharray: 4 3; }
+
 /* Полоса доставшегося света: длина полосы и есть содержание. */
 .figure__svg .d-light-bar rect { fill: var(--iodine); fill-opacity: 0.55; stroke: var(--iodine); }
 

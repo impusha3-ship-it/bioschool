@@ -74,7 +74,8 @@
       "hours": 3,
       "lessons": [
         { "id": "5-vliyanie-cheloveka", "title": "Влияние человека на живую природу" },
-        { "id": "5-globalnye-problemy", "title": "Глобальные экологические проблемы" }
+        { "id": "5-globalnye-problemy", "title": "Глобальные экологические проблемы" },
+        { "id": "5-sohranenie-raznoobraziya", "title": "Пути сохранения биологического разнообразия" }
       ]
     }
   ]
