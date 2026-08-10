@@ -461,6 +461,16 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/*
+  Разрез водоёма: три слоя по убыванию света. Прозрачность падает вместе
+  со светом — на схеме это и есть содержание, а не украшение.
+*/
+.figure__svg .d-water rect { fill: var(--methylene); fill-opacity: 0.16; }
+.figure__svg .d-water-mid rect { fill: var(--methylene); fill-opacity: 0.34; }
+.figure__svg .d-water-deep rect { fill: var(--methylene); fill-opacity: 0.62; }
+.figure__svg .d-light path { fill: var(--iodine); fill-opacity: 0.3; }
+.figure__svg .d-fall { stroke: var(--ink-soft); }
+
 /* Гриб целиком: над землёй плодовое тело, под землёй грибница. */
 .figure__svg .d-sky rect { fill: var(--paper-raised); stroke: var(--line); }
 .figure__svg .d-soil-block rect { fill: var(--iodine); fill-opacity: 0.12; stroke: var(--iodine); stroke-opacity: 0.4; }

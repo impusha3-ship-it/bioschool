@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" role="img" aria-label="Разрез водоёма и жизнь на разных глубинах. У поверхности, до десяти метров, света много: здесь водоросли, мелкий планктон и большинство рыб. Глубже, до двухсот метров, сумрак, света всё меньше, растений почти нет. Ниже двухсот метров вечная темнота, растений нет вовсе, а обитатели живут тем, что падает сверху. Слева показана убывающая полоса света. Внизу подпись: растения кончаются там, где кончается свет, потому что без света им нечего делать.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="13">Чем глубже, тем темнее</text>
+  </g>
+
+  <g class="d-sun">
+    <circle cx="40" cy="32" r="9"/>
+    <g stroke-width="2" stroke-linecap="round">
+      <path d="M40 18 V21"/><path d="M40 43 V46"/>
+      <path d="M26 32 H29"/><path d="M51 32 H54"/>
+    </g>
+  </g>
+
+  <g class="d-water">
+    <rect x="8" y="52" width="304" height="60"/>
+  </g>
+  <g class="d-water-mid">
+    <rect x="8" y="112" width="304" height="60"/>
+  </g>
+  <g class="d-water-deep">
+    <rect x="8" y="172" width="304" height="72"/>
+  </g>
+
+  <g class="d-light">
+    <path d="M62 52 h44 l-14 60 h-16 z"/>
+    <path d="M78 112 h16 l-5 60 h-6 z"/>
+  </g>
+
+  <g class="d-mark" stroke-width="1.5" fill="none">
+    <path d="M8 112 H312"/>
+    <path d="M8 172 H312"/>
+  </g>
+
+  <g class="d-number" font-size="11" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="14" y="68">0–10 м</text>
+    <text x="14" y="128">до 200 м</text>
+    <text x="14" y="188">глубже 200 м</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="118" y="70">света много: водоросли,</text>
+    <text x="118" y="84">планктон, почти все рыбы</text>
+    <text x="118" y="130">сумрак: растений почти нет,</text>
+    <text x="118" y="144">рыбы ещё есть</text>
+    <text x="118" y="190">вечная тьма, растений нет;</text>
+    <text x="118" y="204">живут тем, что падает сверху</text>
+  </g>
+
+  <g class="d-fall" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="3 4" fill="none">
+    <path d="M232 96 V226"/>
+    <path d="M232 226 l-4 -6 M232 226 l4 -6"/>
+    <path d="M264 108 V226"/>
+    <path d="M264 226 l-4 -6 M264 226 l4 -6"/>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="264">Растения кончаются там же, где кончается свет:</text>
+    <text x="8" y="278">без него им нечего делать. А животные остаются —</text>
+    <text x="8" y="292">им еда приходит сверху.</text>
+  </g>
+</svg>
