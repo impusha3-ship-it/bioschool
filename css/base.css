@@ -470,6 +470,9 @@ h2 {
 .figure__svg .d-layer-3 rect { fill: var(--iodine); fill-opacity: 0.18; stroke: var(--iodine); stroke-opacity: 0.4; }
 .figure__svg .d-layer-4 rect { fill: var(--ink-muted); fill-opacity: 0.35; stroke: var(--ink-muted); }
 
+/* Полоса доставшегося света: длина полосы и есть содержание. */
+.figure__svg .d-light-bar rect { fill: var(--iodine); fill-opacity: 0.55; stroke: var(--iodine); }
+
 /* Этажи пирамиды питания: чем выше, тем меньше и тем ярче. */
 .figure__svg .d-bar-mid rect { fill: var(--sprout); fill-opacity: 0.55; stroke: var(--moss); }
 .figure__svg .d-bar-more rect { fill: var(--sprout); fill-opacity: 0.35; stroke: var(--moss); stroke-opacity: 0.7; }

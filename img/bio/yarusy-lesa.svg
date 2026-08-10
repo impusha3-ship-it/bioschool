@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" role="img" aria-label="Пять ярусов леса сверху вниз и сколько света доходит до каждого. Первый ярус, высокие деревья двадцать-тридцать метров: сосна, ель, дуб, света сто процентов. Второй ярус, деревья пониже, десять-пятнадцать метров: рябина, черёмуха, света около трети. Третий ярус, кустарники два-четыре метра: орешник, малина, света около десятой части. Четвёртый ярус, травы до метра: папоротник, кислица, света совсем мало. Пятый ярус, мхи и лишайники у самой земли: света почти нет. Внизу подпись: ярусы делят между собой не место, а свет, и потому на одном участке помещается во много раз больше видов.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Ярус</text>
+    <text x="118" y="14">Кто там</text>
+    <text x="240" y="14">Света</text>
+  </g>
+
+  <g class="d-grid">
+    <line x1="8" y1="20" x2="312" y2="20"/>
+    <line x1="8" y1="62" x2="312" y2="62"/>
+    <line x1="8" y1="104" x2="312" y2="104"/>
+    <line x1="8" y1="146" x2="312" y2="146"/>
+    <line x1="8" y1="188" x2="312" y2="188"/>
+    <line x1="8" y1="226" x2="312" y2="226"/>
+  </g>
+
+  <g class="d-row" font-size="12" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="38">Деревья</text>
+    <text x="8" y="80">Деревья ниже</text>
+    <text x="8" y="122">Кустарники</text>
+    <text x="8" y="164">Травы</text>
+    <text x="8" y="206">Мхи</text>
+  </g>
+  <g class="d-same" font-size="10" font-family="system-ui, sans-serif">
+    <text x="8" y="52">20–30 м</text>
+    <text x="8" y="94">10–15 м</text>
+    <text x="8" y="136">2–4 м</text>
+    <text x="8" y="178">до 1 м</text>
+    <text x="8" y="220">у земли</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="118" y="42">сосна, ель, дуб</text>
+    <text x="118" y="84">рябина, черёмуха</text>
+    <text x="118" y="126">орешник, малина</text>
+    <text x="118" y="168">папоротник, кислица</text>
+    <text x="118" y="210">мхи, лишайники</text>
+  </g>
+
+  <g class="d-light-bar">
+    <rect x="240" y="30" width="66" height="14" rx="3"/>
+    <rect x="240" y="72" width="22" height="14" rx="3"/>
+    <rect x="240" y="114" width="9" height="14" rx="3"/>
+    <rect x="240" y="156" width="5" height="14" rx="3"/>
+    <rect x="240" y="198" width="3" height="14" rx="3"/>
+  </g>
+  <g class="d-same" font-size="10" font-family="system-ui, sans-serif">
+    <text x="240" y="56">весь</text>
+    <text x="268" y="84">треть</text>
+    <text x="255" y="126">десятая</text>
+    <text x="251" y="168">мало</text>
+    <text x="249" y="210">почти нет</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="252">Ярусы делят между собой не место, а свет.</text>
+    <text x="8" y="266">Каждому достаётся столько, сколько пропустили</text>
+    <text x="8" y="280">верхние, — и на одном участке помещается</text>
+    <text x="8" y="294">во много раз больше видов.</text>
+  </g>
+</svg>
