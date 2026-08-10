@@ -51,7 +51,8 @@
         { "id": "5-vodnaya-sreda", "title": "Водная среда обитания организмов" },
         { "id": "5-nazemno-vozdushnaya-sreda", "title": "Наземно-воздушная среда обитания" },
         { "id": "5-pochvennaya-sreda", "title": "Почвенная среда обитания" },
-        { "id": "5-organizm-kak-sreda", "title": "Организмы как среда обитания" }
+        { "id": "5-organizm-kak-sreda", "title": "Организмы как среда обитания" },
+        { "id": "5-sezonnye-izmeneniya", "title": "Сезонные изменения в жизни организмов" }
       ]
     },
     { "id": "soobshchestva", "title": "Природные сообщества", "hours": 6, "lessons": [] },
