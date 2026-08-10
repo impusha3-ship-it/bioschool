@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 296" role="img" aria-label="Что определяет природную зону: сочетание тепла и влаги. Тепло и сухо — пустыня, растений мало, животные прячутся от жары. Тепло и влажно — тропический лес, видов больше, чем во всех остальных зонах вместе. Холодно и сухо — тундра, мхи и лишайники, деревьев нет. Холодно и влажно — тайга, хвойные леса. Внизу подпись: зону определяет не то, насколько далеко на север, а сочетание тепла и влаги, поэтому пустыни бывают и жаркими, и холодными.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Зону задают два условия сразу</text>
+  </g>
+
+  <g class="d-sub">
+    <rect x="62" y="30" width="122" height="80" rx="7"/>
+    <rect x="62" y="116" width="122" height="80" rx="7"/>
+  </g>
+  <g class="d-capsule">
+    <rect x="190" y="30" width="122" height="80" rx="7"/>
+    <rect x="190" y="116" width="122" height="80" rx="7"/>
+  </g>
+
+  <g class="d-number" font-size="13" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="72" y="50">Пустыня</text>
+    <text x="200" y="50">Тропический лес</text>
+    <text x="72" y="136">Тундра</text>
+    <text x="200" y="136">Тайга</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="72" y="68">растений мало,</text>
+    <text x="72" y="80">животные прячутся</text>
+    <text x="72" y="92">от жары</text>
+    <text x="200" y="68">видов больше, чем</text>
+    <text x="200" y="80">во всех остальных</text>
+    <text x="200" y="92">зонах вместе</text>
+    <text x="72" y="154">мхи, лишайники,</text>
+    <text x="72" y="166">деревьев нет:</text>
+    <text x="72" y="178">мерзлота</text>
+    <text x="200" y="154">хвойные леса,</text>
+    <text x="200" y="166">видов немного,</text>
+    <text x="200" y="178">зато их очень много</text>
+  </g>
+
+  <g class="d-axis" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M40 196 V36"/>
+    <path d="M40 36 l-4 6 M40 36 l4 6"/>
+    <path d="M62 216 H310"/>
+    <path d="M310 216 l-6 -4 M310 216 l-6 4"/>
+  </g>
+  <g class="d-same" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="60">тепло</text>
+    <text x="8" y="180">холодно</text>
+    <text x="64" y="232">сухо</text>
+    <text x="264" y="232">влажно</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="258">Зону задаёт не то, насколько далеко на север,</text>
+    <text x="8" y="272">а сочетание тепла и влаги. Потому и пустыни бывают</text>
+    <text x="8" y="286">не только жаркими: Антарктида — тоже пустыня.</text>
+  </g>
+</svg>
