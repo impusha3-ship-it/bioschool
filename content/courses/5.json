@@ -63,7 +63,8 @@
         { "id": "5-prirodnoe-soobshchestvo", "title": "Понятие о природном сообществе" },
         { "id": "5-vzaimosvyazi", "title": "Взаимосвязи организмов в природных сообществах" },
         { "id": "5-pishchevye-svyazi", "title": "Пищевые связи в природных сообществах" },
-        { "id": "5-raznoobrazie-soobshchestv", "title": "Разнообразие природных сообществ" }
+        { "id": "5-raznoobrazie-soobshchestv", "title": "Разнообразие природных сообществ" },
+        { "id": "5-iskusstvennye-soobshchestva", "title": "Искусственные сообщества" }
       ]
     },
     { "id": "chelovek", "title": "Живая природа и человек", "hours": 3, "lessons": [] }
