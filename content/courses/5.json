@@ -55,7 +55,14 @@
         { "id": "5-sezonnye-izmeneniya", "title": "Сезонные изменения в жизни организмов" }
       ]
     },
-    { "id": "soobshchestva", "title": "Природные сообщества", "hours": 6, "lessons": [] },
+    {
+      "id": "soobshchestva",
+      "title": "Природные сообщества",
+      "hours": 6,
+      "lessons": [
+        { "id": "5-prirodnoe-soobshchestvo", "title": "Понятие о природном сообществе" }
+      ]
+    },
     { "id": "chelovek", "title": "Живая природа и человек", "hours": 3, "lessons": [] }
   ]
 }

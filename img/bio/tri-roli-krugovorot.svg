@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 306" role="img" aria-label="Круговорот веществ в природном сообществе через три роли. Производители — растения: создают питательные вещества из воды и воздуха на свету. От них вещества идут к потребителям — животным, которые получают готовое, поедая растения или друг друга. От потребителей и от производителей вещества переходят к разрушителям — грибам и бактериям, которые разбирают отмершее на простые вещества. Разрушители возвращают вещества в почву, и оттуда их снова берут производители. Круг замыкается. Внизу подпись: убери любое звено, и круг разомкнётся; тяжелее всего сообщество переносит потерю разрушителей.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Три роли, без которых сообщество не работает</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="96" y="24" width="128" height="46" rx="8"/>
+  </g>
+  <g class="d-sub">
+    <rect x="180" y="112" width="132" height="46" rx="8"/>
+    <rect x="8" y="112" width="132" height="46" rx="8"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="106" y="42">Производители</text>
+  </g>
+  <g class="d-row" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="190" y="130">Потребители</text>
+    <text x="18" y="130">Разрушители</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="106" y="58">растения: создают</text>
+    <text x="106" y="68">вещества на свету</text>
+    <text x="190" y="144">животные: едят</text>
+    <text x="190" y="154">готовое</text>
+    <text x="18" y="144">грибы и бактерии:</text>
+    <text x="18" y="154">разбирают отмершее</text>
+  </g>
+
+  <g class="d-stem" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <path d="M212 74 C240 84 250 96 252 108"/>
+    <path d="M252 108 l-6 -3 M252 108 l1 -7"/>
+    <path d="M180 140 C150 152 110 152 76 152"/>
+    <path d="M76 152 l7 -4 M76 152 l7 4"/>
+    <path d="M68 108 C66 96 78 84 108 74"/>
+    <path d="M108 74 l-7 1 M108 74 l-2 6"/>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="238" y="92">съедают</text>
+    <text x="118" y="172">отмирают</text>
+    <text x="14" y="92">возвращают</text>
+    <text x="14" y="102">в почву</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="212">Вещества ходят по кругу и не кончаются:</text>
+    <text x="8" y="226">одни и те же атомы побывали в тысячах организмов.</text>
+  </g>
+  <g class="d-diff" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="8" y="252">Убери звено — круг разомкнётся</text>
+  </g>
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="270">Без производителей есть станет нечего.</text>
+    <text x="8" y="284">Без разрушителей вещества застрянут в остатках,</text>
+    <text x="8" y="298">и производителям не из чего будет строить себя.</text>
+  </g>
+</svg>
