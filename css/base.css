@@ -461,6 +461,15 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/*
+  Разрез почвы: сверху вниз слои темнеют, а потом сереют. Перегной самый
+  тёмный не для красоты — он и в природе такой, и именно он самый живой.
+*/
+.figure__svg .d-layer-1 rect { fill: var(--sprout); fill-opacity: 0.35; stroke: var(--moss); stroke-opacity: 0.5; }
+.figure__svg .d-layer-2 rect { fill: var(--iodine); fill-opacity: 0.45; stroke: var(--iodine); stroke-opacity: 0.6; }
+.figure__svg .d-layer-3 rect { fill: var(--iodine); fill-opacity: 0.18; stroke: var(--iodine); stroke-opacity: 0.4; }
+.figure__svg .d-layer-4 rect { fill: var(--ink-muted); fill-opacity: 0.35; stroke: var(--ink-muted); }
+
 /* Полоса с задачей, под которой идут два ответа — растений и животных. */
 .figure__svg .d-diff-bar rect { fill: var(--fuchsin); fill-opacity: 0.12; stroke: var(--fuchsin); stroke-opacity: 0.5; }
 
