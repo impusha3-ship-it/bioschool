@@ -461,6 +461,9 @@ h2 {
 .figure__svg .d-num-circle circle { fill: var(--moss); }
 .figure__svg .d-num-text { fill: var(--paper-raised); }
 
+/* Полоса с задачей, под которой идут два ответа — растений и животных. */
+.figure__svg .d-diff-bar rect { fill: var(--fuchsin); fill-opacity: 0.12; stroke: var(--fuchsin); stroke-opacity: 0.5; }
+
 /*
   Разрез водоёма: три слоя по убыванию света. Прозрачность падает вместе
   со светом — на схеме это и есть содержание, а не украшение.

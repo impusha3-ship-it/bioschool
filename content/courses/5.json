@@ -48,7 +48,8 @@
       "hours": 6,
       "lessons": [
         { "id": "5-sredy-obitaniya", "title": "Среды обитания организмов" },
-        { "id": "5-vodnaya-sreda", "title": "Водная среда обитания организмов" }
+        { "id": "5-vodnaya-sreda", "title": "Водная среда обитания организмов" },
+        { "id": "5-nazemno-vozdushnaya-sreda", "title": "Наземно-воздушная среда обитания" }
       ]
     },
     { "id": "soobshchestva", "title": "Природные сообщества", "hours": 6, "lessons": [] },
