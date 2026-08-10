@@ -470,6 +470,10 @@ h2 {
 .figure__svg .d-layer-3 rect { fill: var(--iodine); fill-opacity: 0.18; stroke: var(--iodine); stroke-opacity: 0.4; }
 .figure__svg .d-layer-4 rect { fill: var(--ink-muted); fill-opacity: 0.35; stroke: var(--ink-muted); }
 
+/* Плюс и минус в таблице связей: выгода зелёная, вред фуксиновый. */
+.figure__svg .d-plus { fill: var(--moss); }
+.figure__svg .d-minus { fill: var(--fuchsin); }
+
 /* Полоса с задачей, под которой идут два ответа — растений и животных. */
 .figure__svg .d-diff-bar rect { fill: var(--fuchsin); fill-opacity: 0.12; stroke: var(--fuchsin); stroke-opacity: 0.5; }
 

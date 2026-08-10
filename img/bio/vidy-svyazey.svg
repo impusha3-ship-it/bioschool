@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 292" role="img" aria-label="Пять видов связей между организмами и кому они выгодны. Хищничество: хищнику польза, жертве вред. Паразитизм: паразиту польза, хозяину вред. Конкуренция: вред обоим. Симбиоз: польза обоим. Нахлебничество: одному польза, другому безразлично. Внизу подпись: вид связи определяется не тем, приятно ли это со стороны, а тем, кому от неё лучше и кому хуже.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Связь</text>
+    <text x="140" y="14">Первому</text>
+    <text x="206" y="14">Второму</text>
+    <text x="266" y="14">Пример</text>
+  </g>
+
+  <g class="d-grid">
+    <line x1="8" y1="22" x2="312" y2="22"/>
+    <line x1="8" y1="60" x2="312" y2="60"/>
+    <line x1="8" y1="98" x2="312" y2="98"/>
+    <line x1="8" y1="136" x2="312" y2="136"/>
+    <line x1="8" y1="174" x2="312" y2="174"/>
+    <line x1="8" y1="212" x2="312" y2="212"/>
+  </g>
+
+  <g class="d-row" font-size="12" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="44">Хищничество</text>
+    <text x="8" y="82">Паразитизм</text>
+    <text x="8" y="120">Конкуренция</text>
+    <text x="8" y="158">Симбиоз</text>
+    <text x="8" y="196">Нахлебничество</text>
+  </g>
+
+  <g class="d-plus" font-size="17" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="156" y="46">+</text>
+    <text x="156" y="84">+</text>
+    <text x="156" y="160">+</text>
+    <text x="222" y="160">+</text>
+    <text x="156" y="198">+</text>
+  </g>
+  <g class="d-minus" font-size="17" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="222" y="46">−</text>
+    <text x="222" y="84">−</text>
+    <text x="156" y="122">−</text>
+    <text x="222" y="122">−</text>
+  </g>
+  <g class="d-same" font-size="15" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="222" y="198">0</text>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="250" y="40">лиса</text>
+    <text x="250" y="52">и заяц</text>
+    <text x="250" y="78">клещ</text>
+    <text x="250" y="90">и собака</text>
+    <text x="250" y="116">два дерева</text>
+    <text x="250" y="128">за свет</text>
+    <text x="250" y="154">гриб</text>
+    <text x="250" y="166">и берёза</text>
+    <text x="250" y="192">птица</text>
+    <text x="250" y="204">в дупле</text>
+  </g>
+
+  <g class="d-verdict" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="240">Вид связи определяется не тем, приятно ли это</text>
+    <text x="8" y="254">выглядит со стороны, а тем, кому от неё лучше</text>
+    <text x="8" y="268">и кому хуже. Волк, съевший зайца, не злодей —</text>
+    <text x="8" y="282">он звено, без которого зайцев станет слишком много.</text>
+  </g>
+</svg>
