@@ -68,6 +68,13 @@
         { "id": "5-prirodnye-zony", "title": "Природные зоны Земли, их обитатели" }
       ]
     },
-    { "id": "chelovek", "title": "Живая природа и человек", "hours": 3, "lessons": [] }
+    {
+      "id": "chelovek",
+      "title": "Живая природа и человек",
+      "hours": 3,
+      "lessons": [
+        { "id": "5-vliyanie-cheloveka", "title": "Влияние человека на живую природу" }
+      ]
+    }
   ]
 }
