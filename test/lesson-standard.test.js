@@ -34,6 +34,20 @@ async function заданныеУроки() {
   return ids;
 }
 
+/** Все проверяемые машиной вопросы урока: и домашка, и тренажёр ВПР. */
+function всеВопросы(lesson) {
+  return [...(lesson.homework?.questions ?? []), ...(lesson.vpr ?? [])];
+}
+
+/*
+  Сколько заданий ВПР держать. Домашка коротка нарочно: восемь вопросов
+  пятикласснику на вечер — уже много, и добирать количество надо не там.
+  Тренажёр же ничего не стоит — ошибиться в нём бесплатно, и туда идёт
+  основной объём.
+*/
+const МИНИМУМ_ВПР_ДОМАШКА = 3;
+const МИНИМУМ_ВПР_ТРЕНАЖЁР = 4;
+
 test('у каждого урока курса есть схема, игра и домашка', async () => {
   for (const id of await заданныеУроки()) {
     const lesson = await readJson('content', 'lessons', `${id}.json`);
@@ -45,11 +59,54 @@ test('у каждого урока курса есть схема, игра и �
     assert.ok(lesson.game, `${id}: нет игры`);
     assert.ok(lesson.homework?.questions?.length, `${id}: нет вопросов домашки`);
     assert.ok(lesson.homework?.open?.length, `${id}: нет развёрнутого ответа`);
-    assert.ok(
-      lesson.homework.questions.some((q) => q.exam === 'ВПР'),
-      `${id}: нет ни одного задания в формате ВПР`,
-    );
     assert.ok(lesson.materials?.length, `${id}: нет материалов`);
+  }
+});
+
+test('в домашке каждого урока есть задания в формате ВПР', async () => {
+  for (const id of await заданныеУроки()) {
+    const lesson = await readJson('content', 'lessons', `${id}.json`);
+    const впр = lesson.homework.questions.filter((q) => q.exam === 'ВПР');
+    assert.ok(
+      впр.length >= МИНИМУМ_ВПР_ДОМАШКА,
+      `${id}: заданий ВПР в домашке ${впр.length}, нужно ${МИНИМУМ_ВПР_ДОМАШКА}`,
+    );
+  }
+});
+
+/*
+  Тренажёр ВПР — место, где формулировка проверочной работы встречается
+  ученику до самой работы. Разбор здесь обязателен: без него «неверно»
+  ничему не учит, а тренажёр не за оценку и держится только на том, что
+  из него что-то понятно.
+*/
+test('у каждого урока есть блок ВПР в тренажёре, и каждое задание с разбором', async () => {
+  for (const id of await заданныеУроки()) {
+    const lesson = await readJson('content', 'lessons', `${id}.json`);
+    const впр = lesson.vpr ?? [];
+
+    assert.ok(
+      впр.length >= МИНИМУМ_ВПР_ТРЕНАЖЁР,
+      `${id}: заданий ВПР в тренажёре ${впр.length}, нужно ${МИНИМУМ_ВПР_ТРЕНАЖЁР}`,
+    );
+
+    for (const q of впр) {
+      assert.equal(q.exam, 'ВПР', `${id}/${q.id}: задание тренажёра не помечено как ВПР`);
+      assert.ok(q.explanation, `${id}/${q.id}: задание без разбора`);
+      assert.ok(
+        ['choice', 'multi', 'short'].includes(q.type),
+        `${id}/${q.id}: тип «${q.type}» в тренажёре не проверяется`,
+      );
+    }
+  }
+});
+
+test('внутри урока номера вопросов не повторяются', async () => {
+  for (const id of await заданныеУроки()) {
+    const lesson = await readJson('content', 'lessons', `${id}.json`);
+    const ids = [...всеВопросы(lesson), ...(lesson.homework.open ?? [])].map((q) => q.id);
+    const набор = new Set(ids);
+    assert.equal(набор.size, ids.length, `${id}: два вопроса с одинаковым id`);
   }
 });
 
@@ -81,7 +138,7 @@ test('каждый годный ответ на короткий вопрос з
   let проверено = 0;
   for (const id of await заданныеУроки()) {
     const lesson = await readJson('content', 'lessons', `${id}.json`);
-    for (const q of lesson.homework.questions.filter((x) => x.type === 'short')) {
+    for (const q of всеВопросы(lesson).filter((x) => x.type === 'short')) {
       for (const ответ of q.answers) {
         const { correct } = scoreQuestions([q], { [q.id]: ответ });
         assert.equal(correct, 1, `${id}/${q.id}: ответ «${ответ}» заявлен годным, но не засчитан`);
@@ -95,7 +152,7 @@ test('каждый годный ответ на короткий вопрос з
 test('пустой и заведомо неверный ответ не засчитываются', async () => {
   for (const id of await заданныеУроки()) {
     const lesson = await readJson('content', 'lessons', `${id}.json`);
-    for (const q of lesson.homework.questions) {
+    for (const q of всеВопросы(lesson)) {
       const пусто = scoreQuestions([q], {});
       assert.equal(пусто.correct, 0, `${id}/${q.id}: пустой ответ засчитан как верный`);
 
@@ -114,7 +171,7 @@ test('пустой и заведомо неверный ответ не засч
 test('варианты ответа различимы между собой', async () => {
   for (const id of await заданныеУроки()) {
     const lesson = await readJson('content', 'lessons', `${id}.json`);
-    for (const q of lesson.homework.questions.filter((x) => x.options)) {
+    for (const q of всеВопросы(lesson).filter((x) => x.options)) {
       assert.ok(q.options.length >= 2, `${id}/${q.id}: меньше двух вариантов`);
       const набор = new Set(q.options.map((o) => o.trim().toLowerCase()));
       assert.equal(набор.size, q.options.length, `${id}/${q.id}: варианты повторяются`);
@@ -126,7 +183,7 @@ test('варианты ответа различимы между собой', a
 test('варианты ответов не выходят за пределы списка', async () => {
   for (const id of await заданныеУроки()) {
     const lesson = await readJson('content', 'lessons', `${id}.json`);
-    for (const q of lesson.homework.questions) {
+    for (const q of всеВопросы(lesson)) {
       if (q.type === 'choice') {
         assert.ok(
           Number.isInteger(q.correct) && q.options[q.correct] !== undefined,

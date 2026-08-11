@@ -2,6 +2,7 @@ import { el, clear } from '../ui/dom.js';
 import { createGame } from '../games/index.js';
 import { createHomework } from '../homework/submit.js';
 import { scoreQuestions, openQuestions, isAuto, combineScore, grade } from '../homework/questions.js';
+import { questionField } from '../homework/fields.js';
 import { auth } from './login.js';
 
 const hw = createHomework();
@@ -12,20 +13,22 @@ const hw = createHomework();
  * Отличается от тренажёра тем, что результат уходит в журнал, и уходит
  * ровно один раз. Поэтому здесь всё построено вокруг одной кнопки и
  * честного предупреждения перед ней.
+ *
+ * Сдавать может только ученик, которому урок задан. Но **смотреть** задание
+ * должны все: учителю его надо вычитать перед тем, как задавать, а до этого
+ * вкладка не показывала ничего, кроме предложения войти. Отсюда режим
+ * просмотра — то же задание, но поля отключены, а учителю ещё и виден ключ.
  */
 export function renderHomework(lesson) {
   const сессия = auth.current();
 
-  if (!сессия || сессия.kind !== 'student') {
-    return el('div', { class: 'empty' }, [
-      el('p', {}, 'Чтобы сдать домашнее задание, нужно войти.'),
-      el('a', { class: 'button', href: '#/login' }, 'Войти'),
-    ]);
+  if (сессия?.kind === 'student') {
+    const блок = el('div', { class: 'homework' }, [el('p', { class: 'loading' }, 'Проверяю, задано ли…')]);
+    подготовить(блок, lesson, сессия);
+    return блок;
   }
 
-  const блок = el('div', { class: 'homework' }, [el('p', { class: 'loading' }, 'Проверяю, задано ли…')]);
-  подготовить(блок, lesson, сессия);
-  return блок;
+  return показатьПросмотр(lesson, сессия?.kind === 'teacher');
 }
 
 async function подготовить(блок, lesson, сессия) {
@@ -58,6 +61,70 @@ async function подготовить(блок, lesson, сессия) {
   }
 
   блок.append(собратьРаботу(lesson, сессия, назначение, блок));
+}
+
+/**
+ * Просмотр задания: видно всё, отправить нельзя.
+ *
+ * Учителю показывается ключ — иначе вычитывать двести вопросов пришлось бы,
+ * сверяясь с файлом урока. Гостю ключ не показывается: страница открыта всем,
+ * и ученик, вышедший из своей учётной записи, попадает именно сюда.
+ */
+function показатьПросмотр(lesson, учитель) {
+  const вопросы = собратьВопросы(lesson);
+
+  if (!вопросы.length) {
+    return el('div', { class: 'empty' }, [el('p', {}, 'К этому уроку домашнее задание ещё не составлено.')]);
+  }
+
+  const части = [
+    el('div', { class: учитель ? 'preview-note preview-note--key' : 'preview-note' }, [
+      el('p', { class: 'preview-note__title' }, учитель ? 'Просмотр с ключом' : 'Просмотр задания'),
+      el(
+        'p',
+        {},
+        учитель
+          ? 'Так задание выглядит у ученика. Верные варианты отмечены — ученику их не видно. Сдать работу отсюда нельзя.'
+          : 'Так выглядит домашнее задание этого урока. Чтобы его сдать, нужно войти под своим именем — задание откроется, когда учитель задаст урок классу.',
+      ),
+    ]),
+  ];
+
+  const конфигИгры = Array.isArray(lesson.game) ? lesson.game[0] : lesson.game;
+  if (конфигИгры) {
+    let игра = null;
+    try {
+      игра = createGame(конфигИгры);
+    } catch {
+      игра = null;
+    }
+    if (игра) части.push(el('h2', {}, 'Задание'), игра.element);
+  }
+
+  for (const q of вопросы) {
+    части.push(questionField(q, {}, { disabled: true, key: учитель }).element);
+  }
+
+  if (!учитель) {
+    части.push(
+      el('div', { class: 'homework__submit' }, [
+        el('a', { class: 'button', href: '#/login' }, 'Войти, чтобы сдать'),
+      ]),
+    );
+  }
+
+  return el('div', { class: 'homework homework--preview' }, части);
+}
+
+/**
+ * Развёрнутые лежат в файле урока отдельным списком, чтобы их было видно
+ * глазом, но дальше работают наравне с остальными.
+ */
+function собратьВопросы(lesson) {
+  return [
+    ...(lesson.homework?.questions ?? []),
+    ...(lesson.homework?.open ?? []).map((q) => ({ ...q, type: 'open' })),
+  ];
 }
 
 function показатьСданное(работа) {
@@ -98,12 +165,7 @@ function показатьСданное(работа) {
 }
 
 function собратьРаботу(lesson, сессия, назначение, блок) {
-  // Развёрнутые лежат отдельным списком, чтобы их было видно в файле урока,
-  // но дальше работают наравне с остальными.
-  const вопросы = [
-    ...(lesson.homework?.questions ?? []),
-    ...(lesson.homework?.open ?? []).map((q) => ({ ...q, type: 'open' })),
-  ];
+  const вопросы = собратьВопросы(lesson);
   const открытые = openQuestions(вопросы);
   const конфигИгры = Array.isArray(lesson.game) ? lesson.game[0] : lesson.game;
 
@@ -135,11 +197,11 @@ function собратьРаботу(lesson, сессия, назначение, 
   }
 
   for (const q of вопросы.filter(isAuto)) {
-    части.push(вопросВБлок(q, ответы));
+    части.push(questionField(q, ответы).element);
   }
 
   for (const q of открытые) {
-    части.push(развёрнутыйВопрос(q, ответы));
+    части.push(questionField(q, ответы).element);
   }
 
   const ошибка = el('p', { class: 'homework__error' });
@@ -189,55 +251,6 @@ function собратьОтветы(вопросы, ответы) {
   const out = {};
   for (const q of вопросы.filter(isAuto)) out[q.id] = ответы[q.id] ?? null;
   return out;
-}
-
-function вопросВБлок(q, ответы) {
-  const поля = [];
-
-  if (q.type === 'choice' || q.type === 'multi') {
-    q.options.forEach((текст, index) => {
-      const вход = el('input', {
-        type: q.type === 'choice' ? 'radio' : 'checkbox',
-        name: q.id,
-        id: `${q.id}-${index}`,
-        class: 'q__input',
-      });
-      вход.addEventListener('change', () => {
-        if (q.type === 'choice') {
-          ответы[q.id] = index;
-        } else {
-          const набор = new Set(ответы[q.id] ?? []);
-          вход.checked ? набор.add(index) : набор.delete(index);
-          ответы[q.id] = [...набор];
-        }
-      });
-      поля.push(
-        el('label', { class: 'q__option', for: `${q.id}-${index}` }, [вход, el('span', {}, текст)]),
-      );
-    });
-  } else {
-    const поле = el('input', { class: 'q__short', type: 'text', 'aria-label': 'Ответ' });
-    поле.addEventListener('input', () => { ответы[q.id] = поле.value; });
-    поля.push(поле);
-  }
-
-  return el('div', { class: 'q' }, [
-    q.exam ? el('span', { class: 'q__exam' }, q.exam) : null,
-    el('p', { class: 'q__text' }, q.text),
-    el('div', { class: 'q__body' }, поля),
-  ]);
-}
-
-function развёрнутыйВопрос(q, ответы) {
-  const поле = el('textarea', { class: 'q__open', rows: '6', 'aria-label': 'Развёрнутый ответ' });
-  поле.addEventListener('input', () => { ответы[q.id] = поле.value; });
-
-  return el('div', { class: 'q q--open' }, [
-    el('span', { class: 'q__exam' }, 'Проверяет учитель'),
-    el('p', { class: 'q__text' }, q.prompt),
-    q.hint ? el('p', { class: 'q__hint' }, q.hint) : null,
-    поле,
-  ]);
 }
 
 export { combineScore, grade };

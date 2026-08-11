@@ -2,6 +2,7 @@ import { el } from '../ui/dom.js';
 import { loadLesson } from '../content.js';
 import { loadFigure, parseSvg } from '../ui/figure.js';
 import { createGame } from '../games/index.js';
+import { createQuiz } from '../homework/quiz.js';
 import { renderHomework } from './homework.js';
 
 const TAB_TITLES = {
@@ -52,7 +53,7 @@ function renderTabs(lesson, active) {
 function renderTabBody(lesson, tab) {
   if (tab === 'summary') return renderSummary(lesson.summary);
   if (tab === 'materials') return renderMaterials(lesson.materials ?? []);
-  if (tab === 'practice') return renderPractice(lesson.game);
+  if (tab === 'practice') return renderPractice(lesson);
   if (tab === 'homework') return renderHomework(lesson);
   return renderComingSoon(TAB_TITLES[tab]);
 }
@@ -179,21 +180,44 @@ function renderMaterials(materials) {
  * Нужен, чтобы ученик познакомился с механикой до оцениваемой попытки
  * и не терял баллы из-за незнакомого интерфейса.
  */
-function renderPractice(config) {
+function renderPractice(lesson) {
   // В уроке может быть одно задание или несколько подряд.
+  const config = lesson.game;
   const configs = Array.isArray(config) ? config : config ? [config] : [];
+  const впр = lesson.vpr ?? [];
 
-  if (!configs.length) {
+  if (!configs.length && !впр.length) {
     return el('div', { class: 'empty' }, [
       el('p', {}, 'К этому уроку тренажёр ещё не готов.'),
     ]);
   }
 
-  return el(
-    'div',
-    { class: 'practice' },
-    configs.map((one, index) => renderExercise(one, index, configs.length)),
-  );
+  return el('div', { class: 'practice' }, [
+    ...configs.map((one, index) => renderExercise(one, index, configs.length)),
+    впр.length ? renderVpr(впр, configs.length > 0) : null,
+  ]);
+}
+
+/**
+ * Блок заданий в формате ВПР.
+ *
+ * Формулировки и способ ответа взяты из проверочной работы, а не придуманы
+ * заново: ученик, впервые увидевший «запишите ответ в виде числа» на самой
+ * работе, теряет баллы не на биологии, а на непривычной формулировке. Здесь
+ * ошибиться бесплатно и сразу видно, почему.
+ */
+function renderVpr(вопросы, естьИгра) {
+  const quiz = createQuiz(вопросы);
+
+  return el('section', { class: естьИгра ? 'exercise exercise--vpr' : 'exercise' }, [
+    el('p', { class: 'exercise__num' }, 'Задания в формате ВПР'),
+    el(
+      'p',
+      { class: 'exercise__lead' },
+      'Такие задания встретятся на проверочной работе. Здесь они ничего не стоят: ответил — сразу видно, верно или нет и почему.',
+    ),
+    quiz.element,
+  ]);
 }
 
 function renderExercise(config, index, total) {

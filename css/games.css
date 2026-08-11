@@ -347,6 +347,90 @@
 }
 .homework__hint { margin: calc(var(--step) * 4) 0 0; color: var(--ink-faint); font-size: 14px; }
 
+/* ── Задания ВПР в тренажёре ─────────────────────────────── */
+
+.exercise--vpr {
+  margin-top: calc(var(--step) * 10);
+  padding-top: calc(var(--step) * 8);
+  border-top: 1px solid var(--line);
+}
+
+.exercise__lead {
+  margin: 0 0 calc(var(--step) * 2);
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.quiz__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--step) * 4);
+  margin-top: calc(var(--step) * 5);
+}
+
+.quiz__score { margin: 0; font-size: 15px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.quiz__score--win { color: var(--moss); font-weight: 650; }
+.quiz__score--miss { color: var(--iodine); font-weight: 650; }
+
+/* Разбор после проверки. Пустой блок не занимает места до неё. */
+.q__verdict:empty { display: none; }
+
+.q__verdict {
+  margin-top: calc(var(--step) * 4);
+  padding: calc(var(--step) * 3) calc(var(--step) * 3.5);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--line-strong);
+  background: var(--wash);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.q__verdict--right { border-left-color: var(--moss); }
+.q__verdict--wrong { border-left-color: var(--iodine); }
+
+.q__verdict-line { margin: 0; font-weight: 700; }
+.q__verdict--right .q__verdict-line { color: var(--moss-deep); }
+.q__verdict--wrong .q__verdict-line { color: var(--iodine); }
+.q__verdict-text { margin: calc(var(--step) * 2) 0 0; }
+
+/* Подсветка вариантов после проверки — цвет дублируется знаком, потому что
+   каждый двенадцатый мальчик цвета не различает. */
+.q__option--right { background: var(--wash); font-weight: 650; }
+.q__option--right span::after { content: ' ✓'; color: var(--moss); }
+.q__option--wrong span::after { content: ' ✗'; color: var(--iodine); }
+.q__option--key span::after { content: ' ✓'; color: var(--moss); font-weight: 700; }
+.q__option--key { background: var(--wash); }
+
+/* ── Просмотр задания ────────────────────────────────────── */
+
+.preview-note {
+  margin: 0 0 calc(var(--step) * 6);
+  padding: calc(var(--step) * 4);
+  background: var(--wash);
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.preview-note--key { border: 1px solid var(--moss); }
+.preview-note__title { margin: 0 0 calc(var(--step) * 2); font-weight: 700; color: var(--moss-deep); }
+.preview-note p:last-child { margin: 0; }
+
+.homework--preview .q__option { cursor: default; }
+.homework--preview .q__short,
+.homework--preview .q__open { color: var(--ink-faint); }
+
+.q__key {
+  margin: calc(var(--step) * 2) 0 0;
+  color: var(--moss-deep);
+  font-size: 15px;
+  font-weight: 650;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .q__option:hover { background: var(--wash); }
+  .homework--preview .q__option:hover { background: none; }
+  .homework--preview .q__option--key:hover { background: var(--wash); }
 }

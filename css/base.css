@@ -589,22 +589,32 @@ h2 {
   здесь она заменена на три ступени светлоты, и рельеф прибора держится
   на них, а не на светотени. Штатив зелёный — он же силуэт, по которому
   микроскоп узнаётся с одного взгляда.
+
+  Ступени берутся из отдельных токенов, а не из «бумажных». Раньше брались
+  оттуда — и в тёмной теме прибор целиком уходил в чёрное: `--paper-sunk`
+  темнее фона карточки, а `--paper-raised` с ним совпадает. На светлой теме
+  этого не видно, поэтому поломка дожила до учителя.
 */
 .figure__svg .d-mic-none { fill: none; }
-.figure__svg .d-mic-body { fill: var(--wash); }
-.figure__svg .d-mic-metal-light { fill: var(--paper-raised); }
-.figure__svg .d-mic-metal { fill: var(--paper-sunk); }
-.figure__svg .d-mic-metal-dark { fill: var(--ink-muted); }
+.figure__svg .d-mic-body { fill: var(--instrument-body); }
+.figure__svg .d-mic-metal-light { fill: var(--metal-light); }
+.figure__svg .d-mic-metal { fill: var(--metal); }
+.figure__svg .d-mic-metal-dark { fill: var(--metal-dark); }
 .figure__svg .d-mic-lens { fill: var(--methylene); fill-opacity: 0.35; }
 .figure__svg .d-mic-mirror { fill: var(--methylene); }
 .figure__svg .d-mic-beam { fill: var(--iodine); fill-opacity: 0.28; }
 
+/*
+  Обводка задана значением, а не токеном темы, и по той же причине, что и
+  заливки: прибор в обеих темах светлый, а чернила в тёмной теме светлеют —
+  светлая обводка на светлом приборе съедает края.
+*/
 .figure__svg [class^='d-mic-'] {
-  stroke: var(--ink-soft);
+  stroke: #5f6a60;
   stroke-width: 1;
 }
 
-.figure__svg .d-mic-body { stroke: var(--moss); }
+.figure__svg .d-mic-body { stroke: #2e6b46; }
 
 /* ── Вход ────────────────────────────────────────────────── */
 
