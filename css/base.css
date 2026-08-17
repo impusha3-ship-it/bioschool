@@ -358,6 +358,144 @@ h2 {
   line-height: 1.45;
 }
 
+/*
+  Интерактивная часть работы. Отделена от текстовой линией и приподнята
+  по фону: это уже не чтение инструкции, а сама работа, и переход между
+  ними должен быть виден, а не угадываться.
+*/
+.lab__run {
+  margin-top: calc(var(--step) * 5);
+  padding-top: calc(var(--step) * 5);
+  border-top: 1px solid var(--line);
+}
+
+.lab-run {
+  padding: calc(var(--step) * 4);
+  background: var(--paper-raised);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+}
+
+.lab-run__step-title {
+  margin: 0 0 calc(var(--step) * 3);
+  color: var(--ink-muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 650;
+}
+
+.lab-run__prompt {
+  margin: 0 0 calc(var(--step) * 4);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Стол собирается перед работой: то, что на него положили, видно отдельно. */
+.lab-run__table {
+  margin-top: calc(var(--step) * 3);
+  padding: calc(var(--step) * 3);
+  background: var(--paper-sunk);
+  border-radius: var(--radius-sm);
+  min-height: var(--tap);
+}
+
+.lab-run__table-title {
+  margin: 0 0 calc(var(--step) * 2);
+  color: var(--ink-faint);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 650;
+}
+
+.lab-run .game__bank { margin: 0; }
+.lab-run .button { margin-top: calc(var(--step) * 4); }
+
+/* Варианты действия — списком в столбец: на телефоне это единственный
+   способ, при котором длинная формулировка читается целиком. */
+.lab-run__options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 2);
+}
+
+.lab-run__option {
+  min-height: var(--tap);
+  padding: calc(var(--step) * 3);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms var(--ease-out);
+}
+
+.lab-run__option--out {
+  border-style: dashed;
+  color: var(--ink-faint);
+  cursor: default;
+}
+
+/* Последствие неверного действия. Оно и есть содержание работы: в кабинете
+   такое стоит препарата, здесь — только строчки объяснения. */
+.lab-run__note {
+  margin-top: calc(var(--step) * 3);
+  padding: calc(var(--step) * 3) calc(var(--step) * 3.5);
+  border-left: 3px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--wash);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.lab-run__note p { margin: 0; }
+.lab-run__note--ok { border-left-color: var(--moss); }
+.lab-run__note--miss { border-left-color: var(--iodine); }
+
+.lab-run__done {
+  margin: 0 0 calc(var(--step) * 5);
+  padding-left: calc(var(--step) * 5);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.lab-run__done li { margin-bottom: calc(var(--step) * 1.5); }
+
+.lab-run__outcome {
+  margin: 0 0 calc(var(--step) * 4);
+  font-family: var(--font-prose);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.lab-run__figure { margin: 0 0 calc(var(--step) * 4); }
+
+.lab-run__score {
+  margin: 0;
+  padding-top: calc(var(--step) * 4);
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Разбор набора: что оказалось нужным, что лишним. Знак дублирует цвет. */
+.game__chip--ok::after { content: ' ✓'; color: var(--moss); }
+.game__chip--miss::after { content: ' ✗'; color: var(--iodine); }
+.game__chip--miss { border-style: dashed; color: var(--ink-faint); }
+
+@media (hover: hover) and (pointer: fine) {
+  .lab-run__option:hover { border-color: var(--moss); }
+  .lab-run__option--out:hover { border-color: var(--line-strong); }
+}
+
 .materials { margin: 0; padding: 0; list-style: none; }
 
 .materials li {

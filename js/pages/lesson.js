@@ -73,7 +73,7 @@ export function renderBlock(block, { document: doc = globalThis.document } = {})
     return renderFigure(block, e);
   }
   if (block.type === 'lab') {
-    return renderLab(block, e);
+    return renderLab(block, e, doc);
   }
   if (block.type === 'list') {
     return e('div', { class: 'block' }, [
@@ -88,14 +88,21 @@ export function renderBlock(block, { document: doc = globalThis.document } = {})
 }
 
 /*
-  Механики `lab` пока нет, поэтому лабораторная живёт текстом: оборудование,
-  ход работы, что записать. Метка о будущем интерактиве задана здесь, а не в
-  файлах уроков: лабораторных в 5 классе семь, и одинаковая фраза, размноженная
-  по семи файлам, вычищалась бы тоже из семи. Появится механика — уйдёт отсюда.
+  Метка для работ, у которых интерактивной версии ещё нет. Задана здесь, а не в
+  файлах уроков: одинаковая фраза, размноженная по файлам, вычищалась бы тоже
+  из каждого. У работы с блоком `run` её нет — там вместо неё сама работа.
 */
 const LAB_PENDING = 'Интерактивная версия появится позже — пока работа выполняется в кабинете.';
 
-function renderLab(block, e) {
+/**
+ * Лабораторная работа.
+ *
+ * Текстовая часть остаётся всегда: по ней работу делают в кабинете, если до
+ * кабинета дошло. Интерактивная — под ней, и она же обычно единственная:
+ * практические вживую проводятся редко, и сайт для большинства учеников —
+ * то место, где они увидят, чем работа кончается.
+ */
+function renderLab(block, e, doc) {
   return e('div', { class: 'lab' }, [
     block.kind ? e('p', { class: 'lab__kind' }, block.kind) : null,
     e('h2', { class: 'lab__title' }, block.title),
@@ -111,7 +118,23 @@ function renderLab(block, e) {
       e('ol', {}, block.steps.map((step) => e('li', {}, step))),
     ]),
     block.conclusion ? e('p', { class: 'lab__conclusion' }, block.conclusion) : null,
-    e('p', { class: 'lab__pending' }, LAB_PENDING),
+    block.run ? renderLabRun(block.run, e, doc) : e('p', { class: 'lab__pending' }, LAB_PENDING),
+  ]);
+}
+
+function renderLabRun(run, e, doc) {
+  let игра;
+  try {
+    игра = createGame({ ...run, type: 'lab' }, { document: doc });
+  } catch {
+    // Работу не собрали — текстовая часть выше всё равно на месте, и по ней
+    // работа выполнима. Молча показываем прежнюю метку, а не пустое место.
+    return e('p', { class: 'lab__pending' }, LAB_PENDING);
+  }
+
+  return e('div', { class: 'lab__run' }, [
+    e('h3', {}, 'Провести работу здесь'),
+    игра.element,
   ]);
 }
 

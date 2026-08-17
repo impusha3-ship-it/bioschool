@@ -5,8 +5,8 @@ import { makeFakeDocument } from '../helpers/fake-dom.js';
 
 const опции = () => ({ document: makeFakeDocument(), random: () => 0 });
 
-test('реестр знает четыре механики', () => {
-  assert.deepEqual([...KNOWN_GAME_TYPES].sort(), ['label', 'match', 'order', 'sort']);
+test('реестр знает пять механик', () => {
+  assert.deepEqual([...KNOWN_GAME_TYPES].sort(), ['lab', 'label', 'match', 'order', 'sort']);
 });
 
 test('создаёт игру нужного типа', () => {
