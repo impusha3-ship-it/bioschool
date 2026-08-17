@@ -1,3 +1,5 @@
+import { loadFigure, parseSvg } from '../ui/figure.js';
+
 /**
  * «Определитель» — узнать организм по признакам, не угадывая.
  *
@@ -110,10 +112,15 @@ export function createKeyGame(config, { document: doc = globalThis.document } = 
       части.push(метка(`Образец ${образец + 1} из ${specimens.length}`));
     }
 
-    части.push(
-      абзац(о.title, 'key__specimen-title'),
-      абзац(о.description, 'key__specimen'),
-    );
+    части.push(абзац(о.title, 'key__specimen-title'));
+
+    /*
+      Рисунок и описание работают вместе, а не вместо друг друга. Форму листа
+      и то, как сидит хвоя, глазом читаешь быстрее любых слов; но «кожа сухая»
+      или «дышит жабрами» рисунком не показываются, и описание остаётся.
+    */
+    if (о.figure) части.push(картинка(о.figure));
+    части.push(абзац(о.description, 'key__specimen'));
 
     if (путь.length) {
       const список = doc.createElement('ol');
@@ -185,6 +192,31 @@ export function createKeyGame(config, { document: doc = globalThis.document } = 
     }
 
     return части;
+  }
+
+  /**
+   * Рисунок образца. Вставляется тем же путём, что и схемы конспекта:
+   * инлайновым узлом с классом `figure__svg`, иначе цвета к нему не
+   * применятся и он останется чёрным силуэтом.
+   */
+  function картинка(src) {
+    const место = doc.createElement('div');
+    место.className = 'key__figure';
+
+    loadFigure(src)
+      .then((text) => {
+        const svg = parseSvg(text);
+        if (!svg) return;
+        svg.setAttribute('class', 'figure__svg');
+        место.append(svg);
+      })
+      .catch(() => {
+        // Описание образца ниже остаётся, и определить по нему можно —
+        // поэтому потеря рисунка работу не останавливает.
+        место.remove?.();
+      });
+
+    return место;
   }
 
   function метка(текст) {

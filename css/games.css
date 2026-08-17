@@ -373,6 +373,15 @@
   font-weight: 700;
 }
 
+/* Рисунок образца. Держится в узкой колонке: лист во всю ширину карточки
+   выглядит гербарным листом, а не образцом в руках. */
+.key__figure {
+  margin: 0 auto calc(var(--step) * 3);
+  max-width: 260px;
+}
+
+.key__figure:empty { display: none; }
+
 .key__specimen {
   margin: 0 0 calc(var(--step) * 5);
   padding: calc(var(--step) * 3) calc(var(--step) * 3.5);

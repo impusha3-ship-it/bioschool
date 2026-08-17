@@ -723,6 +723,49 @@ h2 {
 .figure__svg .d-unit-note { fill: var(--ink-soft); }
 
 /*
+  Листья и хвоя к определителю. Рисунки свои: готовых, которые показывали бы
+  именно те признаки, о которых спрашивает определитель, в открытых
+  библиотеках не нашлось (разбор — в `../docs/bio-shemy.md`).
+
+  Пластинка светлая, жилки темнее её: определитель спрашивает про жилкование,
+  и жилка обязана читаться на просвет, а не угадываться.
+*/
+.figure__svg .d-leaf-blade path {
+  fill: var(--wash);
+  stroke: var(--moss);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.figure__svg .d-leaf-vein path {
+  fill: none;
+  stroke: var(--moss-deep);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.figure__svg .d-leaf-stalk path {
+  fill: none;
+  stroke: var(--moss-deep);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.figure__svg .d-branch path {
+  fill: none;
+  stroke: var(--iodine);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.figure__svg .d-needle path {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/*
   Микроскоп. Рисунок пришёл с Викисклада с зашитой раскраской и градиентами;
   здесь она заменена на три ступени светлоты, и рельеф прибора держится
   на них, а не на светотени. Штатив зелёный — он же силуэт, по которому

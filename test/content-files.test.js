@@ -42,6 +42,49 @@ test('у блока лабораторной работы есть заголо�
   }
 });
 
+/*
+  Ссылка на схему обязана вести к существующему файлу.
+
+  Проверка нужна потому, что потеря схемы нигде не падает: отрисовщик ловит
+  ошибку загрузки и молча оставляет подпись или убирает пустое место — так
+  задумано, чтобы урок открывался и без картинки. Цена этой мягкости —
+  опечатка в имени файла доживает до ученика. Здесь она не доживёт.
+
+  Схемы упоминаются в четырёх местах, и все четыре проверяются: блок конспекта,
+  поле игры «label», итог лабораторной работы и образец определителя.
+*/
+test('все упомянутые схемы существуют', async () => {
+  const files = new Set(await readdir(join(ROOT, 'img', 'bio')));
+  const dir = join(ROOT, 'content', 'lessons');
+  let проверено = 0;
+
+  const проверить = (src, где) => {
+    if (!src) return;
+    проверено += 1;
+    assert.ok(/^[a-z0-9-]+\.svg$/.test(src), `${где}: имя схемы «${src}» не годится`);
+    assert.ok(files.has(src), `${где}: схема «${src}» упомянута, но файла нет`);
+  };
+
+  for (const file of (await readdir(dir)).filter((f) => f.endsWith('.json'))) {
+    const lesson = await readJson('content', 'lessons', file);
+
+    for (const block of lesson.summary.blocks) {
+      if (block.type === 'figure') проверить(block.src, `${file}: блок конспекта`);
+      if (block.type === 'lab') проверить(block.run?.outcome?.figure, `${file}: итог работы`);
+    }
+
+    const games = Array.isArray(lesson.game) ? lesson.game : [lesson.game].filter(Boolean);
+    for (const game of games) {
+      if (game.type === 'label') проверить(game.image, `${file}: игра «label»`);
+      if (game.type === 'key') {
+        for (const s of game.specimens ?? []) проверить(s.figure, `${file}: образец «${s.id}»`);
+      }
+    }
+  }
+
+  assert.ok(проверено > 0, 'схем не нашлось — проверка ничего не проверила');
+});
+
 test('курсы ссылаются только на существующие уроки', async () => {
   const lessonDir = join(ROOT, 'content', 'lessons');
   const existing = new Set(
