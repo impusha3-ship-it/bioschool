@@ -230,8 +230,9 @@ export function createLabGame(config, { document: doc = globalThis.document, ran
     const { correct, total } = getResult();
     части.push(
       абзац(
+        // Без числа: «все 4 шагов» не согласуется, а число шагов у работ разное.
         correct === total
-          ? `Все ${total} шагов пройдены с первой попытки.`
+          ? 'Все шаги пройдены с первой попытки.'
           : `Шагов с первой попытки: ${correct} из ${total}. Остальные разобраны по ходу — это и есть то, ради чего работу проводят.`,
         'lab-run__score',
       ),

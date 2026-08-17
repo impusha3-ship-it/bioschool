@@ -3,6 +3,7 @@ import { createMatchGame } from './match.js';
 import { createOrderGame } from './order.js';
 import { createLabelGame } from './label.js';
 import { createLabGame } from './lab.js';
+import { createKeyGame } from './key.js';
 
 const REGISTRY = {
   sort: createSortGame,
@@ -10,6 +11,7 @@ const REGISTRY = {
   order: createOrderGame,
   label: createLabelGame,
   lab: createLabGame,
+  key: createKeyGame,
 };
 
 export const KNOWN_GAME_TYPES = Object.keys(REGISTRY);
