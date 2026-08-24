@@ -13,7 +13,7 @@ import { checkAnswer, isAuto } from './questions.js';
  * Проверяются только вопросы с автопроверкой: развёрнутый ответ смотрит
  * учитель, и в тренажёре ему делать нечего.
  */
-export function createQuiz(вопросы, { document: doc = globalThis.document } = {}) {
+export function createQuiz(вопросы, { document: doc = globalThis.document, onChecked = null } = {}) {
   const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
   const годные = (вопросы ?? []).filter(isAuto);
 
@@ -48,6 +48,9 @@ export function createQuiz(вопросы, { document: doc = globalThis.document
     });
 
     результат = { correct: верных, total: годные.length };
+    // Тренажёр по-прежнему никуда не отправляет ответы: наружу уходит только
+    // счёт, и только чтобы начислить баллы.
+    onChecked?.({ ...результат });
     итог.textContent = `Верно ${верных} из ${годные.length}`;
     итог.className = верных === годные.length ? 'quiz__score quiz__score--win' : 'quiz__score quiz__score--miss';
     clear(подвал);

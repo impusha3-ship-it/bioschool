@@ -78,3 +78,24 @@ test('пустой набор вопросов не роняет тренажё�
   собрать(quiz.element).find((n) => n.children?.[0] === 'Проверить').listeners.click[0]();
   assert.deepEqual(quiz.getResult(), { correct: 0, total: 0 });
 });
+
+test('после проверки зовётся onChecked с результатом', () => {
+  const doc = makeFakeDocument();
+  const исходы = [];
+  const quiz = createQuiz(вопросы, { document: doc, onChecked: (р) => исходы.push(р) });
+  собрать(quiz.element).find((n) => n.children?.[0] === 'Проверить').listeners.click[0]();
+  assert.deepEqual(исходы, [{ correct: 0, total: 2 }]);
+});
+
+test('после «Ещё раз» повторная проверка снова зовёт onChecked', () => {
+  const doc = makeFakeDocument();
+  const исходы = [];
+  const quiz = createQuiz(вопросы, { document: doc, onChecked: (р) => исходы.push(р) });
+  const узлы = собрать(quiz.element);
+
+  узлы.find((n) => n.children?.[0] === 'Проверить').listeners.click[0]();
+  quiz.reset();
+  собрать(quiz.element).find((n) => n.children?.[0] === 'Проверить').listeners.click[0]();
+
+  assert.equal(исходы.length, 2, 'после сброса тренажёр обязан снова сообщить о проверке');
+});
