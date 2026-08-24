@@ -109,7 +109,7 @@ node scripts/verify-login.mjs
 const s=document.createElement('style');
 s.textContent='*,*::before,*::after{animation:none!important;transition:none!important}';
 document.head.append(s);
-document.querySelectorAll('.reveal').forEach(n=>n.classList.add('reveal--in'));
+document.querySelectorAll('.reveal').forEach(n=>n.classList.add('reveal--shown'));
 ```
 
 После этого всё оформление проверяется глазами, а не только через вычисленные стили. Так проверены уроки раздела «Методы» в светлой и тёмной теме на ширине телефона.
