@@ -75,6 +75,22 @@ test('слияние пустого с пустым даёт пустое', () =
   assert.deepEqual(слить(undefined, undefined), { v: 1, lessons: {}, weeks: {}, lastSeen: 0 });
 });
 
+test('слияние сохраняет незнакомое поле и не занижает версию', () => {
+  const a = { v: 2, lessons: {}, weeks: {}, lastSeen: 0, future: 'x' };
+  const b = { v: 1, lessons: {}, weeks: {}, lastSeen: 0 };
+  const результат = слить(a, b);
+  assert.equal(результат.v, 2);
+  assert.equal(результат.future, 'x');
+});
+
+test('испорченное числом значение при слиянии не даёт NaN', () => {
+  const a = { v: 1, lessons: { у1: { game0: 'abc' } }, weeks: { '2026-W33': 'nope' }, lastSeen: 0 };
+  const b = { v: 1, lessons: { у1: { game0: 10 } }, weeks: { '2026-W33': 5 }, lastSeen: 0 };
+  const результат = слить(a, b);
+  assert.equal(результат.lessons['у1'].game0, 10);
+  assert.equal(результат.weeks['2026-W33'], 5);
+});
+
 test('отказ базы не мешает начислению', async () => {
   const storage = память();
   const api = {
@@ -89,6 +105,19 @@ test('отказ базы не мешает начислению', async () => {
   const { добавлено } = await p.record({ lessonId: 'у1', kind: 'lab', correct: 6, total: 6, состав: ['lab'] });
   assert.equal(добавлено, 20);
   assert.equal(JSON.parse(storage.getItem('bioschool.progress')).lessons['у1'].lab, 20);
+  await p.дождатьсяОтправки(); // отказ уже проглочен внутри, тут просто ждём, чтобы не утекало в следующий тест
+});
+
+test('отказ хранилища при записи не мешает начислению', async () => {
+  const storage = {
+    getItem: () => null,
+    setItem: () => { throw new Error('QuotaExceededError'); },
+    removeItem: () => {},
+  };
+  const { p } = собрать({ storage });
+
+  const { добавлено } = await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
+  assert.equal(добавлено, 15);
 });
 
 test('негодное событие не роняет запись и не портит накопленное', async () => {
