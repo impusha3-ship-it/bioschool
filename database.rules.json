@@ -65,6 +65,16 @@
           }
         },
 
+        "leaderboard": {
+          ".read": true,
+          "$classId": {
+            "$studentId": {
+              ".write": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
+              ".validate": "newData.hasChildren(['xp', 'weekId'])"
+            }
+          }
+        },
+
         "overrides": {
           ".read": true,
           ".write": "root.child('schools/apts/teachers').child(auth.uid).exists()"
