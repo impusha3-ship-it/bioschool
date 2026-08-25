@@ -144,3 +144,73 @@ test('незнакомое поле берётся из более свежег�
   assert.equal(слить(старое, свежее).черновик, 'свежий');
   assert.equal(слить(свежее, старое).черновик, 'свежий');
 });
+
+test('вошедший пишет в свою ветку и в таблицу класса', async () => {
+  const { p, записи } = собрать({ сессия: () => ({ studentId: 's1', classId: '5a' }) });
+  await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
+  await p.дождатьсяОтправки();
+  const пути = записи.map((з) => з.path);
+  assert.equal(пути.some((п) => п.endsWith('progress/s1/game')), true);
+  assert.equal(пути.some((п) => п.endsWith('leaderboard/5a/s1')), true);
+});
+
+test('выжимка несёт баллы, неделю и пройденные уроки', async () => {
+  const { p, записи } = собрать({ сессия: () => ({ studentId: 's1', classId: '5a' }) });
+  await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
+  await p.дождатьсяОтправки();
+  const строка = записи.find((з) => з.path.endsWith('leaderboard/5a/s1')).value;
+  assert.deepEqual(строка, {
+    xp: 15, weekId: '2026-W34', weekXp: 15, lessonsDone: 1, lastSeen: ДАТА.getTime(),
+  });
+});
+
+test('перенос сливает облачное с локальным и пишет результат', async () => {
+  const storage = память({ v: 1, lessons: { у1: { game0: 15 } }, weeks: { '2026-W34': 15 }, lastSeen: 1 });
+  const { p, записи } = собрать({
+    storage,
+    сессия: () => ({ studentId: 's1', classId: '5a' }),
+    данные: { 'progress/s1/game': { v: 1, lessons: { у2: { vpr: 10 } }, weeks: { '2026-W33': 10 }, lastSeen: 2 } },
+  });
+
+  await p.перенести();
+
+  const состояние = p.read();
+  assert.equal(состояние.lessons['у1'].game0, 15);
+  assert.equal(состояние.lessons['у2'].vpr, 10);
+  assert.deepEqual(состояние.weeks, { '2026-W33': 10, '2026-W34': 15 });
+  assert.equal(записи.some((з) => з.path.endsWith('progress/s1/game')), true);
+});
+
+test('перенос без входа ничего не делает', async () => {
+  const { p, записи } = собрать();
+  assert.equal(await p.перенести(), null);
+  assert.deepEqual(записи, []);
+});
+
+test('повторный перенос ничего не меняет', async () => {
+  const storage = память({ v: 1, lessons: { у1: { game0: 15 } }, weeks: { '2026-W34': 15 }, lastSeen: 1 });
+  const { p } = собрать({ storage, сессия: () => ({ studentId: 's1', classId: '5a' }) });
+  const первый = await p.перенести();
+  const второй = await p.перенести();
+  assert.deepEqual(первый, второй);
+});
+
+test('отказ чтения при переносе оставляет локальное нетронутым', async () => {
+  const storage = память({ v: 1, lessons: { у1: { game0: 15 } }, weeks: { '2026-W34': 15 }, lastSeen: 1 });
+  const api = {
+    dbGet: async () => { throw new Error('Доступ запрещён.'); },
+    dbPut: async () => null,
+  };
+  const p = createProgress({
+    api, storage, сессия: () => ({ studentId: 's1', classId: '5a' }),
+    токен: async () => 'т', now: () => ДАТА,
+  });
+
+  assert.equal(await p.перенести(), null);
+  assert.equal(p.read().lessons['у1'].game0, 15);
+});
+
+test('наружу торчит только то, чем пользуются страницы', () => {
+  const { p } = собрать();
+  assert.deepEqual(Object.keys(p).sort(), ['record', 'read', 'дождатьсяОтправки', 'перенести'].sort());
+});
