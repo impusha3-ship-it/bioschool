@@ -212,5 +212,79 @@ test('отказ чтения при переносе оставляет лок�
 
 test('наружу торчит только то, чем пользуются страницы', () => {
   const { p } = собрать();
-  assert.deepEqual(Object.keys(p).sort(), ['record', 'read', 'дождатьсяОтправки', 'перенести'].sort());
+  assert.deepEqual(
+    Object.keys(p).sort(),
+    ['record', 'read', 'дождатьсяОтправки', 'перенести', 'шкалаКласса'].sort(),
+  );
+});
+
+test('шкала класса: цель — ученики на заданные уроки', async () => {
+  const { p } = собрать({
+    сессия: () => ({ studentId: 's1', classId: '5a' }),
+    данные: {
+      'leaderboard/5a': { s1: { xp: 40, weekId: '2026-W34', weekXp: 40, lessonsDone: 2 },
+                          s2: { xp: 10, weekId: '2026-W33', weekXp: 10, lessonsDone: 1 } },
+      'students': { s1: { name: 'Петров Иван', classId: '5a' },
+                    s2: { name: 'Сидорова Аня', classId: '5a' },
+                    s3: { name: 'Чужой Ученик', classId: '6б' } },
+      'assignments/5a': { у1: { isOpen: true }, у2: { isOpen: true } },
+    },
+  });
+
+  const шкала = await p.шкалаКласса('5a');
+  assert.equal(шкала.пройдено, 3);
+  assert.equal(шкала.цель, 4); // два ученика × два заданных урока
+});
+
+test('герои недели — только за текущую неделю и не больше трёх', async () => {
+  const { p } = собрать({
+    сессия: () => ({ studentId: 's1', classId: '5a' }),
+    данные: {
+      'leaderboard/5a': {
+        s1: { xp: 40, weekId: '2026-W34', weekXp: 40, lessonsDone: 2 },
+        s2: { xp: 90, weekId: '2026-W33', weekXp: 90, lessonsDone: 1 },
+        s3: { xp: 30, weekId: '2026-W34', weekXp: 30, lessonsDone: 1 },
+      },
+      'students': { s1: { name: 'Петров Иван', classId: '5a' },
+                    s2: { name: 'Сидорова Аня', classId: '5a' },
+                    s3: { name: 'Иванов Пётр', classId: '5a' } },
+      'assignments/5a': {},
+    },
+  });
+
+  const шкала = await p.шкалаКласса('5a');
+  assert.deepEqual(шкала.герои, [
+    { имя: 'Петров Иван', xp: 40 },
+    { имя: 'Иванов Пётр', xp: 30 },
+  ]);
+});
+
+test('чужой в таблице класса не считается своим', async () => {
+  // Правила базы это запрещают, но таблица открыта на чтение, и опираться
+  // на неё как на список класса нельзя: список — только students.
+  const { p } = собрать({
+    сессия: () => ({ studentId: 's1', classId: '5a' }),
+    данные: {
+      'leaderboard/5a': { s1: { xp: 10, weekId: '2026-W34', weekXp: 10, lessonsDone: 1 },
+                          чужой: { xp: 999, weekId: '2026-W34', weekXp: 999, lessonsDone: 34 } },
+      'students': { s1: { name: 'Петров Иван', classId: '5a' } },
+      'assignments/5a': { у1: { isOpen: true } },
+    },
+  });
+
+  const шкала = await p.шкалаКласса('5a');
+  assert.equal(шкала.пройдено, 1);
+  assert.deepEqual(шкала.герои, [{ имя: 'Петров Иван', xp: 10 }]);
+});
+
+test('без класса шкалы нет', async () => {
+  const { p } = собрать();
+  assert.equal(await p.шкалаКласса(null), null);
+});
+
+test('отказ чтения не роняет шкалу', async () => {
+  const api = { dbGet: async () => { throw new Error('Доступ запрещён.'); }, dbPut: async () => null };
+  const p = createProgress({ api, storage: память(), сессия: () => null, токен: async () => null, now: () => ДАТА });
+  const шкала = await p.шкалаКласса('5a');
+  assert.deepEqual(шкала, { пройдено: 0, цель: 0, герои: [] });
 });
