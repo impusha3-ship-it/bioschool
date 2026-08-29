@@ -37,6 +37,10 @@ export function parseRoute(hash) {
     return { name: 'teacher', params: { view } };
   }
 
+  if (parts[0] === 'me' && parts.length === 1) {
+    return { name: 'me', params: {} };
+  }
+
   if (parts[0] === 'sources' && parts.length === 1) {
     return { name: 'sources', params: {} };
   }

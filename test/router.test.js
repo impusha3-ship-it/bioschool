@@ -55,3 +55,7 @@ test('класс без номера — не маршрут класса', () =
 test('урок без идентификатора — не маршрут урока', () => {
   assert.equal(parseRoute('#/lesson').name, 'notfound');
 });
+
+test('свой прогресс — отдельный маршрут', () => {
+  assert.deepEqual(parseRoute('#/me'), { name: 'me', params: {} });
+});

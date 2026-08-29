@@ -6,7 +6,9 @@ import { renderClassPage } from './pages/class.js';
 import { renderLessonPage } from './pages/lesson.js';
 import { renderLoginPage, renderTeacherLoginPage, auth } from './pages/login.js';
 import { renderTeacherPage } from './pages/teacher.js';
+import { renderMePage } from './pages/me.js';
 import { progress } from './progress/index.js';
+import { итог } from './progress/core.js';
 
 const PAGES = {
   home: renderHomePage,
@@ -15,18 +17,28 @@ const PAGES = {
   login: renderLoginPage,
   teacher: renderTeacherPage,
   teacherLogin: renderTeacherLoginPage,
+  me: renderMePage,
   sources: renderSourcesPage,
   notfound: renderNotFoundPage,
 };
 
 const mount = document.getElementById('app');
 const who = document.getElementById('who');
+const уровень = document.getElementById('level');
 
-/** Шапка показывает, кто вошёл: ученику — имя, учителю — пометку. */
+/**
+ * Шапка показывает, кто вошёл, и на какой ты ступени.
+ *
+ * Ступень видна и гостю: баллы копятся у него так же, и метка — то место,
+ * откуда он узнаёт, что они вообще есть.
+ */
 function updateWho() {
   const s = auth.current();
-  if (!s) { who.textContent = 'Войти'; return; }
-  who.textContent = s.kind === 'teacher' ? 'Учитель' : s.name.split(' ')[0];
+  if (!s) who.textContent = 'Войти';
+  else who.textContent = s.kind === 'teacher' ? 'Учитель' : s.name.split(' ')[0];
+
+  const свод = итог(progress.read());
+  уровень.textContent = свод.xp ? `${свод.ступень.имя} · ${свод.xp}` : 'Прогресс';
 }
 updateWho();
 
@@ -60,6 +72,10 @@ startRouter(async (route) => {
   clear(mount);
   mount.append(view);
   window.scrollTo(0, 0);
+
+  // Баллы могли измениться прямо на этой странице — метка в шапке обновляется
+  // на каждом переходе, иначе она врала бы до перезагрузки.
+  updateWho();
 
   revealController?.disconnect();
   revealController = createRevealController();
