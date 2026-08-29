@@ -91,11 +91,15 @@ export function createTeacherData({ api = rest, getToken } = {}) {
     const token = await getToken();
     if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
 
-    const [classes, students, assignments, submissions] = await Promise.all([
+    const [classes, students, assignments, submissions, leaderboards] = await Promise.all([
       api.dbGet(`${ROOT}/classes`, { token }),
       api.dbGet(`${ROOT}/students`, { token }),
       api.dbGet(`${ROOT}/assignments`, { token }),
       api.dbGet(`${ROOT}/submissions`, { token }),
+      // Таблицы баллов лежат разложенными по классам, поэтому берутся одним
+      // запросом. Пустая таблица — это ноль баллов, а не сбой: до первой игры
+      // её просто нет, и ронять из-за этого всю панель нельзя.
+      api.dbGet(`${ROOT}/leaderboard`, { token }).catch(() => null),
     ]);
 
     return {
@@ -103,6 +107,7 @@ export function createTeacherData({ api = rest, getToken } = {}) {
       students: students ?? {},
       assignments: assignments ?? {},
       submissions: submissions ?? {},
+      leaderboards: leaderboards ?? {},
     };
   }
 

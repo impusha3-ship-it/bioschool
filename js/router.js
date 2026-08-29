@@ -32,7 +32,7 @@ export function parseRoute(hash) {
   }
 
   if (parts[0] === 'teacher') {
-    const виды = ['check', 'classes', 'assign'];
+    const виды = ['check', 'classes', 'assign', 'progress'];
     const view = виды.includes(parts[1]) ? parts[1] : 'journal';
     return { name: 'teacher', params: { view } };
   }

@@ -2,6 +2,7 @@ import { el, clear } from '../ui/dom.js';
 import { auth } from './login.js';
 import { createTeacherData, собратьЖурнал, очередьПроверки, СТАТУСЫ } from '../teacher/data.js';
 import { показатьКлассы, показатьНазначение } from './teacher-classes.js';
+import { показатьПрогресс } from './teacher-progress.js';
 
 const data = createTeacherData({ getToken: () => auth.token() });
 
@@ -32,6 +33,7 @@ export async function renderTeacherPage({ view = 'journal' } = {}) {
       вкладка('check', 'Проверка', view),
       вкладка('classes', 'Классы', view),
       вкладка('assign', 'Задать урок', view),
+      вкладка('progress', 'Прогресс', view),
     ]),
     тело,
   ]);
@@ -68,6 +70,7 @@ async function наполнить(тело, view) {
   if (view === 'check') тело.append(показатьПроверку(всё, тело, view));
   else if (view === 'classes') тело.append(показатьКлассы(всё, перезагрузить));
   else if (view === 'assign') тело.append(показатьНазначение(всё, перезагрузить));
+  else if (view === 'progress') тело.append(показатьПрогресс(всё));
   else тело.append(показатьЖурнал(всё));
 }
 

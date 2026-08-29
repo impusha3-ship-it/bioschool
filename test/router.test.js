@@ -59,3 +59,7 @@ test('урок без идентификатора — не маршрут ур�
 test('свой прогресс — отдельный маршрут', () => {
   assert.deepEqual(parseRoute('#/me'), { name: 'me', params: {} });
 });
+
+test('у панели учителя есть вид «прогресс»', () => {
+  assert.deepEqual(parseRoute('#/teacher/progress'), { name: 'teacher', params: { view: 'progress' } });
+});
