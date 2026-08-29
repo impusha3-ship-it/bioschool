@@ -1066,3 +1066,108 @@ h2 {
   .tcodes__box { border: 0; background: none; }
   .tcodes__pin { font-size: 22px; }
 }
+
+/* ── Прогресс ────────────────────────────────────────────── */
+
+/*
+  Метка ступени в шапке. margin-left: auto прижимает её вместе с «кто вошёл»
+  вправо: иначе space-between растащил бы три элемента по всей ширине.
+*/
+.site-header__level {
+  margin-left: auto;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.bar {
+  background: var(--paper-sunk);
+  border-radius: var(--radius-sm);
+  height: calc(var(--step) * 2);
+  margin: calc(var(--step) * 2) 0;
+  overflow: hidden;
+}
+
+.bar__fill {
+  background: var(--moss);
+  height: 100%;
+  transition: width 0.6s var(--ease-out);
+}
+
+.me__level { margin: calc(var(--step) * 6) 0; }
+.me__level-name { margin: 0; font-size: 26px; font-weight: 600; }
+.me__xp { margin: var(--step) 0 0; color: var(--ink-soft); }
+.me__next, .me__streak { color: var(--ink-soft); font-size: 14px; }
+
+.me__guest {
+  background: var(--wash);
+  border-radius: var(--radius);
+  padding: calc(var(--step) * 4);
+  margin-bottom: calc(var(--step) * 5);
+}
+.me__guest p { margin: 0 0 calc(var(--step) * 3); }
+
+.me__lessons-count { margin: 0; font-size: 18px; font-weight: 600; }
+
+.me__sections { list-style: none; padding: 0; margin: calc(var(--step) * 3) 0 0; }
+.me__sections li {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--step) * 2);
+  padding: calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.me__section-count { color: var(--ink-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.me__awards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: calc(var(--step) * 3);
+  list-style: none;
+  padding: 0;
+}
+
+/* Неполученный значок приглушён, но читаем: он показывает, куда идти. */
+.award {
+  display: flex;
+  flex-direction: column;
+  gap: var(--step);
+  padding: calc(var(--step) * 3);
+  border-radius: var(--radius);
+  background: var(--paper-sunk);
+  color: var(--ink-faint);
+}
+.award--has { background: var(--paper-raised); box-shadow: var(--shadow-rest); color: var(--ink); }
+.award__name { font-weight: 600; }
+.award__hint { font-size: 13px; }
+
+.me__class-count { margin: 0; font-size: 18px; font-weight: 600; }
+.me__heroes { color: var(--ink-soft); padding-left: calc(var(--step) * 5); }
+
+.lesson-lab { margin-left: calc(var(--step) * 2); color: var(--ink-faint); font-size: 13px; }
+.lesson-mark { margin-left: calc(var(--step) * 2); color: var(--moss); font-family: var(--font-ui); }
+.lesson-mark--started { color: var(--ink-muted); }
+
+/*
+  Плашка живёт поверх содержимого и уходит сама. Снизу оставлен отступ под
+  безопасную зону: на телефоне туда попадает системная полоса.
+*/
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--step) * 5);
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: calc(var(--step) * 3) calc(var(--step) * 5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  text-align: center;
+}
+.toast__xp { margin: 0; font-size: 20px; font-weight: 700; color: var(--moss); }
+.toast__award { margin: var(--step) 0 0; font-size: 14px; }
+
+.row--stale { color: var(--ink-faint); }
