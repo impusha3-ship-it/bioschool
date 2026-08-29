@@ -285,7 +285,12 @@
   font-weight: 700;
 }
 
-.q__text { margin: 0 0 calc(var(--step) * 3); font-weight: 600; }
+/*
+  pre-line — ради заданий ВПР с текстом для чтения: там пронумерованные
+  предложения идут отдельным абзацем, и без переносов вопрос слипается
+  с текстом в одну простыню, которую пятикласснику не разобрать.
+*/
+.q__text { margin: 0 0 calc(var(--step) * 3); font-weight: 600; white-space: pre-line; }
 .q__hint { margin: calc(var(--step) * -2) 0 calc(var(--step) * 3); color: var(--ink-soft); font-size: 14px; }
 .q__body { display: flex; flex-direction: column; gap: calc(var(--step) * 2); }
 
