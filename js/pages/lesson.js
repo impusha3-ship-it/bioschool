@@ -4,6 +4,8 @@ import { loadFigure, parseSvg } from '../ui/figure.js';
 import { createGame } from '../games/index.js';
 import { createQuiz } from '../homework/quiz.js';
 import { renderHomework } from './homework.js';
+import { progress } from '../progress/index.js';
+import { показать } from '../ui/toast.js';
 
 const TAB_TITLES = {
   summary: 'Конспект',
@@ -50,30 +52,60 @@ function renderTabs(lesson, active) {
   );
 }
 
+/**
+ * Виды работы, которые в этом уроке есть. По ним ставится признак
+ * пройденности: страница урок уже открыла и знает его состав, а список из
+ * тридцати четырёх уроков — нет, и качать их все ради галочек незачем.
+ */
+function составУрока(lesson) {
+  const игры = Array.isArray(lesson.game) ? lesson.game : lesson.game ? [lesson.game] : [];
+  const состав = игры.map((игра, i) => ключИгры(игра, i));
+  if ((lesson.vpr ?? []).length) состав.push('vpr');
+  return состав;
+}
+
+/** Определители пишутся своим ключом: по нему потом виден значок «Ботаник». */
+function ключИгры(config, index) {
+  return `${config?.type === 'key' ? 'key' : 'game'}${index}`;
+}
+
+/** Начисляет и показывает плашку. Отказ здесь не должен ломать урок. */
+async function зачесть(событие) {
+  try {
+    показать(await progress.record(событие));
+  } catch {
+    // Игра пройдена, и это главное. Баллы догонят при следующем прохождении.
+  }
+}
+
 function renderTabBody(lesson, tab) {
-  if (tab === 'summary') return renderSummary(lesson.summary);
+  if (tab === 'summary') return renderSummary(lesson.summary, lesson);
   if (tab === 'materials') return renderMaterials(lesson.materials ?? []);
   if (tab === 'practice') return renderPractice(lesson);
   if (tab === 'homework') return renderHomework(lesson);
   return renderComingSoon(TAB_TITLES[tab]);
 }
 
-function renderSummary(summary) {
+function renderSummary(summary, lesson = null) {
   return el('div', { class: 'summary' }, [
-    ...summary.blocks.map((block) => renderBlock(block)),
+    ...summary.blocks.map((block) => renderBlock(block, { lesson })),
     summary.terms?.length ? renderTerms(summary.terms) : null,
     renderKeyPoints(summary.key_points),
   ]);
 }
 
-export function renderBlock(block, { document: doc = globalThis.document } = {}) {
+// Урок приходит в мешке настроек, а не отдельным доводом: без него разметка
+// собирается ровно как прежде, и старые вызовы с двумя доводами (в том числе
+// в тестах) остаются годными. Нужен он только лабораторной — чтобы было куда
+// начислить баллы.
+export function renderBlock(block, { document: doc = globalThis.document, lesson = null } = {}) {
   const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
 
   if (block.type === 'figure') {
     return renderFigure(block, e);
   }
   if (block.type === 'lab') {
-    return renderLab(block, e, doc);
+    return renderLab(block, e, doc, lesson);
   }
   if (block.type === 'list') {
     return e('div', { class: 'block' }, [
@@ -102,7 +134,7 @@ const LAB_PENDING = 'Интерактивная версия появится п
  * практические вживую проводятся редко, и сайт для большинства учеников —
  * то место, где они увидят, чем работа кончается.
  */
-function renderLab(block, e, doc) {
+function renderLab(block, e, doc, lesson = null) {
   return e('div', { class: 'lab' }, [
     block.kind ? e('p', { class: 'lab__kind' }, block.kind) : null,
     e('h2', { class: 'lab__title' }, block.title),
@@ -118,11 +150,11 @@ function renderLab(block, e, doc) {
       e('ol', {}, block.steps.map((step) => e('li', {}, step))),
     ]),
     block.conclusion ? e('p', { class: 'lab__conclusion' }, block.conclusion) : null,
-    block.run ? renderLabRun(block.run, e, doc) : e('p', { class: 'lab__pending' }, LAB_PENDING),
+    block.run ? renderLabRun(block.run, e, doc, lesson) : e('p', { class: 'lab__pending' }, LAB_PENDING),
   ]);
 }
 
-function renderLabRun(run, e, doc) {
+function renderLabRun(run, e, doc, lesson = null) {
   let игра;
   try {
     игра = createGame({ ...run, type: 'lab' }, { document: doc });
@@ -130,6 +162,19 @@ function renderLabRun(run, e, doc) {
     // Работу не собрали — текстовая часть выше всё равно на месте, и по ней
     // работа выполнима. Молча показываем прежнюю метку, а не пустое место.
     return e('p', { class: 'lab__pending' }, LAB_PENDING);
+  }
+
+  // Баллы начисляются один раз на доведённую до конца работу, а не на каждый
+  // шаг. Флаг снимается только вместе с работой: пройденная заново начисто
+  // должна догнать добавку за безошибочность.
+  if (lesson) {
+    let начислено = false;
+    игра.onChange(() => {
+      if (!игра.isComplete() || начислено) return;
+      начислено = true;
+      const { correct, total } = игра.getResult();
+      зачесть({ lessonId: lesson.id, kind: 'lab', correct, total, состав: составУрока(lesson) });
+    });
   }
 
   return e('div', { class: 'lab__run' }, [
@@ -199,9 +244,13 @@ function renderMaterials(materials) {
 }
 
 /**
- * Свободный режим: играть можно сколько угодно, результат никуда не идёт.
+ * Свободный режим: играть можно сколько угодно, и **в журнал это не идёт**.
  * Нужен, чтобы ученик познакомился с механикой до оцениваемой попытки
  * и не терял баллы из-за незнакомого интерфейса.
+ *
+ * С появлением геймификации отсюда начисляются баллы прогресса — но это
+ * другой слой: оценку ставит учитель по сданной работе, а баллы к ней не
+ * имеют отношения и ошибиться здесь по-прежнему ничего не стоит.
  */
 function renderPractice(lesson) {
   // В уроке может быть одно задание или несколько подряд.
@@ -216,8 +265,8 @@ function renderPractice(lesson) {
   }
 
   return el('div', { class: 'practice' }, [
-    ...configs.map((one, index) => renderExercise(one, index, configs.length)),
-    впр.length ? renderVpr(впр, configs.length > 0) : null,
+    ...configs.map((one, index) => renderExercise(one, index, configs.length, lesson)),
+    впр.length ? renderVpr(впр, configs.length > 0, lesson) : null,
   ]);
 }
 
@@ -229,8 +278,13 @@ function renderPractice(lesson) {
  * работе, теряет баллы не на биологии, а на непривычной формулировке. Здесь
  * ошибиться бесплатно и сразу видно, почему.
  */
-function renderVpr(вопросы, естьИгра) {
-  const quiz = createQuiz(вопросы);
+function renderVpr(вопросы, естьИгра, lesson = null) {
+  const quiz = createQuiz(вопросы, {
+    onChecked: lesson
+      ? ({ correct, total }) =>
+          зачесть({ lessonId: lesson.id, kind: 'vpr', correct, total, состав: составУрока(lesson) })
+      : null,
+  });
 
   return el('section', { class: естьИгра ? 'exercise exercise--vpr' : 'exercise' }, [
     el('p', { class: 'exercise__num' }, 'Задания в формате ВПР'),
@@ -243,7 +297,7 @@ function renderVpr(вопросы, естьИгра) {
   ]);
 }
 
-function renderExercise(config, index, total) {
+function renderExercise(config, index, total, lesson = null) {
   let game;
   try {
     game = createGame(config);
@@ -256,7 +310,15 @@ function renderExercise(config, index, total) {
 
   const score = el('p', { class: 'game__score' });
   const again = el('button', { class: 'button button--quiet', type: 'button' }, 'Начать заново');
-  again.addEventListener('click', () => game.reset());
+
+  // Начисляем один раз на завершённое задание, а не на каждое движение.
+  // Флаг снимается вместе с игрой: пройденная заново начисто должна догнать
+  // добавку за безошибочность, иначе выгодно бросить задание, где ошибся.
+  let начислено = false;
+  again.addEventListener('click', () => {
+    начислено = false;
+    game.reset();
+  });
 
   function updateScore() {
     const { correct, total: всего } = game.getResult();
@@ -270,6 +332,17 @@ function renderExercise(config, index, total) {
         ? `Всё верно: ${correct} из ${всего}`
         : `Верно ${correct} из ${всего} — попробуй ещё раз`;
     score.className = correct === всего ? 'game__score game__score--win' : 'game__score game__score--miss';
+
+    if (lesson && !начислено) {
+      начислено = true;
+      зачесть({
+        lessonId: lesson.id,
+        kind: ключИгры(config, index),
+        correct,
+        total: всего,
+        состав: составУрока(lesson),
+      });
+    }
   }
 
   game.onChange(updateScore);
