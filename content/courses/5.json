@@ -41,11 +41,13 @@
         },
         {
           "id": "5-nablyudenie-i-eksperiment",
-          "title": "Наблюдение и эксперимент"
+          "title": "Наблюдение и эксперимент",
+          "lab": true
         },
         {
           "id": "5-metod-opisaniya",
-          "title": "Метод описания"
+          "title": "Метод описания",
+          "lab": true
         }
       ]
     },
@@ -64,7 +66,8 @@
         },
         {
           "id": "5-citologiya",
-          "title": "Цитология — наука о клетке"
+          "title": "Цитология — наука о клетке",
+          "lab": true
         },
         {
           "id": "5-zhiznedeyatelnost",
@@ -72,7 +75,8 @@
         },
         {
           "id": "5-svoystva-organizmov",
-          "title": "Свойства живых организмов"
+          "title": "Свойства живых организмов",
+          "lab": true
         },
         {
           "id": "5-klassifikaciya",
@@ -115,7 +119,8 @@
         },
         {
           "id": "5-pochvennaya-sreda",
-          "title": "Почвенная среда обитания"
+          "title": "Почвенная среда обитания",
+          "lab": true
         },
         {
           "id": "5-organizm-kak-sreda",
@@ -150,7 +155,8 @@
         },
         {
           "id": "5-iskusstvennye-soobshchestva",
-          "title": "Искусственные сообщества"
+          "title": "Искусственные сообщества",
+          "lab": true
         },
         {
           "id": "5-prirodnye-zony",
