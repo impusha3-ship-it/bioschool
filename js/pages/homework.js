@@ -4,6 +4,8 @@ import { createHomework } from '../homework/submit.js';
 import { scoreQuestions, openQuestions, isAuto, combineScore, grade } from '../homework/questions.js';
 import { questionField } from '../homework/fields.js';
 import { auth } from './login.js';
+import { progress } from '../progress/index.js';
+import { показать } from '../ui/toast.js';
 
 const hw = createHomework();
 
@@ -229,6 +231,20 @@ function собратьРаботу(lesson, сессия, назначение, 
       clear(блок);
       блок.append(показатьСданное(работа));
       window.scrollTo(0, 0);
+
+      // Баллы считаются по той же работе, что ушла в журнал, но журнала не
+      // касаются: отметку ставит учитель, а это отдельный слой поверх. Сдача
+      // уже состоялась, поэтому отказ начисления не должен её отменять.
+      try {
+        показать(await progress.record({
+          lessonId: lesson.id,
+          kind: 'homework',
+          percent: работа.percent,
+          состав: [],
+        }));
+      } catch {
+        // Работа сдана, а баллы догонят: перенос при следующем запуске сольёт.
+      }
     } catch (error) {
       ошибка.textContent = error.message;
       кнопка.removeAttribute('disabled');

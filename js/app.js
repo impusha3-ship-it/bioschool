@@ -6,6 +6,7 @@ import { renderClassPage } from './pages/class.js';
 import { renderLessonPage } from './pages/lesson.js';
 import { renderLoginPage, renderTeacherLoginPage, auth } from './pages/login.js';
 import { renderTeacherPage } from './pages/teacher.js';
+import { progress } from './progress/index.js';
 
 const PAGES = {
   home: renderHomePage,
@@ -28,6 +29,12 @@ function updateWho() {
   who.textContent = s.kind === 'teacher' ? 'Учитель' : s.name.split(' ')[0];
 }
 updateWho();
+
+// Перенос прогресса в базу и обратно. Зовётся при каждом запуске, и это не
+// расточительство: слияние берёт наибольшее, поэтому повторный вызов ничего
+// не меняет. Заодно на новом устройстве прогресс приезжает сам.
+progress.перенести().catch(() => {});
+
 let currentToken = 0;
 let revealController = null;
 
