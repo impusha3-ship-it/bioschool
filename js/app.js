@@ -94,6 +94,14 @@ async function renderSourcesPage() {
         {},
         'Схема микроскопа — рисунок участника Tomia, Викисклад, CC BY 2.5, переработан: подписи и цвета заменены',
       ),
+      el(
+        'li',
+        {},
+        'Фотографии к заданиям ВПР — Викисклад: белый гриб (George Chernilevsky, общественное достояние), ' +
+          'лишайник ксантория (Holger Krisp, CC BY 3.0), одуванчик (Walther Otto Müller, общественное достояние), ' +
+          'лисица (Shiretoko-Shari Tourist Association, CC BY), кишечная палочка (NIAID, общественное достояние), ' +
+          'вирус гриппа (Cynthia Goldsmith, CDC, общественное достояние)',
+      ),
       el('li', {}, 'Servier Medical Art — CC BY 4.0, smart.servier.com'),
       el('li', {}, 'NIH BioArt Source — public domain, bioart.niaid.nih.gov'),
       el('li', {}, 'BioIcons — bioicons.com'),

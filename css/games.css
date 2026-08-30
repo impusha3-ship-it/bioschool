@@ -550,3 +550,27 @@
   .homework--preview .q__option:hover { background: none; }
   .homework--preview .q__option--key:hover { background: var(--wash); }
 }
+
+/*
+  Рисунки к заданию. В работе их обычно три, подписанных буквами, и вопрос
+  задан именно по ним — поэтому на узкой ширине они не сжимаются в полоску,
+  а переносятся: неразличимый рисунок делает задание нерешаемым.
+*/
+.q__figures { display: flex; flex-wrap: wrap; gap: calc(var(--step) * 4); margin: 0 0 calc(var(--step) * 4); }
+.q__figure { margin: 0; flex: 1 1 160px; max-width: 240px; text-align: center; }
+.q__figure-holder { background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: calc(var(--step) * 2); }
+.q__figure-svg { max-width: none; }
+.q__figure-label { margin-top: var(--step); font-weight: 600; font-family: var(--font-ui); }
+.q__figure-missing { margin: 0; color: var(--ink-faint); font-size: 13px; }
+/*
+  Все рисунки задания одной высоты: в работе они стоят ряд в ряд, и если один
+  окажется вдвое выше, буквы под ними разъедутся и ученик будет искать, где
+  какая. object-fit обрезает по краям, а не сплющивает.
+*/
+.q__figure-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}

@@ -135,3 +135,45 @@ test('номера верных вариантов приводятся к од�
   assert.deepEqual(correctIndexes({ type: 'short', answers: ['да'] }), []);
   assert.deepEqual(correctIndexes(undefined), []);
 });
+
+/*
+  Задания ВПР бывают с рисунком: подписать, что изображено, или ответить по
+  схеме. Рисунок — часть условия, поэтому его отсутствие означает не «некрасиво»,
+  а «задание не решается».
+*/
+test('рисунок задания появляется рамкой с подписью', () => {
+  const q = {
+    id: 'q-fig',
+    type: 'short',
+    text: 'Что изображено?',
+    figures: [
+      { src: 'grib-celikom.svg', label: 'А' },
+      { src: 'chetyre-carstva.svg', label: 'Б' },
+    ],
+  };
+  const { element } = questionField(q, {}, { document: document() });
+  const узлы = собрать(element);
+  const рамки = узлы.filter((n) => n.className === 'q__figure');
+  assert.equal(рамки.length, 2);
+  const подписи = узлы.filter((n) => n.className === 'q__figure-label').map((n) => n.children[0]);
+  assert.deepEqual(подписи, ['А', 'Б']);
+});
+
+test('без рисунков разметка не меняется', () => {
+  const { element } = questionField(выбор, {}, { document: document() });
+  assert.equal(собрать(element).some((n) => n.className === 'q__figures'), false);
+});
+
+test('фотография вставляется картинкой, а не разбирается как схема', () => {
+  const q = {
+    id: 'q-photo',
+    type: 'short',
+    text: 'Что изображено?',
+    figures: [{ src: 'obraz-grib.jpg', label: 'А', alt: 'Белый гриб' }],
+  };
+  const { element } = questionField(q, {}, { document: document() });
+  const img = собрать(element).find((n) => n.tagName === 'IMG');
+  assert.ok(img, 'картинки нет');
+  assert.equal(img.getAttribute('src'), './img/bio/obraz-grib.jpg');
+  assert.equal(img.getAttribute('alt'), 'Белый гриб');
+});

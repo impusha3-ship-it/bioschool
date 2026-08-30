@@ -1,4 +1,5 @@
 import { el } from '../ui/dom.js';
+import { loadFigure, parseSvg } from '../ui/figure.js';
 
 /**
  * Отрисовка одного вопроса.
@@ -93,6 +94,7 @@ export function questionField(q, ответы = {}, настройки = {}) {
   const блок = e('div', { class: q.type === 'open' ? 'q q--open' : 'q' }, [
     пометка ? e('span', { class: 'q__exam' }, пометка) : null,
     e('p', { class: 'q__text' }, q.text ?? q.prompt),
+    рисунки(q, e, doc),
     q.hint ? e('p', { class: 'q__hint' }, q.hint) : null,
     e('div', { class: 'q__body' }, тело),
     разбор,
@@ -123,6 +125,60 @@ export function questionField(q, ответы = {}, настройки = {}) {
   }
 
   return { element: блок, showResult };
+}
+
+/**
+ * Рисунки к заданию: подписанные буквами картинки, по которым и задан вопрос.
+ *
+ * Схема грузится и вставляется отдельно от разметки, как и в конспекте: узел
+ * появляется сразу, содержимое подтягивается следом. Если файл не загрузился,
+ * на месте рисунка остаётся буква и пояснение — тогда видно, что задание не
+ * решается, а не просто «пусто».
+ */
+function рисунки(q, e, doc) {
+  const список = q.figures ?? (q.figure ? [{ src: q.figure }] : []);
+  if (!список.length) return null;
+
+  return e(
+    'div',
+    { class: список.length > 1 ? 'q__figures q__figures--ryad' : 'q__figures' },
+    список.map((рисунок) => {
+      const холст = e('div', { class: 'q__figure-holder' });
+
+      // Фотография вставляется картинкой, схема — узлами SVG. Разница не в
+      // прихоти: схема должна подхватывать цвета темы, а фотография — нет,
+      // и разбирать её как разметку незачем.
+      if (/\.(jpg|jpeg|png|webp)$/i.test(рисунок.src)) {
+        холст.append(
+          e('img', {
+            class: 'q__figure-photo',
+            src: `./img/bio/${рисунок.src}`,
+            alt: рисунок.alt ?? '',
+            loading: 'lazy',
+          }),
+        );
+      } else {
+        loadFigure(рисунок.src)
+          .then((текст) => {
+            const svg = parseSvg(текст, { doc });
+            if (!svg) return;
+            // Тот же класс, что у схем в конспекте: на нём висит вся раскраска
+            // частей (жилки, подписи, стрелки), и без него рисунок выйдет
+            // бесцветным пятном.
+            svg.setAttribute('class', 'figure__svg q__figure-svg');
+            холст.append(svg);
+          })
+          .catch(() => {
+            холст.append(e('p', { class: 'q__figure-missing' }, 'Рисунок не загрузился'));
+          });
+      }
+
+      return e('figure', { class: 'q__figure' }, [
+        холст,
+        рисунок.label ? e('figcaption', { class: 'q__figure-label' }, рисунок.label) : null,
+      ]);
+    }),
+  );
 }
 
 /** Номера верных вариантов — в одном виде и для `choice`, и для `multi`. */
