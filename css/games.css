@@ -571,6 +571,13 @@
 */
 .q__figures { display: flex; flex-wrap: wrap; gap: calc(var(--step) * 4); margin: 0 0 calc(var(--step) * 4); }
 .q__figure { margin: 0; flex: 1 1 160px; max-width: 240px; text-align: center; }
+
+/*
+  Рисунок в задании один — значит, вопрос задан именно к нему, и разглядывать
+  придётся подробности: какая буква на какой части. Ряд из трёх фотографий —
+  другое дело, там сравнивают целиком, и мелкий размер не мешает.
+*/
+.q__figures:not(.q__figures--ryad) .q__figure { max-width: 420px; }
 .q__figure-holder { background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: calc(var(--step) * 2); }
 .q__figure-svg { max-width: none; }
 .q__figure-label { margin-top: var(--step); font-weight: 600; font-family: var(--font-ui); }

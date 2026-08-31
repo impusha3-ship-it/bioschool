@@ -27,10 +27,10 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 */
 const ЕЩЁ_НЕ_ЗАКРЫТЫ = [
   '1.2', '4.1', '4.2', '5.2', '7', '8',
-  '11', '12.1', '13', '15.1', '15.2', '16.1', '16.2', '17',
+  '11', '13', '17',
 ];
 
-const ПОТОЛОК = 14;
+const ПОТОЛОК = 9;
 
 async function всеЗадания() {
   const dir = join(ROOT, 'content', 'lessons');
