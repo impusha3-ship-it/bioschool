@@ -206,3 +206,53 @@ test('каталожный номер старого типа ученику н�
 test('без источника номер задания не показывается', () => {
   assert.equal(пометкаУ({ ...выбор, exam: 'ВПР', vprType: '3' }), 'ВПР');
 });
+
+/*
+  Развёрнутое задание из настоящей работы. В домашке такой ответ смотрит
+  учитель, и пометка так и говорит. В тренажёре учителя нет, зато есть ключ
+  работы — и пометка должна называть источник, как у любого другого задания
+  оттуда же.
+*/
+const развёрнутое = {
+  id: 'q-open-vpr',
+  exam: 'ВПР',
+  source: 'ВПР 2026, вариант 4',
+  vprType: '19',
+  type: 'open',
+  text: 'Приведи примеры двух растений своего края.',
+  maxScore: 2,
+  answerKey: 'В ответе названы два растения и польза каждого для человека и для сообщества.',
+};
+
+test('у развёрнутого задания из работы в пометке стоит источник', () => {
+  assert.equal(пометкаУ(развёрнутое), 'ВПР 2026, вариант 4 · задание 19');
+});
+
+test('свой открытый вопрос домашки помечен «Проверяет учитель»', () => {
+  assert.equal(
+    пометкаУ({ id: 'q-open', type: 'open', prompt: 'Поставь опыт', maxScore: 3 }),
+    'Проверяет учитель',
+  );
+});
+
+test('по проверке развёрнутого задания показывается ключ, а не «Верно»', () => {
+  const { element, showResult } = questionField(развёрнутое, {}, { document: document() });
+  showResult(null);
+  const узлы = собрать(element);
+
+  const разбор = узлы.find((n) => String(n.className).includes('q__verdict--key'));
+  assert.ok(разбор, 'ключ не показан');
+
+  const строки = собрать(разбор).flatMap((n) => n.children ?? []).filter((c) => typeof c === 'string');
+  assert.ok(строки.some((s) => s.includes('Сверь')));
+  assert.ok(строки.some((s) => s.includes('два растения')));
+  assert.equal(строки.includes('Верно'), false);
+  assert.equal(строки.includes('Неверно'), false);
+});
+
+test('поле развёрнутого ответа после проверки закрыто от правки', () => {
+  const { element, showResult } = questionField(развёрнутое, {}, { document: document() });
+  showResult(null);
+  const поле = собрать(element).find((n) => n.className === 'q__open');
+  assert.equal(поле.attributes.disabled, 'true');
+});

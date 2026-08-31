@@ -10,12 +10,29 @@ import { checkAnswer, isAuto } from './questions.js';
  * смешивать их в одном экране нельзя: под оценкой ученик боится ошибиться, а
  * без разбора ошибка ничему не учит.
  *
- * Проверяются только вопросы с автопроверкой: развёрнутый ответ смотрит
- * учитель, и в тренажёре ему делать нечего.
+ * Считаются только вопросы с автопроверкой. Развёрнутые задания показываются
+ * наравне с остальными — семь типов настоящей работы отвечаются словами, и
+ * подменить их выбором из списка значит не показать тип вовсе, — но вердикта
+ * им не ставится: по проверке к ним выводится ключ работы, и сверяет ученик
+ * сам, ровно как это делает человек, проверяющий работу.
  */
 export function createQuiz(вопросы, { document: doc = globalThis.document, onChecked = null } = {}) {
   const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
-  const годные = (вопросы ?? []).filter(isAuto);
+  const все = вопросы ?? [];
+  const годные = все.filter(isAuto);
+
+  /*
+    Счёт считает только то, что машина проверила. Если этого не сказать,
+    «Верно 2 из 5» при восьми заданиях на экране читается как потеря трёх —
+    ученик решит, что ошибся там, где его никто и не судил.
+  */
+  const примечание = годные.length < все.length
+    ? e(
+        'p',
+        { class: 'quiz__note' },
+        'Развёрнутые ответы машина не проверяет: по кнопке «Проверить» к ним показывается ключ работы, и сверяешь ты сам. В счёт они не идут.',
+      )
+    : null;
 
   const холст = e('div', { class: 'quiz__questions' });
   const итог = e('p', { class: 'quiz__score' });
@@ -30,7 +47,7 @@ export function createQuiz(вопросы, { document: doc = globalThis.document
   function собрать() {
     ответы = {};
     результат = null;
-    поля = годные.map((q) => questionField(q, ответы, { document: doc }));
+    поля = все.map((q) => questionField(q, ответы, { document: doc }));
     clear(холст);
     холст.append(...поля.map((п) => п.element));
     итог.textContent = '';
@@ -41,7 +58,13 @@ export function createQuiz(вопросы, { document: doc = globalThis.document
 
   проверить.addEventListener('click', () => {
     let верных = 0;
-    годные.forEach((q, i) => {
+    все.forEach((q, i) => {
+      // Развёрнутому ответу вердикт не ставится — ему показывается ключ,
+      // и в счёт он не идёт: считать можно только то, что машина проверила.
+      if (!isAuto(q)) {
+        поля[i].showResult(null);
+        return;
+      }
       const исход = checkAnswer(q, ответы[q.id]);
       if (исход.ok) верных += 1;
       поля[i].showResult(исход.ok);
@@ -60,7 +83,7 @@ export function createQuiz(вопросы, { document: doc = globalThis.document
   заново.addEventListener('click', собрать);
   собрать();
 
-  const element = e('div', { class: 'quiz' }, [холст, подвал]);
+  const element = e('div', { class: 'quiz' }, [примечание, холст, подвал].filter(Boolean));
 
   return {
     element,

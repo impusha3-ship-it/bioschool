@@ -487,6 +487,15 @@
 }
 
 .quiz__score { margin: 0; font-size: 15px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+/* Предупреждение о развёрнутых ответах: стоит до заданий, чтобы счёт
+   «верно 2 из 5» при восьми заданиях не читался как потеря трёх. */
+.quiz__note {
+  margin: 0 0 calc(var(--step) * 4);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
 .quiz__score--win { color: var(--moss); font-weight: 650; }
 .quiz__score--miss { color: var(--iodine); font-weight: 650; }
 
@@ -505,6 +514,10 @@
 
 .q__verdict--right { border-left-color: var(--moss); }
 .q__verdict--wrong { border-left-color: var(--iodine); }
+
+/* Ключ к развёрнутому ответу. Ни зелёного, ни красного: машина его не судила,
+   и цвет исхода тут был бы обещанием, которого никто не давал. */
+.q__verdict--key { border-left-color: var(--line-strong); }
 
 .q__verdict-line { margin: 0; font-weight: 700; }
 .q__verdict--right .q__verdict-line { color: var(--moss-deep); }
