@@ -1,0 +1,157 @@
+{
+  "примечание": "Фотографии к заданиям ВПР. Все с Викисклада, с лицензией общественного достояния, CC0 или CC BY: снимки из самих проверочных работ на сайт не идут. Автор и лицензия перечисляются на странице «Источники материалов» — без этой записи картинку показывать нельзя.",
+  "фотографии": [
+    {
+      "файл": "obraz-grib-lisichka.jpg",
+      "группа": "грибы",
+      "что": "Лисички",
+      "автор": "George Chernilevsky",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Cantharellus_cibarius_2009_G2.jpg"
+    },
+    {
+      "файл": "obraz-grib-muhomor.jpg",
+      "группа": "грибы",
+      "что": "Мухомор красный в лесу",
+      "автор": "Tim Bekaert",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Amanita_muscaria_tyndrum.jpg"
+    },
+    {
+      "файл": "obraz-grib.jpg",
+      "группа": "грибы",
+      "что": "Белый гриб",
+      "автор": "George Chernilevsky",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Boletus_edulis_2020_G1.jpg"
+    },
+    {
+      "файл": "obraz-lishaynik-gipogimniya.jpg",
+      "группа": "лишайники",
+      "что": "Лишайник гипогимния вздутая на ветке",
+      "автор": "jensu",
+      "лицензия": "CC0",
+      "страница": "https://commons.wikimedia.org/wiki/File:Hypogymnia_physodes_93735210.jpg"
+    },
+    {
+      "файл": "obraz-lishaynik-yagel.jpg",
+      "группа": "лишайники",
+      "что": "Ягель — лишайник кладония оленья",
+      "автор": "Tomas P.",
+      "лицензия": "CC0",
+      "страница": "https://commons.wikimedia.org/wiki/File:Cladonia_rangiferina_107994701.jpg"
+    },
+    {
+      "файл": "obraz-lishaynik.jpg",
+      "группа": "лишайники",
+      "что": "Лишайник ксантория настенная на коре",
+      "автор": "Holger Krisp",
+      "лицензия": "CC BY 3.0",
+      "страница": "https://commons.wikimedia.org/wiki/File:Xanthoria-parietina-gelbflechte.jpg"
+    },
+    {
+      "файл": "obraz-rastenie-klever.jpg",
+      "группа": "растения",
+      "что": "Клевер ползучий, цветок вблизи",
+      "автор": "Siddharth Patil",
+      "лицензия": "CC0",
+      "страница": "https://commons.wikimedia.org/wiki/File:Trifolium_repens_macro.jpg"
+    },
+    {
+      "файл": "obraz-rastenie-oduvanchik.jpg",
+      "группа": "растения",
+      "что": "Одуванчик лекарственный: жёлтый цветок и зубчатые листья",
+      "автор": "1qaz2",
+      "лицензия": "CC0",
+      "страница": "https://commons.wikimedia.org/wiki/File:Maskros2.JPG"
+    },
+    {
+      "файл": "obraz-rastenie-podorozhnik.jpg",
+      "группа": "растения",
+      "что": "Подорожник большой",
+      "автор": "Iorsh at English Wikipedia",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Plantago_major.jpg"
+    },
+    {
+      "файл": "obraz-rastenie.jpg",
+      "группа": "растения",
+      "что": "Одуванчик лекарственный целиком, с корнем",
+      "автор": "Walther Otto Müller",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Taraxacum_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-135.jpg"
+    },
+    {
+      "файл": "obraz-zhivotnoe-korovka.jpg",
+      "группа": "животные",
+      "что": "Божья коровка семиточечная",
+      "автор": "Flocci Nivis",
+      "лицензия": "CC BY 4.0",
+      "страница": "https://commons.wikimedia.org/wiki/File:20210409_Coccinella_septempunctata_01.jpg"
+    },
+    {
+      "файл": "obraz-zhivotnoe-zayac.jpg",
+      "группа": "животные",
+      "что": "Заяц-беляк",
+      "автор": "en:User:A.C.Easton",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Lepus_timidus_01.jpg"
+    },
+    {
+      "файл": "obraz-zhivotnoe.jpg",
+      "группа": "животные",
+      "что": "Лисица обыкновенная",
+      "автор": "Shiretoko-Shari Tourist Association",
+      "лицензия": "Attribution",
+      "страница": "https://commons.wikimedia.org/wiki/File:Vulpes_vulpes_laying_in_snow.jpg"
+    },
+    {
+      "файл": "obraz-bakterii-sennaya.jpg",
+      "группа": "бактерии",
+      "что": "Сенная палочка под микроскопом",
+      "автор": "Dr. W.A. Clark",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Bacillus_subtilis_gram_stain_CDC_PHIL_19261.jpg"
+    },
+    {
+      "файл": "obraz-bakterii-streptokokk.jpg",
+      "группа": "бактерии",
+      "что": "Стрептококки под микроскопом: цепочки округлых клеток",
+      "автор": "Arnold Kaufman",
+      "лицензия": "CC0",
+      "страница": "https://commons.wikimedia.org/wiki/File:Gram_stain_of_Streptococcus_pneumoniae.jpg"
+    },
+    {
+      "файл": "obraz-bakterii.jpg",
+      "группа": "бактерии",
+      "что": "Бактерии кишечной палочки под электронным микроскопом",
+      "автор": "NIAID",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:E._coli_Bacteria_(7316101966).jpg"
+    },
+    {
+      "файл": "obraz-virus-bakteriofag.png",
+      "группа": "вирусы",
+      "что": "Бактериофаги под электронным микроскопом",
+      "автор": "Vincent Fischetti and Raymond Schuch, The Rockefeller University.",
+      "лицензия": "CC BY 2.5",
+      "страница": "https://commons.wikimedia.org/wiki/File:Gamma_phage.png"
+    },
+    {
+      "файл": "obraz-virus-korona.jpg",
+      "группа": "вирусы",
+      "что": "Частицы коронавируса под электронным микроскопом",
+      "автор": "NIAID",
+      "лицензия": "CC BY 2.0",
+      "страница": "https://commons.wikimedia.org/wiki/File:SARS-CoV-2.jpg"
+    },
+    {
+      "файл": "obraz-virus.jpg",
+      "группа": "вирусы",
+      "что": "Частица вируса гриппа под электронным микроскопом",
+      "автор": "Cynthia Goldsmith",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Influenza_virus_particle_color.jpg"
+    }
+  ]
+}

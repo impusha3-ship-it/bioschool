@@ -84,7 +84,27 @@ startRouter(async (route) => {
   }
 });
 
+/**
+ * Права на фотографии лежат данными, а не в этом файле.
+ *
+ * Причина простая: фотографии добавляются пачками к заданиям, и если запись
+ * автора живёт в коде страницы, её забудут обновить — а показывать снимок,
+ * не назвав автора, нельзя. Из данных же список сходится сам, и тест сверяет
+ * его с тем, что вправду используется в уроках.
+ */
+async function фотоПрава() {
+  try {
+    const ответ = await fetch('./content/foto-prava.json');
+    if (!ответ.ok) return [];
+    return (await ответ.json()).фотографии ?? [];
+  } catch {
+    return [];
+  }
+}
+
 async function renderSourcesPage() {
+  const фото = await фотоПрава();
+
   return el('section', { class: 'sources' }, [
     el('h1', {}, 'Источники материалов'),
     el('p', {}, 'Иллюстрации и симуляции используются по открытым лицензиям:'),
@@ -94,14 +114,16 @@ async function renderSourcesPage() {
         {},
         'Схема микроскопа — рисунок участника Tomia, Викисклад, CC BY 2.5, переработан: подписи и цвета заменены',
       ),
-      el(
-        'li',
-        {},
-        'Фотографии к заданиям ВПР — Викисклад: белый гриб (George Chernilevsky, общественное достояние), ' +
-          'лишайник ксантория (Holger Krisp, CC BY 3.0), одуванчик (Walther Otto Müller, общественное достояние), ' +
-          'лисица (Shiretoko-Shari Tourist Association, CC BY), кишечная палочка (NIAID, общественное достояние), ' +
-          'вирус гриппа (Cynthia Goldsmith, CDC, общественное достояние)',
-      ),
+      фото.length
+        ? el('li', {}, [
+            'Фотографии к заданиям ВПР — Викисклад:',
+            el(
+              'ul',
+              {},
+              фото.map((ф) => el('li', {}, `${ф.что} — ${ф.автор}, ${ф.лицензия}`)),
+            ),
+          ])
+        : null,
       el('li', {}, 'Servier Medical Art — CC BY 4.0, smart.servier.com'),
       el('li', {}, 'NIH BioArt Source — public domain, bioart.niaid.nih.gov'),
       el('li', {}, 'BioIcons — bioicons.com'),
