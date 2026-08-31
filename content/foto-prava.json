@@ -82,6 +82,14 @@
       "страница": "https://commons.wikimedia.org/wiki/File:Taraxacum_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-135.jpg"
     },
     {
+      "файл": "obraz-medved.jpg",
+      "группа": "животные",
+      "что": "Бурый медведь",
+      "автор": "Malene Thyssen",
+      "лицензия": "CC BY 2.5",
+      "страница": "https://commons.wikimedia.org/wiki/File:Brown_bear_(Ursus_arctos_arctos)_running.jpg"
+    },
+    {
       "файл": "obraz-zhivotnoe-korovka.jpg",
       "группа": "животные",
       "что": "Божья коровка семиточечная",
@@ -152,6 +160,14 @@
       "автор": "Cynthia Goldsmith",
       "лицензия": "Public domain",
       "страница": "https://commons.wikimedia.org/wiki/File:Influenza_virus_particle_color.jpg"
+    },
+    {
+      "файл": "obraz-professiya-veterinar.jpg",
+      "группа": "профессии",
+      "что": "Ветеринар осматривает щенка",
+      "автор": "Petty Officer 2nd Class Eric C. Tretter",
+      "лицензия": "Public domain",
+      "страница": "https://commons.wikimedia.org/wiki/File:Defense.gov_photo_essay_110605-N-NY820-401.jpg"
     }
   ]
 }

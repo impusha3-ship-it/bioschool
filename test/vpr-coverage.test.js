@@ -26,11 +26,11 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
   добавить, потому что ПОТОЛОК её не пустит.
 */
 const ЕЩЁ_НЕ_ЗАКРЫТЫ = [
-  '1.2', '4.1', '4.2', '5.2', '7', '8',
+  '5.2', '7',
   '11', '13', '17',
 ];
 
-const ПОТОЛОК = 9;
+const ПОТОЛОК = 5;
 
 async function всеЗадания() {
   const dir = join(ROOT, 'content', 'lessons');
