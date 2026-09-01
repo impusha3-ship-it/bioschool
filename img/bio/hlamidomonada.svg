@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-label="Строение хламидомонады — одноклеточной зелёной водоросли. Тело грушевидное, вытянутое вверх. Сверху отходят два жгутика. Снаружи клетку одевает оболочка. В верхней части лежит ядро, рядом с основанием жгутиков — две сократительные вакуоли. Нижние две трети клетки занимает зелёный хроматофор в форме чаши, открытой кверху. На краю чаши слева виден красный глазок. Внизу внутри хроматофора — пиреноид, запас питательных веществ.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Хламидомонада — одна клетка целиком</text>
+  </g>
+
+  <g class="d-stem" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M136 76 C124 56 112 40 102 28"/>
+    <path d="M164 76 C176 56 188 40 198 28"/>
+  </g>
+
+  <g class="d-cell-wall">
+    <ellipse cx="150" cy="146" rx="52" ry="72"/>
+  </g>
+  <g class="d-cell-cytoplasm">
+    <ellipse cx="150" cy="146" rx="45" ry="65"/>
+  </g>
+
+  <g class="d-cell-chloroplast">
+    <path d="M106 138 C106 190 122 210 150 210 C178 210 194 190 194 138 C182 152 166 158 150 158 C134 158 118 152 106 138 z"/>
+  </g>
+
+  <g class="d-cell-nucleus">
+    <circle cx="150" cy="116" r="15"/>
+  </g>
+  <g class="d-cell-vacuole">
+    <circle cx="137" cy="90" r="6"/>
+    <circle cx="163" cy="90" r="6"/>
+  </g>
+  <g class="d-warn-t">
+    <circle cx="112" cy="150" r="6"/>
+  </g>
+  <g class="d-cell-nucleolus">
+    <circle cx="150" cy="188" r="10"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1.2" fill="none">
+    <path d="M182 40 H212"/>
+    <path d="M164 90 H212"/>
+    <path d="M164 116 H212"/>
+    <path d="M196 146 H212"/>
+    <path d="M106 150 H88"/>
+    <path d="M112 196 H88"/>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="216" y="44">жгутики</text>
+    <text x="216" y="94">вакуоли</text>
+    <text x="216" y="120">ядро</text>
+    <text x="216" y="150">оболочка</text>
+  </g>
+  <g class="d-label" font-size="11" text-anchor="end" font-family="system-ui, sans-serif">
+    <text x="84" y="154">глазок</text>
+    <text x="84" y="200">хроматофор</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="238">Это не часть растения, а всё растение целиком.</text>
+  </g>
+</svg>

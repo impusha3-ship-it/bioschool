@@ -15,6 +15,15 @@
         {
           "id": "7-sistematika-rasteniy",
           "title": "Систематика растений"
+        },
+        {
+          "id": "7-vodorosli-obshchaya",
+          "title": "Низшие растения. Общая характеристика водорослей"
+        },
+        {
+          "id": "7-zelenye-vodorosli",
+          "title": "Низшие растения. Зелёные водоросли",
+          "lab": true
         }
       ]
     }
