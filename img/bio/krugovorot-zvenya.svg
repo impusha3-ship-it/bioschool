@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-label="Схема круговорота веществ в природном сообществе из четырёх пронумерованных звеньев. Звено один — растение: создаёт вещества на свету. Звено четыре — животные: поедают растение и получают вещества готовыми. Звено два — грибы и бактерии: разбирают отмершие остатки. Звено три — простые вещества в почве, которые снова поглощают корни растения. Стрелки идут от первого звена к четвёртому и ко второму, от четвёртого ко второму, от второго к третьему и от третьего обратно к первому: круг замыкается.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Взаимосвязи в природном сообществе</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="8" y="26" width="130" height="52" rx="8"/>
+  </g>
+  <g class="d-sub">
+    <rect x="182" y="26" width="130" height="52" rx="8"/>
+    <rect x="182" y="150" width="130" height="52" rx="8"/>
+    <rect x="8" y="150" width="130" height="52" rx="8"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="38" y="45">Растение</text>
+  </g>
+  <g class="d-row" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="212" y="45">Животные</text>
+    <text x="208" y="169">Грибы, бактерии</text>
+    <text x="38" y="169">Соли в почве</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="16" y="60">создаёт вещества</text>
+    <text x="16" y="71">на свету</text>
+    <text x="190" y="60">получают готовое</text>
+    <text x="190" y="184">разбирают отмершее</text>
+    <text x="16" y="184">простые вещества</text>
+    <text x="16" y="195">для корней</text>
+  </g>
+
+  <g class="d-stem" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <path d="M138 44 H174"/>
+    <path d="M174 44 l-7 -4 M174 44 l-7 4"/>
+
+    <path d="M247 78 V142"/>
+    <path d="M247 142 l-4 -7 M247 142 l4 -7"/>
+
+    <path d="M182 176 H146"/>
+    <path d="M146 176 l7 -4 M146 176 l7 4"/>
+
+    <path d="M73 150 V86"/>
+    <path d="M73 86 l-4 7 M73 86 l4 7"/>
+
+    <path d="M124 80 C158 104 178 124 194 146"/>
+    <path d="M194 146 l-7 -1 M194 146 l1 -7"/>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="140" y="36">съедают</text>
+    <text x="253" y="114">отмирают</text>
+    <text x="16" y="114">корни</text>
+    <text x="16" y="125">поглощают</text>
+    <text x="130" y="120">отмирает</text>
+  </g>
+
+  <g class="d-num-circle">
+    <circle cx="22" cy="40" r="10"/>
+    <circle cx="196" cy="40" r="10"/>
+    <circle cx="194" cy="164" r="10"/>
+    <circle cx="22" cy="164" r="10"/>
+  </g>
+  <g class="d-num-text" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="22" y="44">1</text>
+    <text x="196" y="44">4</text>
+    <text x="194" y="168">2</text>
+    <text x="22" y="168">3</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="226">Вещества ходят по кругу: одни и те же атомы</text>
+    <text x="8" y="240">побывали в тысячах организмов.</text>
+  </g>
+</svg>

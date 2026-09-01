@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-label="Травянистое растение целиком, четыре его части отмечены буквами без названий. Буква А стоит на том, что уходит вниз, под землю, и ветвится там нитями. Буква Б стоит на широкой зелёной пластинке сбоку от главной оси. Буква В стоит на узком удлинённом образовании, которое сидит на короткой ножке в верхней части растения. Буква Г стоит на самой главной оси, которая идёт от земли вверх. На верхушке растения ещё жёлтые цветки, но буквой они не отмечены.">
+  <g class="d-soil-block">
+    <rect x="8" y="178" width="304" height="62" rx="6"/>
+  </g>
+
+  <g class="d-stem" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M160 178 V64"/>
+  </g>
+
+  <g class="d-root" stroke-width="2.6" stroke-linecap="round" fill="none">
+    <path d="M160 178 V224"/>
+    <path d="M160 190 C148 198 140 206 134 216"/>
+    <path d="M160 200 C172 208 180 214 186 222"/>
+    <path d="M160 210 C152 216 148 220 146 228"/>
+  </g>
+
+  <g class="d-leaf-blade">
+    <path d="M158 146 C140 132 118 130 104 138 C114 152 136 158 158 146 z"/>
+  </g>
+  <g class="d-leaf-vein" stroke-width="1.2" stroke-linecap="round" fill="none">
+    <path d="M158 146 C140 142 122 140 106 139"/>
+  </g>
+
+  <!--
+    Плод сурепки — стручок: узкий и длинный, не путать с листом. Ширину держим
+    вчетверо меньше листовой пластинки, иначе буква В указывает на «ещё один
+    лист» и задание перестаёт решаться.
+  -->
+  <g class="d-stem" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M160 116 L170 110"/>
+  </g>
+  <g class="d-leaf-blade">
+    <path d="M168 112 L182 72 C185 71 188 73 188 76 L176 116 C172 118 168 116 168 112 z"/>
+  </g>
+  <g class="d-leaf-vein" stroke-width="1" stroke-linecap="round" fill="none">
+    <path d="M172 113 L185 75"/>
+  </g>
+
+  <g class="d-sun">
+    <circle cx="152" cy="58" r="6"/>
+    <circle cx="166" cy="54" r="6"/>
+    <circle cx="160" cy="44" r="6"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1.2" fill="none">
+    <path d="M158 206 H124"/>
+    <path d="M114 142 H92"/>
+    <path d="M186 90 H214"/>
+    <path d="M164 160 H198"/>
+  </g>
+
+  <g class="d-num-circle">
+    <circle cx="114" cy="206" r="11"/>
+    <circle cx="82" cy="142" r="11"/>
+    <circle cx="224" cy="90" r="11"/>
+    <circle cx="208" cy="160" r="11"/>
+  </g>
+  <g class="d-num-text" font-size="13" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="114" y="211">А</text>
+    <text x="82" y="147">Б</text>
+    <text x="224" y="95">В</text>
+    <text x="208" y="165">Г</text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Круглый знак: широкая красная окружность, внутри неё костёр — два скрещённых полена и язык пламени над ними, — а поверх костра красная черта наискось, перечёркивающая изображение.">
+  <g class="d-warn" stroke-width="9" fill="none">
+    <circle cx="160" cy="100" r="66"/>
+  </g>
+
+  <g class="d-no" stroke-width="8" stroke-linecap="round" fill="none">
+    <path d="M132 136 L188 122"/>
+    <path d="M132 122 L188 136"/>
+  </g>
+
+  <g class="d-sun">
+    <path d="M160 52 C148 72 138 86 138 100 C138 113 148 122 160 122 C172 122 182 113 182 100 C182 86 172 72 160 52 z"/>
+  </g>
+  <g class="d-warn" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <path d="M160 78 C154 90 150 96 150 103 C150 110 154 114 160 114 C166 114 170 110 170 103 C170 96 166 90 160 78 z"/>
+  </g>
+
+  <g class="d-warn" stroke-width="9" stroke-linecap="round" fill="none">
+    <path d="M113 53 L207 147"/>
+  </g>
+</svg>
