@@ -34,10 +34,22 @@ const ЕЩЁ_НЕ_ЗАКРЫТЫ = [];
 
 const ПОТОЛОК = 0;
 
+/*
+  Считаются только уроки пятого класса.
+
+  Список типов в content/vpr-tipy.json — это разбор одной определённой работы,
+  проверочной по биологии за 5 класс. У седьмого класса своя работа со своей
+  нумерацией: там восемнадцать заданий, а не девятнадцать, и номер 3 означает
+  совсем другое. Смешивать их в одном учёте нельзя — получится, что задание
+  седьмого класса «закрывает» тип пятого.
+
+  Когда до седьмого дойдёт черёд, ему нужен свой список типов и свой потолок,
+  а этот останется тем, чем и был.
+*/
 async function всеЗадания() {
   const dir = join(ROOT, 'content', 'lessons');
   const задания = [];
-  for (const file of (await readdir(dir)).filter((f) => f.endsWith('.json'))) {
+  for (const file of (await readdir(dir)).filter((f) => f.startsWith('5-') && f.endsWith('.json'))) {
     const lesson = JSON.parse(await readFile(join(dir, file), 'utf8'));
     for (const q of lesson.vpr ?? []) задания.push({ file, где: 'тренажёр', q });
     for (const q of lesson.homework?.questions ?? []) задания.push({ file, где: 'домашка', q });
