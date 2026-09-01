@@ -681,6 +681,61 @@ h2 {
 .figure__svg .d-lead { stroke: var(--ink-muted); }
 
 /*
+  Хламидомонада. Схема переработана с Викисклада, и там части нарисованы
+  путями, а не прямоугольниками и эллипсами, — те же классы приходится
+  повторить для path. Обводки тонкие: в исходнике они долями единицы, и
+  крупная линия съела бы чашу хроматофора.
+*/
+.figure__svg .d-cell-wall path,
+.game__image .d-cell-wall path {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 0.6;
+}
+.figure__svg .d-cell-vacuole path,
+.game__image .d-cell-vacuole path {
+  fill: var(--methylene);
+  fill-opacity: 0.35;
+  stroke: var(--methylene);
+  stroke-width: 0.4;
+}
+.figure__svg .d-cell-nucleus path,
+.game__image .d-cell-nucleus path {
+  fill: var(--moss);
+  fill-opacity: 0.35;
+  stroke: var(--moss-deep);
+  stroke-width: 0.6;
+}
+.figure__svg .d-cell-chloroplast path,
+.game__image .d-cell-chloroplast path {
+  fill: var(--sprout);
+  fill-opacity: 0.75;
+  stroke: var(--moss);
+  stroke-width: 0.5;
+}
+.figure__svg .d-cell-chloroplast-light path,
+.game__image .d-cell-chloroplast-light path {
+  fill: var(--sprout);
+  fill-opacity: 0.35;
+  stroke: var(--moss);
+  stroke-width: 0.4;
+}
+/* Глазок — единственное красное пятно на схеме, и по нему её узнают. */
+.figure__svg .d-stigma path,
+.game__image .d-stigma path {
+  fill: var(--iodine);
+  stroke: var(--iodine);
+  stroke-width: 0.4;
+}
+.figure__svg .d-flagellum path,
+.game__image .d-flagellum path {
+  fill: none;
+  stroke: var(--moss-deep);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+/*
   Опыт и контроль. Одинаковое приглушено, единственное отличие выделено:
   на схеме должно быть видно, что меняли ровно одно, — в этом вся тема.
 */
