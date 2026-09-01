@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 244" role="img" aria-label="Система растительного мира из трёх групп. Первая — низшие растения, это водоросли: тело у них не разделено на органы. Вторая — высшие споровые: мхи, плауны, хвощи, папоротники; у них есть органы, а размножаются они спорами. Третья — высшие семенные: голосеменные и покрытосеменные; они размножаются семенами. Вторая и третья группы вместе составляют высшие растения.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Царство Растения</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="8" y="26" width="304" height="56" rx="8"/>
+  </g>
+  <g class="d-sub">
+    <rect x="8" y="92" width="304" height="56" rx="8"/>
+    <rect x="8" y="158" width="304" height="56" rx="8"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="20" y="48">Низшие растения</text>
+  </g>
+  <g class="d-row" font-size="12" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="20" y="114">Высшие споровые</text>
+    <text x="20" y="180">Высшие семенные</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="20" y="64">водоросли: тело не разделено на органы</text>
+    <text x="20" y="130">мхи, плауны, хвощи, папоротники</text>
+    <text x="20" y="142">органы есть, размножаются спорами</text>
+    <text x="20" y="196">голосеменные и покрытосеменные</text>
+    <text x="20" y="208">размножаются семенами</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="234">Две нижние группы вместе — высшие растения.</text>
+  </g>
+</svg>

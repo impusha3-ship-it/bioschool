@@ -1,0 +1,22 @@
+{
+  "grade": 7,
+  "title": "7 класс",
+  "subtitle": "Систематика растений, грибы, бактерии",
+  "sections": [
+    {
+      "id": "sistematika",
+      "title": "Систематические группы растений",
+      "hours": 19,
+      "lessons": [
+        {
+          "id": "7-mnogoobrazie-i-klassifikaciya",
+          "title": "Многообразие организмов и их классификация"
+        },
+        {
+          "id": "7-sistematika-rasteniy",
+          "title": "Систематика растений"
+        }
+      ]
+    }
+  ]
+}

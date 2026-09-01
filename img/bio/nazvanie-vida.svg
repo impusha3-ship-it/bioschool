@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 214" role="img" aria-label="Как устроено название вида. Три примера в две колонки. Первое слово — род, оно общее у нескольких видов: клевер, клевер, сосна. Второе слово — видовое название, оно у каждого вида своё: ползучий, луговой, обыкновенная. Вместе получаются названия видов: клевер ползучий, клевер луговой, сосна обыкновенная. Внизу подпись: род называют одним словом, вид — всегда двумя.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Название вида — всегда два слова</text>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="16" y="36">род</text>
+    <text x="146" y="36">видовое название</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="12" y="44" width="120" height="30" rx="7"/>
+    <rect x="12" y="84" width="120" height="30" rx="7"/>
+    <rect x="12" y="124" width="120" height="30" rx="7"/>
+  </g>
+  <g class="d-capsule-t" font-size="13" font-weight="700" font-family="system-ui, sans-serif">
+    <text x="24" y="64">Клевер</text>
+    <text x="24" y="104">Клевер</text>
+    <text x="24" y="144">Сосна</text>
+  </g>
+  <g class="d-row" font-size="13" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="146" y="64">ползучий</text>
+    <text x="146" y="104">луговой</text>
+    <text x="146" y="144">обыкновенная</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="180">Род называют одним словом, вид — всегда двумя.</text>
+    <text x="8" y="194">«Клевер» — это род, и видов клевера много.</text>
+    <text x="8" y="208">«Клевер ползучий» — один определённый вид.</text>
+  </g>
+</svg>
