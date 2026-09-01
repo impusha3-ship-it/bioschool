@@ -153,15 +153,26 @@
   height: auto;
 }
 
-/* Точка на схеме: координаты в процентах, поэтому не съезжает при масштабе. */
+/*
+  Точка на схеме: координаты в процентах, поэтому не съезжает при масштабе.
+
+  Пустая точка — тонкое кольцо с прозрачной серединой, а не залитый кружок.
+  Нажимать по-прежнему есть куда: сама кнопка остаётся размером в палец,
+  видимым делается только кольцо внутри неё. Залитый кружок закрывал собой
+  ровно то, что надо подписать: у растительной клетки части крупные и это
+  сходило, а у хламидомонады глазок в 27 пикселей метка накрывала целиком.
+*/
 .game__point {
   position: absolute;
   transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: var(--tap);
   min-height: var(--tap);
-  padding: 0 calc(var(--step) * 2);
-  background: var(--paper-raised);
-  border: 2px solid var(--moss);
+  padding: 0;
+  background: none;
+  border: 0;
   border-radius: 999px;
   color: var(--ink);
   font: inherit;
@@ -170,8 +181,19 @@
   transition: transform 140ms var(--ease-out);
 }
 
+.game__point:not(.game__point--filled)::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--moss);
+  border-radius: 999px;
+}
+
+/* С подписью точка снова становится плашкой: под текстом нужен фон. */
 .game__point--filled {
+  padding: 0 calc(var(--step) * 2);
   background: var(--wash);
+  border: 2px solid var(--moss);
   font-weight: 600;
 }
 
