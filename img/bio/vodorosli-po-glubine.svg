@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" role="img" aria-label="Разрез морского дна от берега вглубь. Дно уходит вниз тремя ступенями, вода тремя полосами: чем глубже, тем темнее. На мелкой ступени у самой поверхности растут зелёные водоросли, на средней ступени — длинные ленты бурых водорослей, на самой глубокой ступени — красные водоросли, разветвлённые кустиками. Над водой солнце: света с глубиной становится меньше, и красные водоросли живут там, куда зелёным света уже не хватает.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Кто на какой глубине</text>
+  </g>
+
+  <g class="d-water"><rect x="0" y="40" width="440" height="80"/></g>
+  <g class="d-water-mid"><rect x="0" y="120" width="440" height="80"/></g>
+  <g class="d-water-deep"><rect x="0" y="200" width="440" height="90"/></g>
+
+  <g class="d-sun">
+    <circle cx="404" cy="20" r="10"/>
+    <path d="M404 4 V0 M388 20 H382 M420 20 H426 M392 8 L388 4 M416 8 L420 4" stroke-width="1.6"/>
+  </g>
+
+  <!-- Дно ступенями: мелководье слева, глубина справа. -->
+  <g class="d-soil">
+    <path d="M0 108 H120 V188 H250 V268 H440 V300 H0 Z"/>
+  </g>
+
+  <!-- Зелёные: короткие слоевища на самом мелком месте. -->
+  <g class="d-alga-green" stroke-width="6">
+    <path d="M34 108 C30 92 38 82 40 70"/>
+    <path d="M60 108 C58 94 52 84 54 72"/>
+    <path d="M86 108 C82 96 90 86 92 76"/>
+  </g>
+
+  <!-- Бурые: длинные ленты, снизу ризоиды, которыми они держатся за камень. -->
+  <g class="d-alga-brown" stroke-width="8">
+    <path d="M162 188 C154 166 166 150 160 132"/>
+    <path d="M202 188 C210 168 198 152 206 136"/>
+  </g>
+  <g class="d-alga-brown" stroke-width="2">
+    <path d="M162 188 L152 194 M162 188 L172 194 M202 188 L192 194 M202 188 L212 194"/>
+  </g>
+
+  <!-- Красные: разветвлённые кустики там, куда доходит совсем немного света. -->
+  <g class="d-alga-red" stroke-width="3">
+    <path d="M310 268 V236 M310 254 L296 240 M310 254 L324 240 M310 244 L300 230 M310 244 L320 230"/>
+    <path d="M370 268 V232 M370 252 L356 236 M370 252 L384 236 M370 240 L360 226 M370 240 L380 226"/>
+  </g>
+
+  <g class="d-alga-green-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="136" y="90">Зелёные — у самой поверхности</text>
+  </g>
+  <g class="d-alga-brown-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="262" y="170">Бурые — глубже</text>
+  </g>
+  <g class="d-alga-red-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="266" y="214">Красные — до 100–200 м</text>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="8" y="36">Поверхность воды</text>
+  </g>
+</svg>

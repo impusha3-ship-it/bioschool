@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 250" role="img" aria-label="Круг из четырёх шагов жизненного цикла высшего спорового растения. Спорофит — бесполое поколение, на нём в спорангиях созревают споры. Спора — одна клетка, она прорастает. Из споры вырастает гаметофит, половое поколение, на нём образуются яйцеклетки и сперматозоиды. Гаметы сливаются, для чего нужна вода; из зиготы развивается зародыш, а из него новый спорофит. Круг замыкается.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Два поколения по кругу</text>
+  </g>
+
+  <g class="d-stem" stroke-width="1.8" fill="none">
+    <path d="M196 56 H218"/>
+    <path d="M314 82 V152"/>
+    <path d="M224 186 H202"/>
+    <path d="M106 160 V90"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M224 56 L216 52 L216 60 Z"/>
+    <path d="M314 160 L310 152 L318 152 Z"/>
+    <path d="M196 186 L204 182 L204 190 Z"/>
+    <path d="M106 82 L102 90 L110 90 Z"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="16" y="30" width="180" height="52" rx="8"/>
+    <rect x="224" y="30" width="180" height="52" rx="8"/>
+    <rect x="224" y="160" width="180" height="52" rx="8"/>
+    <rect x="16" y="160" width="180" height="52" rx="8"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="28" y="50">Спорофит</text>
+    <text x="236" y="50">Спора</text>
+    <text x="236" y="180">Гаметофит</text>
+    <text x="28" y="180">Оплодотворение</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="28" y="64">бесполое поколение,</text>
+    <text x="28" y="76">в спорангиях зреют споры</text>
+    <text x="236" y="64">одна клетка; попала</text>
+    <text x="236" y="76">в сырое место — проросла</text>
+    <text x="236" y="194">половое поколение, на нём</text>
+    <text x="236" y="206">яйцеклетки и сперматозоиды</text>
+    <text x="28" y="194">гаметы сливаются, из зиготы</text>
+    <text x="28" y="206">зародыш — и снова спорофит</text>
+  </g>
+
+  <!-- Место, где растение до сих пор привязано к воде: без неё сперматозоид
+       не доплывёт, и круг обрывается. Ради этой подписи схема и нужна. -->
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="210" y="228">здесь нужна вода: без неё сперматозоид не доплывёт</text>
+  </g>
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M210 190 V216"/>
+  </g>
+</svg>

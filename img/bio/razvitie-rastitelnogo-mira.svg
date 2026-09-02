@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" role="img" aria-label="Схема развития растительного мира Земли. Внизу древние водоросли, от них три группы водорослей: 1 — зелёные, 2 — красные, 3 — бурые. От зелёных водорослей идут две ветви: пунктиром к группе 4 — мхи, и сплошной линией к риниофитам, первым растениям суши. От риниофитов — 5 плауны, 7 хвощи и древние папоротники. От древних папоротников — 6 папоротники и 8 голосеменные. От голосеменных — покрытосеменные, или цветковые, а от них 9 однодольные и 10 двудольные.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Развитие растительного мира Земли</text>
+  </g>
+
+  <!-- Связи рисуются первыми, чтобы рамки перекрывали их концы. -->
+  <g class="d-stem" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <path d="M92 332 V342 H428 M260 332 V342 M260 342 V352"/>
+    <path d="M92 298 V288 H344 V278"/>
+    <path d="M344 244 V234 H82 M236 234 V224 M414 234 V224 M82 234 V224"/>
+    <path d="M414 190 V180 H150 V170 M370 180 V170"/>
+    <path d="M370 136 V126 H260 V116"/>
+    <path d="M260 82 V72 H150 V62 M370 72 V62"/>
+  </g>
+
+  <!-- Мхи отходят от водорослевых предков отдельно: их родство с остальными
+       высшими растениями до сих пор спорно, и в учебнике эта связь тоже
+       нарисована пунктиром. -->
+  <g class="d-lead" stroke-width="1.6" fill="none" stroke-dasharray="5 4">
+    <path d="M82 278 V288"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="60" y="28" width="180" height="34" rx="8"/>
+    <rect x="280" y="28" width="180" height="34" rx="8"/>
+    <rect x="132" y="82" width="256" height="34" rx="8"/>
+    <rect x="60" y="136" width="180" height="34" rx="8"/>
+    <rect x="280" y="136" width="180" height="34" rx="8"/>
+    <rect x="12" y="190" width="140" height="34" rx="8"/>
+    <rect x="166" y="190" width="140" height="34" rx="8"/>
+    <rect x="12" y="244" width="140" height="34" rx="8"/>
+  </g>
+
+  <!-- Вымершие и сборные группы — второстепенной рамкой: спрашивают не их,
+       но без них ветви повисли бы в воздухе. -->
+  <g class="d-sub">
+    <rect x="320" y="190" width="188" height="34" rx="8"/>
+    <rect x="180" y="244" width="328" height="34" rx="8"/>
+    <rect x="150" y="352" width="220" height="34" rx="8"/>
+  </g>
+
+  <g class="d-alga-green"><rect x="12" y="298" width="160" height="34" rx="8"/></g>
+  <g class="d-alga-red"><rect x="180" y="298" width="160" height="34" rx="8"/></g>
+  <g class="d-alga-brown"><rect x="348" y="298" width="160" height="34" rx="8"/></g>
+
+  <g class="d-num-circle">
+    <circle cx="78" cy="45" r="9"/>
+    <circle cx="298" cy="45" r="9"/>
+    <circle cx="78" cy="153" r="9"/>
+    <circle cx="298" cy="153" r="9"/>
+    <circle cx="30" cy="207" r="9"/>
+    <circle cx="184" cy="207" r="9"/>
+    <circle cx="30" cy="261" r="9"/>
+    <circle cx="30" cy="315" r="9"/>
+    <circle cx="198" cy="315" r="9"/>
+    <circle cx="366" cy="315" r="9"/>
+  </g>
+  <g class="d-num-text" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="78" y="49">9</text>
+    <text x="298" y="49">10</text>
+    <text x="78" y="157">6</text>
+    <text x="298" y="157">8</text>
+    <text x="30" y="211">5</text>
+    <text x="184" y="211">7</text>
+    <text x="30" y="265">4</text>
+    <text x="30" y="319">1</text>
+    <text x="198" y="319">2</text>
+    <text x="366" y="319">3</text>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="94" y="49">Однодольные</text>
+    <text x="314" y="49">Двудольные</text>
+    <text x="146" y="103">Покрытосеменные, или цветковые</text>
+    <text x="94" y="157">Папоротники</text>
+    <text x="314" y="157">Голосеменные</text>
+    <text x="46" y="211">Плауны</text>
+    <text x="200" y="211">Хвощи</text>
+    <text x="46" y="265">Мхи</text>
+    <text x="46" y="319">Зелёные водоросли</text>
+    <text x="214" y="319">Красные водоросли</text>
+    <text x="382" y="319">Бурые водоросли</text>
+  </g>
+
+  <g class="d-label" font-size="12" font-family="system-ui, sans-serif">
+    <text x="334" y="211">Древние папоротники</text>
+    <text x="194" y="265">Риниофиты — первые растения суши</text>
+    <text x="164" y="373">Древние водоросли</text>
+  </g>
+</svg>

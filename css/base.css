@@ -741,6 +741,24 @@ h2 {
 */
 .figure__svg .d-pot path { fill: var(--iodine); fill-opacity: 0.35; stroke: var(--iodine); }
 .figure__svg .d-soil rect { fill: var(--ink-muted); }
+/* Дно в разрезе занимает полкартинки, и в полную силу оно забивает воду,
+   ради которой разрез и рисуют. Поэтому грунт приглушён. */
+.figure__svg .d-soil path { fill: var(--ink-muted); fill-opacity: 0.5; stroke: none; }
+
+/*
+  Три отдела водорослей на схемах различаются цветом, и цвет тут не украшение:
+  именно окраска слоевища дала группам названия. Заливкой красится рамка на
+  схеме развития растительного мира, штрихом — сами слоевища в разрезе моря.
+*/
+.figure__svg .d-alga-green rect { fill: var(--sprout); fill-opacity: 0.5; stroke: var(--moss); stroke-width: 1.5; }
+.figure__svg .d-alga-brown rect { fill: var(--iodine); fill-opacity: 0.4; stroke: var(--iodine); stroke-width: 1.5; }
+.figure__svg .d-alga-red rect { fill: var(--fuchsin); fill-opacity: 0.35; stroke: var(--fuchsin); stroke-width: 1.5; }
+.figure__svg .d-alga-green path { fill: none; stroke: var(--moss); stroke-linecap: round; }
+.figure__svg .d-alga-brown path { fill: none; stroke: var(--iodine); stroke-linecap: round; }
+.figure__svg .d-alga-red path { fill: none; stroke: var(--fuchsin); stroke-linecap: round; }
+.figure__svg .d-alga-green-t { fill: var(--moss-deep); font-weight: 650; }
+.figure__svg .d-alga-brown-t { fill: var(--iodine); font-weight: 650; }
+.figure__svg .d-alga-red-t { fill: var(--fuchsin); font-weight: 650; }
 .figure__svg .d-sun circle { fill: var(--iodine); fill-opacity: 0.4; stroke: var(--iodine); }
 .figure__svg .d-sun path { stroke: var(--iodine); }
 .figure__svg .d-dark rect { fill: var(--ink-soft); stroke: var(--ink-soft); }
