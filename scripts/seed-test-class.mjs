@@ -73,9 +73,18 @@ async function главное() {
       await dbPut(`${ROOT}/students/${у.id}`, null, { token });
       await dbPut(`${ROOT}/secrets/${у.id}`, null, { token });
       await dbPut(`${ROOT}/bindings/${у.id}`, null, { token });
+      /*
+        Проверка входа шла насквозь, до сданной работы и начисленных баллов,
+        поэтому за учеником остаются следы и вне карточки. Стереть их надо
+        здесь же: класса уже нет, показать их некому, но лежать в базе они
+        будут вечно и попадутся при следующей же выгрузке.
+      */
+      await dbPut(`${ROOT}/submissions/${у.id}`, null, { token });
+      await dbPut(`${ROOT}/progress/${у.id}`, null, { token });
     }
     await dbPut(`${ROOT}/assignments/${CLASS_ID}`, null, { token });
-    console.log('тестовый класс удалён');
+    await dbPut(`${ROOT}/leaderboard/${CLASS_ID}`, null, { token });
+    console.log('тестовый класс удалён: ученики, коды, работы, прогресс и таблица класса');
     return;
   }
 
