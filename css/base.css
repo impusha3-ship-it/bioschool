@@ -1279,12 +1279,44 @@ h2 {
 .award__name { font-weight: 600; }
 .award__hint { font-size: 13px; }
 
+/*
+  Рисунок значка берёт цвет от строки: у полученного он мшистый, у ещё не
+  взятого — блёклый, и тёмная тема подхватывается сама. Отдельного правила
+  на каждый из тринадцати рисунков не нужно.
+*/
+.award__icon {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--ink-muted);
+}
+.award--has .award__icon { color: var(--moss); }
+.me__awards-count { margin: 0 0 calc(var(--step) * 3); color: var(--ink-soft); }
+
 .me__class-count { margin: 0; font-size: 18px; font-weight: 600; }
 .me__heroes { color: var(--ink-soft); padding-left: calc(var(--step) * 5); }
 
 .lesson-lab { margin-left: calc(var(--step) * 2); color: var(--ink-faint); font-size: 13px; }
 .lesson-mark { margin-left: calc(var(--step) * 2); color: var(--moss); font-family: var(--font-ui); }
 .lesson-mark--started { color: var(--ink-muted); }
+
+/* Баллы за урок стоят рядом с галочкой и подчинены ей: главное в строке —
+   пройден урок или нет, а сколько взято — уточнение. */
+.lesson-state { white-space: nowrap; }
+.lesson-xp {
+  margin-left: var(--step);
+  color: var(--ink-faint);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.course__progress { margin: calc(var(--step) * 4) 0 calc(var(--step) * 6); }
+.course__progress-count { margin: 0 0 calc(var(--step) * 2); font-weight: 600; }
+.section__progress { margin: calc(var(--step) * -1) 0 calc(var(--step) * 3); color: var(--ink-soft); font-size: 14px; }
 
 /*
   Плашка живёт поверх содержимого и уходит сама. Снизу оставлен отступ под

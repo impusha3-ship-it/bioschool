@@ -1,6 +1,36 @@
 import { el } from '../ui/dom.js';
+import { полоса } from '../ui/bar.js';
 import { loadCourse } from '../content.js';
 import { progress } from '../progress/index.js';
+import { xpУрока } from '../progress/core.js';
+
+/**
+ * Сколько уроков раздела пройдено. Чистая функция: состояние приходит
+ * готовым, в файлы уроков никто не лезет — их тридцать четыре, и качать их
+ * ради счётчика было бы дорого.
+ */
+export function прогрессРаздела(раздел, состояние) {
+  const уроки = раздел.lessons ?? [];
+  const пройдено = уроки.filter((у) => состояние?.lessons?.[у.id]?.done).length;
+  return {
+    пройдено,
+    всего: уроки.length,
+    // Пустой раздел бывает: программа расписана вперёд, уроки ещё пишутся.
+    процент: уроки.length ? Math.round((пройдено / уроки.length) * 100) : 0,
+  };
+}
+
+/** То же по всему классу. Уроки чужих классов в счёт не идут: их тут просто нет. */
+export function прогрессКурса(курс, состояние) {
+  const итог = (курс.sections ?? []).reduce(
+    (сумма, раздел) => {
+      const п = прогрессРаздела(раздел, состояние);
+      return { пройдено: сумма.пройдено + п.пройдено, всего: сумма.всего + п.всего };
+    },
+    { пройдено: 0, всего: 0 },
+  );
+  return { ...итог, процент: итог.всего ? Math.round((итог.пройдено / итог.всего) * 100) : 0 };
+}
 
 export async function renderClassPage({ grade }) {
   let course;
@@ -14,11 +44,30 @@ export async function renderClassPage({ grade }) {
     ]);
   }
 
+  const состояние = progress.read();
+  const общий = прогрессКурса(course, состояние);
+
   return el('section', { class: 'course' }, [
     el('a', { class: 'back-link', href: '#/' }, '← Все классы'),
     el('h1', { class: 'course__title' }, course.title),
     course.subtitle ? el('p', { class: 'course__sub' }, course.subtitle) : null,
-    ...course.sections.map((section) => renderSection(section, progress.read())),
+    общий.всего ? шапкаПрогресса(общий) : null,
+    ...course.sections.map((section) => renderSection(section, состояние)),
+  ]);
+}
+
+/**
+ * Строка прогресса по всему классу. Стоит сразу под названием: открывая
+ * список из тридцати четырёх уроков, ученик первым делом хочет знать, где
+ * он в нём находится, а не искать это по галочкам вдоль всего списка.
+ */
+function шапкаПрогресса(общий) {
+  return el('div', { class: 'course__progress' }, [
+    el('p', { class: 'course__progress-count' },
+      общий.пройдено
+        ? `Пройдено ${общий.пройдено} из ${общий.всего}`
+        : `Уроков в классе: ${общий.всего}`),
+    полоса(общий.процент),
   ]);
 }
 
@@ -35,26 +84,43 @@ function renderSection(section, состояние) {
     ]),
   );
 
-  return секция(section, items);
+  return секция(section, items, прогрессРаздела(section, состояние));
 }
 
 /**
  * Отметка о состоянии урока. Нужна затем, чтобы в списке из тридцати четырёх
  * одинаковых строк было видно, куда идти дальше: до этого пройденный урок и
  * нетронутый выглядели одинаково.
+ *
+ * Рядом с галочкой стоят набранные баллы — но без «из скольких возможных»:
+ * сколько урок может дать, знает только сам файл урока, а качать все ради
+ * этой цифры дорого. Обещать точное «40 из 55» и ошибиться хуже, чем честно
+ * показать взятое.
  */
 function метка(урок) {
   if (!урок) return null;
+  const xp = xpУрока(урок);
+  const баллы = xp ? el('span', { class: 'lesson-xp' }, `${xp}`) : null;
+
   if (урок.done) {
-    return el('span', { class: 'lesson-mark lesson-mark--done', title: 'Пройден' }, '✓');
+    return el('span', { class: 'lesson-state' }, [
+      el('span', { class: 'lesson-mark lesson-mark--done', title: 'Пройден' }, '✓'),
+      баллы,
+    ]);
   }
-  return el('span', { class: 'lesson-mark lesson-mark--started', title: 'Начат' }, '·');
+  return el('span', { class: 'lesson-state' }, [
+    el('span', { class: 'lesson-mark lesson-mark--started', title: 'Начат' }, '·'),
+    баллы,
+  ]);
 }
 
-function секция(section, items) {
+function секция(section, items, прогресс) {
   return el('div', { class: 'section' }, [
     el('h2', { class: 'section__title' }, section.title),
     el('p', { class: 'section__hours' }, `${section.hours} ч`),
+    прогресс?.всего
+      ? el('p', { class: 'section__progress' }, `Пройдено ${прогресс.пройдено} из ${прогресс.всего}`)
+      : null,
     items.length
       ? el('ul', { class: 'section__lessons' }, items)
       : el('p', { class: 'empty' }, 'Уроки этого раздела ещё готовятся.'),

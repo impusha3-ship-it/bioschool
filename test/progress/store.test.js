@@ -49,7 +49,10 @@ test('испорченная запись не роняет чтение', () =>
 test('record возвращает новые значки, а не все', async () => {
   const { p } = собрать();
   const первое = await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
-  assert.deepEqual(первое.значки.map((з) => з.id).sort(), ['clean-game', 'first']);
+  // «Урок на отлично» здесь тоже выдаётся, и это верно: весь состав урока в
+  // этой проверке — одна игра, и она пройдена начисто. В настоящем уроке так
+  // не бывает, планка требует ещё и блок ВПР.
+  assert.deepEqual(первое.значки.map((з) => з.id).sort(), ['clean-game', 'first', 'lesson-perfect']);
   const второе = await p.record({ lessonId: 'у2', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
   assert.deepEqual(второе.значки, []);
 });

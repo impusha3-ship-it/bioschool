@@ -3,6 +3,7 @@ import { loadCourse } from '../content.js';
 import { итог } from '../progress/core.js';
 import { progress } from '../progress/index.js';
 import { auth } from './login.js';
+import { рисунокЗначка } from '../ui/znachki.js';
 
 /**
  * Личный прогресс: ступень, баллы, серия недель, значки и пройденное.
@@ -126,19 +127,40 @@ function урокиБлок({ уроки }) {
  * куда идти дальше.
  */
 function значкиБлок({ значки }) {
+  const взято = значки.filter((з) => з.есть).length;
+
   return el('div', { class: 'me__awards' }, [
     el('h2', {}, 'Значки'),
+    el('p', { class: 'me__awards-count' }, `Собрано ${взято} из ${значки.length}`),
     el(
       'ul',
       { class: 'me__awards-list' },
       значки.map((з) =>
         el('li', { class: з.есть ? 'award award--has' : 'award' }, [
+          рисунок(з),
           el('span', { class: 'award__name' }, з.имя),
-          el('span', { class: 'award__hint' }, з.есть ? (з.счёт ?? 'получен') : з.условие),
+          /*
+            У неполученного значка счёт показывается вместе с условием:
+            «2 из 3» говорит, что осталась одна игра, а голое условие этого
+            не говорит и выглядит одинаково что в начале, что у самой цели.
+          */
+          el('span', { class: 'award__hint' },
+            з.есть ? (з.счёт ?? 'получен') : (з.счёт ? `${з.условие} · ${з.счёт}` : з.условие)),
         ]),
       ),
     ),
   ]);
+}
+
+/** Рисунок значка. Цвет наследуется от строки, поэтому тема отдельно не нужна. */
+function рисунок(з) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'award__icon');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+  svg.innerHTML = рисунокЗначка(з.id);
+  return svg;
 }
 
 /**
