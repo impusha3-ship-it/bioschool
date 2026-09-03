@@ -108,6 +108,40 @@ export function createClassAdmin({ api = rest, getToken, hash = hashPin, salt = 
     return { id: studentId, имя: ученик.name, код };
   }
 
+  /**
+   * Стирает ученика насовсем — вместе со сданными работами и баллами.
+   *
+   * Порядок здесь не случаен. Карточка уходит последней: она единственный
+   * след, который учитель видит в панели, и если запись оборвётся посередине,
+   * ученик останется на месте — видно, что удаление не прошло, и его можно
+   * повторить. Уйди карточка первой, данные остались бы без владельца и не
+   * попались бы никому на глаза.
+   *
+   * Работы стираются по одному уроку: правила базы разрешают учителю писать
+   * в submissions только на уровне урока, и попытка снести ветку ученика
+   * целиком получила бы отказ.
+   */
+  async function удалитьУченика(studentId) {
+    const token = await токен();
+    const ученик = await api.dbGet(`${ROOT}/students/${studentId}`, { token });
+    if (!ученик) throw new Error('Такого ученика нет.');
+
+    const работы = (await api.dbGet(`${ROOT}/submissions/${studentId}`, { token })) ?? {};
+    for (const lessonId of Object.keys(работы)) {
+      await api.dbPut(`${ROOT}/submissions/${studentId}/${lessonId}`, null, { token });
+    }
+
+    await api.dbPut(`${ROOT}/progress/${studentId}`, null, { token });
+    if (ученик.classId) {
+      await api.dbPut(`${ROOT}/leaderboard/${ученик.classId}/${studentId}`, null, { token });
+    }
+    await api.dbPut(`${ROOT}/bindings/${studentId}`, null, { token });
+    await api.dbPut(`${ROOT}/secrets/${studentId}`, null, { token });
+    await api.dbPut(`${ROOT}/students/${studentId}`, null, { token });
+
+    return { id: studentId, имя: ученик.name };
+  }
+
   async function задатьУрок({ classId, lessonId, dueAt }) {
     const token = await токен();
     const запись = { isOpen: true, assignedAt: Date.now(), ...(dueAt ? { dueAt } : {}) };
@@ -121,5 +155,5 @@ export function createClassAdmin({ api = rest, getToken, hash = hashPin, salt = 
     await api.dbPatch(`${ROOT}/assignments/${classId}/${lessonId}`, { isOpen: false }, { token });
   }
 
-  return { создатьКласс, добавитьУчеников, сброситьPin, задатьУрок, закрытьУрок };
+  return { создатьКласс, добавитьУчеников, сброситьPin, удалитьУченика, задатьУрок, закрытьУрок };
 }

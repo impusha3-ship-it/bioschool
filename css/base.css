@@ -1086,6 +1086,38 @@ h2 {
 .tstudents__code--new { color: var(--fuchsin); font-weight: 700; font-size: 17px; }
 
 /*
+  Удаление — единственное необратимое действие в панели, и выглядеть как
+  соседняя «Новый код» оно не должно. Спокойная кнопка становится опасной
+  только после того, как учитель спросил подтверждение: до этого лишний
+  красный цвет в списке из тридцати фамилий только мешает.
+*/
+/* Через .tstudents, потому что `.button--quiet` объявлена в games.css —
+   она грузится позже base.css и при равном весе перебила бы цвет. */
+.tstudents .tstudents__drop { color: var(--fuchsin); border-color: color-mix(in srgb, var(--fuchsin) 40%, transparent); }
+/* `.button` задаёт display, а это перебивает браузерное `[hidden]`:
+   без этой строчки спрятанные кнопки остаются на виду. */
+.tstudents__row [hidden] { display: none; }
+.tstudents__ask {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--step) * 2);
+  flex: 1 1 100%;
+  padding: calc(var(--step) * 2) 0 0;
+}
+.tstudents__warn { flex: 1 1 16rem; color: var(--fuchsin); font-size: 14px; }
+.tstudents__error { color: var(--ink-faint); font-size: 14px; }
+.tstudents__row--gone .tstudents__name { color: var(--ink-faint); text-decoration: line-through; }
+.button--danger {
+  margin-top: 0;
+  background: var(--fuchsin);
+  border: 1px solid var(--fuchsin);
+  color: var(--paper-raised);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/*
   Коды видны один раз: в базе только хеш. Поэтому блок выдачи кричит,
   а не прячется — второй раз их не покажет никто.
 */

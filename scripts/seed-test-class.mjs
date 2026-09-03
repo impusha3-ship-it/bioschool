@@ -12,7 +12,7 @@
  * до конца работы скрипта.
  */
 import { firebaseConfig, SCHOOL_ID } from '../js/firebase-config.js';
-import { signInWithPassword, dbPut } from '../js/api/firebase-rest.js';
+import { signInWithPassword, dbGet, dbPut } from '../js/api/firebase-rest.js';
 import { hashPin, makeSalt } from '../js/auth/pin.js';
 
 const args = process.argv.slice(2);
@@ -78,12 +78,19 @@ async function главное() {
         поэтому за учеником остаются следы и вне карточки. Стереть их надо
         здесь же: класса уже нет, показать их некому, но лежать в базе они
         будут вечно и попадутся при следующей же выгрузке.
+
+        Работы удаляются по одному уроку, а строка в таблице — по одному
+        ученику: правила базы разрешают учителю писать только на этих
+        уровнях, и снос ветки целиком получил бы отказ.
       */
-      await dbPut(`${ROOT}/submissions/${у.id}`, null, { token });
+      const работы = (await dbGet(`${ROOT}/submissions/${у.id}`, { token })) ?? {};
+      for (const lessonId of Object.keys(работы)) {
+        await dbPut(`${ROOT}/submissions/${у.id}/${lessonId}`, null, { token });
+      }
       await dbPut(`${ROOT}/progress/${у.id}`, null, { token });
+      await dbPut(`${ROOT}/leaderboard/${CLASS_ID}/${у.id}`, null, { token });
     }
     await dbPut(`${ROOT}/assignments/${CLASS_ID}`, null, { token });
-    await dbPut(`${ROOT}/leaderboard/${CLASS_ID}`, null, { token });
     console.log('тестовый класс удалён: ученики, коды, работы, прогресс и таблица класса');
     return;
   }

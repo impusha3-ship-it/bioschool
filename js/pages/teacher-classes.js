@@ -29,7 +29,7 @@ export function показатьКлассы(всё, перезагрузить)
       el('div', { class: 'jclass' }, [
         el('h2', {}, класс.title),
         el('p', { class: 'jclass__sub' }, `Учеников: ${ученики.length}`),
-        списокУчеников(ученики),
+        списокУчеников(ученики, перезагрузить),
         формаДобавления(classId, всё, перезагрузить),
       ]),
     );
@@ -38,36 +38,96 @@ export function показатьКлассы(всё, перезагрузить)
   return блок;
 }
 
-function списокУчеников(ученики) {
+function списокУчеников(ученики, перезагрузить) {
   if (!ученики.length) return el('p', { class: 'empty' }, 'Пока никого.');
 
   return el(
     'ul',
     { class: 'tstudents' },
-    ученики.map((у) => {
-      const результат = el('span', { class: 'tstudents__code' });
-      const сброс = el('button', { class: 'button button--quiet', type: 'button' }, 'Новый код');
-
-      сброс.addEventListener('click', async () => {
-        сброс.setAttribute('disabled', 'true');
-        результат.textContent = 'Меняю…';
-        try {
-          const { код } = await admin.сброситьPin(у.id);
-          результат.textContent = `новый код: ${код}`;
-          результат.className = 'tstudents__code tstudents__code--new';
-        } catch (error) {
-          результат.textContent = error.message;
-          сброс.removeAttribute('disabled');
-        }
-      });
-
-      return el('li', { class: 'tstudents__row' }, [
-        el('span', { class: 'tstudents__name' }, у.name),
-        результат,
-        сброс,
-      ]);
-    }),
+    ученики.map((у) => строкаУченика(у, перезагрузить)),
   );
+}
+
+function строкаУченика(у, перезагрузить) {
+  const результат = el('span', { class: 'tstudents__code' });
+  const сброс = el('button', { class: 'button button--quiet', type: 'button' }, 'Новый код');
+  const удалить = el('button', { class: 'button button--quiet tstudents__drop', type: 'button' }, 'Удалить');
+
+  const строка = el('li', { class: 'tstudents__row' }, [
+    el('span', { class: 'tstudents__name' }, у.name),
+    результат,
+    сброс,
+    удалить,
+  ]);
+
+  сброс.addEventListener('click', async () => {
+    сброс.setAttribute('disabled', 'true');
+    результат.textContent = 'Меняю…';
+    try {
+      const { код } = await admin.сброситьPin(у.id);
+      результат.textContent = `новый код: ${код}`;
+      результат.className = 'tstudents__code tstudents__code--new';
+    } catch (error) {
+      результат.textContent = error.message;
+      сброс.removeAttribute('disabled');
+    }
+  });
+
+  /*
+    Удаление спрашивает подтверждение прямо в строке, а не окошком браузера:
+    в окошке не написать, что именно исчезнет, а исчезает вместе с учеником
+    всё сданное им и все баллы. Восстановить это неоткуда, поэтому цена
+    сказана до нажатия, а не после.
+  */
+  удалить.addEventListener('click', () => {
+    удалить.setAttribute('hidden', 'true');
+    сброс.setAttribute('hidden', 'true');
+    строка.append(подтверждение(у, строка, перезагрузить, () => {
+      удалить.removeAttribute('hidden');
+      сброс.removeAttribute('hidden');
+    }));
+  });
+
+  return строка;
+}
+
+function подтверждение(у, строка, перезагрузить, вернуть) {
+  const блок = el('span', { class: 'tstudents__ask' });
+  const да = el('button', { class: 'button button--danger', type: 'button' }, 'Да, удалить');
+  const отмена = el('button', { class: 'button button--quiet', type: 'button' }, 'Отмена');
+  const ошибка = el('span', { class: 'tstudents__error' });
+
+  отмена.addEventListener('click', () => {
+    блок.remove();
+    вернуть();
+  });
+
+  да.addEventListener('click', async () => {
+    да.setAttribute('disabled', 'true');
+    отмена.setAttribute('disabled', 'true');
+    ошибка.textContent = 'Удаляю…';
+    try {
+      await admin.удалитьУченика(у.id);
+      строка.className = 'tstudents__row tstudents__row--gone';
+      clear(строка);
+      строка.append(el('span', { class: 'tstudents__name' }, `${у.name} — удалён`));
+      перезагрузить();
+    } catch (error) {
+      ошибка.textContent = error.message;
+      да.removeAttribute('disabled');
+      отмена.removeAttribute('disabled');
+    }
+  });
+
+  блок.append(
+    // Без «с ним» и «с ней»: пол по фамилии и имени надёжно не определить,
+    // а ошибиться в обращении к ребёнку на глазах у учителя — плохо.
+    el('span', { class: 'tstudents__warn' }, `Удалить ${у.name}? Вместе с записью исчезнут все работы и баллы — восстановить их будет неоткуда.`),
+    да,
+    отмена,
+    ошибка,
+  );
+  return блок;
 }
 
 function формаНовогоКласса(перезагрузить) {

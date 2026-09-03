@@ -148,6 +148,102 @@ test('сброс кода несуществующему ученику даёт
   await assert.rejects(() => admin.сброситьPin('нет-такого'), /Такого ученика нет/);
 });
 
+// ── Удаление ученика ─────────────────────────────────────────
+
+/*
+  Удаление необратимо и уносит с собой оценки, поэтому проверяется подробно:
+  что стирается всё, что нигде не остаётся хвостов и что путь удаления
+  укладывается в правила базы. Правила разрешают учителю писать в
+  submissions только на уровне урока, а в leaderboard — на уровне ученика;
+  попытка снести ветку целиком получила бы отказ уже на живой базе.
+*/
+function собратьСледами({ работы = { 'у1': {}, 'у2': {} }, ученик = { name: 'Иванов Иван', classId: '5a', salt: 'с' } } = {}) {
+  const записи = [];
+  const api = {
+    dbPut: async (path, value) => { записи.push({ path, value }); return value; },
+    dbPatch: async (path, value) => { записи.push({ path, value, patch: true }); return value; },
+    dbGet: async (path) => {
+      if (path.includes('/students/')) return ученик;
+      if (path.includes('/submissions/')) return работы;
+      return null;
+    },
+  };
+  const admin = createClassAdmin({ api, getToken: async () => 'т' });
+  return { admin, записи };
+}
+
+test('удаление стирает карточку, код и привязку к устройству', async () => {
+  const { admin, записи } = собратьСледами();
+  await admin.удалитьУченика('ivanov-ivan');
+
+  for (const ветка of ['students', 'secrets', 'bindings']) {
+    const з = записи.find((з) => з.path.endsWith(`/${ветка}/ivanov-ivan`));
+    assert.ok(з, `не стёрта ветка ${ветка}`);
+    assert.equal(з.value, null);
+  }
+});
+
+test('работы стираются по одному уроку: ветку ученика целиком правила не дают', async () => {
+  const { admin, записи } = собратьСледами({ работы: { 'у1': {}, 'у2': {} } });
+  await admin.удалитьУченика('ivanov-ivan');
+
+  const работы = записи.filter((з) => з.path.includes('/submissions/'));
+  assert.deepEqual(работы.map((з) => з.path.split('/').pop()).sort(), ['у1', 'у2']);
+  assert.equal(работы.every((з) => з.value === null), true);
+  assert.equal(
+    записи.some((з) => з.path.endsWith('/submissions/ivanov-ivan')),
+    false,
+    'запись прямо в ветку ученика правилами запрещена',
+  );
+});
+
+test('прогресс и строка в таблице класса тоже уходят', async () => {
+  const { admin, записи } = собратьСледами();
+  await admin.удалитьУченика('ivanov-ivan');
+
+  const прогресс = записи.find((з) => з.path.endsWith('/progress/ivanov-ivan'));
+  assert.equal(прогресс?.value, null);
+  const таблица = записи.find((з) => з.path.endsWith('/leaderboard/5a/ivanov-ivan'));
+  assert.equal(таблица?.value, null, 'иначе ученик останется в соревновании класса');
+});
+
+// Карточка — единственный след, который видит учитель. Уйди она первой,
+// незамеченная ошибка в середине оставила бы данные без владельца.
+test('карточка ученика стирается последней', async () => {
+  const { admin, записи } = собратьСледами();
+  await admin.удалитьУченика('ivanov-ivan');
+  assert.match(записи[записи.length - 1].path, /\/students\/ivanov-ivan$/);
+});
+
+test('удаление возвращает имя — его показывают учителю после', async () => {
+  const { admin } = собратьСледами();
+  assert.deepEqual(await admin.удалитьУченика('ivanov-ivan'), { id: 'ivanov-ivan', имя: 'Иванов Иван' });
+});
+
+test('ученик без единой работы удаляется без лишних запросов', async () => {
+  const { admin, записи } = собратьСледами({ работы: null });
+  await admin.удалитьУченика('ivanov-ivan');
+  assert.equal(записи.some((з) => з.path.includes('/submissions/')), false);
+});
+
+test('удаление несуществующего ученика ничего не стирает', async () => {
+  const записи = [];
+  const admin = createClassAdmin({
+    api: {
+      dbGet: async () => null,
+      dbPut: async (path, value) => { записи.push({ path, value }); },
+    },
+    getToken: async () => 'т',
+  });
+  await assert.rejects(() => admin.удалитьУченика('нет-такого'), /Такого ученика нет/);
+  assert.deepEqual(записи, [], 'до записи дело доходить не должно');
+});
+
+test('без сессии ученик не удаляется', async () => {
+  const admin = createClassAdmin({ api: {}, getToken: async () => null });
+  await assert.rejects(() => admin.удалитьУченика('ivanov-ivan'), /войти заново/);
+});
+
 test('урок задаётся классу и открывается', async () => {
   const { admin, записи } = собрать();
   await admin.задатьУрок({ classId: '5a', lessonId: '5-priznaki-zhivogo', dueAt: 999 });
