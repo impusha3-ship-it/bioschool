@@ -71,12 +71,12 @@ async function наполнить(тело, view) {
   else if (view === 'classes') тело.append(показатьКлассы(всё, перезагрузить));
   else if (view === 'assign') тело.append(показатьНазначение(всё, перезагрузить));
   else if (view === 'progress') тело.append(показатьПрогресс(всё));
-  else тело.append(показатьЖурнал(всё));
+  else тело.append(показатьЖурнал(всё, перезагрузить));
 }
 
 // ── Журнал ───────────────────────────────────────────────────
 
-function показатьЖурнал(всё) {
+function показатьЖурнал(всё, перезагрузить) {
   const классы = Object.entries(всё.classes);
   if (!классы.length) {
     return el('div', { class: 'empty' }, [el('p', {}, 'Классов пока нет.')]);
@@ -94,6 +94,44 @@ function показатьЖурнал(всё) {
           el('p', { class: 'empty' }, 'Этому классу пока ничего не задано.'),
         ]);
       }
+
+      /*
+        Клетка со сданной работой нажимается: оттуда учитель разрешает
+        переписать. Подтверждение показывается не в клетке, а полосой под
+        таблицей — в клетку шириной в два символа не поместить ни имени
+        ученика, ни предупреждения о том, что работа исчезнет.
+      */
+      const полоса = el('div', { class: 'jredo' });
+
+      const спросить = (ученик, клетка, номер) => {
+        clear(полоса);
+        const да = el('button', { class: 'button button--danger', type: 'button' }, 'Дать переписать');
+        const отмена = el('button', { class: 'button button--quiet', type: 'button' }, 'Отмена');
+        const состояние = el('span', { class: 'tstudents__error' });
+
+        отмена.addEventListener('click', () => clear(полоса));
+        да.addEventListener('click', async () => {
+          да.setAttribute('disabled', 'true');
+          состояние.textContent = 'Открываю…';
+          try {
+            await data.разрешитьПереписать({ studentId: ученик.id, lessonId: клетка.lessonId });
+            перезагрузить();
+          } catch (error) {
+            состояние.textContent = error.message;
+            да.removeAttribute('disabled');
+          }
+        });
+
+        полоса.append(
+          el('p', { class: 'jredo__warn' },
+            `Дать ${ученик.name} переписать урок ${номер} (${клетка.lessonId})? ` +
+            'Прежняя работа и оценка за неё исчезнут — сохранить их негде, ' +
+            'иначе ученик не сможет сдать заново. Урок должен оставаться заданным.'),
+          да,
+          отмена,
+          состояние,
+        );
+      };
 
       return el('div', { class: 'jclass' }, [
         el('h2', {}, класс.title),
@@ -116,15 +154,28 @@ function показатьЖурнал(всё) {
               строки.map((с) =>
                 el('tr', {}, [
                   el('td', { class: 'journal__name' }, с.name),
-                  ...с.клетки.map((к) =>
-                    el('td', { class: КЛАСС_КЛЕТКИ[к.статус] ?? 'cell', title: к.статус },
-                      к.percent === null ? '' : `${к.percent}%`),
-                  ),
+                  ...с.клетки.map((к, i) => {
+                    const подпись = к.percent === null ? '' : `${к.percent}%`;
+                    const клетка = el('td', { class: КЛАСС_КЛЕТКИ[к.статус] ?? 'cell', title: к.статус });
+                    if (!к.работа) {
+                      клетка.append(подпись);
+                      return клетка;
+                    }
+                    const кнопка = el('button', {
+                      class: 'journal__redo',
+                      type: 'button',
+                      title: `${к.статус} — нажми, чтобы дать переписать`,
+                    }, подпись || '·');
+                    кнопка.addEventListener('click', () => спросить(с, к, i + 1));
+                    клетка.append(кнопка);
+                    return клетка;
+                  }),
                 ]),
               ),
             ),
           ]),
         ]),
+        полоса,
         el('ol', { class: 'jlegend' }, уроки.map((у, i) => el('li', {}, `${i + 1} — ${у.lessonId}`))),
       ]);
     }),

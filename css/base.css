@@ -1005,6 +1005,34 @@ h2 {
 .journal__lesson { min-width: 3rem; }
 
 .cell { font-variant-numeric: tabular-nums; }
+
+/*
+  Сданная работа в журнале нажимается — оттуда дают переписать. Кнопка
+  прозрачная и наследует цвет клетки: подкрашивать её значило бы спорить
+  с раскраской статусов, ради которой журнал и раскрашен.
+*/
+.journal__redo {
+  width: 100%;
+  min-height: var(--tap);
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.journal__redo:focus-visible { outline: 2px solid var(--fuchsin); outline-offset: -2px; }
+
+.jredo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--step) * 2);
+  margin: calc(var(--step) * 3) 0 0;
+}
+.jredo:empty { display: none; }
+.jredo__warn { flex: 1 1 18rem; margin: 0; color: var(--fuchsin); font-size: 14px; }
 .cell--none { color: var(--ink-muted); }
 .cell--done { background: var(--wash); color: var(--moss-deep); font-weight: 650; }
 .cell--late { background: var(--wash); color: var(--iodine); font-weight: 650; }

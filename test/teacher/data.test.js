@@ -165,6 +165,29 @@ test('пустой комментарий не записывается', async 
   assert.equal(значение.manualScore, 0, 'ноль баллов должен сохраняться');
 });
 
+/*
+  «Дать переписать» — это стирание сданной работы, и по-другому оно не
+  делается: правила пускают ученика писать только туда, где пусто. Значит,
+  проверять надо ровно одно — что стирается именно та клетка и целиком.
+*/
+test('разрешение переписать стирает сданную работу', async () => {
+  const записи = [];
+  const data = createTeacherData({
+    api: { dbPut: async (path, value) => { записи.push({ path, value }); } },
+    getToken: async () => 'т',
+  });
+  await data.разрешитьПереписать({ studentId: 's1', lessonId: 'u1' });
+
+  assert.equal(записи.length, 1);
+  assert.match(записи[0].path, /submissions\/s1\/u1$/);
+  assert.equal(записи[0].value, null, 'ученик сможет сдать заново только если там пусто');
+});
+
+test('переписать без сессии не разрешить', async () => {
+  const data = createTeacherData({ api: {}, getToken: async () => null });
+  await assert.rejects(() => data.разрешитьПереписать({ studentId: 's1', lessonId: 'u1' }), /войти заново/);
+});
+
 test('без действующей сессии загрузка говорит понятное', async () => {
   const data = createTeacherData({ api: {}, getToken: async () => null });
   await assert.rejects(() => data.загрузитьВсё(), /войти заново/);
