@@ -63,3 +63,13 @@ test('свой прогресс — отдельный маршрут', () => {
 test('у панели учителя есть вид «прогресс»', () => {
   assert.deepEqual(parseRoute('#/teacher/progress'), { name: 'teacher', params: { view: 'progress' } });
 });
+
+test('табло — свой маршрут', () => {
+  assert.deepEqual(parseRoute('#/tablo'), { name: 'tablo', params: {} });
+});
+
+// Хвост после «tablo» — не табло: пусть лучше покажется «страница не найдена»,
+// чем адрес с опечаткой молча откроет школьный рейтинг.
+test('лишний кусок в адресе табло не открывает', () => {
+  assert.equal(parseRoute('#/tablo/7').name, 'notfound');
+});

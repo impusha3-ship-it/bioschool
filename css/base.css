@@ -1339,3 +1339,58 @@ h2 {
 .toast__award { margin: var(--step) 0 0; font-size: 14px; }
 
 .row--stale { color: var(--ink-faint); }
+
+/*
+  Табло. Его смотрят с проектора из глубины класса, поэтому шрифт крупный,
+  строк мало и лишнего нет вовсе: на экране должно читаться то, ради чего
+  включили, — имена и числа.
+*/
+.tablo { max-width: 1100px; margin: 0 auto; }
+.tablo__title {
+  margin: 0 0 calc(var(--step) * 6);
+  font-size: clamp(32px, 5vw, 56px);
+}
+.tablo__school {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: calc(var(--step) * 6);
+  margin-bottom: calc(var(--step) * 8);
+}
+.tablo__head {
+  margin: 0 0 calc(var(--step) * 3);
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--moss-deep);
+}
+.tablo__list { margin: 0; padding: 0; list-style: none; }
+.tablo__row {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--step) * 3);
+  padding: calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: clamp(18px, 2.2vw, 26px);
+}
+.tablo__place {
+  min-width: 1.4em;
+  color: var(--ink-faint);
+  font-family: var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+.tablo__name { flex: 1 1 auto; font-weight: 600; }
+.tablo__class { color: var(--ink-soft); font-size: 0.7em; }
+.tablo__xp {
+  color: var(--moss);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.tablo__empty { color: var(--ink-faint); font-size: 18px; }
+.tablo__count { margin: 0 0 calc(var(--step) * 2); font-size: 20px; font-weight: 600; }
+
+.tablo__class-card {
+  margin-bottom: calc(var(--step) * 6);
+  padding: calc(var(--step) * 5);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-rest);
+}
+.tablo__list--small .tablo__row { font-size: clamp(16px, 1.8vw, 20px); }

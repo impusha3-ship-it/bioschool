@@ -41,6 +41,11 @@ export function parseRoute(hash) {
     return { name: 'me', params: {} };
   }
 
+  // Табло открывают с проектора, ссылки в меню на него нет.
+  if (parts[0] === 'tablo' && parts.length === 1) {
+    return { name: 'tablo', params: {} };
+  }
+
   if (parts[0] === 'sources' && parts.length === 1) {
     return { name: 'sources', params: {} };
   }

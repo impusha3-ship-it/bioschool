@@ -7,6 +7,7 @@ import { renderLessonPage } from './pages/lesson.js';
 import { renderLoginPage, renderTeacherLoginPage, auth } from './pages/login.js';
 import { renderTeacherPage } from './pages/teacher.js';
 import { renderMePage } from './pages/me.js';
+import { renderTabloPage } from './pages/tablo.js';
 import { progress } from './progress/index.js';
 import { итог } from './progress/core.js';
 
@@ -18,6 +19,7 @@ const PAGES = {
   teacher: renderTeacherPage,
   teacherLogin: renderTeacherLoginPage,
   me: renderMePage,
+  tablo: renderTabloPage,
   sources: renderSourcesPage,
   notfound: renderNotFoundPage,
 };
