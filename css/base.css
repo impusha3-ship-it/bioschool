@@ -1141,6 +1141,9 @@ h2 {
 .tcodes__pin { font-size: 20px; font-weight: 700; letter-spacing: 0.15em; font-variant-numeric: tabular-nums; }
 
 .tlessons { margin: 0; padding: 0; list-style: none; }
+/* Та же ловушка, что и в строке ученика: `.button` задаёт display и
+   перебивает браузерное `[hidden]`. */
+.tlessons__row [hidden] { display: none; }
 .tlessons__row {
   display: flex;
   flex-wrap: wrap;

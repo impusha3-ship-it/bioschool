@@ -321,14 +321,42 @@ async function собратьБиблиотеку(блок, всё, переза
 function строкаУрока(урок, выборКласса, срок, всё, перезагрузить) {
   const состояние = el('span', { class: 'tlessons__state' });
   const кнопка = el('button', { class: 'button button--quiet', type: 'button' }, 'Задать');
+  const убрать = el('button', { class: 'button button--quiet', type: 'button' }, 'Убрать');
 
   function обновитьСостояние() {
     const назначено = всё.assignments?.[выборКласса.value]?.[урок.id];
     состояние.textContent = назначено?.isOpen ? 'задан' : '';
     состояние.className = назначено?.isOpen ? 'tlessons__state tlessons__state--on' : 'tlessons__state';
+    // «Убрать» показывается только у заданного урока: у остальных она
+    // означала бы действие без последствий и только путала бы.
+    if (назначено?.isOpen) убрать.removeAttribute('hidden');
+    else убрать.setAttribute('hidden', 'true');
   }
   выборКласса.addEventListener('change', обновитьСостояние);
   обновитьСостояние();
+
+  /*
+    Убрать — не значит стереть. Задание закрывается, урок пропадает из
+    списка заданного, но всё, что дети успели сдать, остаётся в журнале:
+    оценка выставлена, и терять её из-за того, что учитель передумал
+    задавать, нельзя.
+  */
+  убрать.addEventListener('click', async () => {
+    убрать.setAttribute('disabled', 'true');
+    состояние.textContent = 'Убираю…';
+    try {
+      await admin.закрытьУрок({ classId: выборКласса.value, lessonId: урок.id });
+      if (всё.assignments?.[выборКласса.value]?.[урок.id]) {
+        всё.assignments[выборКласса.value][урок.id].isOpen = false;
+      }
+      обновитьСостояние();
+      перезагрузить({ тихо: true });
+    } catch (error) {
+      состояние.textContent = error.message;
+    } finally {
+      убрать.removeAttribute('disabled');
+    }
+  });
 
   кнопка.addEventListener('click', async () => {
     кнопка.setAttribute('disabled', 'true');
@@ -351,5 +379,6 @@ function строкаУрока(урок, выборКласса, срок, вс
     el('span', { class: 'tlessons__title' }, урок.title),
     состояние,
     кнопка,
+    убрать,
   ]);
 }
