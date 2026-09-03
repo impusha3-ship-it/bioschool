@@ -109,6 +109,21 @@ export function createClassAdmin({ api = rest, getToken, hash = hashPin, salt = 
   }
 
   /**
+   * Меняет название и параллель класса.
+   *
+   * Идентификатор остаётся прежним, и это не небрежность: он записан в
+   * карточке каждого ученика, и смена оторвала бы от класса весь список
+   * разом. Идентификатор нигде не показывается — ученик видит название.
+   */
+  async function переименоватьКласс({ classId, title, grade }) {
+    const название = String(title ?? '').trim();
+    if (!название) throw new Error('Нужно название класса.');
+    const token = await токен();
+    await api.dbPut(`${ROOT}/classes/${classId}`, { title: название, grade: Number(grade) }, { token });
+    return { id: classId, title: название, grade: Number(grade) };
+  }
+
+  /**
    * Стирает ученика насовсем — вместе со сданными работами и баллами.
    *
    * Порядок здесь не случаен. Карточка уходит последней: она единственный
@@ -155,5 +170,8 @@ export function createClassAdmin({ api = rest, getToken, hash = hashPin, salt = 
     await api.dbPatch(`${ROOT}/assignments/${classId}/${lessonId}`, { isOpen: false }, { token });
   }
 
-  return { создатьКласс, добавитьУчеников, сброситьPin, удалитьУченика, задатьУрок, закрытьУрок };
+  return {
+    создатьКласс, переименоватьКласс, добавитьУчеников,
+    сброситьPin, удалитьУченика, задатьУрок, закрытьУрок,
+  };
 }

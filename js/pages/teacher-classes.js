@@ -29,8 +29,9 @@ export function показатьКлассы(всё, перезагрузить)
       el('div', { class: 'jclass' }, [
         el('h2', {}, класс.title),
         el('p', { class: 'jclass__sub' }, `Учеников: ${ученики.length}`),
+        формаПереименования(classId, класс, перезагрузить),
         списокУчеников(ученики, перезагрузить),
-        формаДобавления(classId, всё, перезагрузить),
+        формаДобавления(classId, класс, всё, перезагрузить),
       ]),
     );
   }
@@ -89,6 +90,42 @@ function строкаУченика(у, перезагрузить) {
   });
 
   return строка;
+}
+
+/*
+  Название класса меняют не от скуки: «5А» через год становится «6А», а
+  класс, заведённый наспех, — настоящим. Форма стоит рядом со списком
+  учеников, потому что чинить название приходится ровно тогда, когда
+  видишь, кто в классе оказался.
+*/
+function формаПереименования(classId, класс, перезагрузить) {
+  const название = el('input', { class: 'login__field', type: 'text', value: класс.title ?? '', 'aria-label': 'Название класса' });
+  const параллель = el('select', { class: 'login__field', 'aria-label': 'Параллель' });
+  for (const г of КЛАССЫ) {
+    const о = el('option', { value: г }, `${г} класс`);
+    if (Number(г) === Number(класс.grade)) о.setAttribute('selected', 'true');
+    параллель.append(о);
+  }
+  параллель.value = String(класс.grade ?? КЛАССЫ[0]);
+
+  const кнопка = el('button', { class: 'button button--quiet', type: 'button' }, 'Переименовать');
+  const состояние = el('span', { class: 'tstudents__error' });
+
+  кнопка.addEventListener('click', async () => {
+    кнопка.setAttribute('disabled', 'true');
+    состояние.textContent = 'Сохраняю…';
+    try {
+      await admin.переименоватьКласс({ classId, title: название.value, grade: параллель.value });
+      состояние.textContent = 'сохранено';
+      перезагрузить();
+    } catch (error) {
+      состояние.textContent = error.message;
+    } finally {
+      кнопка.removeAttribute('disabled');
+    }
+  });
+
+  return el('div', { class: 'tform tform--rename' }, [название, параллель, кнопка, состояние]);
 }
 
 function подтверждение(у, строка, перезагрузить, вернуть) {
@@ -158,7 +195,7 @@ function формаНовогоКласса(перезагрузить) {
   return el('div', { class: 'tblock' }, [el('h2', {}, 'Новый класс'), форма, ошибка]);
 }
 
-function формаДобавления(classId, всё, перезагрузить) {
+function формаДобавления(classId, класс, всё, перезагрузить) {
   const поле = el('textarea', {
     class: 'q__open',
     rows: '5',
@@ -193,7 +230,10 @@ function формаДобавления(classId, всё, перезагрузи�
   });
 
   return el('div', { class: 'tblock' }, [
-    el('h3', {}, 'Добавить учеников'),
+    // Класс назван прямо в заголовке: форма стоит внутри блока класса,
+    // но когда классов несколько или он всего один и не тот, промахнуться
+    // проще простого — и список уедет к чужим детям.
+    el('h3', {}, `Добавить учеников в ${класс.title}`),
     поле,
     кнопка,
     ошибка,
