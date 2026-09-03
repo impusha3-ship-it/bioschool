@@ -118,7 +118,9 @@ function секция(section, items, прогресс) {
   return el('div', { class: 'section' }, [
     el('h2', { class: 'section__title' }, section.title),
     el('p', { class: 'section__hours' }, `${section.hours} ч`),
-    прогресс?.всего
+    // Пока не пройдено ничего, счёт молчит — как и шапка класса. Встречать
+    // новичка нулём незачем: он и так знает, что ещё ничего не сделал.
+    прогресс?.пройдено
       ? el('p', { class: 'section__progress' }, `Пройдено ${прогресс.пройдено} из ${прогресс.всего}`)
       : null,
     items.length
