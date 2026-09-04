@@ -4,6 +4,7 @@ import { итог } from '../progress/core.js';
 import { progress } from '../progress/index.js';
 import { auth } from './login.js';
 import { рисунокЗначка } from '../ui/znachki.js';
+import { баллов, недель } from '../ui/sklonenie.js';
 
 /**
  * Личный прогресс: ступень, баллы, серия недель, значки и пройденное.
@@ -216,21 +217,4 @@ function полоса(процент) {
     },
     [заполнение],
   );
-}
-
-/** Склонения: «1 неделю подряд» читается, «1 недель подряд» — нет. */
-function недель(n) {
-  const остаток = n % 10;
-  if (n % 100 >= 11 && n % 100 <= 14) return 'недель';
-  if (остаток === 1) return 'неделю';
-  if (остаток >= 2 && остаток <= 4) return 'недели';
-  return 'недель';
-}
-
-function баллов(n) {
-  const остаток = n % 10;
-  if (n % 100 >= 11 && n % 100 <= 14) return 'баллов';
-  if (остаток === 1) return 'балл';
-  if (остаток >= 2 && остаток <= 4) return 'балла';
-  return 'баллов';
 }

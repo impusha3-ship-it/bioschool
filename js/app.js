@@ -39,6 +39,11 @@ function updateWho() {
   if (!s) who.textContent = 'Войти';
   else who.textContent = s.kind === 'teacher' ? 'Учитель' : s.name.split(' ')[0];
 
+  // Учителю метка в шапке ведёт в панель, а не обратно на страницу входа:
+  // журнал — то, ради чего он вообще заходит, и искать его по адресу
+  // не должно быть нужно.
+  who.setAttribute('href', s?.kind === 'teacher' ? '#/teacher' : '#/login');
+
   const свод = итог(progress.read());
   уровень.textContent = свод.xp ? `${свод.ступень.имя} · ${свод.xp}` : 'Прогресс';
 }

@@ -140,5 +140,18 @@ export function createTeacherData({ api = rest, getToken } = {}) {
     await api.dbPut(`${ROOT}/submissions/${studentId}/${lessonId}`, null, { token });
   }
 
-  return { загрузитьВсё, поставитьБалл, разрешитьПереписать };
+  /**
+   * Прогресс одного ученика — то, из чего сложились его баллы.
+   *
+   * Берётся по одному ученику, а не всей веткой: она читается учителем
+   * целиком, но тащить прогресс всего класса ради одной раскрытой фамилии
+   * незачем, а на телефоне и подавно.
+   */
+  async function прогрессУченика(studentId) {
+    const token = await getToken();
+    if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
+    return (await api.dbGet(`${ROOT}/progress/${studentId}`, { token })) ?? {};
+  }
+
+  return { загрузитьВсё, поставитьБалл, разрешитьПереписать, прогрессУченика };
 }

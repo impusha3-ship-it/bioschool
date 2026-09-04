@@ -1394,3 +1394,48 @@ h2 {
   box-shadow: var(--shadow-rest);
 }
 .tablo__list--small .tablo__row { font-size: clamp(16px, 1.8vw, 20px); }
+
+/*
+  Разбор баллов ученика. Раскрывается под таблицей прогресса и отвечает на
+  один вопрос: откуда взялись баллы. Уроки чужих классов идут отдельной
+  группой — ради этого экран и заведён.
+*/
+.razbor__open {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--moss);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.razbor { margin-top: calc(var(--step) * 4); }
+.razbor:empty { display: none; }
+.razbor__head { margin: 0 0 calc(var(--step) * 3); font-size: 19px; }
+.razbor__group { margin-bottom: calc(var(--step) * 5); }
+.razbor__sub {
+  margin: 0 0 calc(var(--step) * 2);
+  color: var(--ink-soft);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.razbor__list { margin: 0; padding: 0; list-style: none; }
+.razbor__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: calc(var(--step) * 2);
+  padding: calc(var(--step) * 2) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.razbor__lesson { flex: 1 1 14rem; font-weight: 600; }
+.razbor__kinds { flex: 2 1 18rem; color: var(--ink-faint); font-size: 13px; }
+.razbor__xp {
+  color: var(--moss);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

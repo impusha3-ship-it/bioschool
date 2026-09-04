@@ -70,7 +70,7 @@ async function наполнить(тело, view) {
   if (view === 'check') тело.append(показатьПроверку(всё, тело, view));
   else if (view === 'classes') тело.append(показатьКлассы(всё, перезагрузить));
   else if (view === 'assign') тело.append(показатьНазначение(всё, перезагрузить));
-  else if (view === 'progress') тело.append(показатьПрогресс(всё));
+  else if (view === 'progress') тело.append(показатьПрогресс(всё, { загрузитьПрогресс: data.прогрессУченика }));
   else тело.append(показатьЖурнал(всё, перезагрузить));
 }
 

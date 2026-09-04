@@ -30,11 +30,19 @@ function renderWhoAmI(session) {
     location.reload();
   });
 
+  const учитель = session.kind === 'teacher';
+
   return el('section', {}, [
-    el('h1', {}, 'Ты уже вошёл'),
-    el('p', { class: 'login__who' }, session.kind === 'teacher' ? `Учитель: ${session.email}` : session.name),
+    el('h1', {}, учитель ? 'Вы вошли' : 'Ты уже вошёл'),
+    el('p', { class: 'login__who' }, учитель ? `Учитель: ${session.email}` : session.name),
     el('div', { class: 'login__actions' }, [
-      el('a', { class: 'button', href: '#/' }, 'К урокам'),
+      /*
+        Учителю панель нужна первой, а до этой правки её тут не было вовсе:
+        со страницы входа вела одна кнопка — к урокам, — и попасть в журнал
+        можно было, только набрав адрес руками.
+      */
+      учитель ? el('a', { class: 'button', href: '#/teacher' }, 'Журнал и панель') : null,
+      el('a', { class: учитель ? 'button button--quiet' : 'button', href: '#/' }, 'К урокам'),
       выйти,
     ]),
   ]);
