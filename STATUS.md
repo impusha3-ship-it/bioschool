@@ -1,6 +1,6 @@
 # Где мы остановились
 
-**Обновлено:** 3 сентября 2026
+**Обновлено:** 5 сентября 2026
 
 **Сайт:** https://impusha3-ship-it.github.io/bioschool/
 **Репозиторий:** https://github.com/impusha3-ship-it/bioschool
