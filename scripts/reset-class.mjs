@@ -19,6 +19,7 @@
  */
 import { firebaseConfig, SCHOOL_ID } from '../js/firebase-config.js';
 import { signInWithPassword, dbGet, dbPut } from '../js/api/firebase-rest.js';
+import { планСброса } from '../js/teacher/sbros.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
 const [email, password, подтверждение] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
@@ -76,19 +77,25 @@ async function главное() {
   }
 
   /*
-    Пометка времени, а не просто пустая запись: у каждого ребёнка в браузере
-    лежит своя копия, и без пометки перенос залил бы её обратно при первом же
-    заходе. По этому времени клиент понимает, что его копия устарела.
+    Что именно писать, решает `планСброса` — там же и тест, который следит,
+    чтобы обнуление не залезло в коды входа, карточки и сданные работы.
+    Пометка времени в записи нужна затем, что у каждого ребёнка в браузере
+    лежит своя копия: без пометки перенос залил бы её обратно при первом же
+    заходе, и обнуление не продержалось бы и дня.
   */
-  const сброс = Date.now();
-  const чистое = { v: 1, lessons: {}, weeks: {}, lastSeen: 0, resetAt: сброс };
+  const записи = планСброса({
+    root: ROOT,
+    classId,
+    studentIds: свои.map(([id]) => id),
+    сброс: Date.now(),
+  });
 
-  for (const [id] of свои) {
-    await dbPut(`${ROOT}/progress/${id}/game`, чистое, { token });
-    await dbPut(`${ROOT}/leaderboard/${classId}/${id}`, null, { token });
+  for (const { path, value } of записи) {
+    await dbPut(path, value, { token });
   }
 
   console.log('');
   console.log(`Готово: обнулено учеников — ${свои.length}.`);
-  console.log('Сданные домашние работы и оценки за них не тронуты.');
+  console.log('Коды входа не тронуты — дети заходят по тем же четырём цифрам.');
+  console.log('Сданные домашние работы и оценки за них тоже на месте.');
 }
