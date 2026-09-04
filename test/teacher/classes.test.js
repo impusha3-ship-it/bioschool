@@ -298,3 +298,35 @@ test('без сессии ничего не пишется', async () => {
   const admin = createClassAdmin({ api: {}, getToken: async () => null });
   await assert.rejects(() => admin.создатьКласс({ title: '5А', grade: 5 }), /войти заново/);
 });
+
+// ── Обнуление баллов класса ──────────────────────────────────
+
+/*
+  То же, что делает скрипт, но из панели: учитель уже вошёл, и второй раз
+  пароль спрашивать не за что. Что именно пишется, решает общий с скриптом
+  `планСброса` — там же тест, стерегущий коды входа и сданные работы.
+*/
+test('обнуление пишет по две записи на ученика и метит время', async () => {
+  const { admin, записи } = собрать();
+  const итог = await admin.обнулитьБаллы('7a', ['с1', 'с2']);
+
+  assert.equal(итог.учеников, 2);
+  assert.deepEqual(записи.map((з) => з.path.replace(/^.*apts\//, '')), [
+    'progress/с1/game', 'leaderboard/7a/с1',
+    'progress/с2/game', 'leaderboard/7a/с2',
+  ]);
+  assert.equal(записи.find((з) => з.path.includes('leaderboard')).value, null);
+  assert.ok(записи[0].value.resetAt > 0, 'без пометки времени браузер вернёт старое');
+});
+
+test('обнуление без учеников ничего не пишет', async () => {
+  const { admin, записи } = собрать();
+  const итог = await admin.обнулитьБаллы('7a', []);
+  assert.equal(итог.учеников, 0);
+  assert.deepEqual(записи, []);
+});
+
+test('без сессии баллы не обнулить', async () => {
+  const admin = createClassAdmin({ api: {}, getToken: async () => null });
+  await assert.rejects(() => admin.обнулитьБаллы('7a', ['с1']), /войти заново/);
+});

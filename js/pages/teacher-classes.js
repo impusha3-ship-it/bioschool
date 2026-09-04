@@ -30,6 +30,7 @@ export function показатьКлассы(всё, перезагрузить)
         el('h2', {}, класс.title),
         el('p', { class: 'jclass__sub' }, `Учеников: ${ученики.length}`),
         формаПереименования(classId, класс, перезагрузить),
+        обнулениеБаллов(classId, класс, ученики, перезагрузить),
         списокУчеников(ученики, перезагрузить),
         формаДобавления(classId, класс, всё, перезагрузить),
       ]),
@@ -126,6 +127,76 @@ function формаПереименования(classId, класс, перез�
   });
 
   return el('div', { class: 'tform tform--rename' }, [название, параллель, кнопка, состояние]);
+}
+
+/*
+  Обнуление баллов класса. То же самое делает скрипт из папки проекта, но
+  тому нужен пароль учителя, а в панели учитель уже вошёл — второй раз
+  спрашивать не за что.
+
+  Название класса набирается руками, как и в скрипте: под кнопкой два
+  десятка детей, и одного случайного нажатия для этого мало. Кнопка
+  оживает, только когда набранное совпало.
+*/
+function обнулениеБаллов(classId, класс, ученики, перезагрузить) {
+  const открыть = el('button', { class: 'button button--quiet tstudents__drop', type: 'button' }, 'Обнулить баллы класса');
+  const блок = el('div', { class: 'tzero' });
+
+  открыть.addEventListener('click', () => {
+    открыть.setAttribute('hidden', 'true');
+    блок.append(...спросить());
+  });
+
+  function спросить() {
+    const поле = el('input', {
+      class: 'login__field',
+      type: 'text',
+      placeholder: `Наберите «${класс.title}»`,
+      'aria-label': 'Название класса для подтверждения',
+    });
+    const да = el('button', { class: 'button button--danger', type: 'button', disabled: 'true' }, 'Обнулить');
+    const отмена = el('button', { class: 'button button--quiet', type: 'button' }, 'Отмена');
+    const состояние = el('span', { class: 'tstudents__error' });
+
+    const совпало = () => поле.value.trim().toLowerCase() === (класс.title ?? '').trim().toLowerCase();
+    поле.addEventListener('input', () => {
+      if (совпало()) да.removeAttribute('disabled');
+      else да.setAttribute('disabled', 'true');
+    });
+
+    отмена.addEventListener('click', () => {
+      clear(блок);
+      открыть.removeAttribute('hidden');
+    });
+
+    да.addEventListener('click', async () => {
+      if (!совпало()) return;
+      да.setAttribute('disabled', 'true');
+      состояние.textContent = 'Обнуляю…';
+      try {
+        const { учеников } = await admin.обнулитьБаллы(classId, ученики.map((у) => у.id));
+        clear(блок);
+        блок.append(el('p', { class: 'tzero__done' }, `Баллы обнулены, учеников: ${учеников}. Коды входа и сданные работы не тронуты.`));
+        перезагрузить();
+      } catch (error) {
+        состояние.textContent = error.message;
+        да.removeAttribute('disabled');
+      }
+    });
+
+    return [
+      el('p', { class: 'tstudents__warn' },
+        `Обнулить баллы у всех (${ученики.length}) в классе «${класс.title}»? ` +
+        'Уйдут баллы, ступени и пройденные уроки — восстановить их будет неоткуда. ' +
+        'Коды входа, сданные домашние работы и оценки за них останутся на месте.'),
+      поле,
+      да,
+      отмена,
+      состояние,
+    ];
+  }
+
+  return el('div', { class: 'tzero-holder' }, [открыть, блок]);
 }
 
 function подтверждение(у, строка, перезагрузить, вернуть) {

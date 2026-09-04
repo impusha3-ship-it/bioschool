@@ -1,6 +1,7 @@
 import * as rest from '../api/firebase-rest.js';
 import { SCHOOL_ID } from '../firebase-config.js';
 import { hashPin, makeSalt, PIN_LENGTH } from '../auth/pin.js';
+import { планСброса } from './sbros.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
 
@@ -157,6 +158,25 @@ export function createClassAdmin({ api = rest, getToken, hash = hashPin, salt = 
     return { id: studentId, имя: ученик.name };
   }
 
+  /**
+   * Обнуляет баллы класса: прогресс каждого ученика и его строку в таблице.
+   *
+   * То же самое умеет скрипт `scripts/reset-class.mjs`, но тому нужен пароль,
+   * а учитель в панели уже вошёл — спрашивать второй раз не за что.
+   *
+   * Что именно пишется, решает общий с скриптом `планСброса`: там же лежит
+   * тест, перечисляющий неприкосновенные ветки — коды входа, карточки,
+   * привязки и сданные работы. Коды восстановить нельзя, в базе только хеши.
+   */
+  async function обнулитьБаллы(classId, studentIds = []) {
+    const token = await токен();
+    const записи = планСброса({ root: ROOT, classId, studentIds, сброс: Date.now() });
+    for (const { path, value } of записи) {
+      await api.dbPut(path, value, { token });
+    }
+    return { учеников: studentIds.length };
+  }
+
   async function задатьУрок({ classId, lessonId, dueAt }) {
     const token = await токен();
     const запись = { isOpen: true, assignedAt: Date.now(), ...(dueAt ? { dueAt } : {}) };
@@ -172,6 +192,6 @@ export function createClassAdmin({ api = rest, getToken, hash = hashPin, salt = 
 
   return {
     создатьКласс, переименоватьКласс, добавитьУчеников,
-    сброситьPin, удалитьУченика, задатьУрок, закрытьУрок,
+    сброситьPin, удалитьУченика, обнулитьБаллы, задатьУрок, закрытьУрок,
   };
 }

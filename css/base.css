@@ -1439,3 +1439,17 @@ h2 {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+/* Обнуление баллов класса: спрятано под кнопкой и раскрывается вниз. */
+.tzero-holder { margin: calc(var(--step) * 3) 0 calc(var(--step) * 5); }
+.tzero-holder [hidden] { display: none; }
+.tzero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--step) * 2);
+}
+.tzero:empty { display: none; }
+.tzero .login__field { flex: 1 1 12rem; }
+.tzero .tstudents__warn { flex: 1 1 100%; }
+.tzero__done { flex: 1 1 100%; margin: 0; color: var(--moss); font-weight: 600; }
