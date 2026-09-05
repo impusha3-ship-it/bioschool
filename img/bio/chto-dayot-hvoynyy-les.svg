@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 322" role="img" aria-label="Таблица из пяти строк: что человек берёт у хвойного дерева. Из древесины делают дома, мебель и шпалы, а после переработки бумагу, спирт, пластмассу и искусственное волокно. Из смолы получают канифоль и скипидар, а смола из коры пихты идёт в медицину и технику. Из хвои получают пихтовое масло для камфоры, витамин C и каротин. Из семян сосны сибирской получают кедровые орехи и кедровое масло. Дерево целиком даёт кислород, образует тайгу и идёт на озеленение городов. Внизу сказано, что хвойные леса России занимают больше пятисот миллионов гектаров, запас древесины в них 5,8 миллиарда кубометров, а расчётная лесосека — около одного миллиарда кубометров в год.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Что человек берёт у хвойного дерева</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="12" y="26" width="150" height="42" rx="8"/>
+    <rect x="12" y="76" width="150" height="42" rx="8"/>
+    <rect x="12" y="126" width="150" height="42" rx="8"/>
+    <rect x="12" y="176" width="150" height="42" rx="8"/>
+    <rect x="12" y="226" width="150" height="42" rx="8"/>
+  </g>
+  <g class="d-sub">
+    <rect x="200" y="26" width="268" height="42" rx="8"/>
+    <rect x="200" y="76" width="268" height="42" rx="8"/>
+    <rect x="200" y="126" width="268" height="42" rx="8"/>
+    <rect x="200" y="176" width="268" height="42" rx="8"/>
+    <rect x="200" y="226" width="268" height="42" rx="8"/>
+  </g>
+
+  <g class="d-stem" stroke-width="1.8" fill="none">
+    <path d="M164 47 H188"/>
+    <path d="M164 97 H188"/>
+    <path d="M164 147 H188"/>
+    <path d="M164 197 H188"/>
+    <path d="M164 247 H188"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M194 47 L186 43 L186 51 Z"/>
+    <path d="M194 97 L186 93 L186 101 Z"/>
+    <path d="M194 147 L186 143 L186 151 Z"/>
+    <path d="M194 197 L186 193 L186 201 Z"/>
+    <path d="M194 247 L186 243 L186 251 Z"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="24" y="52">Древесина</text>
+    <text x="24" y="102">Смола</text>
+    <text x="24" y="152">Хвоя</text>
+    <text x="24" y="196">Семена сосны</text>
+    <text x="24" y="252">Дерево целиком</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="24" y="210">сибирской</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-family="system-ui, sans-serif">
+    <text x="212" y="45">дома, мебель, шпалы; после переработки —</text>
+    <text x="212" y="60">бумага, спирт, пластмасса, волокно</text>
+    <text x="212" y="95">канифоль и скипидар; смола из коры пихты</text>
+    <text x="212" y="110">идёт в медицину и технику</text>
+    <text x="212" y="145">пихтовое масло для камфоры,</text>
+    <text x="212" y="160">витамин C и каротин</text>
+    <text x="212" y="195">кедровые орехи</text>
+    <text x="212" y="210">и кедровое масло</text>
+    <text x="212" y="245">кислород, тайга,</text>
+    <text x="212" y="260">озеленение городов</text>
+  </g>
+
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="292">Хвойные леса России занимают больше 500 млн га, запас древесины в них 5,8 млрд м³.</text>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="310">Расчётная лесосека — около 1 млрд м³ в год: столько можно срубить без ущерба лесу.</text>
+  </g>
+</svg>
