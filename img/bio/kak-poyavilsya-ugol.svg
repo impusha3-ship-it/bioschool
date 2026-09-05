@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 278" role="img" aria-label="Четыре шага образования каменного угля. Первый: каменноугольный период около трёхсот миллионов лет назад, влажно и тепло, папоротники, хвощи и плауны растут деревьями до тридцати метров. Второй: отмершие стволы падали в воду болота, где без кислорода древесина не гниёт, и копились слоями. Третий: сверху ложились песок и глина, слои давили и грели остатки леса. Четвёртый: из них получился каменный уголь, топливо и химическое сырьё. Внизу предупреждение: торф дают мхи, а каменный уголь — древовидные папоротникообразные.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Откуда взялся каменный уголь</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="10" y="26" width="460" height="46" rx="8"/>
+    <rect x="10" y="84" width="460" height="46" rx="8"/>
+    <rect x="10" y="142" width="460" height="46" rx="8"/>
+    <rect x="10" y="200" width="460" height="46" rx="8"/>
+  </g>
+
+  <g class="d-num-circle">
+    <circle cx="34" cy="49" r="11"/>
+    <circle cx="34" cy="107" r="11"/>
+    <circle cx="34" cy="165" r="11"/>
+    <circle cx="34" cy="223" r="11"/>
+  </g>
+  <g class="d-num-text" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="34" y="53">1</text>
+    <text x="34" y="111">2</text>
+    <text x="34" y="169">3</text>
+    <text x="34" y="227">4</text>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="56" y="46">Каменноугольный период, около 300 миллионов лет назад</text>
+    <text x="56" y="104">Отмершие стволы падали в воду болота</text>
+    <text x="56" y="162">Сверху ложились песок и глина</text>
+    <text x="56" y="220">Получился каменный уголь</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="56" y="62">тепло и сыро; папоротники, хвощи и плауны росли деревьями до 30 метров</text>
+    <text x="56" y="120">без кислорода древесина почти не гниёт — стволы копились слоями</text>
+    <text x="56" y="178">слои давили и грели то, что осталось от леса, миллионы лет подряд</text>
+    <text x="56" y="236">топливо и химическое сырьё: смолы, пластмассы, лаки, лекарства</text>
+  </g>
+
+  <g class="d-stem" stroke-width="1.8" fill="none">
+    <path d="M240 72 V78"/>
+    <path d="M240 130 V136"/>
+    <path d="M240 188 V194"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M240 84 L235 76 L245 76 Z"/>
+    <path d="M240 142 L235 134 L245 134 Z"/>
+    <path d="M240 200 L235 192 L245 192 Z"/>
+  </g>
+
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="266">Торф дают мхи, каменный уголь — древовидные папоротникообразные. Не путать.</text>
+  </g>
+</svg>
