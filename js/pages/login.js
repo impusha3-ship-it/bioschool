@@ -196,7 +196,9 @@ export async function renderTeacherLoginPage() {
 
     try {
       await login.loginTeacher(почта.value.trim(), пароль.value);
-      location.hash = '#/';
+      // Учитель входит ради панели, а не ради списка классов: высаживать его
+      // на главную значило заставлять искать журнал заново каждый раз.
+      location.hash = '#/teacher';
       location.reload();
     } catch (error) {
       ошибка.textContent = error.message;
