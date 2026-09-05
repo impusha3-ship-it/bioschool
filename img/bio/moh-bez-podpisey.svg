@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 340" role="img" aria-label="Два листостебельных мха рядом без подписей. Слева кукушкин лён: прямой неветвящийся стебель, густо покрытый узкими листьями, внизу тонкие ризоиды, сверху длинная ножка с коробочкой под волосистым колпачком. Справа сфагнум: стебель с пучками отходящих в стороны веточек, ризоидов нет вовсе, маленькая коробочка сидит на верхушке.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Подпиши части мха</text>
+  </g>
+
+  <!-- Кукушкин лён: стебель прямой, листья густо и вверх -->
+  <g class="d-stem" stroke-width="3.4" fill="none" stroke-linecap="round">
+    <path d="M150 282 V152"/>
+  </g>
+  <g class="d-stem" stroke-width="1.8" fill="none" stroke-linecap="round">
+    <path d="M150 276 L137 267 M150 276 L163 267 M150 266 L137 257 M150 266 L163 257
+             M150 256 L138 247 M150 256 L162 247 M150 246 L138 237 M150 246 L162 237
+             M150 236 L139 227 M150 236 L161 227 M150 226 L139 217 M150 226 L161 217
+             M150 216 L140 207 M150 216 L160 207 M150 206 L140 197 M150 206 L160 197
+             M150 196 L141 188 M150 196 L159 188 M150 186 L141 178 M150 186 L159 178
+             M150 176 L142 169 M150 176 L158 169 M150 166 L143 160 M150 166 L157 160"/>
+  </g>
+  <!-- Ножка тоньше стебля: это уже спорофит, он живёт на растении. -->
+  <g class="d-stem" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <path d="M150 152 V100"/>
+  </g>
+  <g class="d-capsule">
+    <ellipse cx="150" cy="88" rx="9" ry="13"/>
+  </g>
+  <!-- Волосистый колпачок: по нему мох и назван — похоже на сидящую кукушку. -->
+  <g class="d-root" stroke-width="1.2" fill="none" stroke-linecap="round">
+    <path d="M150 75 L143 62 M150 75 L150 60 M150 75 L157 62 M150 75 L139 67 M150 75 L161 67"/>
+  </g>
+  <!-- Ризоиды: тонкие, буроватые — ими мох держится и всасывает воду. -->
+  <g class="d-root" stroke-width="1.3" fill="none" stroke-linecap="round">
+    <path d="M150 282 C142 292 138 298 132 305 M150 282 C152 294 152 300 150 308 M150 282 C158 292 164 298 168 305"/>
+  </g>
+  <g class="d-capsule-t" font-size="13" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="150" y="332">Кукушкин лён</text>
+  </g>
+
+  <!-- Сфагнум: пучки веточек в стороны, книзу голый -->
+  <g class="d-stem" stroke-width="3.4" fill="none" stroke-linecap="round">
+    <path d="M310 296 V140"/>
+  </g>
+  <g class="d-stem" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M310 268 C294 268 284 274 276 282 M310 268 C326 268 336 274 344 282"/>
+    <path d="M310 240 C294 240 284 246 276 254 M310 240 C326 240 336 246 344 254"/>
+    <path d="M310 212 C295 212 286 218 279 226 M310 212 C325 212 334 218 341 226"/>
+    <path d="M310 184 C296 184 288 190 282 198 M310 184 C324 184 332 190 338 198"/>
+    <path d="M310 160 C298 160 292 164 287 171 M310 160 C322 160 328 164 333 171"/>
+  </g>
+  <!-- Верхушка — плотная головка из коротких веточек, она у сфагнума заметна. -->
+  <g class="d-stem" stroke-width="1.8" fill="none" stroke-linecap="round">
+    <path d="M310 140 L300 132 M310 140 L320 132 M310 140 L305 129 M310 140 L315 129 M310 140 L310 127"/>
+  </g>
+  <g class="d-capsule">
+    <ellipse cx="310" cy="116" rx="6.5" ry="7.5"/>
+  </g>
+  <g class="d-capsule-t" font-size="13" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="310" y="332">Сфагнум</text>
+  </g>
+
+</svg>

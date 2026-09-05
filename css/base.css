@@ -678,6 +678,14 @@ h2 {
 .figure__svg .d-cell-nucleus circle { fill: var(--moss); fill-opacity: 0.3; stroke: var(--moss-deep); stroke-width: 2; }
 .figure__svg .d-cell-nucleolus circle { fill: var(--moss-deep); }
 .figure__svg .d-cell-chloroplast ellipse { fill: var(--sprout); fill-opacity: 0.55; stroke: var(--moss); }
+
+/*
+  Лист сфагнума: живые клетки образуют сплошную зелёную сеть, а мёртвые
+  водоносные — дыры в ней. Поэтому сеть рисуется прямоугольником-подложкой,
+  а водоносные клетки поверх неё; отверстие в клетке — кружок цвета бумаги.
+*/
+.figure__svg .d-cell-chloroplast rect { fill: var(--sprout); fill-opacity: 0.6; stroke: var(--moss); stroke-width: 1.5; }
+.figure__svg .d-cell-vacuole circle { fill: var(--paper); stroke: var(--methylene); stroke-width: 1.6; }
 .figure__svg .d-lead { stroke: var(--ink-muted); }
 
 /*

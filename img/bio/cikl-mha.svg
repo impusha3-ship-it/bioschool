@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 290" role="img" aria-label="Круг из шести шагов развития мха кукушкин лён. В коробочке на ножке созревают споры. Спора высыпается и прорастает. Из неё вырастает протонема — тонкая зелёная нить с почками. Из почек поднимаются мужские и женские растения, это половое поколение. В капле воды сперматозоид доплывает до яйцеклетки, без воды оплодотворения не будет. Из зиготы на женском растении вырастает новая коробочка на ножке, и круг замыкается.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Как размножается кукушкин лён</text>
+  </g>
+
+  <g class="d-stem" stroke-width="1.8" fill="none">
+    <path d="M154 58 H176"/>
+    <path d="M310 58 H332"/>
+    <path d="M396 96 V162"/>
+    <path d="M326 196 H304"/>
+    <path d="M170 196 H148"/>
+    <path d="M84 162 V102"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M182 58 L174 54 L174 62 Z"/>
+    <path d="M338 58 L330 54 L330 62 Z"/>
+    <path d="M396 170 L392 162 L400 162 Z"/>
+    <path d="M298 196 L306 192 L306 200 Z"/>
+    <path d="M142 196 L150 192 L150 200 Z"/>
+    <path d="M84 94 L80 102 L88 102 Z"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="14" y="30" width="140" height="58" rx="8"/>
+    <rect x="182" y="30" width="128" height="58" rx="8"/>
+    <rect x="338" y="30" width="128" height="58" rx="8"/>
+    <rect x="338" y="170" width="128" height="58" rx="8"/>
+    <rect x="176" y="170" width="128" height="58" rx="8"/>
+    <rect x="14" y="170" width="128" height="58" rx="8"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="26" y="50">Коробочка на ножке</text>
+    <text x="194" y="50">Спора</text>
+    <text x="350" y="50">Протонема</text>
+    <text x="350" y="190">Гаметофиты</text>
+    <text x="188" y="190">Оплодотворение</text>
+    <text x="26" y="190">Зигота</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="26" y="66">бесполое поколение,</text>
+    <text x="26" y="78">в ней зреют споры</text>
+    <text x="194" y="66">высыпалась</text>
+    <text x="194" y="78">и проросла</text>
+    <text x="350" y="66">зелёная нить,</text>
+    <text x="350" y="78">на ней почки</text>
+    <text x="350" y="204">мужское и женское,</text>
+    <text x="350" y="216">половое поколение</text>
+    <text x="188" y="204">сперматозоид плывёт</text>
+    <text x="188" y="216">к яйцеклетке</text>
+    <text x="26" y="204">из неё и вырастает</text>
+    <text x="26" y="216">новая коробочка</text>
+  </g>
+
+  <!-- Единственное место, где мох привязан к воде. Без этой подписи круг
+       выглядит самодостаточным, а он не такой. -->
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M240 232 V248"/>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="262">без капли воды сперматозоид не доплывёт — оплодотворения не будет</text>
+  </g>
+
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="282">Главное растение у мха — зелёное, половое. Коробочка на нём — лишь бесполое поколение.</text>
+  </g>
+</svg>
