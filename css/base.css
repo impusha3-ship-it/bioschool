@@ -1,46 +1,156 @@
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
-
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-ui);
-  font-size: 17px;
-  line-height: 1.6;
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
-/* Шапка: тот же фон, что и полотно. Другой цвет разрезал бы страницу
-   на «мир шапки» и «мир содержимого» — хватает тонкой границы. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/*
+  Полотно — бумага, а не залитый цвет. Точечная подложка в 2,8% даёт зерно
+  гербарного листа: по отдельности точку не видно, вместе они убирают
+  ощущение пластика. Фон закреплён, поэтому при прокрутке зерно стоит на
+  месте, как у настоящего листа под стеклом.
+*/
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--paper);
+  background-image: var(--tooth);
+  background-size: var(--tooth-size);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Метка, по которой шапка узнаёт, что страница уехала вниз. */
+.scroll-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* Содержимое получает фокус с кнопки обхода, но обводить его не за что:
+   это не орган управления, а место, куда приехали. */
+.app:focus { outline: none; }
+.app:focus-visible { outline: none; }
+
+/* Ссылка для тех, кто ходит с клавиатуры: первым же Tab уводит в содержимое,
+   мимо шапки. Видна только когда в фокусе. */
+.skip-link {
+  position: fixed;
+  top: calc(var(--step) * 2);
+  left: 50%;
+  z-index: calc(var(--z-toast) + 1);
+  padding: calc(var(--step) * 2) calc(var(--step) * 4);
+  border-radius: 999px;
+  background: var(--moss);
+  color: #fffdf7;
+  font-size: var(--t-small);
+  font-weight: 650;
+  text-decoration: none;
+  transform: translate(-50%, -200%);
+  transition: transform 160ms var(--ease-out);
+}
+
+.skip-link:focus-visible { transform: translate(-50%, 0); }
+
+/*
+  Шапка: тот же фон, что и полотно. Другой цвет разрезал бы страницу
+  на «мир шапки» и «мир содержимого». Пока страница не прокручена, границы
+  нет вовсе — шапка просто верх листа; стоит уехать вниз, под ней появляется
+  линия и размытие, и видно, что содержимое ушло под неё.
+*/
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  padding: calc(var(--step) * 3.5) calc(var(--step) * 4.5);
-  background: var(--paper);
-  border-bottom: 1px solid var(--line);
+  z-index: var(--z-sticky);
+  padding: calc(var(--step) * 3) calc(var(--step) * 4.5);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+
+.site-header--scrolled {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  border-bottom-color: var(--line);
+}
+
+/* Браузеру без размытия достаётся честный плотный фон. */
+@supports not (backdrop-filter: blur(1px)) {
+  .site-header,
+  .site-header--scrolled { background: var(--paper); }
 }
 
 .site-header__home {
-  color: var(--moss);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--step) * 2);
+  color: var(--ink);
   font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: -0.01em;
   text-decoration: none;
 }
 
+/*
+  Знак — росток из точки: та же подпись, что и у движения интерфейса.
+  Рисуется контуром, поэтому тема подхватывается сама.
+*/
+.site-header__mark {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 160ms var(--ease-out);
+}
+
+/* flex: 1 — чтобы подвал стоял у нижнего края даже на коротких страницах:
+   до этого он висел посреди пустого поля и страница выглядела оборванной. */
 .app {
-  max-width: 44rem;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--measure-prose);
   margin: 0 auto;
   padding: calc(var(--step) * 5) calc(var(--step) * 4.5) calc(var(--step) * 14);
 }
 
+/*
+  Страницы-сетки живут шире полосы чтения: список классов, журнал и табло
+  в сорока ремах выглядят колонкой в углу большого экрана.
+
+  Признак ставит маршрутизатор до отрисовки, а не выводится из содержимого
+  (`:has(.home)` и прочее): иначе на время загрузки полотно узкое, а с
+  приходом содержимого прыгает вширь — и прыгает на каждом переходе.
+*/
+.app[data-page='home'],
+.app[data-page='class'],
+.app[data-page='teacher'],
+.app[data-page='me'],
+.app[data-page='tablo'] { max-width: var(--measure-wide); }
+
 .site-footer {
-  padding: 0 calc(var(--step) * 4.5) calc(var(--step) * 8);
+  margin-top: calc(var(--step) * 6);
+  padding: calc(var(--step) * 6) calc(var(--step) * 4.5) calc(var(--step) * 10);
+  border-top: 1px solid var(--line-soft);
   text-align: center;
-  font-size: 13px;
+  font-size: var(--t-small);
 }
 
 .site-footer a {
@@ -48,100 +158,254 @@ body {
   text-decoration: none;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .site-footer a:hover { color: var(--ink); }
+}
+
 a { color: var(--moss); }
+
+/*
+  Один общий след фокуса на всё, что нажимается. До этого он стоял только
+  у полей ввода: с клавиатуры по сайту нельзя было понять, где ты.
+*/
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 2px;
+}
 
 h1 {
   margin: 0 0 calc(var(--step) * 3);
-  font-size: 27px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: var(--t-h1);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   font-weight: 700;
+  text-wrap: balance;
 }
 
+/*
+  Подзаголовок конспекта. Раньше он был мельче основного текста и держался
+  капсом — от этого весь сайт выглядел набранным из служебных ярлыков.
+  Теперь иерархию держат размер и вес, а капс остался только там, где он правда
+  ярлык в две-три буквы.
+*/
 h2 {
-  margin: calc(var(--step) * 7) 0 calc(var(--step) * 2.5);
-  font-size: 15px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
+  margin: calc(var(--step) * 8) 0 calc(var(--step) * 2.5);
+  font-size: var(--t-h2);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+h3 {
+  margin: calc(var(--step) * 5) 0 calc(var(--step) * 2);
+  font-size: var(--t-h3);
+  line-height: 1.35;
   font-weight: 650;
 }
 
-.loading,
 .empty {
   color: var(--ink-faint);
   padding: calc(var(--step) * 3) 0;
+}
+
+/*
+  Загрузка — не слово в углу, а место, куда встанет содержимое. Полоски
+  дышат: страница выглядит занятой делом, а не забытой.
+*/
+.loading {
+  display: grid;
+  gap: calc(var(--step) * 3);
+  padding: calc(var(--step) * 3) 0;
+  color: transparent;
+  user-select: none;
+}
+
+.loading::before,
+.loading::after {
+  content: '';
+  height: 1em;
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunk);
+  animation: skeleton-breathe 1.4s var(--ease-in-out) infinite;
+}
+
+.loading::before { width: min(60%, 18rem); height: 1.6em; }
+.loading::after { width: min(90%, 34rem); }
+
+@keyframes skeleton-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading::before,
+  .loading::after { animation: none; }
 }
 
 /* Кнопка */
 .button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: calc(var(--step) * 2);
   min-height: var(--tap);
   margin-top: calc(var(--step) * 3);
-  padding: 0 calc(var(--step) * 5);
+  padding: 0 calc(var(--step) * 5.5);
+  border: 0;
   border-radius: 999px;
   background: var(--moss);
-  color: var(--paper-raised);
-  font-weight: 600;
+  color: #fffdf7;
+  font-family: inherit;
+  font-size: var(--t-body);
+  font-weight: 650;
   text-decoration: none;
+  box-shadow: var(--shadow-rest);
+}
+
+/* Тёмная тема: мшистый там светлый, и белые буквы на нём не читаются. */
+:root[data-theme="dark"] .button { color: #10190f; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .button { color: #10190f; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    background: var(--moss-deep);
+    box-shadow: var(--shadow-lift);
+  }
+  .site-header__home:hover .site-header__mark { stroke: var(--moss-deep); }
 }
 
 /* ── Главная ─────────────────────────────────────────────── */
 
-.home__lead {
-  margin: 0 0 calc(var(--step) * 6);
-  color: var(--ink-soft);
+/*
+  Заглавие страницы стоит на приподнятой подложке с мягким зелёным светом
+  из угла. Свет не украшение: это единственное место, где видно, что весь
+  сайт про хлорофилл, — дальше зелёный уходит в служебные роли.
+*/
+.home__hero {
+  position: relative;
+  margin: 0 0 calc(var(--step) * 9);
+  padding: calc(var(--step) * 9) calc(var(--step) * 7) calc(var(--step) * 8);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(85% 130% at 100% -20%, color-mix(in srgb, var(--sprout) var(--hero-light), transparent), transparent 78%),
+    radial-gradient(70% 110% at 88% 115%, color-mix(in srgb, var(--moss) var(--hero-glow), transparent), transparent 76%),
+    var(--paper-raised);
+  box-shadow: var(--shadow-rest), var(--edge-top);
+  overflow: hidden;
 }
 
+.home__title {
+  margin: 0;
+  font-size: var(--t-display);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.home__lead {
+  max-width: 40ch;
+  margin: calc(var(--step) * 3) 0 0;
+  color: var(--ink-soft);
+  font-size: var(--t-lead);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/*
+  Годы идут сеткой, которая сама решает, сколько колонок влезло. Полки на
+  260 пикселей: ниже этого подзаголовок вроде «Систематика растений, грибы,
+  бактерии» ломается на четыре строки.
+*/
 .grades {
   display: grid;
-  gap: calc(var(--step) * 3);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: calc(var(--step) * 4);
 }
 
+/*
+  Карточка года читается как страница оглавления: слева название и о чём год,
+  справа сам год — крупной цифрой. Цифра стоит в потоке, а не подложкой:
+  номер класса — главное, что ищут на этой странице, и прятать его в водяной
+  знак значило бы делать вид, что важнее подзаголовок.
+*/
 .grade-card {
+  position: relative;
   display: grid;
-  grid-template-columns: 54px 1fr;
-  grid-template-rows: auto auto;
-  gap: 2px calc(var(--step) * 3.5);
-  align-items: center;
-  min-height: 78px;
-  padding: calc(var(--step) * 3.5) calc(var(--step) * 4);
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  column-gap: calc(var(--step) * 4);
+  padding: calc(var(--step) * 5) calc(var(--step) * 5) calc(var(--step) * 4.5);
   background: var(--paper-raised);
-  border: 1px solid var(--line);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-rest);
+  box-shadow: var(--shadow-rest), var(--edge-top);
   color: inherit;
   text-decoration: none;
+  overflow: hidden;
 }
 
-/* Цвет метки растёт от росткового к мшистому: он означает взросление
-   ученика через годы, а не украшает карточку. */
-.grade-card__num {
-  grid-row: 1 / 3;
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: var(--wash);
-  color: var(--grade);
-  font-size: 23px;
-  font-weight: 700;
-}
-
+/* Цвет года растёт от росткового к мшистому: он означает взросление ученика
+   через годы, а не украшает карточку. */
 .grade-card[data-grade="5"] { --grade: var(--grade-5); }
 .grade-card[data-grade="6"] { --grade: var(--grade-6); }
 .grade-card[data-grade="7"] { --grade: var(--grade-7); }
 .grade-card[data-grade="8"] { --grade: var(--grade-8); }
 .grade-card[data-grade="9"] { --grade: var(--grade-9); }
 
-.grade-card__title { font-weight: 650; }
+.grade-card__num {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  color: var(--grade);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  transition: transform 260ms var(--ease-out);
+}
+
+.grade-card__title {
+  grid-column: 1;
+  font-size: var(--t-h2);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
 
 .grade-card__sub {
-  color: var(--ink-faint);
-  font-size: 14px;
-  line-height: 1.35;
+  grid-column: 1;
+  max-width: 24ch;
+  margin-top: calc(var(--step) * 1);
+  color: var(--ink-soft);
+  font-size: var(--t-small);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Сколько уроков этого года уже пройдено. Появляется только когда есть что
+   показать: встречать новичка нулём незачем. */
+.grade-card__done {
+  grid-column: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--step) * 1.5);
+  margin-top: calc(var(--step) * 3);
+  color: var(--grade);
+  font-size: var(--t-small);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.grade-card__done::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 /* ── Класс ───────────────────────────────────────────────── */
@@ -157,39 +421,115 @@ h2 {
 }
 
 .course__sub {
-  margin: calc(var(--step) * -1) 0 calc(var(--step) * 6);
+  max-width: 44ch;
+  margin: calc(var(--step) * 2) 0 calc(var(--step) * 6);
   color: var(--ink-soft);
+  font-size: var(--t-lead);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/*
+  Разделы стоят сеткой: на телефоне колонка, на широком экране два столбца.
+  До этого они шли одной лентой в узкой полосе, и класс из тридцати четырёх
+  уроков был экраном прокрутки в углу большого монитора.
+*/
+.course__sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
+  gap: calc(var(--step) * 5);
 }
 
 .section {
-  margin: calc(var(--step) * 5) 0;
-  padding: calc(var(--step) * 4);
+  margin: 0;
+  padding: calc(var(--step) * 5) calc(var(--step) * 4);
   background: var(--paper-raised);
-  border: 1px solid var(--line);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-rest);
+  box-shadow: var(--shadow-rest), var(--edge-top);
 }
 
-.section__title { margin: 0; }
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--step) * 3);
+  margin-bottom: calc(var(--step) * 3);
+}
+
+.section__title {
+  margin: 0;
+  font-size: var(--t-h3);
+  line-height: 1.3;
+  text-wrap: pretty;
+}
 
 .section__hours {
-  margin: calc(var(--step) * 1) 0 calc(var(--step) * 2);
-  color: var(--ink-muted);
-  font-size: 13px;
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.section__lessons { margin: 0; padding: 0; list-style: none; }
+.section__lessons {
+  margin: 0 calc(var(--step) * -2);
+  padding: 0;
+  list-style: none;
+}
 
-.lesson-link {
+.section__lessons li {
+  border-top: 1px solid var(--line-soft);
+}
+
+.section__lessons li:first-child { border-top: 0; }
+
+/*
+  Строка урока. Нажимается вся строка, а не одно название: на телефоне
+  попасть пальцем в слово посреди строки труднее, чем в саму строку.
+*/
+.lesson-row {
   display: flex;
   align-items: center;
+  gap: calc(var(--step) * 3);
   min-height: var(--tap);
-  padding: calc(var(--step) * 2.5) 0;
-  border-top: 1px solid var(--line-soft);
+  padding: calc(var(--step) * 2.5) calc(var(--step) * 2);
+  border-radius: var(--radius-sm);
   color: var(--ink);
+  font-size: 15px;
+  line-height: 1.4;
   text-decoration: none;
+  transition: background-color 140ms var(--ease-out);
 }
+
+.lesson-row__title { flex: 1 1 auto; }
+
+/*
+  Номер урока внутри раздела. Нужен затем, зачем нумерация нужна в оглавлении:
+  чтобы можно было сказать «третий в разделе» и договориться с учителем,
+  не пересказывая название.
+*/
+.lesson-row__num {
+  flex: 0 0 auto;
+  min-width: 1.4em;
+  color: var(--ink-faint);
+  font-size: var(--t-micro);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.lesson-row--done .lesson-row__num { color: var(--moss); }
+
+.lesson-row__title { text-wrap: pretty; }
+
+/* Пройденный урок не бледнеет: его перечитывают перед проверочной. Меняется
+   только галочка и номер, а название остаётся в полную силу. */
+.lesson-row--done .lesson-row__title { color: var(--ink); }
 
 /* ── Урок ────────────────────────────────────────────────── */
 
@@ -197,11 +537,12 @@ h2 {
 
 .tabs {
   display: flex;
-  gap: calc(var(--step) * 5);
-  margin: calc(var(--step) * 4) calc(var(--step) * -4.5) calc(var(--step) * 6);
+  gap: calc(var(--step) * 6);
+  margin: calc(var(--step) * 5) calc(var(--step) * -4.5) calc(var(--step) * 7);
   padding: 0 calc(var(--step) * 4.5);
   border-bottom: 1px solid var(--line);
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
 }
 
@@ -236,12 +577,21 @@ h2 {
   background: var(--moss);
 }
 
+/* Заголовок урока подчинён вкладкам: под ним читают, а название нужно
+   один раз. Поэтому оно чуть меньше заглавия главной и не переносится
+   по одному слову. */
+.lesson__title {
+  max-width: 32ch;
+  text-wrap: balance;
+}
+
 /* Проза урока — засечки. Это единственное место, где они появляются. */
 .block p,
 .block__list {
   font-family: var(--font-prose);
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: var(--t-lead);
+  line-height: 1.72;
+  text-wrap: pretty;
 }
 
 .block p { margin: 0 0 calc(var(--step) * 4); }
@@ -310,9 +660,9 @@ h2 {
   margin: 0;
   color: var(--methylene);
   font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
@@ -378,8 +728,8 @@ h2 {
 
 .lab-run__step-title {
   margin: 0 0 calc(var(--step) * 3);
-  color: var(--ink-muted);
-  font-size: 12px;
+  color: var(--ink-faint);
+  font-size: var(--t-micro);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 650;
@@ -404,7 +754,7 @@ h2 {
 .lab-run__table-title {
   margin: 0 0 calc(var(--step) * 2);
   color: var(--ink-faint);
-  font-size: 12px;
+  font-size: var(--t-micro);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 650;
@@ -492,8 +842,15 @@ h2 {
 .game__chip--miss { border-style: dashed; color: var(--ink-faint); }
 
 @media (hover: hover) and (pointer: fine) {
-  .lab-run__option:hover { border-color: var(--moss); }
-  .lab-run__option--out:hover { border-color: var(--line-strong); }
+  .lab-run__option:hover { border-color: var(--moss); background: var(--wash); }
+  .lab-run__option--out:hover { border-color: var(--line-strong); background: var(--paper); }
+}
+
+.lab-run__option:active { transform: scale(0.99); }
+.lab-run__option--out:active { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-run__option:active { transform: none; }
 }
 
 .materials { margin: 0; padding: 0; list-style: none; }
@@ -507,25 +864,55 @@ h2 {
 
 .error h1 { color: var(--fuchsin); }
 
+/*
+  Отклик на палец и на курсор. Нажатие — единственное, что должно случаться
+  мгновенно: по нему ученик понимает, что интерфейс услышал.
+*/
+@media (hover: hover) and (pointer: fine) {
+  .grade-card:hover {
+    box-shadow: var(--shadow-lift), var(--edge-top);
+    transform: translateY(-2px);
+  }
+
+  .grade-card:hover .grade-card__num { transform: translateY(-3px); }
+
+  .lesson-row:hover { background: var(--wash); }
+  .award--has:hover { transform: translateY(-2px); }
+}
+
+.lesson-row:active { background: var(--wash); }
+
+@media (prefers-reduced-motion: reduce) {
+  .grade-card:hover,
+  .grade-card:hover .grade-card__num,
+  .award--has:hover { transform: none; }
+  .grade-card__num { transition: none; }
+}
+
 /* ── Широкий экран ───────────────────────────────────────── */
 
 @media (min-width: 700px) {
-  body { font-size: 18px; }
-  h1 { font-size: 34px; }
-  .app { padding: calc(var(--step) * 8) calc(var(--step) * 6) calc(var(--step) * 18); }
-  .grades { grid-template-columns: 1fr 1fr; }
-  .block p, .block__list { font-size: 19px; }
+  .app { padding: calc(var(--step) * 9) calc(var(--step) * 6) calc(var(--step) * 18); }
+  .site-header { padding: calc(var(--step) * 3.5) calc(var(--step) * 6); }
+  .home__hero { padding: calc(var(--step) * 10) calc(var(--step) * 10) calc(var(--step) * 9); }
+  /* Вылет вкладок за полотно повторяет его отступ: иначе линия под вкладками
+     не доходит до краёв содержимого и висит короче него на шесть пикселей. */
+  .tabs {
+    margin-inline: calc(var(--step) * -6);
+    padding-inline: calc(var(--step) * 6);
+  }
+  .section { padding: calc(var(--step) * 6) calc(var(--step) * 5); }
 }
 
 /* ── Схемы ───────────────────────────────────────────────── */
 
 .figure {
-  margin: calc(var(--step) * 7) 0;
+  margin: calc(var(--step) * 8) 0;
   padding: calc(var(--step) * 4) calc(var(--step) * 3) calc(var(--step) * 3);
   background: var(--paper-raised);
-  border: 1px solid var(--line);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-rest);
+  box-shadow: var(--shadow-rest), var(--edge-top);
 }
 
 .figure__holder {
@@ -903,11 +1290,11 @@ h2 {
 .login__grid { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--step) * 3); }
 
 .login__tile {
-  min-height: 72px;
+  min-height: 84px;
   background: var(--paper-raised);
-  border: 1px solid var(--line);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-rest);
+  box-shadow: var(--shadow-rest), var(--edge-top);
   color: var(--ink);
   font: inherit;
   font-size: 20px;
@@ -985,8 +1372,38 @@ h2 {
   .login__tile:active, .login__name:active { transform: none; }
 }
 
-/* Шапка: слева название, справа кто вошёл. */
-.site-header { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--step) * 3); }
+/* Шапка: слева название, справа ступень, тема и кто вошёл. */
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--step) * 2.5); }
+
+/*
+  Тема названа словом, а не значком солнца с луной: у переключателя три
+  положения, и «Авто» никаким солнцем не нарисовать. Кнопка тихая — это
+  настройка, а не то, ради чего сюда заходят.
+*/
+.site-header__theme {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 calc(var(--step) * 2.5);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--ink-faint);
+  font: inherit;
+  font-size: var(--t-micro);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-header__theme:hover {
+    color: var(--ink);
+    border-color: var(--line);
+  }
+  .site-header__who:hover { border-color: var(--moss); color: var(--ink); }
+}
 
 .site-header__who {
   display: inline-flex;
@@ -1053,7 +1470,7 @@ h2 {
 }
 .jredo:empty { display: none; }
 .jredo__warn { flex: 1 1 18rem; margin: 0; color: var(--fuchsin); font-size: 14px; }
-.cell--none { color: var(--ink-muted); }
+.cell--none { color: var(--ink-faint); }
 .cell--done { background: var(--wash); color: var(--moss-deep); font-weight: 650; }
 .cell--late { background: var(--wash); color: var(--iodine); font-weight: 650; }
 /* Ждёт действия учителя — единственный статус, который должен бросаться в глаза. */
@@ -1233,35 +1650,83 @@ h2 {
   margin-left: auto;
   color: var(--ink-soft);
   font-family: var(--font-ui);
-  font-size: 13px;
+  font-size: var(--t-small);
+  font-weight: 550;
   text-decoration: none;
   white-space: nowrap;
 }
 
+/* На узком экране в шапку не влезают все четыре: слово «Прогресс» уходит,
+   а ступень остаётся видна на странице прогресса. */
+@media (max-width: 400px) {
+  .site-header__level { display: none; }
+}
+
+/*
+  Дорожка заметно темнее подложки. Пока это был просто `--paper-sunk`, пустая
+  дорожка на карточке читалась как полоса, заполненная целиком, и «0 баллов»
+  выглядели как «всё пройдено».
+*/
 .bar {
-  background: var(--paper-sunk);
-  border-radius: var(--radius-sm);
-  height: calc(var(--step) * 2);
+  position: relative;
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
+  border-radius: 999px;
+  height: calc(var(--step) * 2.5);
   margin: calc(var(--step) * 2) 0;
   overflow: hidden;
 }
 
+/*
+  Заполнение идёт от мшистого к ростковому: полоса растёт как побег, светлея
+  к кончику. Больше двух остановок здесь не нужно — полоса тонкая.
+*/
 .bar__fill {
-  background: var(--moss);
+  background: linear-gradient(90deg, var(--moss-deep), var(--moss) 62%, var(--sprout));
   height: 100%;
-  transition: width 0.6s var(--ease-out);
+  border-radius: 999px;
+  transition: width 0.7s var(--ease-soft);
 }
 
-.me__level { margin: calc(var(--step) * 6) 0; }
-.me__level-name { margin: 0; font-size: 26px; font-weight: 600; }
-.me__xp { margin: var(--step) 0 0; color: var(--ink-soft); }
-.me__next, .me__streak { color: var(--ink-soft); font-size: 14px; }
+@media (prefers-reduced-motion: reduce) {
+  .bar__fill { transition: none; }
+}
+
+/*
+  Ступень — единственное место сайта, где счёт баллов главный герой, поэтому
+  он стоит на своей подложке и набран крупно. Свет тот же, что на главной:
+  страница прогресса и страница выбора класса — одна пара.
+*/
+.me__level {
+  margin: calc(var(--step) * 2) 0 calc(var(--step) * 8);
+  padding: calc(var(--step) * 6) calc(var(--step) * 6) calc(var(--step) * 5);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(110% 150% at 95% 0%, color-mix(in srgb, var(--sprout) var(--hero-glow), transparent), transparent 62%),
+    var(--paper-raised);
+  box-shadow: var(--shadow-rest), var(--edge-top);
+}
+.me__level-name {
+  margin: 0;
+  font-size: var(--t-h1);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+.me__xp {
+  margin: calc(var(--step) * 2) 0 0;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.me__next, .me__streak { color: var(--ink-soft); font-size: var(--t-small); }
+.me__streak { font-weight: 650; }
 
 .me__guest {
   background: var(--wash);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
-  padding: calc(var(--step) * 4);
-  margin-bottom: calc(var(--step) * 5);
+  padding: calc(var(--step) * 5);
+  margin-bottom: calc(var(--step) * 6);
 }
 .me__guest p { margin: 0 0 calc(var(--step) * 3); }
 
@@ -1279,10 +1744,11 @@ h2 {
 
 .me__awards-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: calc(var(--step) * 3);
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 /* Неполученный значок приглушён, но читаем: он показывает, куда идти. */
@@ -1290,14 +1756,19 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: var(--step);
-  padding: calc(var(--step) * 3);
+  padding: calc(var(--step) * 4);
   border-radius: var(--radius);
   background: var(--paper-sunk);
   color: var(--ink-faint);
+  transition: transform 200ms var(--ease-out);
 }
-.award--has { background: var(--paper-raised); box-shadow: var(--shadow-rest); color: var(--ink); }
-.award__name { font-weight: 600; }
-.award__hint { font-size: 13px; }
+.award--has {
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-rest), var(--edge-top);
+  color: var(--ink);
+}
+.award__name { font-weight: 650; }
+.award__hint { font-size: var(--t-small); line-height: 1.4; }
 
 /*
   Рисунок значка берёт цвет от строки: у полученного он мшистый, у ещё не
@@ -1322,7 +1793,7 @@ h2 {
 
 .lesson-lab { margin-left: calc(var(--step) * 2); color: var(--ink-faint); font-size: 13px; }
 .lesson-mark { margin-left: calc(var(--step) * 2); color: var(--moss); font-family: var(--font-ui); }
-.lesson-mark--started { color: var(--ink-muted); }
+.lesson-mark--started { color: var(--ink-faint); }
 
 /* Баллы за урок стоят рядом с галочкой и подчинены ей: главное в строке —
    пройден урок или нет, а сколько взято — уточнение. */
@@ -1334,9 +1805,22 @@ h2 {
   font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
-.course__progress { margin: calc(var(--step) * 4) 0 calc(var(--step) * 6); }
-.course__progress-count { margin: 0 0 calc(var(--step) * 2); font-weight: 600; }
-.section__progress { margin: calc(var(--step) * -1) 0 calc(var(--step) * 3); color: var(--ink-soft); font-size: 14px; }
+.course__progress {
+  max-width: 32rem;
+  margin: calc(var(--step) * 2) 0 calc(var(--step) * 8);
+}
+.course__progress-count {
+  margin: 0 0 calc(var(--step) * 2);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.section__progress {
+  margin: calc(var(--step) * -1) 0 calc(var(--step) * 3);
+  color: var(--moss);
+  font-size: var(--t-small);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
 
 /*
   Плашка живёт поверх содержимого и уходит сама. Снизу оставлен отступ под
@@ -1347,12 +1831,12 @@ h2 {
   left: 50%;
   bottom: calc(env(safe-area-inset-bottom, 0px) + var(--step) * 5);
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: var(--z-toast);
   padding: calc(var(--step) * 3) calc(var(--step) * 5);
-  border: 1px solid var(--line);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
   background: var(--paper-raised);
-  box-shadow: var(--shadow-lift);
+  box-shadow: var(--shadow-lift), var(--edge-top);
   text-align: center;
 }
 .toast__xp { margin: 0; font-size: 20px; font-weight: 700; color: var(--moss); }

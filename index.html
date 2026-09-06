@@ -4,21 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f3ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161a16" media="(prefers-color-scheme: dark)">
   <title>Биология 5-9</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <meta name="description" content="Уроки биологии 5-9 класса: конспекты, схемы и тренажёры.">
+  <meta property="og:title" content="Биология 5-9">
+  <meta property="og:description" content="Уроки биологии 5-9 класса: конспекты, схемы и тренажёры.">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="./css/tokens.css">
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/motion.css">
   <link rel="stylesheet" href="./css/games.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="site-header__home" href="#/">Биология</a>
+  <!-- Первым Tab уводит в содержимое, мимо шапки. Кнопка, а не ссылка:
+       адрес после решётки занят маршрутом, и «#app» увёл бы на «страница
+       не найдена». -->
+  <button class="skip-link" id="skip" type="button">К содержанию</button>
+  <!-- Метка, по которой шапка узнаёт, что страница уехала вниз. Наблюдатель
+       вместо обработчика прокрутки: тот считает на каждый пиксель. -->
+  <div class="scroll-sentinel" id="sentinel" aria-hidden="true"></div>
+  <header class="site-header" id="header">
+    <a class="site-header__home" href="#/">
+      <svg class="site-header__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 21V11"/>
+        <path d="M12 12.6C8.1 12.6 5.9 10 5.9 6.1 9.8 6.1 12 8.7 12 12.6Z"/>
+        <path d="M12 16.8c3.5 0 5.6-2.3 5.6-5.8-3.5 0-5.6 2.3-5.6 5.8Z"/>
+      </svg>
+      Биология
+    </a>
     <a class="site-header__level" id="level" href="#/me">Прогресс</a>
+    <button class="site-header__theme" id="theme" type="button">Тема</button>
     <a class="site-header__who" id="who" href="#/login">Войти</a>
   </header>
-  <main id="app" class="app">
+  <main id="app" class="app" tabindex="-1">
     <p class="loading">Загрузка…</p>
   </main>
   <footer class="site-footer">

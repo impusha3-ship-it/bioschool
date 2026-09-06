@@ -52,7 +52,11 @@ export async function renderClassPage({ grade }) {
     el('h1', { class: 'course__title' }, course.title),
     course.subtitle ? el('p', { class: 'course__sub' }, course.subtitle) : null,
     общий.всего ? шапкаПрогресса(общий) : null,
-    ...course.sections.map((section) => renderSection(section, состояние)),
+    el(
+      'div',
+      { class: 'course__sections' },
+      course.sections.map((section) => renderSection(section, состояние)),
+    ),
   ]);
 }
 
@@ -67,22 +71,43 @@ function шапкаПрогресса(общий) {
       общий.пройдено
         ? `Пройдено ${общий.пройдено} из ${общий.всего}`
         : `Уроков в классе: ${общий.всего}`),
-    полоса(общий.процент),
+    // Пустая полоса выглядит заполненной: дорожка на бумаге читается как
+    // сама полоса, и «пройдено ноль» превращается в «пройдено всё». Пока
+    // нечего показывать, полосы нет.
+    общий.пройдено ? полоса(общий.процент) : null,
   ]);
 }
 
 function renderSection(section, состояние) {
   // Заголовки берём из файла курса, а не скачиваем каждый урок ради названия.
-  const items = section.lessons.map((entry) =>
-    el('li', {}, [
-      el('a', { class: 'lesson-link', href: `#/lesson/${entry.id}` }, entry.title),
-      // Пометка о лабораторной стоит в файле курса, а не вычисляется из урока:
-      // иначе ради шести значков пришлось бы скачать все тридцать четыре.
-      // Тест следит, чтобы пометка не разошлась с уроками.
-      entry.lab ? el('span', { class: 'lesson-lab' }, '(+ лабораторная)') : null,
-      метка(состояние.lessons?.[entry.id]),
-    ]),
-  );
+  const items = section.lessons.map((entry, i) => {
+    const урок = состояние.lessons?.[entry.id];
+
+    // Нажимается вся строка, а не одно название: попасть пальцем в слово
+    // посреди строки на телефоне труднее, чем в саму строку.
+    return el('li', {}, [
+      el(
+        'a',
+        {
+          class: `lesson-row${урок?.done ? ' lesson-row--done' : ''}`,
+          href: `#/lesson/${entry.id}`,
+        },
+        [
+          // Номер внутри раздела: по нему можно договориться с учителем,
+          // не пересказывая название.
+          el('span', { class: 'lesson-row__num' }, String(i + 1)),
+          el('span', { class: 'lesson-row__title' }, [
+            entry.title,
+            // Пометка о лабораторной стоит в файле курса, а не вычисляется
+            // из урока: иначе ради шести значков пришлось бы скачать все
+            // тридцать четыре. Тест следит, чтобы она не разошлась с уроками.
+            entry.lab ? el('span', { class: 'lesson-lab' }, '(+ лабораторная)') : null,
+          ]),
+          метка(урок),
+        ],
+      ),
+    ]);
+  });
 
   return секция(section, items, прогрессРаздела(section, состояние));
 }
@@ -116,8 +141,12 @@ function метка(урок) {
 
 function секция(section, items, прогресс) {
   return el('div', { class: 'section' }, [
-    el('h2', { class: 'section__title' }, section.title),
-    el('p', { class: 'section__hours' }, `${section.hours} ч`),
+    // Часы стоят в одной строке с названием, а не под ним: это уточнение к
+    // названию, и отдельной строки оно не заслуживает.
+    el('div', { class: 'section__head' }, [
+      el('h2', { class: 'section__title' }, section.title),
+      el('p', { class: 'section__hours' }, `${section.hours} ч`),
+    ]),
     // Пока не пройдено ничего, счёт молчит — как и шапка класса. Встречать
     // новичка нулём незачем: он и так знает, что ещё ничего не сделал.
     прогресс?.пройдено
