@@ -895,6 +895,12 @@ h3 {
   .app { padding: calc(var(--step) * 9) calc(var(--step) * 6) calc(var(--step) * 18); }
   .site-header { padding: calc(var(--step) * 3.5) calc(var(--step) * 6); }
   .home__hero { padding: calc(var(--step) * 10) calc(var(--step) * 10) calc(var(--step) * 9); }
+  /* Вылет вкладок за полотно повторяет его отступ: иначе линия под вкладками
+     не доходит до краёв содержимого и висит короче него на шесть пикселей. */
+  .tabs {
+    margin-inline: calc(var(--step) * -6);
+    padding-inline: calc(var(--step) * 6);
+  }
   .section { padding: calc(var(--step) * 6) calc(var(--step) * 5); }
 }
 
