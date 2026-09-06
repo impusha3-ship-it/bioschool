@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 290" role="img" aria-label="Круг из шести шагов развития цветкового растения. Взрослое растение — это спорофит, главное поколение. На нём распускается цветок: в пыльнике тычинки созревает пыльца, в завязи пестика лежит семязачаток. При опылении пыльца попадает на рыльце пестика. Дальше идёт двойное оплодотворение: по пыльцевой трубке в семязачаток спускаются два спермия, один сливается с яйцеклеткой, другой с центральной клеткой. Из семязачатка получается семя, а из завязи плод. Семя прорастает, из проростка вырастает новое растение, и круг замыкается.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Как размножается цветковое растение</text>
+  </g>
+
+  <g class="d-stem" stroke-width="1.8" fill="none">
+    <path d="M154 58 H176"/>
+    <path d="M310 58 H332"/>
+    <path d="M396 96 V162"/>
+    <path d="M326 196 H304"/>
+    <path d="M170 196 H148"/>
+    <path d="M84 162 V102"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M182 58 L174 54 L174 62 Z"/>
+    <path d="M338 58 L330 54 L330 62 Z"/>
+    <path d="M396 170 L392 162 L400 162 Z"/>
+    <path d="M298 196 L306 192 L306 200 Z"/>
+    <path d="M142 196 L150 192 L150 200 Z"/>
+    <path d="M84 94 L80 102 L88 102 Z"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="14" y="30" width="140" height="58" rx="8"/>
+    <rect x="182" y="30" width="128" height="58" rx="8"/>
+    <rect x="338" y="30" width="128" height="58" rx="8"/>
+    <rect x="338" y="170" width="128" height="58" rx="8"/>
+    <rect x="176" y="170" width="128" height="58" rx="8"/>
+    <rect x="14" y="170" width="128" height="58" rx="8"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="26" y="50">Взрослое растение</text>
+    <text x="194" y="50">Цветок</text>
+    <text x="350" y="50">Опыление</text>
+    <text x="350" y="190">Двойное</text>
+    <text x="188" y="190">Семя и плод</text>
+    <text x="26" y="190">Проросток</text>
+  </g>
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="350" y="204">оплодотворение</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="26" y="66">спорофит, главное</text>
+    <text x="26" y="78">поколение</text>
+    <text x="194" y="66">в пыльнике пыльца,</text>
+    <text x="194" y="78">в завязи семязачаток</text>
+    <text x="350" y="66">пыльца попадает</text>
+    <text x="350" y="78">на рыльце пестика</text>
+    <text x="350" y="218">два спермия по трубке</text>
+    <text x="188" y="204">из семязачатка семя,</text>
+    <text x="188" y="216">из завязи плод</text>
+    <text x="26" y="204">семя проросло,</text>
+    <text x="26" y="216">пошёл новый круг</text>
+  </g>
+
+  <!-- То, чего нет больше ни у кого: ради этой строки схема и нарисована -->
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M240 232 V248"/>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="262">Двойного оплодотворения нет больше ни у одной группы растений</text>
+  </g>
+
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="282">Один спермий сливается с яйцеклеткой, второй — с центральной клеткой.</text>
+  </g>
+</svg>

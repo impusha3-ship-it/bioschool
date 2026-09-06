@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 250" role="img" aria-label="Четыре типа стеблей цветковых растений. Прямостоячий стебель стоит вертикально сам по себе. Ползучий стелется по земле и укореняется в узлах. Вьющийся обвивает опору по спирали. Цепляющийся держится за опору усиками. Внизу сказано, что все четыре встречаются только у покрытосеменных: у голосеменных стебель всегда прямостоячий.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Четыре способа держаться</text>
+  </g>
+
+  <g class="d-soil">
+    <path d="M8 186 H472 V206 H8 Z"/>
+  </g>
+
+  <!-- Прямостоячий: держится сам -->
+  <g class="d-stem" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M64 186 V56"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M64 150 C82 140 96 144 100 152 C92 162 76 162 64 150 Z"/>
+    <path d="M64 118 C46 108 32 112 28 120 C36 130 52 130 64 118 Z"/>
+    <path d="M64 86 C82 76 96 80 100 88 C92 98 76 98 64 86 Z"/>
+  </g>
+
+  <!-- Ползучий: стелется и укореняется в узлах -->
+  <g class="d-stem" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M132 178 C160 168 196 182 226 172"/>
+    <path d="M150 173 V150 M190 177 V154 M216 174 V152"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M150 150 C136 138 136 126 146 122 C158 128 160 142 150 150 Z"/>
+    <path d="M190 154 C176 142 176 130 186 126 C198 132 200 146 190 154 Z"/>
+    <path d="M216 152 C202 140 202 128 212 124 C224 130 226 144 216 152 Z"/>
+  </g>
+  <g class="d-root" stroke-width="1.4" fill="none" stroke-linecap="round">
+    <path d="M150 180 C148 190 148 196 146 202 M190 182 C190 192 190 196 190 202 M216 179 C218 189 220 195 222 201"/>
+  </g>
+
+  <!-- Вьющийся: обвивает опору спиралью -->
+  <g class="d-mark" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M296 186 V50"/>
+  </g>
+  <g class="d-stem" stroke-width="2.6" fill="none" stroke-linecap="round">
+    <path d="M282 178 C310 172 310 156 282 150 C254 144 254 128 282 122 C310 116 310 100 282 94 C254 88 254 72 282 66"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M282 150 C266 142 262 130 270 124 C282 128 290 142 282 150 Z"/>
+    <path d="M282 94 C266 86 262 74 270 68 C282 72 290 86 282 94 Z"/>
+  </g>
+
+  <!-- Цепляющийся: держится усиками -->
+  <g class="d-mark" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M436 186 V50"/>
+  </g>
+  <g class="d-stem" stroke-width="2.6" fill="none" stroke-linecap="round">
+    <path d="M392 186 C394 150 400 110 404 72"/>
+    <path d="M398 148 C412 144 424 148 430 142 C436 136 430 130 426 134 C422 138 428 144 434 142"/>
+    <path d="M402 100 C416 96 428 100 434 94 C440 88 434 82 430 86 C426 90 432 96 438 94"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M394 168 C378 160 374 148 382 142 C394 146 402 160 394 168 Z"/>
+    <path d="M400 122 C384 114 380 102 388 96 C400 100 408 114 400 122 Z"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="64" y="226">Прямостоячий</text>
+    <text x="180" y="226">Ползучий</text>
+    <text x="292" y="226">Вьющийся</text>
+    <text x="410" y="226">Цепляющийся</text>
+  </g>
+  <g class="d-label" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="64" y="240">держится сам</text>
+    <text x="180" y="240">укореняется в узлах</text>
+    <text x="292" y="240">обвивает опору</text>
+    <text x="410" y="240">держится усиками</text>
+  </g>
+</svg>

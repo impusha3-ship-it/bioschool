@@ -63,6 +63,15 @@
         {
           "id": "7-golosemennye-znachenie",
           "title": "Значение хвойных растений в природе и жизни человека"
+        },
+        {
+          "id": "7-pokrytosemennye-stroenie",
+          "title": "Особенности строения и жизнедеятельности покрытосеменных растений",
+          "lab": true
+        },
+        {
+          "id": "7-pokrytosemennye-klassifikaciya",
+          "title": "Классификация и цикл развития покрытосеменных растений"
         }
       ]
     }
