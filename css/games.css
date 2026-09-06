@@ -1,8 +1,11 @@
 /* ── Игры ────────────────────────────────────────────────── */
 
 .game__prompt {
-  margin: 0 0 calc(var(--step) * 4);
-  font-weight: 600;
+  margin: 0 0 calc(var(--step) * 5);
+  font-size: var(--t-h3);
+  font-weight: 650;
+  line-height: 1.4;
+  text-wrap: pretty;
 }
 
 .game__bank {
@@ -15,29 +18,43 @@
 /* Фишка — то, что ученик берёт пальцем. Минимум 44 пикселя по высоте. */
 .game__chip {
   min-height: var(--tap);
-  padding: 0 calc(var(--step) * 4);
+  padding: 0 calc(var(--step) * 4.5);
   background: var(--paper-raised);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   color: var(--ink);
   font: inherit;
-  font-size: 15px;
+  font-size: var(--t-small);
+  font-weight: 550;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(58, 45, 25, 0.06);
   transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out),
-    border-color 140ms var(--ease-out);
+    border-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
 }
 
-/* Выбранная фишка «поднята» — видно, что она сейчас в руке. */
+/*
+  Выбранная фишка правда поднята: она залита цветом, отброшенная тень выросла,
+  и вокруг стоит мягкое кольцо. До этого «в руке» показывала только заливка,
+  и на светлой бумаге это читалось как «уже разложено».
+*/
 .game__chip--selected {
   background: var(--moss);
   border-color: var(--moss);
-  color: var(--paper-raised);
-  font-weight: 600;
+  color: #fffdf7;
+  font-weight: 650;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift), var(--glow-moss);
+}
+
+:root[data-theme="dark"] .game__chip--selected { color: #10190f; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .game__chip--selected { color: #10190f; }
 }
 
 .game__chip--placed {
   background: var(--wash);
   border-color: var(--moss);
+  box-shadow: none;
 }
 
 .game__chip:active { transform: scale(0.97); }
@@ -50,7 +67,7 @@
 .game__bucket {
   display: block;
   width: 100%;
-  min-height: 96px;
+  min-height: 104px;
   padding: calc(var(--step) * 3.5);
   background: var(--paper-raised);
   border: 1.5px dashed var(--line-strong);
@@ -59,17 +76,33 @@
   font: inherit;
   color: var(--ink);
   cursor: pointer;
-  transition: border-color 140ms var(--ease-out), background-color 140ms var(--ease-out);
+  transition: border-color 160ms var(--ease-out), background-color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+
+/*
+  Пока фишка в руке, корзины показывают, что готовы её принять: обводка
+  становится мшистой и сплошной, фон чуть зеленеет. Это самое важное
+  состояние всей игры, и раньше его не было вовсе — ученик тапал фишку и
+  оставался без подсказки, куда её теперь нести. Считается разметкой, без
+  скрипта: выбранная фишка лежит внутри той же игры.
+*/
+.game:has(.game__chip--selected) .game__bucket,
+.lab-run:has(.game__chip--selected) .lab-run__table {
+  border-style: solid;
+  border-color: var(--moss);
+  background: color-mix(in srgb, var(--wash) 60%, var(--paper-raised));
+  box-shadow: var(--glow-moss);
 }
 
 .game__bucket-title {
   display: block;
-  margin-bottom: calc(var(--step) * 2);
+  margin-bottom: calc(var(--step) * 2.5);
   color: var(--ink-soft);
-  font-size: 13px;
-  letter-spacing: 0.06em;
+  font-size: var(--t-micro);
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 .game__bucket-items {
@@ -107,7 +140,14 @@
 .game__cell--selected {
   background: var(--moss);
   border-color: var(--moss);
-  color: var(--paper-raised);
+  color: #fffdf7;
+  font-weight: 600;
+  box-shadow: var(--glow-moss);
+}
+
+:root[data-theme="dark"] .game__cell--selected { color: #10190f; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .game__cell--selected { color: #10190f; }
 }
 
 .game__cell--used {
@@ -212,20 +252,70 @@
 
 .game__score {
   margin: 0;
-  font-size: 15px;
+  font-size: var(--t-small);
   color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 
-.game__score--win { color: var(--moss); font-weight: 650; }
-.game__score--miss { color: var(--iodine); font-weight: 650; }
+/*
+  Итог разбора. Верное набрано в полный голос и с галочкой: момент, когда
+  задание сошлось, — единственная награда внутри тренажёра, и выглядеть она
+  должна как награда, а не как подпись под таблицей.
+*/
+.game__score--win,
+.game__score--miss {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--step) * 2);
+  padding: calc(var(--step) * 1.5) calc(var(--step) * 3.5);
+  border-radius: 999px;
+  font-size: var(--t-body);
+  font-weight: 650;
+}
+
+.game__score--win {
+  background: var(--wash);
+  color: var(--moss-deep);
+  animation: score-pop 320ms var(--ease-out) both;
+}
+
+.game__score--win::before { content: '✓'; font-size: 1.05em; }
+
+.game__score--miss {
+  background: color-mix(in srgb, var(--iodine) 12%, transparent);
+  color: var(--iodine);
+}
+
+@keyframes score-pop {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game__score--win { animation: none; }
+}
 
 .button--quiet {
   margin-top: 0;
   background: transparent;
   border: 1px solid var(--line-strong);
   color: var(--ink);
-  font-size: 15px;
+  font-size: var(--t-small);
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .button--quiet,
+.button--quiet { color: var(--ink); }
+
+@media (hover: hover) and (pointer: fine) {
+  .button--quiet:hover {
+    background: var(--paper-sunk);
+    border-color: var(--line-strong);
+    box-shadow: none;
+    color: var(--ink);
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -255,11 +345,17 @@
 
 .exercise__num {
   margin: 0 0 calc(var(--step) * 3);
-  color: var(--ink-muted);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  font-size: var(--t-micro);
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  font-weight: 650;
+  font-weight: 700;
+}
+
+/* Заголовок блока заданий ВПР. Стоит выше «Задания 1 из 5» и отделяет
+   тренажёр от работы в формате проверочной. */
+.exercise__head {
+  margin: 0 0 calc(var(--step) * 2);
 }
 
 /* Вывод, который ученик должен сделать сам, — но если не сделал, подсказываем. */
@@ -286,8 +382,8 @@
 .homework__due--late { background: none; border: 1px solid var(--iodine); color: var(--iodine); }
 
 .q {
-  margin: calc(var(--step) * 7) 0;
-  padding: calc(var(--step) * 4);
+  margin: calc(var(--step) * 6) 0;
+  padding: calc(var(--step) * 4.5);
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -312,7 +408,13 @@
   предложения идут отдельным абзацем, и без переносов вопрос слипается
   с текстом в одну простыню, которую пятикласснику не разобрать.
 */
-.q__text { margin: 0 0 calc(var(--step) * 3); font-weight: 600; white-space: pre-line; }
+.q__text {
+  margin: 0 0 calc(var(--step) * 3);
+  font-size: var(--t-h3);
+  font-weight: 650;
+  line-height: 1.45;
+  white-space: pre-line;
+}
 .q__hint { margin: calc(var(--step) * -2) 0 calc(var(--step) * 3); color: var(--ink-soft); font-size: 14px; }
 .q__body { display: flex; flex-direction: column; gap: calc(var(--step) * 2); }
 
@@ -327,6 +429,16 @@
 }
 
 .q__input { width: 22px; height: 22px; accent-color: var(--moss); flex: 0 0 auto; }
+
+/*
+  Выбранный вариант виден по всей строке, а не только по кружку в 22 пикселя.
+  Правило стоит выше подсветки после проверки: у них равный вес, и разбор
+  должен перебивать выбор, а не наоборот.
+*/
+.q__option:has(.q__input:checked) {
+  background: var(--wash);
+  font-weight: 600;
+}
 
 .q__short, .q__open {
   width: 100%;
@@ -360,7 +472,13 @@
   border-radius: var(--radius);
 }
 
-.homework__done-title { margin: 0; font-size: 19px; font-weight: 700; color: var(--moss-deep); }
+.homework__done-title {
+  margin: 0;
+  font-size: var(--t-h2);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--moss-deep);
+}
 .homework__done-score { margin: calc(var(--step) * 2) 0 0; font-size: 17px; font-variant-numeric: tabular-nums; }
 .homework__done-when { margin: calc(var(--step) * 1) 0 0; color: var(--ink-soft); font-size: 14px; }
 .homework__await { margin: calc(var(--step) * 4) 0 0; color: var(--iodine); font-weight: 600; }
@@ -385,11 +503,11 @@
 
 .key__label {
   margin: 0 0 calc(var(--step) * 3);
-  color: var(--ink-muted);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  font-size: var(--t-micro);
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 /* Образец — то, что «лежит перед тобой». Читать его будут не раз за раз,
@@ -549,6 +667,7 @@
 /* Подсветка вариантов после проверки — цвет дублируется знаком, потому что
    каждый двенадцатый мальчик цвета не различает. */
 .q__option--right { background: var(--wash); font-weight: 650; }
+.q__option--wrong { box-shadow: var(--glow-iodine); }
 .q__option--right span::after { content: ' ✓'; color: var(--moss); }
 .q__option--wrong span::after { content: ' ✗'; color: var(--iodine); }
 .q__option--key span::after { content: ' ✓'; color: var(--moss); font-weight: 700; }

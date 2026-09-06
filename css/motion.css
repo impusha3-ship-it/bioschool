@@ -3,12 +3,19 @@
   как лист из почки; подчёркивание вкладки растёт из центра; элемент под
   пальцем подаётся. Это признаки живого из первого урока, показанные
   поведением интерфейса.
+
+  Дозировка важнее приёма. Раньше на каждом переходе заново проявлялись все
+  прямые дети страницы — заголовок, вкладки, содержимое — с задержками до
+  200 мс. Из-за этого переключение вкладки урока выглядело как перезагрузка
+  всей страницы: название мигало, хотя оно то же самое. Теперь на переходе
+  меняется только прозрачность полотна, за 140 мс и без сдвига, а прорастают
+  по одному лишь настоящие списки — годы на главной и значки в прогрессе.
 */
 
 @keyframes sprout-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -16,23 +23,35 @@
   }
 }
 
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @keyframes underline-grow {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
 
-/* Каскад по прямым детям страницы. Задержки короткие: длинные делают
-   интерфейс медленным, а каскад — украшение, он не должен задерживать. */
-.app > section > * {
-  animation: sprout-in 300ms var(--ease-out) both;
+/* Смена страницы: только прозрачность. Заголовок остаётся на месте. */
+.app > section {
+  animation: fade-in 140ms var(--ease-out) both;
 }
 
-.app > section > *:nth-child(1) { animation-delay: 0ms; }
-.app > section > *:nth-child(2) { animation-delay: 40ms; }
-.app > section > *:nth-child(3) { animation-delay: 80ms; }
-.app > section > *:nth-child(4) { animation-delay: 120ms; }
-.app > section > *:nth-child(5) { animation-delay: 160ms; }
-.app > section > *:nth-child(n + 6) { animation-delay: 200ms; }
+/* Списки прорастают по одному. Шаг короткий: длинный делает интерфейс
+   медленным, а каскад — украшение, он не должен задерживать. */
+.grades > *,
+.me__awards-list > * {
+  animation: sprout-in 320ms var(--ease-out) both;
+}
+
+.grades > *:nth-child(1), .me__awards-list > *:nth-child(1) { animation-delay: 20ms; }
+.grades > *:nth-child(2), .me__awards-list > *:nth-child(2) { animation-delay: 60ms; }
+.grades > *:nth-child(3), .me__awards-list > *:nth-child(3) { animation-delay: 100ms; }
+.grades > *:nth-child(4), .me__awards-list > *:nth-child(4) { animation-delay: 140ms; }
+.grades > *:nth-child(5), .me__awards-list > *:nth-child(5) { animation-delay: 180ms; }
+.grades > *:nth-child(n + 6),
+.me__awards-list > *:nth-child(n + 6) { animation-delay: 200ms; }
 
 /* Подчёркивание активной вкладки прорастает из центра. */
 .tabs__item--active::after {
@@ -40,47 +59,66 @@
   animation: underline-grow 220ms var(--ease-out) both;
 }
 
+/*
+  Плашка о баллах приезжает снизу — оттуда, где она живёт. @starting-style
+  умеют не все браузеры; тем, кто не умеет, достаётся плашка без выезда,
+  и это ровно та потеря, которую можно позволить.
+*/
+.toast {
+  opacity: 1;
+  transition: opacity 220ms var(--ease-out), transform 260ms var(--ease-soft);
+}
+
+@starting-style {
+  .toast {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+}
+
 /* Нажатие: мгновенная обратная связь, что интерфейс услышал.
    Переход стоит на базовом состоянии, чтобы отпускание тоже было плавным. */
 .grade-card,
-.lesson-link,
+.lesson-row,
 .button,
 .tabs__item {
-  transition: transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+  transition: transform 140ms var(--ease-out), box-shadow 200ms var(--ease-out),
+    background-color 140ms var(--ease-out);
 }
 
 .grade-card:active,
-.lesson-link:active,
+.lesson-row:active,
 .button:active,
 .tabs__item:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .grade-card:active {
-  box-shadow: var(--shadow-rest);
+  box-shadow: var(--shadow-rest), var(--edge-top);
 }
 
 /* Наведение только там, где есть настоящий курсор. На тач-экране :hover
    срабатывает по тапу и залипает. */
 @media (hover: hover) and (pointer: fine) {
-  .grade-card:hover {
-    box-shadow: var(--shadow-lift);
-    transform: translateY(-1px);
-  }
-
-  .lesson-link:hover { color: var(--moss); }
   .tabs__item:hover { color: var(--ink-soft); }
 }
 
-/* Пункты «Главного» проявляются по одному при попадании в вид —
-   как проращивание. Один раз, дальше остаются на месте. */
-.reveal {
+/*
+  Пункты «Главного» проявляются по одному при попадании в вид — как
+  проращивание. Один раз, дальше остаются на месте.
+
+  Спрятаны они только если разметку ведёт скрипт: `data-reveal` ставит
+  app.js на старте. Без скрипта — а это и headless-снимок, и отключённый
+  JS, и упавший модуль — текст просто виден. Невидимое «Главное за 30
+  секунд» хуже потерянной анимации: ученик его не прочитает.
+*/
+[data-reveal='on'] .reveal {
   opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+  transform: translateY(8px);
+  transition: opacity 340ms var(--ease-out), transform 340ms var(--ease-out);
 }
 
-.reveal--shown {
+[data-reveal='on'] .reveal--shown {
   opacity: 1;
   transform: translateY(0);
 }
@@ -101,21 +139,27 @@
     to { opacity: 1; }
   }
 
-  .app > section > * {
+  .grades > *,
+  .me__awards-list > * {
     animation-duration: 200ms;
     animation-delay: 0ms !important;
   }
 
   .grade-card:active,
-  .lesson-link:active,
+  .lesson-row:active,
   .button:active,
-  .tabs__item:active,
-  .grade-card:hover {
+  .tabs__item:active {
     transform: none;
   }
 
   .keypoints { transform: none; }
 
-  .reveal { transform: none; }
-  .reveal--shown { transform: none; }
+  .toast { transition: opacity 200ms var(--ease-out); }
+
+  @starting-style {
+    .toast { transform: translate(-50%, 0); }
+  }
+
+  [data-reveal='on'] .reveal { transform: none; }
+  [data-reveal='on'] .reveal--shown { transform: none; }
 }

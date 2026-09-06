@@ -287,7 +287,9 @@ function renderVpr(вопросы, естьИгра, lesson = null) {
   });
 
   return el('section', { class: естьИгра ? 'exercise exercise--vpr' : 'exercise' }, [
-    el('p', { class: 'exercise__num' }, 'Задания в формате ВПР'),
+    // Это заголовок блока, а не ярлык: капсом в пять слов он читался как
+    // служебная надпись, хотя означает переход к другому виду работы.
+    el('h2', { class: 'exercise__head' }, 'Задания в формате ВПР'),
     el(
       'p',
       { class: 'exercise__lead' },

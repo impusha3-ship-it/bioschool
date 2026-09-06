@@ -1,6 +1,7 @@
 import { startRouter } from './router.js';
 import { el, clear } from './ui/dom.js';
 import { createRevealController } from './ui/reveal.js';
+import { createTema } from './ui/tema.js';
 import { renderHomePage } from './pages/home.js';
 import { renderClassPage } from './pages/class.js';
 import { renderLessonPage } from './pages/lesson.js';
@@ -27,6 +28,39 @@ const PAGES = {
 const mount = document.getElementById('app');
 const who = document.getElementById('who');
 const уровень = document.getElementById('level');
+
+/*
+  Оболочка: тема, шапка и обход шапки с клавиатуры. Всё это не зависит от
+  маршрута и настраивается один раз.
+*/
+createTema({ root: document.documentElement, button: document.getElementById('theme') });
+
+/*
+  Прорастание «Главного» прячет пункты до попадания в вид, и прятать их
+  можно только когда скрипт правда работает. Иначе — при отключённом JS,
+  при упавшем модуле, в снимке страницы без выполнения кода — текст остался
+  бы невидимым навсегда. Признак ставится отсюда, а стили смотрят на него.
+*/
+document.documentElement.dataset.reveal = 'on';
+
+/*
+  Шапка узнаёт о прокрутке по метке в самом верху страницы, а не по
+  обработчику прокрутки: тот считает на каждый пиксель и на телефоне это
+  видно. Уехала метка из виду — под шапкой появляется линия.
+*/
+const шапка = document.getElementById('header');
+const метка = document.getElementById('sentinel');
+if (шапка && метка && typeof IntersectionObserver !== 'undefined') {
+  new IntersectionObserver(
+    ([запись]) => шапка.classList.toggle('site-header--scrolled', !запись.isIntersecting),
+    { threshold: 1 },
+  ).observe(метка);
+}
+
+document.getElementById('skip')?.addEventListener('click', () => {
+  mount.focus();
+  mount.scrollIntoView({ block: 'start' });
+});
 
 /**
  * Шапка показывает, кто вошёл, и на какой ты ступени.
@@ -59,6 +93,10 @@ let revealController = null;
 
 startRouter(async (route) => {
   const token = ++currentToken;
+  // Признак страницы ставится до отрисовки: от него зависит ширина полотна,
+  // и если ставить его вместе с содержимым, полотно прыгает вширь на каждом
+  // переходе — сперва узкое под «Загрузка…», потом широкое под сетку.
+  mount.dataset.page = route.name;
   clear(mount);
   mount.append(el('p', { class: 'loading' }, 'Загрузка…'));
 
