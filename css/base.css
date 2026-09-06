@@ -41,10 +41,24 @@ body {
   pointer-events: none;
 }
 
-/* Содержимое получает фокус с кнопки обхода, но обводить его не за что:
-   это не орган управления, а место, куда приехали. */
-.app:focus { outline: none; }
+/* Само полотно фокус не обводит: это не орган управления, а место, куда
+   приехали. Кнопка обхода ставит фокус на заголовок страницы, и след фокуса
+   рисуется у него — иначе нажатие ничем не отзывалось бы на экране. */
+.app:focus,
 .app:focus-visible { outline: none; }
+
+.app h1:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* На тёмной подложке мшистый след фокуса даёт 2,6:1 и почти не виден.
+   Там он светлый — тем же цветом, каким на ней набрано заглавие. */
+.masthead__title:focus-visible {
+  outline-color: var(--masthead-ink);
+  outline-offset: 4px;
+}
 
 /* Ссылка для тех, кто ходит с клавиатуры: первым же Tab уводит в содержимое,
    мимо шапки. Видна только когда в фокусе. */
@@ -281,48 +295,84 @@ h3 {
 /* ── Главная ─────────────────────────────────────────────── */
 
 /*
-  Заглавие страницы стоит на приподнятой подложке с мягким зелёным светом
-  из угла. Свет не украшение: это единственное место, где видно, что весь
-  сайт про хлорофилл, — дальше зелёный уходит в служебные роли.
+  Заглавие лежит на тёмной подложке — в обеих темах. Гербарный лист кладут
+  на тёмный картон: рядом с ним бумага и есть бумага, а не фон по умолчанию.
+  Это единственное такое место на сайте, и потому оно читается как обложка,
+  а не как случайно потемневший кусок страницы.
+
+  Свет из правого верхнего угла ростковый, из левого нижнего — мшистый: один
+  источник сверху, отражение снизу. Поверх лежит зерно бумаги, только
+  светлое, — то же зерно, что на полотне, вывернутое под тёмное.
 */
-.home__hero {
+.masthead {
   position: relative;
   margin: 0 0 calc(var(--step) * 9);
   padding: calc(var(--step) * 9) calc(var(--step) * 7) calc(var(--step) * 8);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(85% 130% at 100% -20%, color-mix(in srgb, var(--sprout) var(--hero-light), transparent), transparent 78%),
-    radial-gradient(70% 110% at 88% 115%, color-mix(in srgb, var(--moss) var(--hero-glow), transparent), transparent 76%),
-    var(--paper-raised);
-  box-shadow: var(--shadow-rest), var(--edge-top);
+    radial-gradient(80% 130% at 100% -10%, color-mix(in srgb, var(--sprout) 34%, transparent), transparent 72%),
+    radial-gradient(70% 120% at -5% 105%, color-mix(in srgb, var(--moss) 34%, transparent), transparent 74%),
+    var(--masthead);
+  color: var(--masthead-ink);
+  box-shadow: var(--shadow-lift);
   overflow: hidden;
+  isolation: isolate;
 }
 
-.home__title {
+.masthead::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--masthead-tooth);
+  background-size: var(--tooth-size);
+  pointer-events: none;
+}
+
+/*
+  Единственная крупная надпись на сайте. Плавный размер здесь на месте:
+  заглавие занимает всю ширину подложки, и на телефоне ему нужно быть меньше,
+  чем на мониторе, — в отличие от заголовков внутри урока, которые живут в
+  полосе чтения одной ширины.
+*/
+.masthead__title {
   margin: 0;
-  font-size: var(--t-display);
-  line-height: 1;
+  color: inherit;
+  font-size: clamp(42px, 7.5vw, 82px);
+  line-height: 0.94;
   letter-spacing: -0.035em;
+  font-weight: 700;
 }
 
-.home__lead {
-  max-width: 40ch;
-  margin: calc(var(--step) * 3) 0 0;
-  color: var(--ink-soft);
+.masthead__lead {
+  max-width: 36ch;
+  margin: calc(var(--step) * 5) 0 0;
+  color: var(--masthead-soft);
   font-size: var(--t-lead);
-  line-height: 1.45;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* Сколько уроков правда лежит на сайте, и какие годы ещё пишутся. */
+.masthead__count {
+  margin: calc(var(--step) * 7) 0 0;
+  padding-top: calc(var(--step) * 4);
+  border-top: 1px solid var(--masthead-line);
+  color: var(--masthead-soft);
+  font-size: var(--t-small);
+  font-variant-numeric: tabular-nums;
   text-wrap: pretty;
 }
 
 /*
   Годы идут сеткой, которая сама решает, сколько колонок влезло. Полки на
-  260 пикселей: ниже этого подзаголовок вроде «Систематика растений, грибы,
+  272 пикселя: ниже этого подзаголовок вроде «Систематика растений, грибы,
   бактерии» ломается на четыре строки.
 */
 .grades {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
   gap: calc(var(--step) * 4);
 }
 
@@ -331,15 +381,19 @@ h3 {
   справа сам год — крупной цифрой. Цифра стоит в потоке, а не подложкой:
   номер класса — главное, что ищут на этой странице, и прятать его в водяной
   знак значило бы делать вид, что важнее подзаголовок.
+
+  В правом верхнем углу — свет цвета этого года. Он и различает пять карточек
+  между собой: без него ряд одинаковых прямоугольников выглядит заготовкой.
 */
 .grade-card {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  column-gap: calc(var(--step) * 4);
-  padding: calc(var(--step) * 5) calc(var(--step) * 5) calc(var(--step) * 4.5);
-  background: var(--paper-raised);
+  display: flex;
+  flex-direction: column;
+  min-height: 168px;
+  padding: calc(var(--step) * 5) calc(var(--step) * 5) calc(var(--step) * 4);
+  background:
+    radial-gradient(75% 110% at 100% 0%, color-mix(in srgb, var(--grade) 14%, transparent), transparent 72%),
+    var(--paper-raised);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-rest), var(--edge-top);
@@ -356,56 +410,111 @@ h3 {
 .grade-card[data-grade="8"] { --grade: var(--grade-8); }
 .grade-card[data-grade="9"] { --grade: var(--grade-9); }
 
+.grade-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: calc(var(--step) * 4);
+  flex: 1 1 auto;
+}
+
+.grade-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--step) * 1);
+}
+
 .grade-card__num {
-  grid-column: 2;
-  grid-row: 1 / span 3;
-  align-self: center;
+  flex: 0 0 auto;
+  margin-top: -0.08em;
   color: var(--grade);
-  font-size: 56px;
+  font-size: 64px;
   font-weight: 700;
-  line-height: 0.9;
+  line-height: 0.82;
   letter-spacing: -0.05em;
   font-variant-numeric: tabular-nums;
   transition: transform 260ms var(--ease-out);
 }
 
 .grade-card__title {
-  grid-column: 1;
   font-size: var(--t-h2);
   font-weight: 700;
   letter-spacing: -0.015em;
 }
 
 .grade-card__sub {
-  grid-column: 1;
   max-width: 24ch;
-  margin-top: calc(var(--step) * 1);
   color: var(--ink-soft);
   font-size: var(--t-small);
   line-height: 1.4;
   text-wrap: pretty;
 }
 
-/* Сколько уроков этого года уже пройдено. Появляется только когда есть что
-   показать: встречать новичка нулём незачем. */
-.grade-card__done {
-  grid-column: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: calc(var(--step) * 1.5);
-  margin-top: calc(var(--step) * 3);
-  color: var(--grade);
+/* Нижняя строка: сколько уроков в году и сколько из них пройдено. */
+.grade-card__meta {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--step) * 2);
+  min-height: 1.5em;
+  margin-top: calc(var(--step) * 4);
+  padding-top: calc(var(--step) * 3);
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-faint);
   font-size: var(--t-small);
-  font-weight: 650;
   font-variant-numeric: tabular-nums;
 }
 
+.grade-card__done {
+  color: var(--grade);
+  font-weight: 650;
+}
+
 .grade-card__done::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
+  content: '·';
+  margin-right: calc(var(--step) * 1.5);
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+/* Точка разделяет счёт уроков и пройденное. Когда счёта нет, разделять
+   нечего, и строка не должна начинаться с точки. */
+.grade-card__done:first-child::before { content: none; }
+
+/*
+  Нижняя кромка карточки заполняется цветом года по мере прохождения. Полосе
+  прогресса тут не место: она заняла бы строку ради числа, которое уже стоит
+  словами рядом, — а кромка показывает то же самое и места не просит.
+*/
+.grade-card__fill {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  border-radius: 0 999px 999px 0;
+  background: var(--grade);
+  transition: width 0.7s var(--ease-soft);
+}
+
+/*
+  Год, до которого уроки ещё не написаны. Раньше он был обычной ссылкой и вёл
+  на «Класс не найден» — ученик получал сообщение об ошибке за то, что нажал
+  на показанную ему кнопку. Теперь это надпись, а не ссылка, и видно это до
+  нажатия: карточка вдавлена, а не приподнята.
+*/
+.grade-card--soon {
+  background: var(--paper-sunk);
+  border-color: var(--line);
+  box-shadow: none;
+  cursor: default;
+}
+
+.grade-card--soon .grade-card__num { color: var(--ink-faint); }
+.grade-card--soon .grade-card__title { color: var(--ink-soft); }
+.grade-card--soon .grade-card__sub { color: var(--ink-faint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .grade-card__fill { transition: none; }
 }
 
 /* ── Класс ───────────────────────────────────────────────── */
@@ -869,12 +978,12 @@ h3 {
   мгновенно: по нему ученик понимает, что интерфейс услышал.
 */
 @media (hover: hover) and (pointer: fine) {
-  .grade-card:hover {
+  a.grade-card:hover {
     box-shadow: var(--shadow-lift), var(--edge-top);
     transform: translateY(-2px);
   }
 
-  .grade-card:hover .grade-card__num { transform: translateY(-3px); }
+  a.grade-card:hover .grade-card__num { transform: translateY(-3px); }
 
   .lesson-row:hover { background: var(--wash); }
   .award--has:hover { transform: translateY(-2px); }
@@ -894,7 +1003,7 @@ h3 {
 @media (min-width: 700px) {
   .app { padding: calc(var(--step) * 9) calc(var(--step) * 6) calc(var(--step) * 18); }
   .site-header { padding: calc(var(--step) * 3.5) calc(var(--step) * 6); }
-  .home__hero { padding: calc(var(--step) * 10) calc(var(--step) * 10) calc(var(--step) * 9); }
+  .masthead { padding: calc(var(--step) * 13) calc(var(--step) * 11) calc(var(--step) * 10); }
   /* Вылет вкладок за полотно повторяет его отступ: иначе линия под вкладками
      не доходит до краёв содержимого и висит короче него на шесть пикселей. */
   .tabs {

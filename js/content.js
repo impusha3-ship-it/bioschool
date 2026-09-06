@@ -69,6 +69,20 @@ export async function loadLesson(lessonId, { fetchFn = fetch, overrides = null }
   return applyOverrides(data, overrides);
 }
 
+/**
+ * Загружает список классов, до которых уроки написаны, и сколько их в каждом.
+ *
+ * Отдельный файл, а не обход курсов: каталог на GitHub Pages не перечисляется,
+ * и главная иначе вынуждена запрашивать все пять курсов и считать ответом 404
+ * «ещё не написан» — три ошибки в консоли и три запроса в пустоту при каждом
+ * открытии. Пересобирается `scripts/spisok-klassov.mjs`, сходство с файлами
+ * курсов стережёт тест.
+ */
+export async function loadKlassy({ fetchFn = fetch } = {}) {
+  const данные = await loadJson('./content/klassy.json', fetchFn, 'Список классов не найден');
+  return Array.isArray(данные?.классы) ? данные.классы : [];
+}
+
 /** Загружает разделы и порядок уроков класса. */
 export async function loadCourse(grade, { fetchFn = fetch } = {}) {
   if (!GRADES.includes(String(grade))) {

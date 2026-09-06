@@ -57,9 +57,22 @@ if (шапка && метка && typeof IntersectionObserver !== 'undefined') {
   ).observe(метка);
 }
 
+/*
+  Обход шапки. Фокус переносится на заголовок страницы, а не на само полотно:
+  полотно — не орган управления, обводить его целиком не за что, и от того,
+  что фокус уехал внутрь пустой рамки, на экране не менялось ничего — кнопка
+  выглядела неработающей. Заголовок же получает обычный след фокуса, и видно,
+  куда попал.
+
+  tabindex снимается при уходе фокуса: заголовок не должен навсегда оставаться
+  лишней остановкой при обходе страницы табулятором.
+*/
 document.getElementById('skip')?.addEventListener('click', () => {
-  mount.focus();
-  mount.scrollIntoView({ block: 'start' });
+  const цель = mount.querySelector('h1') ?? mount;
+  цель.setAttribute('tabindex', '-1');
+  цель.addEventListener('blur', () => цель.removeAttribute('tabindex'), { once: true });
+  цель.focus();
+  window.scrollTo({ top: 0 });
 });
 
 /**

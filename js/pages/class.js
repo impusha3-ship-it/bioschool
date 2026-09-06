@@ -37,6 +37,22 @@ export async function renderClassPage({ grade }) {
   try {
     course = await loadCourse(grade);
   } catch (error) {
+    // Курса нет — почти всегда это значит, что уроки этого года ещё не
+    // написаны, а не что случилась поломка. «Курс не найден: 6» на экране
+    // ребёнка выглядело сообщением об ошибке, хотя ошибки нет ничьей.
+    const нетКурса = String(error?.message ?? '').startsWith('Курс не найден');
+    if (нетКурса && /^[5-9]$/.test(String(grade))) {
+      return el('section', { class: 'course' }, [
+        el('a', { class: 'back-link', href: '#/' }, '← Все классы'),
+        el('h1', { class: 'course__title' }, `${grade} класс`),
+        el(
+          'p',
+          { class: 'course__sub' },
+          'Уроки этого года ещё пишутся. Загляни в те классы, что уже открыты.',
+        ),
+        el('a', { class: 'button', href: '#/' }, 'Выбрать класс'),
+      ]);
+    }
     return el('section', { class: 'error' }, [
       el('h1', {}, 'Класс не найден'),
       el('p', {}, error.message),
