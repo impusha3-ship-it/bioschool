@@ -19,8 +19,22 @@ import { loadFigure, parseSvg } from '../ui/figure.js';
  *
  * Этап с оборудованием необязателен. Там, где он есть, лишние приборы берутся
  * из соседних работ: узнавать прибор среди похожих труднее, чем среди случайных.
+ *
+ * Приборы на полке показываются картинками, если значок есть у КАЖДОГО
+ * предмета этой полки (реестр — `content/inventar.json`, приходит в
+ * `inventar`). Иначе полка остаётся списком названий, как была. Полка
+ * наполовину из картинок, наполовину из слов хуже обеих: по картинке узнают
+ * прибор, а по слову рядом читают ответ.
+ *
+ * Название у картинки на полке не подписано намеренно — в этом весь этап:
+ * прибор надо узнать по виду. Оно появляется, когда прибор лёг на стол, и
+ * ученик видит, как называется то, что он выбрал. Для читалки экрана
+ * название есть всегда — в `aria-label` кнопки.
  */
-export function createLabGame(config, { document: doc = globalThis.document, random = Math.random } = {}) {
+export function createLabGame(
+  config,
+  { document: doc = globalThis.document, random = Math.random, inventar = null } = {},
+) {
   const stages = config.stages ?? [];
   if (!stages.length) throw new Error('Игре «lab» нужен хотя бы один шаг работы');
 
@@ -38,6 +52,16 @@ export function createLabGame(config, { document: doc = globalThis.document, ran
 
   const набор = config.equipment ?? null;
   const listeners = new Set();
+
+  /*
+    Картинки — только если хватает на всю полку. Проверяется один раз при
+    сборке: набор по ходу работы не меняется.
+  */
+  const полкаЦеликом = набор ? [...(набор.need ?? []), ...(набор.extra ?? [])] : [];
+  const значки = inventar instanceof Map ? inventar : null;
+  const картинками = Boolean(
+    значки && полкаЦеликом.length && полкаЦеликом.every((имя) => значки.has(имя)),
+  );
 
   /* Стол собирается до работы, поэтому это отдельный этап, а не нулевой шаг. */
   const надо = new Set(набор?.need ?? []);
@@ -89,7 +113,7 @@ export function createLabGame(config, { document: doc = globalThis.document, ran
     );
 
     const полка = doc.createElement('div');
-    полка.className = 'game__bank';
+    полка.className = картинками ? 'game__bank game__bank--shelf' : 'game__bank';
     полка.append(
       ...порядокНабора
         .filter((имя) => !наСтоле.has(имя))
@@ -97,14 +121,19 @@ export function createLabGame(config, { document: doc = globalThis.document, ran
     );
 
     const стол = doc.createElement('div');
-    стол.className = 'lab-run__table';
+    стол.className = картинками ? 'lab-run__table lab-run__table--shelf' : 'lab-run__table';
     const подпись = doc.createElement('p');
     подпись.className = 'lab-run__table-title';
     подпись.textContent = наСтоле.size ? 'На столе' : 'На столе пока пусто';
     стол.append(подпись);
     стол.append(
       ...[...наСтоле].map((имя) =>
-        чип(имя, наборПроверен ? null : () => { наСтоле.delete(имя); notify(); }, знакНабора(имя)),
+        чип(
+          имя,
+          наборПроверен ? null : () => { наСтоле.delete(имя); notify(); },
+          знакНабора(имя),
+          true,
+        ),
       ),
     );
 
@@ -293,14 +322,66 @@ export function createLabGame(config, { document: doc = globalThis.document, ran
     return p;
   }
 
-  function чип(текст, действие, знак = null) {
+  function чип(текст, действие, знак = null, наСтолеЛи = false) {
     const btn = doc.createElement('button');
-    btn.className = знак ? `game__chip game__chip--${знак}` : 'game__chip';
     btn.setAttribute('type', 'button');
-    btn.textContent = текст;
+
+    const значок = картинками ? значки.get(текст) : null;
+    if (значок) {
+      // Название на полке не подписано: прибор узнают по виду. На столе —
+      // подписано: там ученик уже выбрал и должен узнать, что именно.
+      btn.className = знак
+        ? `game__chip game__chip--tile game__chip--${знак}`
+        : 'game__chip game__chip--tile';
+      /*
+        Название не подписано и не всплывает подсказкой: прибор надо узнать
+        по виду, в этом весь этап. `aria-label` остаётся — он не виден на
+        экране, а без него страницу нельзя слушать; `title` убран нарочно:
+        он выдавал ответ по наведению мыши.
+      */
+      btn.setAttribute('aria-label', текст);
+      btn.append(значокУзел(значок, текст));
+      if (наСтолеЛи) {
+        const подпись = doc.createElement('span');
+        подпись.className = 'game__chip-name';
+        подпись.textContent = текст;
+        btn.append(подпись);
+      }
+    } else {
+      btn.className = знак ? `game__chip game__chip--${знак}` : 'game__chip';
+      btn.textContent = текст;
+    }
+
     if (действие) btn.addEventListener('click', действие);
     else btn.setAttribute('disabled', 'true');
     return btn;
+  }
+
+  /*
+    Рисунок прибора. Вставляется тем же путём, что схема в конспекте, — с
+    классом `figure__svg`: без него цвета из темы не применятся и прибор
+    останется чёрным силуэтом.
+  */
+  function значокУзел(значок, название) {
+    const место = doc.createElement('span');
+    место.className = 'game__chip-figure';
+
+    loadFigure(значок.рисунок)
+      .then((text) => {
+        const svg = parseSvg(text);
+        if (!svg) return;
+        svg.setAttribute('class', 'figure__svg');
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', значок.alt ?? название);
+        место.append(svg);
+      })
+      .catch(() => {
+        // Рисунок не пришёл — пусть на плитке будет хотя бы название,
+        // иначе кнопка окажется пустой и нажимать будет не на что.
+        место.textContent = название;
+      });
+
+    return место;
   }
 
   function кнопка(текст, действие, className = 'button') {
@@ -369,6 +450,8 @@ export function createLabGame(config, { document: doc = globalThis.document, ran
       return наборСразу;
     },
     startWork: () => { шаг = 0; notify(); },
+    // Показывает ли этап картинки — нужно тестам и разбору полки.
+    сКартинками: () => картинками,
     choose: (stageId, optionText) => {
       const stage = stages.find((s) => s.id === stageId);
       const option = stage?.options.find((o) => o.text === optionText);

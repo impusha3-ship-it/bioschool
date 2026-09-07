@@ -1,5 +1,5 @@
 import { el } from '../ui/dom.js';
-import { loadLesson } from '../content.js';
+import { loadLesson, loadInventar } from '../content.js';
 import { loadFigure, parseSvg } from '../ui/figure.js';
 import { createGame } from '../games/index.js';
 import { createQuiz } from '../homework/quiz.js';
@@ -26,11 +26,24 @@ export async function renderLessonPage({ lessonId, tab }) {
     ]);
   }
 
+  /*
+    Значки инвентаря для сбора стола в лабораторной. Файл маленький и общий на
+    все уроки, поэтому кешируется после первого захода. Не открылся — работа
+    показывает полку названиями, как было до значков: конспект от этого не
+    страдает, а сама работа выполнима.
+  */
+  let инвентарь = null;
+  try {
+    инвентарь = await loadInventar();
+  } catch {
+    инвентарь = null;
+  }
+
   return el('section', { class: 'lesson' }, [
     el('a', { class: 'back-link', href: `#/class/${lesson.grade}` }, `← ${lesson.grade} класс`),
     el('h1', { class: 'lesson__title' }, lesson.title),
     renderTabs(lesson, tab),
-    renderTabBody(lesson, tab),
+    renderTabBody(lesson, tab, инвентарь),
   ]);
 }
 
@@ -78,17 +91,17 @@ async function зачесть(событие) {
   }
 }
 
-function renderTabBody(lesson, tab) {
-  if (tab === 'summary') return renderSummary(lesson.summary, lesson);
+function renderTabBody(lesson, tab, инвентарь = null) {
+  if (tab === 'summary') return renderSummary(lesson.summary, lesson, инвентарь);
   if (tab === 'materials') return renderMaterials(lesson.materials ?? []);
   if (tab === 'practice') return renderPractice(lesson);
   if (tab === 'homework') return renderHomework(lesson);
   return renderComingSoon(TAB_TITLES[tab]);
 }
 
-function renderSummary(summary, lesson = null) {
+function renderSummary(summary, lesson = null, инвентарь = null) {
   return el('div', { class: 'summary' }, [
-    ...summary.blocks.map((block) => renderBlock(block, { lesson })),
+    ...summary.blocks.map((block) => renderBlock(block, { lesson, inventar: инвентарь })),
     summary.terms?.length ? renderTerms(summary.terms) : null,
     renderKeyPoints(summary.key_points),
   ]);
@@ -98,14 +111,17 @@ function renderSummary(summary, lesson = null) {
 // собирается ровно как прежде, и старые вызовы с двумя доводами (в том числе
 // в тестах) остаются годными. Нужен он только лабораторной — чтобы было куда
 // начислить баллы.
-export function renderBlock(block, { document: doc = globalThis.document, lesson = null } = {}) {
+export function renderBlock(
+  block,
+  { document: doc = globalThis.document, lesson = null, inventar = null } = {},
+) {
   const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
 
   if (block.type === 'figure') {
     return renderFigure(block, e);
   }
   if (block.type === 'lab') {
-    return renderLab(block, e, doc, lesson);
+    return renderLab(block, e, doc, lesson, inventar);
   }
   if (block.type === 'list') {
     return e('div', { class: 'block' }, [
@@ -134,7 +150,7 @@ const LAB_PENDING = 'Интерактивная версия появится п
  * практические вживую проводятся редко, и сайт для большинства учеников —
  * то место, где они увидят, чем работа кончается.
  */
-function renderLab(block, e, doc, lesson = null) {
+function renderLab(block, e, doc, lesson = null, inventar = null) {
   return e('div', { class: 'lab' }, [
     block.kind ? e('p', { class: 'lab__kind' }, block.kind) : null,
     e('h2', { class: 'lab__title' }, block.title),
@@ -150,14 +166,16 @@ function renderLab(block, e, doc, lesson = null) {
       e('ol', {}, block.steps.map((step) => e('li', {}, step))),
     ]),
     block.conclusion ? e('p', { class: 'lab__conclusion' }, block.conclusion) : null,
-    block.run ? renderLabRun(block.run, e, doc, lesson) : e('p', { class: 'lab__pending' }, LAB_PENDING),
+    block.run
+      ? renderLabRun(block.run, e, doc, lesson, inventar)
+      : e('p', { class: 'lab__pending' }, LAB_PENDING),
   ]);
 }
 
-function renderLabRun(run, e, doc, lesson = null) {
+function renderLabRun(run, e, doc, lesson = null, inventar = null) {
   let игра;
   try {
-    игра = createGame({ ...run, type: 'lab' }, { document: doc });
+    игра = createGame({ ...run, type: 'lab' }, { document: doc, inventar });
   } catch {
     // Работу не собрали — текстовая часть выше всё равно на месте, и по ней
     // работа выполнима. Молча показываем прежнюю метку, а не пустое место.

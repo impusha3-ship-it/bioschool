@@ -59,6 +59,54 @@
 
 .game__chip:active { transform: scale(0.97); }
 
+/*
+  Полка приборов в лабораторной: плитки с рисунком вместо названий. Первый
+  этап работы был списком названий, а точно такой же список стоит в тексте
+  работы выше — выбирать было нечего. Теперь прибор узнают по виду.
+
+  На полке подписи нет намеренно: в этом весь этап. Название появляется, когда
+  прибор лёг на стол, — там ученик уже выбрал и должен узнать, что именно.
+*/
+.game__chip--tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--step) * 1.5);
+  width: 104px;
+  min-height: auto;
+  padding: calc(var(--step) * 2.5) calc(var(--step) * 2);
+  border-radius: var(--radius);
+}
+
+.game__chip-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 62px;
+}
+
+/* Прибору важна высота, а не ширина: у пробирки и весов пропорции разные,
+   а стоять в ряд они должны на одной линии. */
+.game__chip-figure .figure__svg {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+}
+
+.game__chip-name {
+  font-size: var(--t-micro);
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Стол под плитками выше, чем под названиями: иначе плитка в него не влезает
+   и подпись «На столе пока пусто» прижимается к краю. */
+.lab-run__table--shelf { min-height: 124px; }
+
 .game__buckets {
   display: grid;
   gap: calc(var(--step) * 3);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Стакан — значок инвентаря для сбора стола в лабораторной работе.
+  Нарезан из «put-vody-v-rastenii.svg» скриптом scripts/narezka не глядя на цвет:
+  цвета приходят из темы через классы d-glass и d-water.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="98.00 164.00 100.00 80.00" role="img" aria-label="Стакан">
+<g class="d-glass">
+    <path d="M100 166 h96 l-8 76 h-80 z"/>
+  </g>
+<g class="d-water">
+    <path d="M104 192 h88 l-6 46 h-76 z"/>
+  </g>
+</svg>
