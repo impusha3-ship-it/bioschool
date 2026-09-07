@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Полиэтиленовый пакет — значок инвентаря для сбора стола в лабораторной работе.
+  Нарисован scripts/znachki-inventarya.py в том же языке, что нарезанные
+  из схемы приборы: примитивы, три ступени светлоты, обводка из темы.
+  Цвета не зашиты — приходят по классам d-eq-*.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 108" role="img" aria-label="Полиэтиленовый пакет">
+<path class="d-eq-none" d="M28 30V16a14 10 0 0 1 28 0v14"/>
+  <path class="d-eq-light" d="M10 30h64l-6 72H16z"/>
+  <path class="d-eq-none" d="M42 40v54"/>
+</svg>

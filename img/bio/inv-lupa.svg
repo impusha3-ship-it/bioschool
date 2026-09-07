@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ручная лупа — значок инвентаря для сбора стола в лабораторной работе.
+  Нарисован scripts/znachki-inventarya.py в том же языке, что нарезанные
+  из схемы приборы: примитивы, три ступени светлоты, обводка из темы.
+  Цвета не зашиты — приходят по классам d-eq-*.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 112" role="img" aria-label="Ручная лупа">
+<rect class="d-eq-mid" x="28" y="62" width="12" height="46" rx="5"/>
+  <circle class="d-eq-mid" cx="34" cy="38" r="32"/>
+  <circle class="d-eq-light" cx="34" cy="38" r="25"/>
+</svg>

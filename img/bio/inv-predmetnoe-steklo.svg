@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Предметное стекло — значок инвентаря для сбора стола в лабораторной работе.
+  Нарисован scripts/znachki-inventarya.py в том же языке, что нарезанные
+  из схемы приборы: примитивы, три ступени светлоты, обводка из темы.
+  Цвета не зашиты — приходят по классам d-eq-*.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Предметное стекло">
+<g transform="rotate(-32 48 48)">
+    <rect class="d-eq-light" x="0" y="34" width="96" height="28" rx="3"/>
+    <ellipse class="d-eq-accent" cx="48" cy="48" rx="16" ry="9"/>
+  </g>
+</svg>

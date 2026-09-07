@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Штатив для пробирок — значок инвентаря для сбора стола в лабораторной работе.
+  Нарисован scripts/znachki-inventarya.py в том же языке, что нарезанные
+  из схемы приборы: примитивы, три ступени светлоты, обводка из темы.
+  Цвета не зашиты — приходят по классам d-eq-*.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 92" role="img" aria-label="Штатив для пробирок">
+<rect class="d-eq-mid" x="6" y="62" width="104" height="24" rx="4"/>
+  <path class="d-eq-light" d="M20 6h18v50a9 9 0 0 1-18 0z"/>
+  <path class="d-eq-light" d="M49 6h18v50a9 9 0 0 1-18 0z"/>
+  <path class="d-eq-light" d="M78 6h18v50a9 9 0 0 1-18 0z"/>
+  <path class="d-eq-none" d="M6 70h104"/>
+</svg>

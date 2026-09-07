@@ -103,6 +103,25 @@
   text-wrap: balance;
 }
 
+/*
+  Образец на полке с картинками. Значка у него нет намеренно: луковицу или
+  гербарный лист по обобщённому рисунку не узнать, а по названию — сразу.
+  Плашка поднята под высоту плитки, чтобы ряд стоял на одной линии, и слегка
+  вдавлена: видно, что это не прибор.
+*/
+.game__chip--specimen {
+  width: 104px;
+  min-height: 84px;
+  padding: calc(var(--step) * 2.5) calc(var(--step) * 2);
+  border-radius: var(--radius);
+  border-style: dashed;
+  background: var(--paper-sunk);
+  font-size: var(--t-micro);
+  font-weight: 650;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
 /* Стол под плитками выше, чем под названиями: иначе плитка в него не влезает
    и подпись «На столе пока пусто» прижимается к краю. */
 .lab-run__table--shelf { min-height: 124px; }
