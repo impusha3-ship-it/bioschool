@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 290" role="img" aria-label="Строение цветка лилейных на примере тюльпана. Околоцветник простой: шесть ярко окрашенных листочков стоят двумя кругами, три в наружном и три во внутреннем. Тычинок тоже шесть, и они тоже стоят по три в двух кругах. В центре цветка крупный пестик, рыльце у него трёхлопастное. Формула цветка звёздочка О три плюс три, Т три плюс три, П один. Плод тюльпана — сухая коробочка, а у ландыша майского околоцветник сросшийся, цветки собраны в кисть и плод сочный — ягода. Внизу вывод: у однодольных части цветка кратны трём, и это первое, что стоит посчитать.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Цветок лилейных: всё по три</text>
+  </g>
+
+  <!--
+    Листочки простого околоцветника: три наружных и три внутренних. Рисуются
+    поворотом одного эллипса вокруг центра цветка — так круги получаются ровные,
+    а не подогнанные на глаз. Внутренние меньше: иначе наружные их закрывают.
+  -->
+  <g class="d-leaf">
+    <ellipse cx="80" cy="64" rx="12" ry="23"/>
+    <ellipse cx="80" cy="64" rx="12" ry="23" transform="rotate(120 80 92)"/>
+    <ellipse cx="80" cy="64" rx="12" ry="23" transform="rotate(240 80 92)"/>
+    <ellipse cx="80" cy="70" rx="9" ry="18" transform="rotate(60 80 92)"/>
+    <ellipse cx="80" cy="70" rx="9" ry="18" transform="rotate(180 80 92)"/>
+    <ellipse cx="80" cy="70" rx="9" ry="18" transform="rotate(300 80 92)"/>
+  </g>
+
+  <!-- Шесть тычинок поштучно: их можно пересчитать, и в этом весь признак. -->
+  <g class="d-stem-end">
+    <circle cx="80" cy="78" r="2.6"/>
+    <circle cx="92" cy="85" r="2.6"/>
+    <circle cx="92" cy="99" r="2.6"/>
+    <circle cx="80" cy="106" r="2.6"/>
+    <circle cx="68" cy="99" r="2.6"/>
+    <circle cx="68" cy="85" r="2.6"/>
+  </g>
+
+  <!-- Пестик с трёхлопастным рыльцем. -->
+  <g class="d-sub">
+    <circle cx="80" cy="92" r="7"/>
+  </g>
+  <g class="d-stem" fill="none">
+    <path d="M80 92 L74 86 M80 92 L86 86 M80 92 L80 100"/>
+  </g>
+
+  <g class="d-lead" fill="none">
+    <path d="M104 54 H164"/>
+    <path d="M97 92 H164"/>
+  </g>
+  <g class="d-label" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="170" y="58">Околоцветник</text>
+    <text x="170" y="106">Пестик один</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="170" y="74">простой: 3 листочка</text>
+    <text x="170" y="88">снаружи и 3 внутри</text>
+    <text x="170" y="122">рыльце</text>
+    <text x="170" y="136">трёхлопастное</text>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="152">6 тычинок: 3 и 3</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="166" x2="312" y2="166"/>
+  </g>
+
+  <g class="d-number" font-size="13" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="186">*О3+3 Т3+3 П1</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="204">Плод тюльпана — сухая коробочка.</text>
+    <text x="8" y="222">У ландыша майского околоцветник сросшийся,</text>
+    <text x="8" y="236">цветки собраны в кисть, плод — ягода.</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="260">У однодольных части цветка кратны трём.</text>
+    <text x="8" y="274">Это первое, что стоит посчитать.</text>
+  </g>
+</svg>

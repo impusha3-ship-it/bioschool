@@ -74,7 +74,8 @@
           "title": "Классификация и цикл развития покрытосеменных растений"
         },
         { "id": "7-dvudolnye-krestocvetnye-rozocvetnye", "title": "Класс Двудольные: Крестоцветные и Розоцветные", "lab": true },
-        { "id": "7-dvudolnye-paslenovye-motylkovye-slozhnocvetnye", "title": "Класс Двудольные: Паслёновые, Мотыльковые и Сложноцветные", "lab": true }
+        { "id": "7-dvudolnye-paslenovye-motylkovye-slozhnocvetnye", "title": "Класс Двудольные: Паслёновые, Мотыльковые и Сложноцветные", "lab": true },
+        { "id": "7-odnodolnye-lileynye-zlaki", "title": "Класс Однодольные: Лилейные и Злаки (Мятликовые)", "lab": true }
       ]
     }
   ]

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 250" role="img" aria-label="Побег злака без подписей: прямой стебель с двумя утолщениями-узлами, трубка вокруг стебля выше верхнего узла, маленький плёнчатый вырост в месте отхождения листа и узкий длинный лист, отходящий вверх и вправо.">
+  <!--
+    Тот же побег, что и в схеме zlak-stroenie.svg, но без подписей: подписи
+    в этой игре расставляет ученик. Рисунок повторён файлом, а не спрятан
+    классом, — иначе в конспекте пришлось бы держать две разметки одной схемы.
+
+    Толщина линий закреплена non-scaling-stroke: холст узкий, в игре он
+    растягивается почти втрое, и обводки иначе превращаются в жирные полосы.
+  -->
+  <g class="d-stem" fill="none" vector-effect="non-scaling-stroke">
+    <path d="M56 232 V36" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="48" y="88" width="16" height="36" rx="5" vector-effect="non-scaling-stroke"/>
+  </g>
+  <g class="d-stem-end">
+    <ellipse cx="56" cy="184" rx="7" ry="3.4"/>
+    <ellipse cx="56" cy="124" rx="7" ry="3.4"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M64 88 L77 83 L64 80 Z" vector-effect="non-scaling-stroke"/>
+    <path d="M64 86 C88 79 108 68 128 50 C110 72 92 83 66 94 Z" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>
