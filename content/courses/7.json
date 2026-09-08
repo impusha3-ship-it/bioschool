@@ -72,7 +72,8 @@
         {
           "id": "7-pokrytosemennye-klassifikaciya",
           "title": "Классификация и цикл развития покрытосеменных растений"
-        }
+        },
+        { "id": "7-dvudolnye-krestocvetnye-rozocvetnye", "title": "Класс Двудольные: Крестоцветные и Розоцветные", "lab": true }
       ]
     }
   ]

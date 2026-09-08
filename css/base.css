@@ -1070,6 +1070,13 @@ h3 {
 .figure__svg .d-stem { stroke: var(--moss); }
 .figure__svg .d-stem-end { fill: var(--moss); }
 .figure__svg .d-leaf path { fill: var(--wash); stroke: var(--moss); stroke-width: 1.5; }
+
+/*
+  Лепесток бывает и эллипсом. Правило выше написано под `path`, и цветок,
+  нарисованный эллипсами, оставался чёрным: заливки ему не досталось вовсе.
+  Та же ловушка, что у хламидомонады с её путями вместо примитивов.
+*/
+.figure__svg .d-leaf ellipse { fill: var(--wash); stroke: var(--moss); stroke-width: 1.5; }
 .figure__svg .d-midrib line { stroke: var(--moss); }
 .figure__svg .d-label { fill: var(--ink); }
 
