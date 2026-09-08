@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 272" role="img" aria-label="Соцветие корзинка у сложноцветных в разрезе. Внизу общее ложе, под ним обёртка из зелёных листочков. На ложе сидит множество мелких цветков: в середине трубчатые, по краю язычковые, а у василька по краю стоят крупные воронковидные цветки без тычинок и пестиков. Из завязи каждого цветка получается семянка, у многих с летучкой из волосков — её разносит ветер. Внизу вывод: корзинку легко принять за один крупный цветок, но это соцветие, и цветков в нём десятки.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Корзинка в разрезе: это не цветок, а соцветие</text>
+  </g>
+
+  <!-- Общее ложе: на нём и сидят все цветки. -->
+  <g class="d-sub">
+    <path d="M78 128 C78 112 202 112 202 128 C202 140 176 148 140 148 C104 148 78 140 78 128 Z"/>
+  </g>
+
+  <!-- Обёртка из листочков — то, что снаружи принимают за чашечку. -->
+  <g class="d-leaf">
+    <path d="M80 126 C64 132 58 152 66 166 C80 158 86 142 80 126 Z"/>
+    <path d="M100 140 C90 154 90 172 102 182 C112 170 112 152 100 140 Z"/>
+    <path d="M140 146 C134 162 138 180 152 186 C158 170 154 154 140 146 Z"/>
+    <path d="M180 140 C190 154 190 172 178 182 C168 170 168 152 180 140 Z"/>
+    <path d="M200 126 C216 132 222 152 214 166 C200 158 194 142 200 126 Z"/>
+  </g>
+
+  <!-- Трубчатые цветки в середине: узкая трубка с зубчиками наверху. -->
+  <g class="d-capsule">
+    <path d="M124 118 h10 v-38 h-10 z"/>
+    <path d="M136 118 h10 v-42 h-10 z"/>
+    <path d="M148 118 h10 v-38 h-10 z"/>
+    <path d="M112 120 h10 v-32 h-10 z"/>
+    <path d="M160 120 h10 v-32 h-10 z"/>
+  </g>
+
+  <!-- Язычковые по краю: короткая трубка и длинный язычок наружу. -->
+  <g class="d-capsule">
+    <path d="M96 122 h10 v-22 h-10 z"/>
+    <path d="M174 122 h10 v-22 h-10 z"/>
+  </g>
+  <g class="d-leaf">
+    <path d="M96 100 C90 84 82 72 72 62 C84 74 97 86 106 100 Z"/>
+    <path d="M184 100 C190 84 198 72 208 62 C196 74 183 86 174 100 Z"/>
+  </g>
+
+  <g class="d-lead" fill="none">
+    <path d="M146 74 V52 H236"/>
+    <path d="M94 112 H72"/>
+    <path d="M214 160 H236"/>
+  </g>
+  <g class="d-label" font-size="10.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="242" y="56">Трубчатые цветки</text>
+    <text x="242" y="164">Обёртка</text>
+  </g>
+  <g class="d-row" font-size="9.5" font-family="system-ui, sans-serif">
+    <text x="242" y="70">стоят в середине</text>
+    <text x="242" y="178">листочки снаружи</text>
+  </g>
+  <g class="d-label" font-size="10.5" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="68" y="108" text-anchor="end">Язычковые</text>
+  </g>
+  <g class="d-row" font-size="9.5" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="68" y="121" text-anchor="end">по краю</text>
+  </g>
+
+  <!-- Семянка с летучкой: волоски держат её в воздухе. -->
+  <g class="d-stem" fill="none">
+    <path d="M348 122 V96 M348 96 L336 82 M348 96 L342 80 M348 96 L348 78 M348 96 L354 80 M348 96 L360 82"/>
+  </g>
+  <g class="d-capsule">
+    <path d="M343 122 C343 134 353 134 353 122 C353 116 350 112 348 112 C346 112 343 116 343 122 Z"/>
+  </g>
+  <g class="d-label" font-size="10.5" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="348" y="150">Семянка</text>
+  </g>
+  <g class="d-row" font-size="9.5" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="348" y="164">с летучкой</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="198" x2="392" y2="198"/>
+  </g>
+
+  <g class="d-row" font-size="10" font-family="system-ui, sans-serif">
+    <text x="8" y="216">У бодяка все цветки трубчатые, у одуванчика все язычковые,</text>
+    <text x="8" y="230">а у василька по краю стоят крупные воронковидные — без тычинок и пестиков.</text>
+  </g>
+
+  <g class="d-verdict" font-size="10" font-family="system-ui, sans-serif">
+    <text x="8" y="250">Жёлтую корзинку одуванчика легко принять за один цветок.</text>
+    <text x="8" y="262">Но цветков в ней десятки.</text>
+  </g>
+</svg>
