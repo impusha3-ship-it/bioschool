@@ -1,6 +1,6 @@
 import { el } from '../ui/dom.js';
 import { loadLesson, loadInventar } from '../content.js';
-import { loadFigure, parseSvg } from '../ui/figure.js';
+import { loadFigure, parseSvg, подогнатьХолст } from '../ui/figure.js';
 import { createGame } from '../games/index.js';
 import { createQuiz } from '../homework/quiz.js';
 import { renderHomework } from './homework.js';
@@ -214,6 +214,7 @@ function renderFigure(block, e) {
       const svg = parseSvg(text);
       if (!svg) return;
       svg.setAttribute('class', 'figure__svg');
+      подогнатьХолст(svg);
       holder.append(svg);
     })
     .catch(() => {

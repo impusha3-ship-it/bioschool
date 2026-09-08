@@ -1,5 +1,5 @@
 import { shuffle } from './engine.js';
-import { loadFigure, parseSvg } from '../ui/figure.js';
+import { loadFigure, parseSvg, подогнатьХолст } from '../ui/figure.js';
 
 /**
  * «Проведи работу» — виртуальная лабораторная.
@@ -313,6 +313,7 @@ export function createLabGame(
         const svg = parseSvg(text);
         if (!svg) return;
         svg.setAttribute('class', 'figure__svg');
+        подогнатьХолст(svg);
         место.append(svg);
       })
       .catch(() => {

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { loadFigure, parseSvg, clearFigureCache } from '../js/ui/figure.js';
+import { loadFigure, parseSvg, clearFigureCache, подогнатьХолст } from '../js/ui/figure.js';
 
 function fakeFetch(files) {
   const calls = [];
@@ -81,4 +81,38 @@ test('parseSvg замечает ошибку разбора внутри док�
     }),
   };
   assert.equal(parseSvg('мусор', { parser, doc: { importNode: () => ({}) } }), null);
+});
+
+/*
+  Размер схемы. Правило схем — кегль не мельче 11 единиц холста, и оно
+  держится, только пока единица холста равна пикселю. Тест закрепляет обе
+  границы: меньше холста никогда, больше — не более чем в 1,35 раза.
+*/
+function фейкSvg(viewBox) {
+  return { style: {}, getAttribute: (имя) => (имя === 'viewBox' ? viewBox : null) };
+}
+
+test('подогнатьХолст не даёт схеме сжаться меньше холста', () => {
+  const svg = фейкSvg('0 0 480 300');
+  подогнатьХолст(svg);
+  assert.equal(svg.style.minWidth, '480px');
+});
+
+test('подогнатьХолст ограничивает рост схемы', () => {
+  const svg = фейкSvg('0 0 320 200');
+  подогнатьХолст(svg);
+  assert.equal(svg.style.maxWidth, '432px');
+});
+
+test('подогнатьХолст обходит запятые в viewBox', () => {
+  const svg = фейкSvg('0,0,400,272');
+  подогнатьХолст(svg);
+  assert.equal(svg.style.minWidth, '400px');
+});
+
+test('подогнатьХолст молчит, если холста нет', () => {
+  const svg = фейкSvg(null);
+  подогнатьХолст(svg);
+  assert.equal(svg.style.minWidth, undefined);
+  assert.equal(svg.style.maxWidth, undefined);
 });
