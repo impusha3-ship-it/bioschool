@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 344" role="img" aria-label="Сравнение животной и растительной клетки. У растительной клетки поверх мембраны есть плотная клеточная стенка, внутри хлоропласты и одна крупная вакуоль с клеточным соком, запас откладывается в виде крахмала. У животной клетки клеточной стенки нет, снаружи только мембрана, хлоропластов нет, крупной вакуоли нет, запас откладывается в виде гликогена, зато есть клеточный центр и много лизосом. Общее у обеих клеток: ядро с ядрышком, цитоплазма, митохондрии, рибосомы. Внизу вывод: у животной клетки отняли стенку, и она перестала держать форму, зато смогла менять её — ползти, захватывать пищу и складываться в мышцы.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Что у животной клетки отняли и что она получила</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="8" y="24" width="144" height="24" rx="6"/>
+    <rect x="168" y="24" width="144" height="24" rx="6"/>
+  </g>
+  <g class="d-capsule-t" font-size="11.5" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="41">Растительная</text>
+    <text x="240" y="41">Животная</text>
+  </g>
+
+  <!--
+    Растительная клетка нарисована прямоугольником, животная — мягким пятном.
+    Это и есть главное различие: стенка держит форму, мембрана её отпускает.
+  -->
+  <g class="d-step-3">
+    <rect x="24" y="58" width="112" height="76" rx="3"/>
+  </g>
+  <g class="d-sub">
+    <rect x="31" y="65" width="98" height="62" rx="4"/>
+  </g>
+  <g class="d-leaf">
+    <ellipse cx="54" cy="82" rx="9" ry="5"/>
+    <ellipse cx="106" cy="90" rx="9" ry="5"/>
+    <ellipse cx="66" cy="114" rx="9" ry="5"/>
+  </g>
+  <g class="d-step-1">
+    <rect x="80" y="98" width="44" height="24" rx="4"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="56" cy="100" r="7"/>
+  </g>
+
+  <g class="d-sub">
+    <path d="M186 92 C186 66 232 56 258 66 C288 78 300 104 286 120 C270 138 218 138 198 122 C188 114 186 102 186 92 Z"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="236" cy="96" r="8"/>
+  </g>
+  <g class="d-capsule">
+    <ellipse cx="206" cy="110" rx="8" ry="5"/>
+    <ellipse cx="268" cy="100" rx="8" ry="5"/>
+  </g>
+  <g class="d-lead" fill="none">
+    <path d="M254 122 h12 M260 116 v12"/>
+  </g>
+
+  <g class="d-row" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="150">стенка держит форму</text>
+    <text x="240" y="150">форма меняется</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="164" x2="312" y2="164"/>
+  </g>
+
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="182">Только у растения</text>
+    <text x="168" y="182">Только у животного</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="198">клеточная стенка</text>
+    <text x="168" y="198">клеточный центр</text>
+    <text x="8" y="212">хлоропласты</text>
+    <text x="168" y="212">много лизосом</text>
+    <text x="8" y="226">крупная вакуоль с соком</text>
+    <text x="168" y="226">запас — гликоген</text>
+    <text x="8" y="240">запас — крахмал</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="254" x2="312" y2="254"/>
+  </g>
+
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="272">И у той, и у другой</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="290">ядро с ядрышком, цитоплазма,</text>
+    <text x="8" y="304">митохондрии, рибосомы</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="326">Стенку отняли — клетка перестала держать форму.</text>
+    <text x="8" y="340">Зато смогла ползти, глотать и стать мышцей.</text>
+  </g>
+</svg>

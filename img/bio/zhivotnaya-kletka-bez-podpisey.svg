@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 170" role="img" aria-label="Животная клетка без подписей. Снаружи мягкий контур — оболочка клетки. Внутри крупный круг с маленьким кружком внутри, овал с извилистой линией внутри, несколько мелких кружков и пара коротких палочек крест-накрест.">
+  <!--
+    Схема для игры: подписи расставляет ученик. Органоиды различаются формой,
+    а не подписью, — иначе игра сводится к чтению.
+
+    Обводки закреплены non-scaling-stroke: холст узкий, в игре растягивается
+    вдвое и больше.
+  -->
+  <g class="d-sub">
+    <path d="M14 84 C14 44 58 20 104 22 C158 24 204 48 206 88 C208 126 160 150 108 148 C56 146 14 124 14 84 Z" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <!-- Ядро с ядрышком. -->
+  <g class="d-capsule">
+    <circle cx="78" cy="76" r="22" vector-effect="non-scaling-stroke"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="86" cy="70" r="6"/>
+  </g>
+
+  <!-- Митохондрия: овал со складкой внутри. -->
+  <g class="d-capsule">
+    <ellipse cx="156" cy="58" rx="20" ry="11" vector-effect="non-scaling-stroke"/>
+  </g>
+  <g class="d-stem" fill="none">
+    <path d="M142 58 C148 50 150 66 156 58 C162 50 164 66 170 58" vector-effect="non-scaling-stroke"/>
+  </g>
+
+  <!-- Лизосомы: мелкие пузырьки с крупинками внутри. -->
+  <g class="d-capsule">
+    <circle cx="150" cy="112" r="9" vector-effect="non-scaling-stroke"/>
+    <circle cx="176" cy="96" r="6" vector-effect="non-scaling-stroke"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="147" cy="110" r="1.8"/>
+    <circle cx="153" cy="114" r="1.8"/>
+    <circle cx="151" cy="108" r="1.8"/>
+  </g>
+
+  <!-- Клеточный центр: две короткие палочки крест-накрест. -->
+  <g class="d-stem" fill="none">
+    <path d="M50 116 L68 128 M52 130 L66 114" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>
