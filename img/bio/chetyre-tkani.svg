@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 330" role="img" aria-label="Четыре типа тканей животных и то, как в каждой уложены клетки. Покровная ткань: клетки плотно прилегают друг к другу сплошным пластом, межклеточного вещества между ними почти нет — получается пограничный барьер. Соединительная ткань: клетки разной формы лежат далеко друг от друга в волокнистом межклеточном веществе, которое и придаёт ткани прочность; это опора, а также хрящ, кость, жир и кровь. Мышечная ткань: длинные тонкие волокна, способные сокращаться в ответ на раздражение, — благодаря им животное и его органы движутся. Нервная ткань: клетки с отростками, нейроны, воспринимают раздражения, превращают их в нервные импульсы и передают дальше. Внизу вывод: тип ткани узнают не по цвету под микроскопом, а по тому, как уложены клетки и сколько между ними межклеточного вещества.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Четыре ткани: всё решает укладка клеток</text>
+  </g>
+
+  <!-- Покровная: клетки вплотную, межклеточного вещества почти нет. -->
+  <g class="d-step-3">
+    <rect x="8" y="24" width="144" height="94" rx="6"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="18" y="42">Покровная</text>
+  </g>
+  <g class="d-sub">
+    <rect x="18" y="50" width="20" height="14" rx="2"/>
+    <rect x="40" y="50" width="20" height="14" rx="2"/>
+    <rect x="62" y="50" width="20" height="14" rx="2"/>
+    <rect x="84" y="50" width="20" height="14" rx="2"/>
+    <rect x="18" y="66" width="20" height="14" rx="2"/>
+    <rect x="40" y="66" width="20" height="14" rx="2"/>
+    <rect x="62" y="66" width="20" height="14" rx="2"/>
+    <rect x="84" y="66" width="20" height="14" rx="2"/>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="18" y="96">клетки вплотную —</text>
+    <text x="18" y="110">это барьер</text>
+  </g>
+
+  <!-- Соединительная: клетки редко, межклеточного вещества много. -->
+  <g class="d-step-3">
+    <rect x="168" y="24" width="144" height="94" rx="6"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="178" y="42">Соединительная</text>
+  </g>
+  <g class="d-lead" fill="none">
+    <path d="M178 54 C206 64 232 50 262 62 M178 72 C210 62 236 78 262 70 M190 50 C196 66 188 74 194 82"/>
+  </g>
+  <g class="d-sub">
+    <circle cx="190" cy="58" r="5"/>
+    <circle cx="228" cy="74" r="5"/>
+    <circle cx="256" cy="54" r="5"/>
+    <circle cx="212" cy="50" r="4"/>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="178" y="96">клетки редко, между</text>
+    <text x="178" y="110">ними вещество</text>
+  </g>
+
+  <!-- Мышечная: длинные волокна с поперечными полосами. -->
+  <g class="d-step-3">
+    <rect x="8" y="128" width="144" height="94" rx="6"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="18" y="146">Мышечная</text>
+  </g>
+  <g class="d-sub">
+    <rect x="18" y="154" width="116" height="9" rx="4"/>
+    <rect x="18" y="167" width="116" height="9" rx="4"/>
+    <rect x="18" y="180" width="116" height="9" rx="4"/>
+  </g>
+  <g class="d-lead" fill="none">
+    <path d="M40 154 V189 M64 154 V189 M88 154 V189 M112 154 V189"/>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="18" y="204">длинные волокна —</text>
+    <text x="18" y="214">они сокращаются</text>
+  </g>
+
+  <!-- Нервная: клетка с отростками. -->
+  <g class="d-step-3">
+    <rect x="168" y="128" width="144" height="94" rx="6"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="178" y="146">Нервная</text>
+  </g>
+  <g class="d-lead" fill="none">
+    <path d="M228 172 L196 156 M228 172 L192 176 M228 172 L200 190 M228 172 L288 166 M228 172 L262 186"/>
+  </g>
+  <g class="d-sub">
+    <circle cx="228" cy="172" r="9"/>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="178" y="204">клетка с отростками —</text>
+    <text x="178" y="214">она передаёт сигнал</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="238" x2="312" y2="238"/>
+  </g>
+
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="258">Межклеточное вещество вырабатывают сами клетки.</text>
+    <text x="8" y="272">Сколько его в ткани — важнейшая её примета.</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="296">Тип ткани узнают не по цвету под микроскопом,</text>
+    <text x="8" y="310">а по тому, как уложены клетки</text>
+    <text x="8" y="324">и много ли между ними межклеточного вещества.</text>
+  </g>
+</svg>

@@ -10,7 +10,8 @@
       "lessons": [
         { "id": "8-zoologiya-nauka", "title": "Зоология — наука о животных" },
         { "id": "8-priznaki-zhivotnyh", "title": "Общие признаки животных. Многообразие животного мира" },
-        { "id": "8-zhivotnaya-kletka", "title": "Строение и жизнедеятельность животной клетки" }
+        { "id": "8-zhivotnaya-kletka", "title": "Строение и жизнедеятельность животной клетки" },
+        { "id": "8-tkani-organy-sistemy", "title": "Ткани животных. Органы и системы органов", "lab": true }
       ]
     }
   ]
