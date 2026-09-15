@@ -15,11 +15,11 @@
       ]
     },
     {
-      "id": "stroenie-i-zhiznedeyatelnost",
-      "title": "Строение и жизнедеятельность организма животного",
-      "hours": 12,
+      "id": "sistematicheskie-gruppy",
+      "title": "Систематические группы животных",
+      "hours": 46,
       "lessons": [
-        { "id": "8-opora-i-dvizhenie", "title": "Опора и движение животных", "lab": true }
+        { "id": "8-sistematika-zhivotnyh", "title": "Основные категории систематики животных" }
       ]
     }
   ]

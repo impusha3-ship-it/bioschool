@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="Лестница систематических категорий на примере крота обыкновенного. Сверху вниз: царство Животные, подцарство Многоклеточные, тип Хордовые, класс Млекопитающие, отряд Насекомоядные, семейство Кротовые, род Крот, вид Крот обыкновенный. Каждая ступень вниз сужает группу: в царстве Животные около двух миллионов видов, а на последней ступени остаётся один. Внизу вывод: по этой же лестнице раскладывается любое животное, а название вида всегда двойное — род и вид.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Лестница таксонов: от всех животных к одному</text>
+  </g>
+
+  <!--
+    Слева ступень, справа то, что на ней стоит у крота. Восемь строк — это
+    и есть весь механизм систематики: каждый шаг вниз сужает группу.
+  -->
+  <g class="d-step-3">
+    <rect x="8" y="26" width="140" height="22" rx="5"/>
+    <rect x="8" y="54" width="140" height="22" rx="5"/>
+    <rect x="8" y="82" width="140" height="22" rx="5"/>
+    <rect x="8" y="110" width="140" height="22" rx="5"/>
+    <rect x="8" y="138" width="140" height="22" rx="5"/>
+    <rect x="8" y="166" width="140" height="22" rx="5"/>
+    <rect x="8" y="194" width="140" height="22" rx="5"/>
+  </g>
+  <g class="d-step-1">
+    <rect x="8" y="222" width="140" height="22" rx="5"/>
+  </g>
+
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="18" y="41">Царство</text>
+    <text x="18" y="69">Подцарство</text>
+    <text x="18" y="97">Тип</text>
+    <text x="18" y="125">Класс</text>
+    <text x="18" y="153">Отряд</text>
+    <text x="18" y="181">Семейство</text>
+    <text x="18" y="209">Род</text>
+    <text x="18" y="237">Вид</text>
+  </g>
+
+  <g class="d-lead" fill="none">
+    <path d="M148 37 H164 M148 65 H164 M148 93 H164 M148 121 H164"/>
+    <path d="M148 149 H164 M148 177 H164 M148 205 H164 M148 233 H164"/>
+  </g>
+
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="170" y="41">Животные</text>
+    <text x="170" y="69">Многоклеточные</text>
+    <text x="170" y="97">Хордовые</text>
+    <text x="170" y="125">Млекопитающие</text>
+    <text x="170" y="153">Насекомоядные</text>
+    <text x="170" y="181">Кротовые</text>
+    <text x="170" y="209">Крот</text>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="170" y="237">Крот обыкновенный</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="256" x2="312" y2="256"/>
+  </g>
+
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="276">В царстве Животные около 2 млн видов,</text>
+    <text x="8" y="290">на последней ступени остаётся один.</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="312">Название вида всегда двойное: род и вид.</text>
+  </g>
+</svg>
