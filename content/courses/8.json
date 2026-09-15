@@ -13,6 +13,14 @@
         { "id": "8-zhivotnaya-kletka", "title": "Строение и жизнедеятельность животной клетки" },
         { "id": "8-tkani-organy-sistemy", "title": "Ткани животных. Органы и системы органов", "lab": true }
       ]
+    },
+    {
+      "id": "stroenie-i-zhiznedeyatelnost",
+      "title": "Строение и жизнедеятельность организма животного",
+      "hours": 12,
+      "lessons": [
+        { "id": "8-opora-i-dvizhenie", "title": "Опора и движение животных", "lab": true }
+      ]
     }
   ]
 }

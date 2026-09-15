@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 332" role="img" aria-label="Три способа держать форму тела. Первый — гидростатический скелет: у червей твёрдых частей нет вовсе, форму держат растяжимые покровы вместе со слоями мышц под ними, и всё это вместе называют кожно-мускульным мешком. Второй — наружный скелет: раковина, панцирь или твёрдые пластины снаружи, мышцы крепятся изнутри; он повысил скорость движения и позволил освоить прыжки и полёт, но растёт не вместе с телом, и его приходится сбрасывать. Третий — внутренний скелет: кости, хрящи и связки внутри тела, мышцы крепятся снаружи; такой скелет растёт вместе с животным и даёт конечности рычажного типа. Внизу вывод: скелет — это не обязательно кости; важно, есть ли опора, к которой крепятся мышцы.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Три способа держать форму тела</text>
+  </g>
+
+  <!-- Гидростатический: жидкость внутри и мышцы в стенке, твёрдого нет. -->
+  <g class="d-step-3">
+    <rect x="8" y="24" width="304" height="80" rx="6"/>
+  </g>
+  <g class="d-sub">
+    <rect x="18" y="48" width="74" height="26" rx="13"/>
+  </g>
+  <g class="d-lead" fill="none">
+    <path d="M32 48 V74 M46 48 V74 M60 48 V74 M74 48 V74"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="104" y="46">Гидростатический</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="104" y="62">твёрдых частей нет: форму</text>
+    <text x="104" y="76">держат покровы и мышцы</text>
+    <text x="104" y="92">это кожно-мускульный мешок</text>
+  </g>
+
+  <!-- Наружный: панцирь снаружи, мышцы изнутри. -->
+  <g class="d-step-3">
+    <rect x="8" y="112" width="304" height="80" rx="6"/>
+  </g>
+  <g class="d-capsule">
+    <ellipse cx="55" cy="146" rx="34" ry="18"/>
+  </g>
+  <g class="d-lead" fill="none">
+    <path d="M55 128 V164 M30 158 L22 172 M55 164 V178 M80 158 L88 172"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="104" y="134">Наружный</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="104" y="150">панцирь или раковина снаружи,</text>
+    <text x="104" y="164">мышцы крепятся изнутри</text>
+    <text x="104" y="180">дал скорость, прыжки и полёт</text>
+  </g>
+
+  <!-- Внутренний: две кости и мышца между ними — это и есть рычаг. -->
+  <g class="d-step-3">
+    <rect x="8" y="200" width="304" height="80" rx="6"/>
+  </g>
+  <g class="d-stem" fill="none">
+    <path d="M20 216 L56 240 L86 226"/>
+  </g>
+  <g class="d-capsule">
+    <ellipse cx="44" cy="242" rx="18" ry="7" transform="rotate(33 44 242)"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="56" cy="240" r="4"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="104" y="222">Внутренний</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="104" y="238">кости, хрящи и связки внутри,</text>
+    <text x="104" y="252">мышцы крепятся снаружи</text>
+    <text x="104" y="268">растёт вместе с животным</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="292" x2="312" y2="292"/>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="312">Скелет — не обязательно кости. Важно другое:</text>
+    <text x="8" y="326">есть ли опора, к которой крепятся мышцы.</text>
+  </g>
+</svg>
