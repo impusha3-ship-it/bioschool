@@ -19,7 +19,8 @@
       "title": "Систематические группы животных",
       "hours": 46,
       "lessons": [
-        { "id": "8-sistematika-zhivotnyh", "title": "Основные категории систематики животных" }
+        { "id": "8-sistematika-zhivotnyh", "title": "Основные категории систематики животных" },
+        { "id": "8-prosteyshie-kornenozhki", "title": "Одноклеточные животные — Простейшие. Корненожки" }
       ]
     }
   ]
