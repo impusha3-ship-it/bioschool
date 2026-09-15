@@ -22,7 +22,8 @@
         { "id": "8-sistematika-zhivotnyh", "title": "Основные категории систематики животных" },
         { "id": "8-prosteyshie-kornenozhki", "title": "Одноклеточные животные — Простейшие. Корненожки" },
         { "id": "8-zhgutikonoscy-i-infuzorii", "title": "Жгутиконосцы и инфузории", "lab": true },
-        { "id": "8-mnogoobrazie-prosteyshih", "title": "Многообразие и значение простейших в природе и жизни человека" }
+        { "id": "8-mnogoobrazie-prosteyshih", "title": "Многообразие и значение простейших в природе и жизни человека" },
+        { "id": "8-gubki", "title": "Губки" }
       ]
     }
   ]
