@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 392" role="img" aria-label="Два пути, которыми простейшие-паразиты попадают в человека. Первый путь — через рот, в виде цисты: так попадают дизентерийная амёба, вызывающая амёбиаз, лямблия, вызывающая лямблиоз, и токсоплазма, вызывающая токсоплазмоз; цисты оказываются в грязной воде, на немытых овощах и руках, их разносят мухи, а токсоплазмой заражаются от бродячих кошек и заражённого мяса. Защита — мыть руки и продукты, не пить сырую воду. Второй путь — с укусом кровососущего переносчика: малярийный плазмодий, вызывающий малярию, переносится комаром Anopheles, трипаносома, вызывающая сонную болезнь, — мухой цеце, лейшмания, вызывающая пендинскую язву, — москитом. Защита — бороться с переносчиком и не давать ему кусать. Вывод: способ защиты подсказывает путь заражения.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Как паразит попадает в человека</text>
+  </g>
+
+  <!-- Первый путь: цисты через рот. -->
+  <g class="d-capsule">
+    <rect x="8" y="24" width="304" height="24" rx="6"/>
+  </g>
+  <g class="d-capsule-t" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="160" y="40">Через рот — в виде цисты</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="68">дизентерийная амёба</text>
+    <text x="8" y="100">лямблия</text>
+    <text x="8" y="132">токсоплазма</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="82">грязная вода, мухи</text>
+    <text x="8" y="114">немытые овощи, сырая вода</text>
+    <text x="8" y="146">бродячие кошки, сырое мясо</text>
+    <text x="196" y="68">амёбиаз</text>
+    <text x="196" y="100">лямблиоз</text>
+    <text x="196" y="132">токсоплазмоз</text>
+  </g>
+
+  <g class="d-step-1">
+    <rect x="8" y="156" width="304" height="24" rx="6"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="16" y="172">Защита: чистые руки, мытые продукты</text>
+  </g>
+
+  <!-- Второй путь: укус кровососущего переносчика. -->
+  <g class="d-capsule">
+    <rect x="8" y="192" width="304" height="24" rx="6"/>
+  </g>
+  <g class="d-capsule-t" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="160" y="208">С укусом переносчика</text>
+  </g>
+
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="236">малярийный плазмодий</text>
+    <text x="8" y="268">трипаносома</text>
+    <text x="8" y="300">лейшмания</text>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="250">комар Anopheles</text>
+    <text x="8" y="282">муха цеце</text>
+    <text x="8" y="314">москит</text>
+    <text x="196" y="236">малярия</text>
+    <text x="196" y="268">сонная болезнь</text>
+    <text x="196" y="300">пендинская язва</text>
+  </g>
+
+  <g class="d-step-1">
+    <rect x="8" y="324" width="304" height="24" rx="6"/>
+  </g>
+  <g class="d-label" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="16" y="340">Защита: не дать переносчику укусить</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="370">Паразитов много, путей два. Защиту подсказывает</text>
+    <text x="8" y="384">путь: против цист — чистота, против укуса — сетка.</text>
+  </g>
+</svg>
