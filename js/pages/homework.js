@@ -1,7 +1,7 @@
 import { el, clear } from '../ui/dom.js';
 import { createGame } from '../games/index.js';
 import { createHomework } from '../homework/submit.js';
-import { scoreQuestions, openQuestions, isAuto, combineScore, grade } from '../homework/questions.js';
+import { scoreQuestions, openQuestions, isAuto, checkAnswer, combineScore, grade } from '../homework/questions.js';
 import { questionField } from '../homework/fields.js';
 import { auth } from './login.js';
 import { progress } from '../progress/index.js';
@@ -52,7 +52,7 @@ async function подготовить(блок, lesson, сессия) {
 
   clear(блок);
 
-  if (сданное) return блок.append(показатьСданное(сданное));
+  if (сданное) return блок.append(показатьСданное(сданное, lesson));
   if (!назначение?.isOpen) {
     return блок.append(
       el('div', { class: 'empty' }, [
@@ -129,7 +129,19 @@ function собратьВопросы(lesson) {
   ];
 }
 
-function показатьСданное(работа) {
+/**
+ * Сданная работа: сколько получилось и где именно ошибся.
+ *
+ * Разбор показывается сразу после сдачи, а не когда-нибудь потом. Ошибка,
+ * о которой не сказали, ничему не учит: до этого ученик видел одно число
+ * процентов и не знал, какие из десяти вопросов он завалил, — а переписать
+ * работу нельзя, значит, единственная польза от неё и есть разбор.
+ *
+ * Показывать ключ здесь не опасно: сдать второй раз не даст база, а не
+ * интерфейс. Чужую работу так тоже не подсмотреть — разбор строится из того,
+ * что сдал сам ученик, и лежит за его входом.
+ */
+function показатьСданное(работа, lesson = null) {
   const дата = new Date(работа.submittedAt).toLocaleString('ru-RU', {
     day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
   });
@@ -147,23 +159,88 @@ function показатьСданное(работа) {
 
   строки.push(el('p', { class: 'homework__done-when' }, дата + (работа.isLate ? ', с опозданием' : '')));
 
-  if (работа.open && Object.keys(работа.open).length) {
-    строки.push(
-      el('p', { class: 'homework__await' }, 'Развёрнутый ответ ждёт проверки учителя.'),
-    );
-  }
-  if (работа.manualScore !== undefined) {
-    строки.push(el('p', { class: 'homework__manual' }, `Учитель поставил за развёрнутый ответ: ${работа.manualScore}`));
-  }
-  if (работа.comment) {
-    строки.push(el('p', { class: 'homework__comment' }, работа.comment));
+  const разбор = собратьРазбор(работа, lesson);
+
+  // Без разбора судьба развёрнутого ответа говорится здесь: работам, сданным
+  // до появления разбора, ответы по вопросам не сохранялись, и показать их
+  // рядом с вопросом уже неоткуда.
+  if (!разбор) {
+    if (работа.open && Object.keys(работа.open).length && работа.manualScore === undefined) {
+      строки.push(el('p', { class: 'homework__await' }, 'Развёрнутый ответ ждёт проверки учителя.'));
+    }
+    if (работа.manualScore !== undefined) {
+      строки.push(
+        el('p', { class: 'homework__manual' }, `Учитель поставил за развёрнутый ответ: ${работа.manualScore}`),
+      );
+    }
+    if (работа.comment) строки.push(el('p', { class: 'homework__comment' }, работа.comment));
   }
 
   строки.push(
     el('p', { class: 'homework__hint' }, 'Переписать работу нельзя, но потренироваться можно сколько угодно.'),
   );
 
-  return el('div', { class: 'homework__done' }, строки);
+  return el('div', { class: 'homework__done' }, [
+    el('div', { class: 'homework__done-head' }, строки),
+    разбор,
+  ].filter(Boolean));
+}
+
+/**
+ * Разбор сданной работы: каждый вопрос с ответом ученика и вердиктом.
+ *
+ * Развёрнутому ответу вердикта не ставится и ключ ему не показывается: его
+ * судит человек, и до того, как учитель прочитал, никакого «верно» тут нет.
+ * Вместо вердикта — судьба проверки: ждёт или уже разобран, и с чем.
+ */
+export function собратьРазбор(работа, lesson, { document: doc = globalThis.document } = {}) {
+  if (!lesson || !работа?.answers) return null;
+
+  const вопросы = собратьВопросы(lesson);
+  if (!вопросы.length) return null;
+
+  const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
+  const ответы = { ...работа.answers, ...(работа.open ?? {}) };
+  const части = [e('h2', {}, 'Разбор')];
+
+  for (const q of вопросы) {
+    const поле = questionField(q, { ...ответы }, { disabled: true, document: doc });
+    части.push(поле.element);
+
+    if (isAuto(q)) {
+      поле.showResult(checkAnswer(q, ответы[q.id]).ok);
+      continue;
+    }
+
+    поле.showNote(
+      ...(работа.manualScore === undefined
+        ? [
+            e('p', { class: 'q__verdict-line' }, 'Ждёт проверки учителя'),
+            e('p', { class: 'q__verdict-text' },
+              'Когда учитель проверит, на сайте появится уведомление с баллом.'),
+          ]
+        : [
+            e('p', { class: 'q__verdict-line' },
+              `Учитель поставил: ${работа.manualScore}${q.maxScore ? ` из ${q.maxScore}` : ''}`),
+            работа.comment ? e('p', { class: 'q__verdict-text' }, работа.comment) : null,
+          ]),
+    );
+  }
+
+  /*
+    Игра в разбор не попадает: в работу уходит только её счёт, а какие ходы
+    ученик сделал, нигде не сохранено. Без этой строчки счёт «7 из 10» над
+    шестью разобранными вопросами читался бы как пропажа четырёх.
+  */
+  const конфигИгры = Array.isArray(lesson.game) ? lesson.game[0] : lesson.game;
+  if (конфигИгры) {
+    части.push(
+      e('p', { class: 'homework__hint' },
+        'В счёт вошла ещё игра — её разбор не сохраняется, но пройти её заново можно на вкладке «Тренажёр».'),
+    );
+  }
+
+  return e('div', { class: 'homework__review' }, части);
 }
 
 function собратьРаботу(lesson, сессия, назначение, блок) {
@@ -229,7 +306,7 @@ function собратьРаботу(lesson, сессия, назначение, 
         dueAt: назначение.dueAt,
       });
       clear(блок);
-      блок.append(показатьСданное(работа));
+      блок.append(показатьСданное(работа, lesson));
       window.scrollTo(0, 0);
 
       // Баллы считаются по той же работе, что ушла в журнал, но журнала не

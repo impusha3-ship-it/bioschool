@@ -11,11 +11,16 @@ import { loadFigure, parseSvg } from '../ui/figure.js';
  *
  * `disabled` — поля не принимают ввод (просмотр).
  * `key` — рядом с верными вариантами стоит пометка (просмотр учителя).
+ *
+ * Ответ, уже лежащий в `ответы`, подставляется в поля. Это то, чем разбор
+ * сданной работы отличается от чистого бланка: ученик должен видеть не пустой
+ * вопрос с пометкой «неверно», а то, что он сам тогда выбрал.
  */
 export function questionField(q, ответы = {}, настройки = {}) {
   const { document: doc = globalThis.document, disabled = false, key = false } = настройки;
   const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
 
+  const данный = ответы[q.id];
   const верные = correctIndexes(q);
   const метки = [];
   const входы = [];
@@ -30,6 +35,11 @@ export function questionField(q, ответы = {}, настройки = {}) {
         class: 'q__input',
         disabled: disabled ? 'true' : null,
       });
+
+      const отмечен = q.type === 'choice'
+        ? данный === index
+        : Array.isArray(данный) && данный.includes(index);
+      if (отмечен) вход.checked = true;
 
       вход.addEventListener('change', () => {
         if (q.type === 'choice') {
@@ -62,6 +72,7 @@ export function questionField(q, ответы = {}, настройки = {}) {
       'aria-label': 'Развёрнутый ответ',
       disabled: disabled ? 'true' : null,
     });
+    if (данный !== undefined && данный !== null) поле.value = String(данный);
     поле.addEventListener('input', () => { ответы[q.id] = поле.value; });
     входы.push(поле);
     тело.push(поле);
@@ -72,6 +83,7 @@ export function questionField(q, ответы = {}, настройки = {}) {
       'aria-label': 'Ответ',
       disabled: disabled ? 'true' : null,
     });
+    if (данный !== undefined && данный !== null) поле.value = String(данный);
     поле.addEventListener('input', () => { ответы[q.id] = поле.value; });
     входы.push(поле);
     тело.push(поле);
@@ -155,7 +167,20 @@ export function questionField(q, ответы = {}, настройки = {}) {
     );
   }
 
-  return { element: блок, showResult };
+  /**
+   * Заметка на месте разбора — там, где вердикта нет и быть не может.
+   *
+   * Пишется сюда, а не рядом с вопросом, потому что читать её будут в том же
+   * месте, где у соседних вопросов стоит «верно» или «неверно». Развёрнутому
+   * ответу в сданной работе туда идёт судьба его проверки: ждёт учителя или
+   * получил балл.
+   */
+  function showNote(...узлы) {
+    разбор.className = 'q__verdict q__verdict--note';
+    разбор.append(...узлы.filter(Boolean));
+  }
+
+  return { element: блок, showResult, showNote };
 }
 
 /**

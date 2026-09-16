@@ -38,6 +38,12 @@
     <button class="site-header__theme" id="theme" type="button">Тема</button>
     <a class="site-header__who" id="who" href="#/login">Войти</a>
   </header>
+  <!--
+    Место для плашки «учитель проверил». Стоит над страницей, а не внутри неё:
+    страница перерисовывается на каждом переходе, а новость про балл должна
+    висеть, пока ученик её не тронет.
+  -->
+  <div id="notice"></div>
   <main id="app" class="app" tabindex="-1">
     <p class="loading">Загрузка…</p>
   </main>

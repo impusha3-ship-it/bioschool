@@ -11,6 +11,9 @@ import { renderMePage } from './pages/me.js';
 import { renderTabloPage } from './pages/tablo.js';
 import { progress } from './progress/index.js';
 import { итог } from './progress/core.js';
+import { createПроверки } from './homework/proverki.js';
+import { плашкаПроверок } from './ui/uvedomlenie.js';
+import { loadCourse } from './content.js';
 
 const PAGES = {
   home: renderHomePage,
@@ -100,6 +103,56 @@ updateWho();
 // расточительство: слияние берёт наибольшее, поэтому повторный вызов ничего
 // не меняет. Заодно на новом устройстве прогресс приезжает сам.
 progress.перенести().catch(() => {});
+
+const проверки = createПроверки({
+  сессия: () => {
+    const s = auth.current();
+    return s?.kind === 'student' ? { studentId: s.studentId, classId: s.classId } : null;
+  },
+  токен: () => auth.token(),
+});
+
+/**
+ * Новости от учителя: балл за развёрнутый ответ.
+ *
+ * Спрашивается при запуске, а не на странице урока. Ученик не помнит, какую
+ * из тридцати работ учитель ещё не смотрел, и заходить в урок ради этого не
+ * станет: новость должна найти его сама, в каком бы месте сайта он ни был.
+ */
+async function показатьПроверки() {
+  const место = document.getElementById('notice');
+  if (!место) return;
+
+  const новые = await проверки.новое();
+  if (!новые.length) return;
+
+  const плашка = плашкаПроверок(новые, {
+    названия: await названияУроков(новые.map((п) => п.lessonId)),
+    onRead: (прочитанные) => { проверки.отметить(прочитанные).catch(() => {}); },
+  });
+  if (плашка) место.append(плашка);
+}
+
+/** Названия уроков для плашки: берутся из курсов тех классов, что в новостях. */
+async function названияУроков(идентификаторы) {
+  const названия = new Map();
+
+  for (const grade of new Set(идентификаторы.map((id) => id.split('-')[0]))) {
+    try {
+      const курс = await loadCourse(grade);
+      for (const раздел of курс.sections) {
+        for (const урок of раздел.lessons) названия.set(урок.id, урок.title);
+      }
+    } catch {
+      // Курс не открылся — в плашке останется идентификатор урока.
+      // Балл важнее красивого заголовка, и молчать из-за этого нельзя.
+    }
+  }
+
+  return названия;
+}
+
+показатьПроверки().catch(() => {});
 
 let currentToken = 0;
 let revealController = null;

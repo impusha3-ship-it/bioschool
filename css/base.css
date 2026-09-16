@@ -145,6 +145,7 @@ body {
   padding: calc(var(--step) * 5) calc(var(--step) * 4.5) calc(var(--step) * 14);
 }
 
+
 /*
   Страницы-сетки живут шире полосы чтения: список классов, журнал и табло
   в сорока ремах выглядят колонкой в углу большого экрана.
@@ -158,6 +159,48 @@ body {
 .app[data-page='teacher'],
 .app[data-page='me'],
 .app[data-page='tablo'] { max-width: var(--measure-wide); }
+
+
+/* ── Плашка «учитель проверил» ──────────────────────────────
+   Стоит между шапкой и страницей и не всплывает: новость про балл ученик
+   должен застать, а не поймать за четыре секунды. */
+.notice {
+  position: relative;
+  max-width: var(--measure-prose);
+  margin: calc(var(--step) * 4) auto 0;
+  padding: calc(var(--step) * 4) calc(var(--step) * 11) calc(var(--step) * 4) calc(var(--step) * 4.5);
+  background: var(--wash);
+  border: 1px solid var(--moss);
+  border-radius: var(--radius);
+}
+
+.notice__title { margin: 0; color: var(--moss-deep); font-weight: 700; }
+.notice__list { margin: calc(var(--step) * 2) 0 0; padding: 0; list-style: none; }
+.notice__row { margin-top: calc(var(--step) * 2); }
+.notice__link { font-weight: 650; }
+.notice__score { margin-left: calc(var(--step) * 2); color: var(--ink-soft); font-size: var(--t-small); }
+
+.notice__comment {
+  margin: calc(var(--step) * 2) 0 0;
+  font-family: var(--font-prose);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.notice__close {
+  position: absolute;
+  top: calc(var(--step) * 1.5);
+  right: calc(var(--step) * 1.5);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  background: none;
+  border: 0;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
 
 .site-footer {
   margin-top: calc(var(--step) * 6);
@@ -1623,8 +1666,21 @@ h3 {
   border-radius: var(--radius);
 }
 
-.check__card--done { background: var(--wash); opacity: 0.75; }
+/* Проверенная работа гаснет, но не исчезает: балл у неё нажимается заново. */
+.check__card--done { background: var(--wash); }
 .check__who { margin: 0 0 calc(var(--step) * 2); color: var(--ink-soft); font-size: 13px; font-weight: 650; }
+
+/* Вопрос, на который отвечал ученик. Без него тридцать ответов подряд
+   читаются вслепую: учитель помнит задание, но не помнит его слова. */
+.check__prompt {
+  margin: 0 0 calc(var(--step) * 3);
+  color: var(--ink-soft);
+  font-family: var(--font-prose);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.check__warn { margin: 0 0 calc(var(--step) * 4); color: var(--iodine); font-size: 14px; font-weight: 600; }
 
 .check__answer {
   margin: 0 0 calc(var(--step) * 4);
@@ -1656,7 +1712,18 @@ h3 {
 
 .check__score:active { transform: scale(0.97); }
 .check__score[disabled] { opacity: 0.5; cursor: default; }
-.check__state { min-height: 1.3em; margin: calc(var(--step) * 2) 0 0; color: var(--moss); font-size: 14px; font-weight: 600; }
+
+/* Поставленный балл виден на кнопке, а не только в подписи: учитель
+   возвращается к разобранной работе, чтобы поправить, и должен с одного
+   взгляда знать, откуда правит. */
+.check__score--active {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--paper-raised);
+}
+
+.check__state { min-height: 1.3em; margin: calc(var(--step) * 2) 0 0; color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+.check__state--set { color: var(--moss); }
 
 @media (hover: hover) and (pointer: fine) {
   .check__score:hover:not([disabled]) { border-color: var(--moss); }

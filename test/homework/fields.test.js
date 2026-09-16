@@ -129,6 +129,69 @@ test('короткий ответ после ошибки показывает, 
   assert.ok(текст.includes('Верный ответ: 200'));
 });
 
+/*
+  Разбор сданной работы. Ученику показывают не пустой бланк с вердиктом, а его
+  собственный ответ: «неверно» без того, что ты сам написал, ничего не говорит
+  и ничему не учит, а переписать работу уже нельзя — разбор и есть вся её польза.
+*/
+test('в разборе стоит тот вариант, который ученик выбрал', () => {
+  const { element } = questionField(выбор, { q1: 2 }, { document: document(), disabled: true });
+  const входы = собрать(element).filter((n) => n.className === 'q__input');
+
+  assert.deepEqual(входы.map((в) => Boolean(в.checked)), [false, false, true]);
+});
+
+test('в разборе множественного выбора отмечено всё, что отметил ученик', () => {
+  const q = { id: 'q6', type: 'multi', text: 'Отметь верное', options: ['А', 'Б', 'В'], correct: [0, 1] };
+  const { element } = questionField(q, { q6: [0, 2] }, { document: document(), disabled: true });
+  const входы = собрать(element).filter((n) => n.className === 'q__input');
+
+  assert.deepEqual(входы.map((в) => Boolean(в.checked)), [true, false, true]);
+});
+
+test('в разборе короткого ответа стоит написанное слово', () => {
+  const q = { id: 'q7', type: 'short', text: 'Что это?', answers: ['клетка'] };
+  const { element } = questionField(q, { q7: 'клетка ' }, { document: document(), disabled: true });
+  const поле = собрать(element).find((n) => n.className === 'q__short');
+
+  assert.equal(поле.value, 'клетка ');
+});
+
+test('развёрнутый ответ в разборе виден целиком', () => {
+  const q = { id: 'q8', type: 'open', prompt: 'Опиши опыт', maxScore: 3 };
+  const { element } = questionField(q, { q8: 'Хлеб заплесневел' }, { document: document(), disabled: true });
+  const поле = собрать(element).find((n) => n.className === 'q__open');
+
+  assert.equal(поле.value, 'Хлеб заплесневел');
+});
+
+// Пустой свод ответов — обычный бланк: подстановка не должна ничего выдумывать.
+test('без сохранённого ответа поля остаются пустыми', () => {
+  const { element } = questionField(выбор, {}, { document: document() });
+  const входы = собрать(element).filter((n) => n.className === 'q__input');
+
+  assert.equal(входы.some((в) => в.checked), false);
+});
+
+/*
+  Развёрнутому ответу вердикт не ставится и ключ ему в разборе не показывают:
+  его судит человек, и до учителя никакого «верно» тут нет. На месте вердикта —
+  судьба проверки.
+*/
+test('на месте вердикта развёрнутого ответа стоит заметка', () => {
+  const q = { id: 'q9', type: 'open', prompt: 'Опиши опыт', maxScore: 3, answerKey: 'Плесень выросла' };
+  const { element, showNote } = questionField(q, {}, { document: document(), disabled: true });
+  const разбор = собрать(element).find((n) => n.className.startsWith('q__verdict'));
+
+  showNote(null, { className: 'q__verdict-line', children: ['Ждёт проверки учителя'] });
+
+  assert.equal(разбор.className, 'q__verdict q__verdict--note');
+  assert.equal(разбор.children.length, 1, 'пустые узлы в разбор не идут');
+  const текст = собрать(разбор).map((n) => n.children?.[0]).filter((c) => typeof c === 'string');
+  assert.ok(текст.includes('Ждёт проверки учителя'));
+  assert.equal(текст.includes('Плесень выросла'), false, 'ключ до проверки учителя не показывается');
+});
+
 test('номера верных вариантов приводятся к одному виду', () => {
   assert.deepEqual(correctIndexes(выбор), [1]);
   assert.deepEqual(correctIndexes({ type: 'multi', correct: [2, 0, 2] }), [2, 0]);

@@ -60,30 +60,81 @@ export function собратьЖурнал({ classId, students = {}, assignments
 }
 
 /**
- * Очередь развёрнутых ответов, которые ждут учителя.
- * Сначала те, что сданы раньше: кто первым сдал, тот первым и узнает оценку.
+ * Все работы с развёрнутым ответом — и ждущие проверки, и уже проверенные.
+ *
+ * Единица здесь — работа, а не ответ: балл `manualScore` в базе один на всю
+ * работу, и покажи мы каждый ответ отдельной карточкой, две карточки одного
+ * ученика ставили бы один и тот же балл, перебивая друг друга.
+ *
+ * Проверенные не выбрасываются: промахнуться кнопкой легко, а исправить балл
+ * до сих пор было нельзя — проверенная работа исчезала из очереди навсегда.
+ * Непроверенные идут первыми: с ними учителю и работать.
  */
-export function очередьПроверки({ students = {}, submissions = {} }) {
-  const очередь = [];
+export function работыСРазвёрнутым({ students = {}, submissions = {} } = {}, { lessonId = null } = {}) {
+  const работы = [];
 
-  for (const [studentId, работы] of Object.entries(submissions)) {
-    for (const [lessonId, работа] of Object.entries(работы ?? {})) {
-      if (!работа?.open || работа.manualScore !== undefined) continue;
-      for (const [questionId, текст] of Object.entries(работа.open)) {
-        if (!String(текст ?? '').trim()) continue;
-        очередь.push({
-          studentId,
-          lessonId,
-          questionId,
-          имя: students[studentId]?.name ?? studentId,
-          текст,
-          submittedAt: работа.submittedAt ?? 0,
-        });
-      }
+  for (const [studentId, уроки] of Object.entries(submissions)) {
+    for (const [id, работа] of Object.entries(уроки ?? {})) {
+      if (lessonId && id !== lessonId) continue;
+
+      const ответы = Object.entries(работа?.open ?? {})
+        .map(([questionId, текст]) => ({ questionId, текст: String(текст ?? '') }))
+        .filter((о) => о.текст.trim());
+      if (!ответы.length) continue;
+
+      работы.push({
+        studentId,
+        lessonId: id,
+        имя: students[studentId]?.name ?? studentId,
+        ответы,
+        // Ноль — это выставленный балл, поэтому проверенность видна по наличию
+        // поля, а не по его истинности.
+        проверено: работа.manualScore !== undefined,
+        manualScore: работа.manualScore,
+        comment: работа.comment ?? '',
+        checkedAt: работа.checkedAt ?? null,
+        submittedAt: работа.submittedAt ?? 0,
+      });
     }
   }
 
-  return очередь.sort((a, b) => a.submittedAt - b.submittedAt);
+  return работы.sort((a, b) => {
+    if (a.проверено !== b.проверено) return a.проверено ? 1 : -1;
+    return a.submittedAt - b.submittedAt;
+  });
+}
+
+/**
+ * Уроки, по которым вообще есть развёрнутые ответы, — то, из чего учитель
+ * выбирает на вкладке «Проверка».
+ *
+ * Впереди уроки, где кто-то ждёт: выбор открывается на том, ради чего на
+ * вкладку и заходят. Разобранные остаются в списке — за баллом, который надо
+ * поправить, приходят именно к ним.
+ */
+export function урокиПроверки(всё) {
+  const по = new Map();
+
+  for (const р of работыСРазвёрнутым(всё)) {
+    const строка = по.get(р.lessonId) ?? { lessonId: р.lessonId, всего: 0, ждут: 0 };
+    строка.всего += 1;
+    if (!р.проверено) строка.ждут += 1;
+    по.set(р.lessonId, строка);
+  }
+
+  return [...по.values()].sort((a, b) => b.ждут - a.ждут || a.lessonId.localeCompare(b.lessonId));
+}
+
+/**
+ * Очередь развёрнутых ответов, которые ждут учителя. Считается по ответам, а
+ * не по работам: это сводка «сколько всего непрочитанного».
+ * Сначала те, что сданы раньше: кто первым сдал, тот первым и узнает оценку.
+ */
+export function очередьПроверки(всё) {
+  return работыСРазвёрнутым(всё)
+    .filter((р) => !р.проверено)
+    .flatMap((р) => р.ответы.map((о) => ({ ...р, questionId: о.questionId, текст: о.текст })))
+    .sort((a, b) => a.submittedAt - b.submittedAt);
 }
 
 export function createTeacherData({ api = rest, getToken } = {}) {
@@ -112,13 +163,21 @@ export function createTeacherData({ api = rest, getToken } = {}) {
   }
 
   /**
-   * Ставит балл за развёрнутый ответ.
-   * Пишется точечно, чтобы не затереть остальную работу ученика.
+   * Ставит балл за развёрнутый ответ — и ставит заново, если учитель
+   * промахнулся кнопкой. Пишется точечно, чтобы не затереть работу ученика.
+   *
+   * Комментарий уходит всегда, и пустой стирает прежний: раз балл можно
+   * поменять, вместе с ним должно уходить и слово, сказанное к старому, —
+   * иначе «молодец» осталось бы висеть под переправленным нулём.
+   *
+   * `checkedAt` обновляется при каждой проверке. По нему ученик и узнаёт, что
+   * работу посмотрели заново: уведомление приходит на изменившееся время.
    */
-  async function поставитьБалл({ studentId, lessonId, score, comment }) {
+  async function поставитьБалл({ studentId, lessonId, score, comment = '' }) {
     const token = await getToken();
-    const данные = { manualScore: score, checkedAt: Date.now() };
-    if (comment) данные.comment = comment;
+    if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
+
+    const данные = { manualScore: score, checkedAt: Date.now(), comment: comment || null };
     await api.dbPatch(`${ROOT}/submissions/${studentId}/${lessonId}`, данные, { token });
     return данные;
   }
