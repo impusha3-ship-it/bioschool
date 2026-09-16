@@ -34,7 +34,35 @@
       </svg>
       Биология
     </a>
-    <a class="site-header__level" id="level" href="#/me">Прогресс</a>
+    <!--
+      Разделы — ссылками со значком, и текущий подсвечен (aria-current ставит
+      app.js на каждом переходе). Почёт выделен цветом: ради него сюда и
+      заходят между уроками. На узком экране подписи прячутся, значки остаются.
+    -->
+    <nav class="site-nav" aria-label="Разделы сайта">
+      <a class="site-nav__link" href="#/" data-pages="home class lesson">
+        <svg class="site-nav__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 6.5C10.4 5.2 8 4.5 4 4.5v14c4 0 6.4.7 8 2 1.6-1.3 4-2 8-2v-14c-4 0-6.4.7-8 2Z"/>
+          <path d="M12 6.5v14"/>
+        </svg>
+        <span class="site-nav__text">Уроки</span>
+      </a>
+      <a class="site-nav__link site-nav__link--honor" href="#/tablo" data-pages="tablo">
+        <svg class="site-nav__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7.5 4h9v5.5a4.5 4.5 0 0 1-9 0Z"/>
+          <path d="M7.5 6H4.5c0 2.6 1.3 4.2 3.4 4.4M16.5 6h3c0 2.6-1.3 4.2-3.4 4.4"/>
+          <path d="M12 14v3.5M8 20.5h8M9.5 20.5c0-1.9 1-3 2.5-3s2.5 1.1 2.5 3"/>
+        </svg>
+        <span class="site-nav__text">Почёт</span>
+      </a>
+      <a class="site-nav__link" id="level" href="#/me" data-pages="me">
+        <svg class="site-nav__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 20h16"/>
+          <path d="M7 20v-5M12 20v-9M17 20V5"/>
+        </svg>
+        <span class="site-nav__text" id="level-text">Прогресс</span>
+      </a>
+    </nav>
     <button class="site-header__theme" id="theme" type="button">Тема</button>
     <a class="site-header__who" id="who" href="#/login">Войти</a>
   </header>

@@ -85,8 +85,12 @@ export async function renderHomePage() {
       в тройке ученик должен видеть сам, без напоминания на уроке.
     */
     el('a', { class: 'home__honor', href: '#/tablo' }, [
-      el('span', { class: 'home__honor-title' }, 'Таблица почёта'),
-      el('span', { class: 'home__honor-sub' }, 'Тройки школы и каждого класса — по домашним работам'),
+      кубок(),
+      el('span', { class: 'home__honor-text' }, [
+        el('span', { class: 'home__honor-title' }, 'Таблица почёта'),
+        el('span', { class: 'home__honor-sub' }, 'Лучшие в школе и в каждом классе — по домашним работам'),
+      ]),
+      el('span', { class: 'home__honor-go', 'aria-hidden': 'true' }, 'Смотреть →'),
     ]),
     el(
       'div',
@@ -152,4 +156,16 @@ function тело(g) {
     ]),
     el('span', { class: 'grade-card__num', 'aria-hidden': 'true' }, String(g.grade)),
   ]);
+}
+
+/** Кубок для карточки почёта — тот же, что в шапке, только крупнее. */
+function кубок() {
+  const место = el('span', { class: 'home__honor-cup', 'aria-hidden': 'true' });
+  место.innerHTML =
+    '<svg viewBox="0 0 24 24" focusable="false">' +
+    '<path d="M7.5 4h9v5.5a4.5 4.5 0 0 1-9 0Z"/>' +
+    '<path d="M7.5 6H4.5c0 2.6 1.3 4.2 3.4 4.4M16.5 6h3c0 2.6-1.3 4.2-3.4 4.4"/>' +
+    '<path d="M12 14v3.5M8 20.5h8M9.5 20.5c0-1.9 1-3 2.5-3s2.5 1.1 2.5 3"/>' +
+    '</svg>';
+  return место;
 }

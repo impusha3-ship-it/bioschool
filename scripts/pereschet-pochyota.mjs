@@ -8,6 +8,10 @@
  * сделает. Без пересчёта таблица в первый день показала бы пустоту, хотя
  * работы давно сданы.
  *
+ * Сам подсчёт — в `js/teacher/pereschet.js`. Панель учителя делает то же
+ * сама при каждом открытии, так что скрипт нужен, только если в панель
+ * давно не заходили.
+ *
  * Считается всё из `submissions` — из того, что ученик вправду сдал, а не из
  * его прогресса: прогресс ученик пишет себе сам, а работы принимает база по
  * своим правилам, и первая попытка в ней одна. Цена работы берётся из той же
@@ -24,32 +28,12 @@
 import { pathToFileURL } from 'node:url';
 import { SCHOOL_ID } from '../js/firebase-config.js';
 import { signInWithPassword, dbGet, dbPatch } from '../js/api/firebase-rest.js';
-import { ценность } from '../js/progress/core.js';
-import { неделя } from '../js/progress/weeks.js';
+import { планПересчёта } from '../js/teacher/pereschet.js';
+
+// Подсчёт живёт в общем модуле: им же пользуется панель учителя.
+export { домашниеБаллы } from '../js/teacher/pereschet.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
-
-/**
- * Домашние баллы одного ученика: за всё время и за текущую неделю.
- *
- * Неделя берётся по времени сдачи, а не по времени пересчёта: работа, сданная
- * в понедельник, должна попасть в эту неделю, даже если скрипт запустили в
- * пятницу.
- */
-export function домашниеБаллы(работы = {}, сейчас = new Date()) {
-  const текущая = неделя(сейчас);
-  let всего = 0;
-  let заНеделю = 0;
-
-  for (const работа of Object.values(работы ?? {})) {
-    if (!работа?.submittedAt) continue;
-    const баллы = ценность({ kind: 'homework', percent: работа.percent ?? 0 });
-    всего += баллы;
-    if (неделя(new Date(работа.submittedAt)) === текущая) заНеделю += баллы;
-  }
-
-  return { hwXp: всего, hwWeekXp: заНеделю };
-}
 
 async function main() {
   const args = process.argv.slice(2);
@@ -71,40 +55,24 @@ async function main() {
     dbGet(`${ROOT}/leaderboard`, { token }),
   ]);
 
-  const сейчас = new Date();
-  let записано = 0;
-  let пропущено = 0;
+  const { изменения, безСтроки } = планПересчёта({ students, submissions, leaderboard });
 
-  for (const [id, ученик] of Object.entries(students ?? {})) {
-    const счёт = домашниеБаллы(submissions?.[id], сейчас);
-    const строка = leaderboard?.[ученик.classId]?.[id];
-
-    /*
-      Строки нет — значит, ученик ни разу не заходил на сайт под своим именем.
-      Заводить её здесь нельзя: правила требуют в строке `xp` и `weekId`, а
-      взять их неоткуда, да и в таблице почёта нулевая строка всё равно не
-      показывается. Появится сама, как только он что-нибудь сделает.
-    */
-    if (!строка) {
-      if (счёт.hwXp > 0) {
-        console.log(`  ! ${ученик.name}: работы сданы (${счёт.hwXp}), но строки в таблице нет`);
-      }
-      пропущено += 1;
-      continue;
-    }
-
-    if (строка.hwXp === счёт.hwXp && строка.hwWeekXp === счёт.hwWeekXp) continue;
-
-    console.log(
-      `  ${ученик.name}: ${строка.hwXp ?? '—'} → ${счёт.hwXp} ` +
-      `(за неделю ${строка.hwWeekXp ?? '—'} → ${счёт.hwWeekXp}), общий счёт ${строка.xp ?? 0} не трогаем`,
-    );
-
-    if (!сухой) {
-      await dbPatch(`${ROOT}/leaderboard/${ученик.classId}/${id}`, счёт, { token });
-    }
-    записано += 1;
+  for (const у of безСтроки) {
+    console.log(`  ! ${у.имя}: работы сданы (${у.hwXp}), но строки в таблице нет`);
   }
+
+  for (const и of изменения) {
+    console.log(
+      `  ${и.имя}: ${и.было.hwXp ?? '—'} → ${и.стало.hwXp} ` +
+      `(за неделю ${и.было.hwWeekXp ?? '—'} → ${и.стало.hwWeekXp}), общий счёт не трогаем`,
+    );
+    if (!сухой) {
+      await dbPatch(`${ROOT}/leaderboard/${и.classId}/${и.id}`, и.стало, { token });
+    }
+  }
+
+  const записано = изменения.length;
+  const пропущено = безСтроки.length;
 
   console.log('');
   console.log(сухой

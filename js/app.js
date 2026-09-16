@@ -30,7 +30,7 @@ const PAGES = {
 
 const mount = document.getElementById('app');
 const who = document.getElementById('who');
-const уровень = document.getElementById('level');
+const уровень = document.getElementById('level-text');
 
 /*
   Оболочка: тема, шапка и обход шапки с клавиатуры. Всё это не зависит от
@@ -154,6 +154,17 @@ async function названияУроков(идентификаторы) {
 
 показатьПроверки().catch(() => {});
 
+/**
+ * Подсвечивает в шапке раздел, в котором ты сейчас. Страница урока и класса
+ * считаются «Уроками»: это одно место, просто на разной глубине.
+ */
+function отметитьРаздел(страница) {
+  for (const ссылка of document.querySelectorAll('.site-nav__link')) {
+    if (ссылка.dataset.pages.split(' ').includes(страница)) ссылка.setAttribute('aria-current', 'page');
+    else ссылка.removeAttribute('aria-current');
+  }
+}
+
 let currentToken = 0;
 let revealController = null;
 
@@ -163,6 +174,7 @@ startRouter(async (route) => {
   // и если ставить его вместе с содержимым, полотно прыгает вширь на каждом
   // переходе — сперва узкое под «Загрузка…», потом широкое под сетку.
   mount.dataset.page = route.name;
+  отметитьРаздел(route.name);
   clear(mount);
   mount.append(el('p', { class: 'loading' }, 'Загрузка…'));
 

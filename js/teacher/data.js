@@ -1,5 +1,6 @@
 import * as rest from '../api/firebase-rest.js';
 import { SCHOOL_ID } from '../firebase-config.js';
+import { планПересчёта } from './pereschet.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
 
@@ -212,5 +213,27 @@ export function createTeacherData({ api = rest, getToken } = {}) {
     return (await api.dbGet(`${ROOT}/progress/${studentId}`, { token })) ?? {};
   }
 
-  return { загрузитьВсё, поставитьБалл, разрешитьПереписать, прогрессУченика };
+  /**
+   * Сводит таблицу почёта со сданными работами и дописывает разошедшееся.
+   *
+   * Зовётся сам при открытии панели, по уже загруженным данным: учитель
+   * заходит сюда постоянно, и отдельная кнопка или скрипт с паролем были бы
+   * лишним шагом, о котором легко забыть. Повторный вызов ничего не меняет.
+   * Пишутся только два домашних числа — общий счёт `xp`, по которому ученик
+   * видит свою ступень, не трогается.
+   */
+  async function свестиПочёт({ students, submissions, leaderboards }, { сейчас = new Date() } = {}) {
+    const token = await getToken();
+    if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
+
+    const план = планПересчёта({ students, submissions, leaderboard: leaderboards, сейчас });
+    for (const и of план.изменения) {
+      await api.dbPatch(`${ROOT}/leaderboard/${и.classId}/${и.id}`, и.стало, { token });
+      // Открытая вкладка должна видеть то же, что теперь лежит в базе.
+      Object.assign(leaderboards[и.classId][и.id], и.стало);
+    }
+    return план;
+  }
+
+  return { загрузитьВсё, поставитьБалл, разрешитьПереписать, прогрессУченика, свестиПочёт };
 }
