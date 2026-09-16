@@ -33,7 +33,7 @@ const leaderboard = {
 test('в плане только разошедшиеся строки, по алфавиту', () => {
   const { изменения } = планПересчёта({ students, submissions, leaderboard, сейчас: СЕЙЧАС });
   assert.deepEqual(изменения.map((и) => и.id), ['a', 'c']);
-  assert.deepEqual(изменения[0].стало, { hwXp: 30, hwWeekXp: 0 });
+  assert.deepEqual(изменения[0].стало, { hwXp: 40, hwWeekXp: 0 }, 'всё верно — тридцать и бонус');
   assert.deepEqual(изменения[0].было, { hwXp: null, hwWeekXp: null });
   assert.deepEqual(изменения[1].стало, { hwXp: 0, hwWeekXp: 0 });
 });
@@ -54,7 +54,7 @@ test('панель при открытии пишет только hwXp и hwWee
   assert.equal(итог.изменения.length, 2);
   assert.deepEqual(записи.map((з) => з.path), ['schools/apts/leaderboard/8/a', 'schools/apts/leaderboard/5/c']);
   for (const з of записи) assert.deepEqual(Object.keys(з.value).sort(), ['hwWeekXp', 'hwXp']);
-  assert.equal(загружено.leaderboards[8].a.hwXp, 30, 'открытая вкладка видит записанное');
+  assert.equal(загружено.leaderboards[8].a.hwXp, 40, 'открытая вкладка видит записанное');
   assert.equal(загружено.leaderboards[8].a.xp, 300, 'общий счёт не тронут');
 
   записи.length = 0;
@@ -90,5 +90,5 @@ test('панель дописывает максимум старым прове
   assert.deepEqual(записи[0], { path: 'schools/apts/submissions/a/l1', value: { manualMax: 2 } });
   assert.equal(записи.filter((з) => з.path.includes('/submissions/')).length, 1, 'у второй максимум уже был');
   assert.equal(загружено.leaderboards[8].a.hwXp, 28, 'одиннадцать из двенадцати');
-  assert.equal(загружено.leaderboards[8].b.hwXp, 30);
+  assert.equal(загружено.leaderboards[8].b.hwXp, 40, 'всё набрано — с бонусом');
 });

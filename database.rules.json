@@ -49,9 +49,9 @@
         "submissions": {
           ".read": "root.child('schools/apts/teachers').child(auth.uid).exists()",
           "$studentId": {
-            ".read": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
+            ".read": "(auth != null && root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid) || root.child('schools/apts/teachers').child(auth.uid).exists()",
             "$lessonId": {
-              ".write": "root.child('schools/apts/teachers').child(auth.uid).exists() || (root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid && root.child('schools/apts/assignments').child(root.child('schools/apts/students').child($studentId).child('classId').val()).child($lessonId).child('isOpen').val() === true && !newData.hasChild('manualScore') && !data.exists())",
+              ".write": "root.child('schools/apts/teachers').child(auth.uid).exists() || ((auth != null && root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid) && root.child('schools/apts/assignments').child(root.child('schools/apts/students').child($studentId).child('classId').val()).child($lessonId).child('isOpen').val() === true && !newData.hasChild('manualScore') && !data.exists())",
               ".validate": "newData.hasChildren(['attempt', 'submittedAt'])"
             }
           }
@@ -60,8 +60,8 @@
         "progress": {
           ".read": "root.child('schools/apts/teachers').child(auth.uid).exists()",
           "$studentId": {
-            ".read": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
-            ".write": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()"
+            ".read": "(auth != null && root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid) || root.child('schools/apts/teachers').child(auth.uid).exists()",
+            ".write": "(auth != null && root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid) || root.child('schools/apts/teachers').child(auth.uid).exists()"
           }
         },
 
@@ -69,7 +69,7 @@
           ".read": true,
           "$classId": {
             "$studentId": {
-              ".write": "root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid || root.child('schools/apts/teachers').child(auth.uid).exists()",
+              ".write": "(auth != null && root.child('schools/apts/bindings').child($studentId).child('uid').val() === auth.uid) || root.child('schools/apts/teachers').child(auth.uid).exists()",
               ".validate": "newData.hasChildren(['xp', 'weekId']) && root.child('schools/apts/students').child($studentId).child('classId').val() === $classId"
             }
           }
