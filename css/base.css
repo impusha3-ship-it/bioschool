@@ -380,10 +380,13 @@ h3 {
 .home__honor {
   display: block;
   margin-bottom: calc(var(--step) * 5);
-  padding: calc(var(--step) * 3.5) calc(var(--step) * 4);
-  background: var(--wash);
-  border: 1px solid var(--moss);
+  padding: calc(var(--step) * 4) calc(var(--step) * 5);
+  background:
+    radial-gradient(70% 120% at 100% 0%, color-mix(in srgb, var(--sprout) 20%, transparent), transparent 72%),
+    var(--paper-raised);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-rest), var(--edge-top);
   color: inherit;
   text-decoration: none;
 }
