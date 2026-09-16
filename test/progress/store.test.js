@@ -64,8 +64,27 @@ test('слияние берёт лучшее по каждому виду и н�
     v: 1,
     lessons: { у1: { game0: 15, vpr: 10, done: false }, у2: { lab: 20, done: false } },
     weeks: { '2026-W33': 20, '2026-W34': 3 },
+    hwWeeks: {},
     lastSeen: 9,
   });
+});
+
+// Складывать домашние баллы недели нельзя ровно по той же причине, что и
+// остальные: одна сданная работа, увиденная с телефона и с компьютера, дала
+// бы двойной счёт — и место в таблице почёта, которого не было.
+test('домашние баллы недели сливаются по большему, а не складываются', () => {
+  const a = { v: 1, lessons: {}, weeks: {}, hwWeeks: { '2026-W33': 30, '2026-W34': 20 }, lastSeen: 5 };
+  const b = { v: 1, lessons: {}, weeks: {}, hwWeeks: { '2026-W33': 20 }, lastSeen: 9 };
+  assert.deepEqual(слить(a, b).hwWeeks, { '2026-W33': 30, '2026-W34': 20 });
+});
+
+test('состояние без домашних недель сливается со старым без потерь', () => {
+  const прежнее = { v: 1, lessons: { у1: { homework: 30 } }, weeks: { '2026-W33': 30 }, lastSeen: 5 };
+  const новое = { v: 1, lessons: {}, weeks: {}, hwWeeks: { '2026-W34': 20 }, lastSeen: 9 };
+  const итог = слить(прежнее, новое);
+
+  assert.deepEqual(итог.hwWeeks, { '2026-W34': 20 });
+  assert.equal(итог.lessons['у1'].homework, 30, 'домашние баллы урока на месте');
 });
 
 test('пройденность при слиянии не теряется', () => {
@@ -75,7 +94,7 @@ test('пройденность при слиянии не теряется', () 
 });
 
 test('слияние пустого с пустым даёт пустое', () => {
-  assert.deepEqual(слить(undefined, undefined), { v: 1, lessons: {}, weeks: {}, lastSeen: 0 });
+  assert.deepEqual(слить(undefined, undefined), { v: 1, lessons: {}, weeks: {}, hwWeeks: {}, lastSeen: 0 });
 });
 
 test('слияние сохраняет незнакомое поле и не занижает версию', () => {
@@ -163,8 +182,28 @@ test('выжимка несёт баллы, неделю и пройденные
   await p.дождатьсяОтправки();
   const строка = записи.find((з) => з.path.endsWith('leaderboard/5a/s1')).value;
   assert.deepEqual(строка, {
-    xp: 15, weekId: '2026-W34', weekXp: 15, lessonsDone: 1, lastSeen: ДАТА.getTime(),
+    xp: 15, weekId: '2026-W34', weekXp: 15,
+    hwXp: 0, hwWeekXp: 0,
+    lessonsDone: 1, lastSeen: ДАТА.getTime(),
   });
+});
+
+/*
+  Два счёта в строке — не дубль. По `xp` учитель видит в своей панели ступень,
+  ту же, что ученик видит у себя, и разойтись им нельзя. По `hwXp` строится
+  таблица почёта, и туда идут только сданные работы.
+*/
+test('в строке класса домашние баллы стоят отдельно от общих', async () => {
+  const { p, записи } = собрать({ сессия: () => ({ studentId: 's1', classId: '5a' }) });
+  await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
+  await p.record({ lessonId: 'у1', kind: 'homework', percent: 100, состав: ['game0'] });
+  await p.дождатьсяОтправки();
+
+  const строка = записи.filter((з) => з.path.endsWith('leaderboard/5a/s1')).at(-1).value;
+  assert.equal(строка.xp, 45, 'игра и домашка — весь прогресс ученика');
+  assert.equal(строка.hwXp, 30, 'в почёт идёт только домашка');
+  assert.equal(строка.hwWeekXp, 30);
+  assert.equal(строка.weekXp, 45);
 });
 
 test('перенос сливает облачное с локальным и пишет результат', async () => {
@@ -225,7 +264,7 @@ test('шкала класса: цель — ученики на заданные
   const { p } = собрать({
     сессия: () => ({ studentId: 's1', classId: '5a' }),
     данные: {
-      'leaderboard/5a': { s1: { xp: 40, weekId: '2026-W34', weekXp: 40, lessonsDone: 2 },
+      'leaderboard/5a': { s1: { xp: 90, hwXp: 40, weekId: '2026-W34', weekXp: 90, hwWeekXp: 40, lessonsDone: 2 },
                           s2: { xp: 10, weekId: '2026-W33', weekXp: 10, lessonsDone: 1 } },
       'students': { s1: { name: 'Петров Иван', classId: '5a' },
                     s2: { name: 'Сидорова Аня', classId: '5a' },
@@ -244,9 +283,9 @@ test('герои недели — только за текущую неделю 
     сессия: () => ({ studentId: 's1', classId: '5a' }),
     данные: {
       'leaderboard/5a': {
-        s1: { xp: 40, weekId: '2026-W34', weekXp: 40, lessonsDone: 2 },
-        s2: { xp: 90, weekId: '2026-W33', weekXp: 90, lessonsDone: 1 },
-        s3: { xp: 30, weekId: '2026-W34', weekXp: 30, lessonsDone: 1 },
+        s1: { xp: 90, hwXp: 40, weekId: '2026-W34', weekXp: 90, hwWeekXp: 40, lessonsDone: 2 },
+        s2: { xp: 120, hwXp: 90, weekId: '2026-W33', weekXp: 120, hwWeekXp: 90, lessonsDone: 1 },
+        s3: { xp: 75, hwXp: 30, weekId: '2026-W34', weekXp: 75, hwWeekXp: 30, lessonsDone: 1 },
       },
       'students': { s1: { name: 'Петров Иван', classId: '5a' },
                     s2: { name: 'Сидорова Аня', classId: '5a' },
@@ -268,8 +307,8 @@ test('чужой в таблице класса не считается свои
   const { p } = собрать({
     сессия: () => ({ studentId: 's1', classId: '5a' }),
     данные: {
-      'leaderboard/5a': { s1: { xp: 10, weekId: '2026-W34', weekXp: 10, lessonsDone: 1 },
-                          чужой: { xp: 999, weekId: '2026-W34', weekXp: 999, lessonsDone: 34 } },
+      'leaderboard/5a': { s1: { xp: 25, hwXp: 10, weekId: '2026-W34', weekXp: 25, hwWeekXp: 10, lessonsDone: 1 },
+                          чужой: { xp: 999, hwXp: 999, weekId: '2026-W34', weekXp: 999, hwWeekXp: 999, lessonsDone: 34 } },
       'students': { s1: { name: 'Петров Иван', classId: '5a' } },
       'assignments/5a': { у1: { isOpen: true } },
     },

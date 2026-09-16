@@ -2074,6 +2074,13 @@ h3 {
   margin: 0 0 calc(var(--step) * 6);
   font-size: clamp(32px, 5vw, 56px);
 }
+.tablo__lead {
+  margin: calc(var(--step) * -4) 0 calc(var(--step) * 6);
+  max-width: 44rem;
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 18px);
+}
+
 .tablo__school {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
