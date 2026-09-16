@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createHomework } from '../../js/homework/submit.js';
+import { createHomework, ВХОД_УСТАРЕЛ } from '../../js/homework/submit.js';
 
 function собрать({ отказПриСдаче = false, данные = {} } = {}) {
   const записи = [];
@@ -30,8 +30,20 @@ test('без класса назначений нет и запроса тоже
   assert.deepEqual(await hw.loadAssignments(null), {});
 });
 
-test('отказ при чтении своих работ не роняет страницу', async () => {
+/*
+  Правила пускают ученика к своим работам, только пока привязка входа —
+  его. Вошёл под тем же именем на другом устройстве — привязка переехала,
+  и здесь чтение получает отказ. Молча считать это «ничего не сдано»
+  нельзя: 16 сентября так ученик 8 класса не мог сдать работу, а сайт
+  отвечал, что она уже сдана.
+*/
+test('отказ при чтении своих работ означает устаревший вход', async () => {
   const { hw } = собрать({ данные: { 'submissions/s1': 'отказ' } });
+  await assert.rejects(() => hw.loadSubmissions('s1', 'токен'), (e) => e.code === ВХОД_УСТАРЕЛ);
+});
+
+test('пустые работы читаются как пустые', async () => {
+  const { hw } = собрать();
   assert.deepEqual(await hw.loadSubmissions('s1', 'токен'), {});
 });
 
@@ -85,12 +97,44 @@ test('сдача пишет работу по нужному пути', async ()
 });
 
 // Первая попытка идёт в журнал, и это держат правила базы, а не интерфейс.
+// Но отказ базы бывает по трём причинам, и ученику надо назвать настоящую.
+const СДАЧА = { studentId: 's1', classId: '8', lessonId: 'урок-1', token: 'т' };
+
 test('повторная сдача даёт понятный отказ, а не техническую ошибку', async () => {
-  const { hw } = собрать({ отказПриСдаче: true });
-  await assert.rejects(
-    () => hw.submit({ studentId: 's1', lessonId: 'урок-1', token: 'т' }),
-    /уже сдана/,
-  );
+  const { hw } = собрать({
+    отказПриСдаче: true,
+    данные: { 'submissions/s1/урок-1': { submittedAt: 1 }, 'assignments/8/урок-1': { isOpen: true } },
+  });
+  await assert.rejects(() => hw.submit(СДАЧА), /уже сдана/);
+});
+
+test('отказ при устаревшем входе не выдаётся за сданную работу', async () => {
+  const { hw } = собрать({
+    отказПриСдаче: true,
+    данные: { 'submissions/s1/урок-1': 'отказ', 'assignments/8/урок-1': { isOpen: true } },
+  });
+  await assert.rejects(() => hw.submit(СДАЧА), (e) => {
+    assert.equal(e.code, ВХОД_УСТАРЕЛ);
+    assert.doesNotMatch(e.message, /уже сдана/);
+    assert.match(e.message, /другом устройстве/);
+    return true;
+  });
+});
+
+test('закрытое учителем задание называется закрытым', async () => {
+  const { hw } = собрать({
+    отказПриСдаче: true,
+    данные: { 'assignments/8/урок-1': { isOpen: false } },
+  });
+  await assert.rejects(() => hw.submit(СДАЧА), /закрыл/);
+});
+
+test('непонятный отказ не выдаётся за сданную работу', async () => {
+  const { hw } = собрать({
+    отказПриСдаче: true,
+    данные: { 'assignments/8/урок-1': { isOpen: true } },
+  });
+  await assert.rejects(() => hw.submit(СДАЧА), (e) => !/уже сдана/.test(e.message));
 });
 
 test('тренировка пишется в прогресс, а не в работу', async () => {

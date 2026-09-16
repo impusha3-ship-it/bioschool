@@ -1,6 +1,7 @@
 import { el, clear } from '../ui/dom.js';
 import { createGame } from '../games/index.js';
-import { createHomework } from '../homework/submit.js';
+import { createHomework, ВХОД_УСТАРЕЛ } from '../homework/submit.js';
+import { запомнитьВозврат, сохранитьЧерновик, прочитатьЧерновик, стеретьЧерновик } from '../auth/vozvrat.js';
 import { scoreQuestions, openQuestions, isAuto, checkAnswer, combineScore, grade } from '../homework/questions.js';
 import { questionField } from '../homework/fields.js';
 import { auth } from './login.js';
@@ -46,6 +47,14 @@ async function подготовить(блок, lesson, сессия) {
     сданное = работы?.[lesson.id];
   } catch (error) {
     clear(блок);
+    if (error.code === ВХОД_УСТАРЕЛ) {
+      блок.append(el('div', { class: 'empty' }, [
+        el('p', {}, 'Вход на этом устройстве больше не действует: под твоим именем входили на другом.'),
+        el('p', {}, 'Войди заново — и задание откроется здесь.'),
+        кнопкаВходаЗаново(),
+      ]));
+      return;
+    }
     блок.append(el('p', { class: 'empty' }, `Не удалось проверить задание: ${error.message}`));
     return;
   }
@@ -257,7 +266,8 @@ function собратьРаботу(lesson, сессия, назначение, 
     }
   }
 
-  const ответы = {};
+  // Черновик остаётся, если ученик уходил войти заново посреди работы.
+  const ответы = прочитатьЧерновик(lesson.id) ?? {};
   const части = [];
 
   if (назначение.dueAt) {
@@ -297,6 +307,7 @@ function собратьРаботу(lesson, сессия, назначение, 
 
       const работа = await hw.submit({
         studentId: сессия.studentId,
+        classId: сессия.classId,
         lessonId: lesson.id,
         token: await auth.token(),
         gameResult: игра ? игра.getResult() : null,
@@ -305,6 +316,7 @@ function собратьРаботу(lesson, сессия, назначение, 
         open: открытыеОтветы,
         dueAt: назначение.dueAt,
       });
+      стеретьЧерновик(lesson.id);
       clear(блок);
       блок.append(показатьСданное(работа, lesson));
       window.scrollTo(0, 0);
@@ -326,6 +338,11 @@ function собратьРаботу(lesson, сессия, назначение, 
       ошибка.textContent = error.message;
       кнопка.removeAttribute('disabled');
       кнопка.textContent = 'Сдать работу';
+      if (error.code === ВХОД_УСТАРЕЛ) {
+        // Игру после входа придётся пройти заново: её ходы не хранятся.
+        сохранитьЧерновик(lesson.id, ответы);
+        ошибка.append(' ', кнопкаВходаЗаново());
+      }
     }
   });
 
@@ -347,3 +364,22 @@ function собратьОтветы(вопросы, ответы) {
 }
 
 export { combineScore, grade };
+
+/**
+ * «Войти заново»: выход, запомненный адрес и страница входа. Новый вход
+ * перепишет привязку на это устройство, и сдача пройдёт.
+ *
+ * Прогресс в браузере здесь, в отличие от «Выйти», не стирается: пока вход
+ * был устаревшим, он не мог уйти в базу, и стирание его потеряло бы. Чужим
+ * он не достанется — у записи есть хозяин, и читать её может только он.
+ */
+function кнопкаВходаЗаново() {
+  const кнопка = el('button', { class: 'button', type: 'button' }, 'Войти заново');
+  кнопка.addEventListener('click', () => {
+    запомнитьВозврат(location.hash);
+    auth.logout();
+    location.hash = '#/login';
+    location.reload();
+  });
+  return кнопка;
+}

@@ -1,4 +1,5 @@
 import { el, clear } from '../ui/dom.js';
+import { взятьВозврат } from '../auth/vozvrat.js';
 import { progress } from '../progress/index.js';
 import { createLogin } from '../auth/login.js';
 import { isValidPin, PIN_LENGTH } from '../auth/pin.js';
@@ -155,7 +156,8 @@ function showPin(holder, класс, ученик) {
         { studentId: ученик.id, name: ученик.name, classId: класс.id, salt: ученик.salt },
         pin,
       );
-      location.hash = '#/';
+      // Если уходили войти заново посреди домашки — туда и вернуться.
+      location.hash = взятьВозврат() ?? '#/';
       location.reload();
     } catch (error) {
       ошибка.textContent = error.message;
