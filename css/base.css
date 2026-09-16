@@ -1275,6 +1275,22 @@ h3 {
 .figure__svg .d-lead { stroke: var(--ink-muted); }
 
 /*
+  Два слоя кишечнополостных. Тело и щупальца — отдельные фигуры, которые
+  перекрываются, поэтому прозрачность стоит на группе, а не на фигурах:
+  группа сводится целиком, и на стыке щупальца с телом не остаётся шва.
+  Мезоглея рисуется подложкой между слоями — у гидры это тонкая линия,
+  у медузы толстый студень, и цвет у неё один. Полость вырезается цветом
+  карточки схемы.
+*/
+.figure__svg .d-ekto { opacity: 0.6; }
+.figure__svg .d-ekto path, .figure__svg .d-ekto rect { fill: var(--sprout); }
+.figure__svg .d-mezo { opacity: 0.45; }
+.figure__svg .d-mezo path, .figure__svg .d-mezo rect { fill: var(--methylene); }
+.figure__svg .d-ento { opacity: 0.75; }
+.figure__svg .d-ento path, .figure__svg .d-ento rect { fill: var(--iodine); }
+.figure__svg .d-polost path { fill: var(--paper-raised); }
+
+/*
   Хламидомонада. Схема переработана с Викисклада, и там части нарисованы
   путями, а не прямоугольниками и эллипсами, — те же классы приходится
   повторить для path. Обводки тонкие: в исходнике они долями единицы, и
