@@ -363,6 +363,7 @@ h3 {
   isolation: isolate;
 }
 
+
 .masthead::after {
   content: '';
   position: absolute;
@@ -372,6 +373,24 @@ h3 {
   background-size: var(--tooth-size);
   pointer-events: none;
 }
+
+/* Ход в таблицу почёта. Отличается от карточек классов заливкой, а не
+   размером: она стоит выше них и без того, а спорить с ними за высоту
+   значило бы отодвинуть уроки, ради которых сюда и приходят. */
+.home__honor {
+  display: block;
+  margin-bottom: calc(var(--step) * 5);
+  padding: calc(var(--step) * 3.5) calc(var(--step) * 4);
+  background: var(--wash);
+  border: 1px solid var(--moss);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+}
+
+.home__honor-title { display: block; color: var(--moss-deep); font-weight: 650; }
+.home__honor-sub { display: block; margin-top: 2px; color: var(--ink-soft); font-size: var(--t-small); }
+
 
 /*
   Единственная крупная надпись на сайте. Плавный размер здесь на месте:
@@ -2100,6 +2119,7 @@ h3 {
 }
 .tablo__list--small .tablo__row { font-size: clamp(16px, 1.8vw, 20px); }
 
+
 /*
   Разбор баллов ученика. Раскрывается под таблицей прогресса и отвечает на
   один вопрос: откуда взялись баллы. Уроки чужих классов идут отдельной
@@ -2158,3 +2178,20 @@ h3 {
 .tzero .login__field { flex: 1 1 12rem; }
 .tzero .tstudents__warn { flex: 1 1 100%; }
 .tzero__done { flex: 1 1 100%; margin: 0; color: var(--moss); font-weight: 600; }
+
+
+/* Две тройки класса рядом, пока хватает ширины: с проектора они читаются
+   одним взглядом, а на телефоне встают друг под друга. */
+.tablo__class-lists {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: calc(var(--step) * 4);
+  margin-top: calc(var(--step) * 4);
+}
+
+.tablo__sub {
+  margin: 0 0 calc(var(--step) * 2);
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: 650;
+}
