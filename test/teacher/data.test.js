@@ -281,6 +281,18 @@ test('переправленный балл обновляет время про
   assert.ok(значения[1].checkedAt > значения[0].checkedAt, 'проверено заново — значит, и время новое');
 });
 
+test('вместе с баллом записывается максимум', async () => {
+  let значение = null;
+  const data = createTeacherData({
+    api: { dbPatch: async (p, v) => { значение = v; } },
+    getToken: async () => 'т',
+  });
+  await data.поставитьБалл({ studentId: 's1', lessonId: 'u1', score: 2, max: 3 });
+  assert.equal(значение.manualMax, 3);
+  await data.поставитьБалл({ studentId: 's1', lessonId: 'u1', score: 2 });
+  assert.equal('manualMax' in значение, false, 'неизвестный максимум не выдумывается');
+});
+
 test('балл без действующей сессии не ставится', async () => {
   const data = createTeacherData({ api: {}, getToken: async () => null });
   await assert.rejects(

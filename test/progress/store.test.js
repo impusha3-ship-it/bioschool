@@ -18,6 +18,7 @@ function собрать({ storage = память(), сессия = () => null, �
   const api = {
     dbGet: async (path) => данные[Object.keys(данные).find((k) => path.endsWith(k)) ?? ''] ?? null,
     dbPut: async (path, value) => { записи.push({ path, value }); return value; },
+    dbPatch: async (path, value) => { записи.push({ path, value, patch: true }); return value; },
   };
   const p = createProgress({ api, storage, сессия, токен: async () => 'т', now: () => ДАТА });
   return { p, записи, api };
@@ -64,27 +65,8 @@ test('слияние берёт лучшее по каждому виду и н�
     v: 1,
     lessons: { у1: { game0: 15, vpr: 10, done: false }, у2: { lab: 20, done: false } },
     weeks: { '2026-W33': 20, '2026-W34': 3 },
-    hwWeeks: {},
     lastSeen: 9,
   });
-});
-
-// Складывать домашние баллы недели нельзя ровно по той же причине, что и
-// остальные: одна сданная работа, увиденная с телефона и с компьютера, дала
-// бы двойной счёт — и место в таблице почёта, которого не было.
-test('домашние баллы недели сливаются по большему, а не складываются', () => {
-  const a = { v: 1, lessons: {}, weeks: {}, hwWeeks: { '2026-W33': 30, '2026-W34': 20 }, lastSeen: 5 };
-  const b = { v: 1, lessons: {}, weeks: {}, hwWeeks: { '2026-W33': 20 }, lastSeen: 9 };
-  assert.deepEqual(слить(a, b).hwWeeks, { '2026-W33': 30, '2026-W34': 20 });
-});
-
-test('состояние без домашних недель сливается со старым без потерь', () => {
-  const прежнее = { v: 1, lessons: { у1: { homework: 30 } }, weeks: { '2026-W33': 30 }, lastSeen: 5 };
-  const новое = { v: 1, lessons: {}, weeks: {}, hwWeeks: { '2026-W34': 20 }, lastSeen: 9 };
-  const итог = слить(прежнее, новое);
-
-  assert.deepEqual(итог.hwWeeks, { '2026-W34': 20 });
-  assert.equal(итог.lessons['у1'].homework, 30, 'домашние баллы урока на месте');
 });
 
 test('пройденность при слиянии не теряется', () => {
@@ -94,7 +76,7 @@ test('пройденность при слиянии не теряется', () 
 });
 
 test('слияние пустого с пустым даёт пустое', () => {
-  assert.deepEqual(слить(undefined, undefined), { v: 1, lessons: {}, weeks: {}, hwWeeks: {}, lastSeen: 0 });
+  assert.deepEqual(слить(undefined, undefined), { v: 1, lessons: {}, weeks: {}, lastSeen: 0 });
 });
 
 test('слияние сохраняет незнакомое поле и не занижает версию', () => {
@@ -180,30 +162,50 @@ test('выжимка несёт баллы, неделю и пройденные
   const { p, записи } = собрать({ сессия: () => ({ studentId: 's1', classId: '5a' }) });
   await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
   await p.дождатьсяОтправки();
-  const строка = записи.find((з) => з.path.endsWith('leaderboard/5a/s1')).value;
-  assert.deepEqual(строка, {
+  const запись = записи.find((з) => з.path.endsWith('leaderboard/5a/s1'));
+  assert.deepEqual(запись.value, {
     xp: 15, weekId: '2026-W34', weekXp: 15,
-    hwXp: 0, hwWeekXp: 0,
     lessonsDone: 1, lastSeen: ДАТА.getTime(),
   });
+  assert.equal(запись.patch, true, 'выжимка дописывается и не стирает домашние баллы');
 });
 
 /*
-  Два счёта в строке — не дубль. По `xp` учитель видит в своей панели ступень,
-  ту же, что ученик видит у себя, и разойтись им нельзя. По `hwXp` строится
-  таблица почёта, и туда идут только сданные работы.
+  Домашние баллы в строке считаются не по прогрессу, а по сданным работам:
+  там процент и балл учителя за развёрнутый ответ. Игры и тренажёр в них не
+  идут — иначе впереди был бы тот, у кого больше свободного времени.
 */
-test('в строке класса домашние баллы стоят отдельно от общих', async () => {
-  const { p, записи } = собрать({ сессия: () => ({ studentId: 's1', classId: '5a' }) });
+test('домашние баллы пишутся по сданным работам, с баллом учителя', async () => {
+  const { p, записи } = собрать({
+    сессия: () => ({ studentId: 's1', classId: '5a' }),
+    данные: {
+      'submissions/s1': {
+        у1: { submittedAt: ДАТА.getTime(), correct: 10, total: 10, open: { o: 'ответ' }, manualScore: 0, manualMax: 3 },
+      },
+    },
+  });
   await p.record({ lessonId: 'у1', kind: 'game0', correct: 8, total: 8, состав: ['game0'] });
-  await p.record({ lessonId: 'у1', kind: 'homework', percent: 100, состав: ['game0'] });
-  await p.дождатьсяОтправки();
+  await p.обновитьДомашние();
 
-  const строка = записи.filter((з) => з.path.endsWith('leaderboard/5a/s1')).at(-1).value;
-  assert.equal(строка.xp, 45, 'игра и домашка — весь прогресс ученика');
-  assert.equal(строка.hwXp, 30, 'в почёт идёт только домашка');
-  assert.equal(строка.hwWeekXp, 30);
-  assert.equal(строка.weekXp, 45);
+  const домашние = записи.filter((з) => з.path.endsWith('leaderboard/5a/s1') && 'hwXp' in з.value).at(-1);
+  assert.deepEqual(домашние.value, { hwXp: 23, hwWeekXp: 23 });
+  assert.equal(домашние.patch, true);
+});
+
+test('перенос при входе заодно обновляет домашние баллы', async () => {
+  const { p, записи } = собрать({
+    сессия: () => ({ studentId: 's1', classId: '5a' }),
+    данные: { 'submissions/s1': { у1: { submittedAt: ДАТА.getTime(), correct: 5, total: 10 } } },
+  });
+  await p.перенести();
+  const домашние = записи.filter((з) => 'hwXp' in з.value);
+  assert.deepEqual(домашние.at(-1).value, { hwXp: 15, hwWeekXp: 15 });
+});
+
+test('гостю домашние баллы никуда не пишутся', async () => {
+  const { p, записи } = собрать();
+  await p.обновитьДомашние();
+  assert.deepEqual(записи, []);
 });
 
 test('перенос сливает облачное с локальным и пишет результат', async () => {
@@ -256,7 +258,7 @@ test('наружу торчит только то, чем пользуются �
   const { p } = собрать();
   assert.deepEqual(
     Object.keys(p).sort(),
-    ['record', 'read', 'дождатьсяОтправки', 'забыть', 'перенести', 'шкалаКласса'].sort(),
+    ['record', 'read', 'дождатьсяОтправки', 'забыть', 'обновитьДомашние', 'перенести', 'шкалаКласса'].sort(),
   );
 });
 

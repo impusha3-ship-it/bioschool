@@ -18,14 +18,14 @@ const students = {
   d: { name: 'Громова Дина', classId: '5' },
 };
 const submissions = {
-  a: { 'l1': { submittedAt: давно, percent: 95 } },
-  b: { 'l1': { submittedAt: давно, percent: 50 } },
-  d: { 'l1': { submittedAt: давно, percent: 50 } },
+  a: { 'l1': { submittedAt: давно, correct: 10, total: 10 } },
+  b: { 'l1': { submittedAt: давно, correct: 5, total: 10 } },
+  d: { 'l1': { submittedAt: давно, correct: 5, total: 10 } },
 };
 const leaderboard = {
   8: {
     a: { xp: 300, weekId: 'x' },
-    b: { xp: 40, weekId: 'x', hwXp: 20, hwWeekXp: 0 },
+    b: { xp: 40, weekId: 'x', hwXp: 15, hwWeekXp: 0 },
   },
   5: { c: { xp: 10, weekId: 'x' } },
 };
@@ -40,7 +40,7 @@ test('в плане только разошедшиеся строки, по а�
 
 test('ученик со сданной работой без строки в таблице назван, но не заведён', () => {
   const { изменения, безСтроки } = планПересчёта({ students, submissions, leaderboard, сейчас: СЕЙЧАС });
-  assert.deepEqual(безСтроки, [{ id: 'd', имя: 'Громова Дина', hwXp: 20 }]);
+  assert.deepEqual(безСтроки, [{ id: 'd', имя: 'Громова Дина', hwXp: 15 }]);
   assert.ok(!изменения.some((и) => и.id === 'd'));
 });
 
@@ -60,4 +60,35 @@ test('панель при открытии пишет только hwXp и hwWee
   записи.length = 0;
   await data.свестиПочёт(загружено, { сейчас: СЕЙЧАС });
   assert.equal(записи.length, 0, 'второй заход ничего не пишет');
+});
+
+/*
+  Работам, проверенным до записи максимума, панель дописывает его из файла
+  урока: без него балл «2» не перевести в долю. Урок читается один раз на
+  все работы.
+*/
+test('панель дописывает максимум старым проверенным работам', async () => {
+  const записи = [];
+  let чтений = 0;
+  const api = { dbPatch: async (path, value) => { записи.push({ path, value }); } };
+  const data = createTeacherData({
+    api,
+    getToken: async () => 't',
+    загрузитьУрок: async () => { чтений += 1; return { homework: { open: [{ id: 'o', maxScore: 2 }] } }; },
+  });
+  const загружено = {
+    students: { a: { name: 'А', classId: '8' }, b: { name: 'Б', classId: '8' } },
+    submissions: {
+      a: { l1: { submittedAt: давно, correct: 10, total: 10, open: { o: 'x' }, manualScore: 1 } },
+      b: { l1: { submittedAt: давно, correct: 10, total: 10, open: { o: 'x' }, manualScore: 2, manualMax: 2 } },
+    },
+    leaderboards: { 8: { a: { xp: 1, weekId: 'x' }, b: { xp: 1, weekId: 'x' } } },
+  };
+  await data.свестиПочёт(загружено, { сейчас: СЕЙЧАС });
+
+  assert.equal(чтений, 1);
+  assert.deepEqual(записи[0], { path: 'schools/apts/submissions/a/l1', value: { manualMax: 2 } });
+  assert.equal(записи.filter((з) => з.path.includes('/submissions/')).length, 1, 'у второй максимум уже был');
+  assert.equal(загружено.leaderboards[8].a.hwXp, 28, 'одиннадцать из двенадцати');
+  assert.equal(загружено.leaderboards[8].b.hwXp, 30);
 });

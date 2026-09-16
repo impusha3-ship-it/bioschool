@@ -8,6 +8,7 @@ import {
   СТАТУСЫ,
 } from '../teacher/data.js';
 import { loadLesson, loadCourse } from '../content.js';
+import { максимумРазвёрнутого } from '../homework/pochyot.js';
 import { показатьКлассы, показатьНазначение } from './teacher-classes.js';
 import { показатьПрогресс } from './teacher-progress.js';
 
@@ -303,7 +304,7 @@ async function показатьУрок(холст, всё, lessonId, перес
     const урок = await loadLesson(lessonId);
     const открытые = урок.homework?.open ?? [];
     for (const q of открытые) задания.set(q.id, q);
-    макс = Math.max(...открытые.map((q) => Number(q.maxScore) || 0), 0) || 3;
+    макс = максимумРазвёрнутого(урок);
   } catch {
     бедаСУроком = true;
   }
@@ -317,10 +318,10 @@ async function показатьУрок(холст, всё, lessonId, перес
         'Задание урока не загрузилось — вопрос и цена в баллах неизвестны, кнопки показаны до трёх.'),
     );
   }
-  холст.append(...работы.map((р) => карточкаРаботы(р, { задания, макс, всё, пересчитать })));
+  холст.append(...работы.map((р) => карточкаРаботы(р, { задания, макс, максИзвестен: !бедаСУроком, всё, пересчитать })));
 }
 
-function карточкаРаботы(запись, { задания, макс, всё, пересчитать }) {
+function карточкаРаботы(запись, { задания, макс, максИзвестен, всё, пересчитать }) {
   const комментарий = el('input', {
     class: 'login__field',
     type: 'text',
@@ -363,6 +364,8 @@ function карточкаРаботы(запись, { задания, макс, 
           studentId: запись.studentId,
           lessonId: запись.lessonId,
           score: балл,
+          // Урок не загрузился — максимум неизвестен, и писать догадку нельзя.
+          max: максИзвестен ? макс : undefined,
           comment: комментарий.value.trim(),
         });
         текущий = балл;
@@ -373,7 +376,10 @@ function карточкаРаботы(запись, { задания, макс, 
           работа.manualScore = балл;
           работа.checkedAt = данные.checkedAt;
           работа.comment = данные.comment ?? undefined;
+          if (данные.manualMax) работа.manualMax = данные.manualMax;
         }
+        // Балл учителя входит в почёт: место ученика обновляется сразу.
+        data.свестиПочёт(всё).catch(() => {});
         отрисоватьСостояние();
         пересчитать();
       } catch (error) {

@@ -1,6 +1,8 @@
 import * as rest from '../api/firebase-rest.js';
 import { SCHOOL_ID } from '../firebase-config.js';
 import { планПересчёта } from './pereschet.js';
+import { максимумРазвёрнутого } from '../homework/pochyot.js';
+import { loadLesson } from '../content.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
 
@@ -138,7 +140,7 @@ export function очередьПроверки(всё) {
     .sort((a, b) => a.submittedAt - b.submittedAt);
 }
 
-export function createTeacherData({ api = rest, getToken } = {}) {
+export function createTeacherData({ api = rest, getToken, загрузитьУрок = loadLesson } = {}) {
   async function загрузитьВсё() {
     const token = await getToken();
     if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
@@ -174,11 +176,14 @@ export function createTeacherData({ api = rest, getToken } = {}) {
    * `checkedAt` обновляется при каждой проверке. По нему ученик и узнаёт, что
    * работу посмотрели заново: уведомление приходит на изменившееся время.
    */
-  async function поставитьБалл({ studentId, lessonId, score, comment = '' }) {
+  async function поставитьБалл({ studentId, lessonId, score, max, comment = '' }) {
     const token = await getToken();
     if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
 
+    // Максимум пишется рядом с баллом: без него «2» не перевести в долю,
+    // а почёт ученик считает у себя, не загружая файлов уроков.
     const данные = { manualScore: score, checkedAt: Date.now(), comment: comment || null };
+    if (Number(max) > 0) данные.manualMax = Number(max);
     await api.dbPatch(`${ROOT}/submissions/${studentId}/${lessonId}`, данные, { token });
     return данные;
   }
@@ -226,6 +231,8 @@ export function createTeacherData({ api = rest, getToken } = {}) {
     const token = await getToken();
     if (!token) throw new Error('Сессия закончилась, нужно войти заново.');
 
+    await дописатьМаксимумы(submissions, token);
+
     const план = планПересчёта({ students, submissions, leaderboard: leaderboards, сейчас });
     for (const и of план.изменения) {
       await api.dbPatch(`${ROOT}/leaderboard/${и.classId}/${и.id}`, и.стало, { token });
@@ -233,6 +240,26 @@ export function createTeacherData({ api = rest, getToken } = {}) {
       Object.assign(leaderboards[и.classId][и.id], и.стало);
     }
     return план;
+  }
+
+  /**
+   * Работам, проверенным до 16 сентября, максимум не записывали. Он берётся
+   * из файла урока и дописывается в работу — один раз, дальше он уже лежит.
+   */
+  async function дописатьМаксимумы(submissions = {}, token) {
+    const максимумы = new Map();
+    for (const [studentId, работы] of Object.entries(submissions ?? {})) {
+      for (const [lessonId, работа] of Object.entries(работы ?? {})) {
+        if (работа?.manualScore === undefined || Number(работа.manualMax) > 0) continue;
+        if (!максимумы.has(lessonId)) {
+          максимумы.set(lessonId, await загрузитьУрок(lessonId).then(максимумРазвёрнутого).catch(() => null));
+        }
+        const max = максимумы.get(lessonId);
+        if (!max) continue;
+        await api.dbPatch(`${ROOT}/submissions/${studentId}/${lessonId}`, { manualMax: max }, { token });
+        работа.manualMax = max;
+      }
+    }
   }
 
   return { загрузитьВсё, поставитьБалл, разрешитьПереписать, прогрессУченика, свестиПочёт };
