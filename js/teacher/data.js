@@ -1,7 +1,7 @@
 import * as rest from '../api/firebase-rest.js';
 import { SCHOOL_ID } from '../firebase-config.js';
 import { планПересчёта } from './pereschet.js';
-import { максимумРазвёрнутого } from '../homework/pochyot.js';
+import { максимумРазвёрнутого, процентРаботы } from '../homework/pochyot.js';
 import { loadLesson } from '../content.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
@@ -52,7 +52,8 @@ export function собратьЖурнал({ classId, students = {}, assignments
       return {
         lessonId: урок.lessonId,
         статус: статусКлетки({ назначено: true, работа }),
-        percent: работа?.percent ?? null,
+        // С баллом учителя за развёрнутый ответ, а не записанный при сдаче.
+        percent: процентРаботы(работа)?.процент ?? работа?.percent ?? null,
         работа,
       };
     });

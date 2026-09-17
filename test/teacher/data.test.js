@@ -328,3 +328,18 @@ test('без действующей сессии загрузка говорит
   const data = createTeacherData({ api: {}, getToken: async () => null });
   await assert.rejects(() => data.загрузитьВсё(), /войти заново/);
 });
+
+// Процент в клетке журнала — с баллом учителя за развёрнутый ответ, а не
+// записанный при сдаче только по автопроверке.
+test('в клетке журнала процент учитывает балл учителя', () => {
+  const журнал = (manualScore) => собратьЖурнал({
+    classId: '5a',
+    students: { s1: { name: 'А', classId: '5a' } },
+    assignments: { '5a': { u1: { assignedAt: 1 } } },
+    submissions: { s1: { u1: { submittedAt: 1, correct: 10, total: 10, percent: 100, open: { o: 'текст' }, manualScore, manualMax: 3 } } },
+  }).строки[0].клетки[0].percent;
+
+  assert.equal(журнал(undefined), 100, 'до проверки — по автопроверке');
+  assert.equal(журнал(0), 77);
+  assert.equal(журнал(3), 100);
+});
