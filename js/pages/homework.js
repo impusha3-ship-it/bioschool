@@ -7,6 +7,8 @@ import { questionField } from '../homework/fields.js';
 import { auth } from './login.js';
 import { progress } from '../progress/index.js';
 import { показать } from '../ui/toast.js';
+import { loadPerestanovki } from '../content.js';
+import { нуженПеревод, перевестиОтветы } from '../homework/poryadok.js';
 
 const hw = createHomework();
 
@@ -32,6 +34,22 @@ export function renderHomework(lesson) {
   }
 
   return показатьПросмотр(lesson, сессия?.kind === 'teacher');
+}
+
+/**
+ * Сданная работа с ответами в нынешнем порядке вариантов. Если таблица
+ * перестановок не открылась, разбор не показывается вовсе: неверный разбор
+ * хуже отсутствующего — ребёнок ему поверит.
+ */
+async function вТекущемПорядке(работа, lessonId) {
+  if (!нуженПеревод(работа)) return работа;
+  try {
+    const таблица = await loadPerestanovki();
+    return { ...работа, answers: перевестиОтветы(работа, lessonId, таблица) };
+  } catch {
+    const { answers, ...безОтветов } = работа;
+    return безОтветов;
+  }
 }
 
 async function подготовить(блок, lesson, сессия) {
@@ -61,7 +79,7 @@ async function подготовить(блок, lesson, сессия) {
 
   clear(блок);
 
-  if (сданное) return блок.append(показатьСданное(сданное, lesson));
+  if (сданное) return блок.append(показатьСданное(await вТекущемПорядке(сданное, lesson.id), lesson));
   if (!назначение?.isOpen) {
     return блок.append(
       el('div', { class: 'empty' }, [

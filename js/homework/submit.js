@@ -1,6 +1,7 @@
 import * as rest from '../api/firebase-rest.js';
 import { SCHOOL_ID } from '../firebase-config.js';
 import { combineScore } from './questions.js';
+import { ТЕКУЩИЙ_ПОРЯДОК } from './poryadok.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
 
@@ -72,6 +73,9 @@ export function createHomework({ api = rest, now = () => Date.now() } = {}) {
       percent: итог.percent,
       answers: answers ?? {},
       open: open ?? {},
+      // Ответы хранятся номерами вариантов, а варианты однажды уже
+      // перемешивали. Номер порядка говорит, как эти номера читать.
+      optionsVersion: ТЕКУЩИЙ_ПОРЯДОК,
     };
   }
 

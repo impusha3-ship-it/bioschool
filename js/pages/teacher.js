@@ -399,6 +399,9 @@ function карточкаРаботы(запись, { задания, макс, 
       const задание = задания.get(о.questionId);
       return [
         задание ? el('p', { class: 'check__prompt' }, задание.prompt ?? задание.text) : null,
+        // Ключ стоит рядом с ответом: сверять тридцать работ по памяти — это
+        // тридцать шансов оценить одинаковые ответы по-разному.
+        задание?.answerKey ? el('p', { class: 'check__key' }, `Ключ: ${задание.answerKey}`) : null,
         el('p', { class: 'check__answer' }, о.текст),
       ].filter(Boolean);
     }),

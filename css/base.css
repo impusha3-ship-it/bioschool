@@ -1756,6 +1756,17 @@ h3 {
   line-height: 1.5;
 }
 
+/* Ключ отчёркнут слева, как ключ в просмотре задания: учитель должен
+   с одного взгляда отличать его от ответа ученика под ним. */
+.check__key {
+  margin: 0 0 calc(var(--step) * 3);
+  padding-left: calc(var(--step) * 3);
+  border-left: 3px solid var(--moss);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .check__warn { margin: 0 0 calc(var(--step) * 4); color: var(--iodine); font-size: 14px; font-weight: 600; }
 
 .check__answer {

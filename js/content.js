@@ -84,6 +84,14 @@ export async function loadKlassy({ fetchFn = fetch } = {}) {
 }
 
 /**
+ * Перестановки вариантов ответа — чтобы показать работу, сданную при старом
+ * порядке, в новом. Подробности — в `js/homework/poryadok.js`.
+ */
+export async function loadPerestanovki({ fetchFn = fetch } = {}) {
+  return (await loadJson('./content/perestanovki.json', fetchFn, 'Таблица перестановок не найдена')) ?? {};
+}
+
+/**
  * Значки инвентаря для сбора стола в лабораторной: название прибора → рисунок.
  *
  * Лежит отдельно от уроков нарочно: в файлах уроков оборудование осталось

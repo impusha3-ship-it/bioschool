@@ -1,0 +1,311 @@
+{
+  "2": {
+    "8-gubki": {
+      "q-8gb-net-tkaney": [
+        1,
+        3,
+        2,
+        0
+      ],
+      "q-8gb-uste-rot": [
+        0,
+        3,
+        2,
+        1
+      ],
+      "q-8gb-skelet": [
+        3,
+        1,
+        4,
+        0,
+        2
+      ],
+      "q-8gb-potok": [
+        0,
+        3,
+        1,
+        2
+      ]
+    },
+    "8-kishechnopolostnye": {
+      "q-8kp-hw-pishchevarenie": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "q-8kp-hw-osen": [
+        2,
+        1,
+        0,
+        3
+      ],
+      "q-8kp-hw-dyhanie": [
+        3,
+        0,
+        1,
+        2
+      ]
+    },
+    "8-mnogoobrazie-prosteyshih": {
+      "q-8mp-gryaznye-ruki": [
+        1,
+        2,
+        0,
+        3
+      ],
+      "q-8mp-pochva-korm": [
+        3,
+        0,
+        4,
+        2,
+        1
+      ],
+      "q-8mp-porody": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "q-8mp-toksoplazma": [
+        3,
+        2,
+        0,
+        1
+      ]
+    },
+    "8-priznaki-zhivotnyh": {
+      "q-8pz-glavnyy-priznak": [
+        2,
+        0,
+        1,
+        3
+      ],
+      "q-8pz-griby": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "q-8pz-kletka-mnogokletochnogo": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "q-8pz-razmery": [
+        1,
+        0,
+        2,
+        3
+      ],
+      "q-8pz-sistemy-multi": [
+        4,
+        3,
+        0,
+        1,
+        2
+      ]
+    },
+    "8-prosteyshie-kornenozhki": {
+      "q-8pk-odna-kletka": [
+        2,
+        0,
+        1,
+        3
+      ],
+      "q-8pk-organelly": [
+        3,
+        4,
+        0,
+        1,
+        2
+      ],
+      "q-8pk-plazmalemma": [
+        1,
+        3,
+        0,
+        2
+      ],
+      "q-8pk-rakovinnye": [
+        2,
+        0,
+        3,
+        1
+      ]
+    },
+    "8-sistematika-zhivotnyh": {
+      "q-8sz-taksony": [
+        0,
+        2,
+        1,
+        3
+      ],
+      "q-8sz-poryadok": [
+        2,
+        1,
+        3,
+        0
+      ],
+      "q-8sz-podcarstva": [
+        3,
+        1,
+        2,
+        0
+      ],
+      "q-8sz-multi-svyazi": [
+        3,
+        1,
+        0,
+        4,
+        2
+      ],
+      "q-8sz-rodstvo": [
+        4,
+        0,
+        3,
+        2,
+        1
+      ]
+    },
+    "8-tkani-organy-sistemy": {
+      "q-8to-epiteliy": [
+        1,
+        0,
+        2,
+        3
+      ],
+      "q-8to-veshchestvo": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "q-8to-neyron": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "q-8to-multi-soedinitelnaya": [
+        0,
+        3,
+        2,
+        4,
+        1
+      ],
+      "q-8to-urovni": [
+        3,
+        1,
+        2,
+        0
+      ]
+    },
+    "8-zhgutikonoscy-i-infuzorii": {
+      "q-8zi-rul": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "q-8zi-poroshica": [
+        3,
+        2,
+        1,
+        0
+      ],
+      "q-8zi-yadra": [
+        2,
+        1,
+        0,
+        3
+      ],
+      "q-8zi-polovoy": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "q-8zi-multi-obshchee": [
+        0,
+        1,
+        4,
+        3,
+        2
+      ]
+    },
+    "8-zhivotnaya-kletka": {
+      "q-8zk-net-obolochki": [
+        3,
+        0,
+        2,
+        1
+      ],
+      "q-8zk-mitohondriya": [
+        2,
+        1,
+        0,
+        3
+      ],
+      "q-8zk-hromosomy": [
+        3,
+        0,
+        2,
+        1
+      ],
+      "q-8zk-vakuoli-multi": [
+        2,
+        3,
+        0,
+        4,
+        1
+      ],
+      "q-8zk-levenguk": [
+        1,
+        0,
+        2,
+        3
+      ]
+    },
+    "8-zoologiya-nauka": {
+      "q-8zn-koren": [
+        2,
+        3,
+        1,
+        0
+      ],
+      "q-8zn-dva-sposoba": [
+        2,
+        0,
+        1,
+        3
+      ],
+      "q-8zn-odomashnivanie": [
+        2,
+        1,
+        3,
+        0
+      ],
+      "q-8zn-bionika-multi": [
+        1,
+        2,
+        4,
+        3,
+        0
+      ],
+      "q-8zn-professii": [
+        2,
+        3,
+        0,
+        4,
+        1
+      ],
+      "q-8zn-hw-razdel": [
+        2,
+        1,
+        0,
+        3
+      ]
+    }
+  }
+}

@@ -192,6 +192,22 @@ test('на месте вердикта развёрнутого ответа с�
   assert.equal(текст.includes('Плесень выросла'), false, 'ключ до проверки учителя не показывается');
 });
 
+/*
+  Ключ развёрнутого задания домашки виден только учителю. Раньше он стоял в
+  подсказке, и ученик читал ответ прямо под вопросом.
+*/
+test('ученик ключа к развёрнутому заданию не видит, учитель видит', () => {
+  const q = { id: 'q10', type: 'open', prompt: 'Опиши опыт', hint: 'Подумай о влаге', answerKey: 'Плесень любит сырость', maxScore: 3 };
+  const тексты = (узел) => собрать(узел).flatMap((n) => (n.children ?? []).filter((c) => typeof c === 'string'));
+
+  const ученику = тексты(questionField(q, {}, { document: document() }).element);
+  const учителю = тексты(questionField(q, {}, { document: document(), disabled: true, key: true }).element);
+
+  assert.equal(ученику.some((т) => т.includes('Плесень любит сырость')), false);
+  assert.ok(ученику.includes('Подумай о влаге'), 'подсказка ученику остаётся');
+  assert.ok(учителю.includes('Ключ: Плесень любит сырость'));
+});
+
 test('номера верных вариантов приводятся к одному виду', () => {
   assert.deepEqual(correctIndexes(выбор), [1]);
   assert.deepEqual(correctIndexes({ type: 'multi', correct: [2, 0, 2] }), [2, 0]);
