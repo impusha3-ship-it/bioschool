@@ -188,7 +188,7 @@ test('домашние баллы пишутся по сданным работ�
   await p.обновитьДомашние();
 
   const домашние = записи.filter((з) => з.path.endsWith('leaderboard/5a/s1') && 'hwXp' in з.value).at(-1);
-  assert.deepEqual(домашние.value, { hwXp: 23, hwWeekXp: 23, hwDone: 1 });
+  assert.deepEqual(домашние.value, { hwXp: 23, hwWeekXp: 23, hwDone: 1, hwWeekDone: 1 });
   assert.equal(домашние.patch, true);
 });
 
@@ -199,7 +199,7 @@ test('перенос при входе заодно обновляет дома�
   });
   await p.перенести();
   const домашние = записи.filter((з) => 'hwXp' in з.value);
-  assert.deepEqual(домашние.at(-1).value, { hwXp: 15, hwWeekXp: 15, hwDone: 1 });
+  assert.deepEqual(домашние.at(-1).value, { hwXp: 15, hwWeekXp: 15, hwDone: 1, hwWeekDone: 1 });
 });
 
 test('гостю домашние баллы никуда не пишутся', async () => {

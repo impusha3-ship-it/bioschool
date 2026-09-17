@@ -36,13 +36,14 @@ export function планПересчёта({ students = {}, submissions = {}, le
       continue;
     }
 
-    if (строка.hwXp === стало.hwXp && строка.hwWeekXp === стало.hwWeekXp && строка.hwDone === стало.hwDone) continue;
+    if (строка.hwXp === стало.hwXp && строка.hwWeekXp === стало.hwWeekXp
+      && строка.hwDone === стало.hwDone && строка.hwWeekDone === стало.hwWeekDone) continue;
 
     изменения.push({
       id,
       classId: ученик.classId,
       имя: ученик.name,
-      было: { hwXp: строка.hwXp ?? null, hwWeekXp: строка.hwWeekXp ?? null, hwDone: строка.hwDone ?? null },
+      было: { hwXp: строка.hwXp ?? null, hwWeekXp: строка.hwWeekXp ?? null, hwDone: строка.hwDone ?? null, hwWeekDone: строка.hwWeekDone ?? null },
       стало,
     });
   }

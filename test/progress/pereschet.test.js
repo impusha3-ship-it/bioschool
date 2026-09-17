@@ -17,9 +17,9 @@ test('скрипт считает тем же правилом, что и сай
 // Работа без времени сдачи — испорченная запись; посчитать её в неделю
 // нельзя, а молча дать за неё баллы значило бы наградить за поломку.
 test('запись без времени сдачи пропускается', () => {
-  assert.deepEqual(домашниеБаллы({ u1: { percent: 100 } }, new Date(2026, 8, 16)), { hwXp: 0, hwWeekXp: 0, hwDone: 0 });
+  assert.deepEqual(домашниеБаллы({ u1: { percent: 100 } }, new Date(2026, 8, 16)), { hwXp: 0, hwWeekXp: 0, hwDone: 0, hwWeekDone: 0 });
 });
 
 test('у того, кто ничего не сдавал, ноль, а не пустота', () => {
-  assert.deepEqual(домашниеБаллы(undefined, new Date(2026, 8, 16)), { hwXp: 0, hwWeekXp: 0, hwDone: 0 });
+  assert.deepEqual(домашниеБаллы(undefined, new Date(2026, 8, 16)), { hwXp: 0, hwWeekXp: 0, hwDone: 0, hwWeekDone: 0 });
 });
