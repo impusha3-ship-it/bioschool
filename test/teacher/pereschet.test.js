@@ -25,7 +25,7 @@ const submissions = {
 const leaderboard = {
   8: {
     a: { xp: 300, weekId: 'x' },
-    b: { xp: 40, weekId: 'x', hwXp: 15, hwWeekXp: 0 },
+    b: { xp: 40, weekId: 'x', hwXp: 15, hwWeekXp: 0, hwDone: 1 },
   },
   5: { c: { xp: 10, weekId: 'x' } },
 };
@@ -33,9 +33,19 @@ const leaderboard = {
 test('в плане только разошедшиеся строки, по алфавиту', () => {
   const { изменения } = планПересчёта({ students, submissions, leaderboard, сейчас: СЕЙЧАС });
   assert.deepEqual(изменения.map((и) => и.id), ['a', 'c']);
-  assert.deepEqual(изменения[0].стало, { hwXp: 40, hwWeekXp: 0 }, 'всё верно — тридцать и бонус');
-  assert.deepEqual(изменения[0].было, { hwXp: null, hwWeekXp: null });
-  assert.deepEqual(изменения[1].стало, { hwXp: 0, hwWeekXp: 0 });
+  assert.deepEqual(изменения[0].стало, { hwXp: 40, hwWeekXp: 0, hwDone: 1 }, 'всё верно — тридцать и бонус');
+  assert.deepEqual(изменения[0].было, { hwXp: null, hwWeekXp: null, hwDone: null });
+  assert.deepEqual(изменения[1].стало, { hwXp: 0, hwWeekXp: 0, hwDone: 0 });
+});
+
+// Строки, записанные до 17 сентября, числа сданных работ не несут. Без него
+// шкала класса показала бы ноль, хотя баллы в строке сходятся.
+test('строка без числа сданных работ дописывается, даже если баллы сошлись', () => {
+  const старая = { ...leaderboard, 8: { ...leaderboard[8], b: { xp: 40, weekId: 'x', hwXp: 15, hwWeekXp: 0 } } };
+  const { изменения } = планПересчёта({ students, submissions, leaderboard: старая, сейчас: СЕЙЧАС });
+  const b = изменения.find((и) => и.id === 'b');
+  assert.ok(b, 'строка b должна попасть в план');
+  assert.equal(b.стало.hwDone, 1);
 });
 
 test('ученик со сданной работой без строки в таблице назван, но не заведён', () => {
@@ -44,7 +54,7 @@ test('ученик со сданной работой без строки в т�
   assert.ok(!изменения.some((и) => и.id === 'd'));
 });
 
-test('панель при открытии пишет только hwXp и hwWeekXp в строку ученика', async () => {
+test('панель при открытии пишет в строку ученика только домашние числа', async () => {
   const записи = [];
   const api = { dbPatch: async (path, value) => { записи.push({ path, value }); } };
   const data = createTeacherData({ api, getToken: async () => 't' });
@@ -53,7 +63,7 @@ test('панель при открытии пишет только hwXp и hwWee
 
   assert.equal(итог.изменения.length, 2);
   assert.deepEqual(записи.map((з) => з.path), ['schools/apts/leaderboard/8/a', 'schools/apts/leaderboard/5/c']);
-  for (const з of записи) assert.deepEqual(Object.keys(з.value).sort(), ['hwWeekXp', 'hwXp']);
+  for (const з of записи) assert.deepEqual(Object.keys(з.value).sort(), ['hwDone', 'hwWeekXp', 'hwXp']);
   assert.equal(загружено.leaderboards[8].a.hwXp, 40, 'открытая вкладка видит записанное');
   assert.equal(загружено.leaderboards[8].a.xp, 300, 'общий счёт не тронут');
 

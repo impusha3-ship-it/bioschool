@@ -3,7 +3,7 @@ import { полоса } from '../ui/bar.js';
 import * as rest from '../api/firebase-rest.js';
 import { SCHOOL_ID } from '../firebase-config.js';
 import { неделя as неделяИз } from '../progress/weeks.js';
-import { БОНУС_ЗА_100 } from '../homework/pochyot.js';
+import { БОНУС_ЗА_100, сданоКлассом } from '../homework/pochyot.js';
 
 const ROOT = `schools/${SCHOOL_ID}`;
 
@@ -45,7 +45,7 @@ export function собратьТабло({ classes = {}, students = {}, leaderbo
       // строится по второму.
       xp: число(запись.hwXp),
       weekXp: запись.weekId === неделя ? число(запись.hwWeekXp) : 0,
-      lessonsDone: число(запись.lessonsDone),
+      hwDone: число(запись.hwDone),
     };
   });
 
@@ -59,16 +59,15 @@ export function собратьТабло({ classes = {}, students = {}, leaderbo
     },
     классы: Object.entries(classes).map(([id, класс]) => {
       const свои = строки.filter((с) => с.classId === id);
-      // Цель считается сама: сколько учеников на сколько заданных уроков.
-      const цель = свои.length * Object.keys(assignments?.[id] ?? {}).length;
-      const пройдено = свои.reduce((n, с) => n + с.lessonsDone, 0);
+      // Шкала класса — сданные домашние работы из заданных.
+      const { сдано, задано, процент } = сданоКлассом(свои, assignments?.[id]);
       return {
         id,
         title: класс.title,
         учеников: свои.length,
-        пройдено,
-        цель,
-        процент: цель ? Math.round((пройдено / цель) * 100) : 0,
+        сдано,
+        задано,
+        процент,
         неделя: поНеделе(свои).slice(0, ЛУЧШИХ_ПО_КЛАССУ),
         всегда: поВсегда(свои).slice(0, ЛУЧШИХ_ПО_КЛАССУ),
       };
@@ -183,10 +182,10 @@ function карточкаКласса(класс) {
   return el('div', { class: 'tablo__class-card' }, [
     el('h2', { class: 'tablo__head' }, класс.title),
     el('p', { class: 'tablo__count' },
-      класс.цель
-        ? `Класс прошёл ${класс.пройдено} из ${класс.цель}`
-        : `Учеников: ${класс.учеников}`),
-    класс.цель ? полоса(класс.процент) : null,
+      класс.задано
+        ? `Сдано домашних работ: ${класс.сдано} из ${класс.задано}`
+        : 'Домашних работ классу пока не задано'),
+    класс.задано ? полоса(класс.процент) : null,
     el('div', { class: 'tablo__class-lists' }, [
       списокКласса('Лучшие за всё время', класс.всегда, (с) => с.xp, 'Баллов в классе пока нет'),
       списокКласса('На этой неделе', класс.неделя, (с) => с.weekXp, 'На этой неделе баллов ещё нет'),

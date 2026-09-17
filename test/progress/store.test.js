@@ -188,7 +188,7 @@ test('домашние баллы пишутся по сданным работ�
   await p.обновитьДомашние();
 
   const домашние = записи.filter((з) => з.path.endsWith('leaderboard/5a/s1') && 'hwXp' in з.value).at(-1);
-  assert.deepEqual(домашние.value, { hwXp: 23, hwWeekXp: 23 });
+  assert.deepEqual(домашние.value, { hwXp: 23, hwWeekXp: 23, hwDone: 1 });
   assert.equal(домашние.patch, true);
 });
 
@@ -199,7 +199,7 @@ test('перенос при входе заодно обновляет дома�
   });
   await p.перенести();
   const домашние = записи.filter((з) => 'hwXp' in з.value);
-  assert.deepEqual(домашние.at(-1).value, { hwXp: 15, hwWeekXp: 15 });
+  assert.deepEqual(домашние.at(-1).value, { hwXp: 15, hwWeekXp: 15, hwDone: 1 });
 });
 
 test('гостю домашние баллы никуда не пишутся', async () => {
@@ -262,12 +262,12 @@ test('наружу торчит только то, чем пользуются �
   );
 });
 
-test('шкала класса: цель — ученики на заданные уроки', async () => {
+test('шкала класса: сданные домашние из заданных', async () => {
   const { p } = собрать({
     сессия: () => ({ studentId: 's1', classId: '5a' }),
     данные: {
-      'leaderboard/5a': { s1: { xp: 90, hwXp: 40, weekId: '2026-W34', weekXp: 90, hwWeekXp: 40, lessonsDone: 2 },
-                          s2: { xp: 10, weekId: '2026-W33', weekXp: 10, lessonsDone: 1 } },
+      'leaderboard/5a': { s1: { xp: 90, hwXp: 40, weekId: '2026-W34', weekXp: 90, hwWeekXp: 40, lessonsDone: 7, hwDone: 2 },
+                          s2: { xp: 10, weekId: '2026-W33', weekXp: 10, lessonsDone: 5, hwDone: 1 } },
       'students': { s1: { name: 'Петров Иван', classId: '5a' },
                     s2: { name: 'Сидорова Аня', classId: '5a' },
                     s3: { name: 'Чужой Ученик', classId: '6б' } },
@@ -276,8 +276,10 @@ test('шкала класса: цель — ученики на заданные
   });
 
   const шкала = await p.шкалаКласса('5a');
-  assert.equal(шкала.пройдено, 3);
-  assert.equal(шкала.цель, 4); // два ученика × два заданных урока
+  // Пройденные в тренажёре уроки (lessonsDone) в шкалу не идут — только сданные работы.
+  assert.equal(шкала.сдано, 3);
+  assert.equal(шкала.задано, 4); // два ученика × два заданных урока
+  assert.equal(шкала.процент, 75);
 });
 
 test('герои недели — только за текущую неделю и не больше трёх', async () => {
@@ -309,15 +311,15 @@ test('чужой в таблице класса не считается свои
   const { p } = собрать({
     сессия: () => ({ studentId: 's1', classId: '5a' }),
     данные: {
-      'leaderboard/5a': { s1: { xp: 25, hwXp: 10, weekId: '2026-W34', weekXp: 25, hwWeekXp: 10, lessonsDone: 1 },
-                          чужой: { xp: 999, hwXp: 999, weekId: '2026-W34', weekXp: 999, hwWeekXp: 999, lessonsDone: 34 } },
+      'leaderboard/5a': { s1: { xp: 25, hwXp: 10, weekId: '2026-W34', weekXp: 25, hwWeekXp: 10, lessonsDone: 1, hwDone: 1 },
+                          чужой: { xp: 999, hwXp: 999, weekId: '2026-W34', weekXp: 999, hwWeekXp: 999, lessonsDone: 34, hwDone: 34 } },
       'students': { s1: { name: 'Петров Иван', classId: '5a' } },
       'assignments/5a': { у1: { isOpen: true } },
     },
   });
 
   const шкала = await p.шкалаКласса('5a');
-  assert.equal(шкала.пройдено, 1);
+  assert.equal(шкала.сдано, 1);
   assert.deepEqual(шкала.герои, [{ имя: 'Петров Иван', xp: 10 }]);
 });
 
@@ -330,7 +332,7 @@ test('отказ чтения не роняет шкалу', async () => {
   const api = { dbGet: async () => { throw new Error('Доступ запрещён.'); }, dbPut: async () => null };
   const p = createProgress({ api, storage: память(), сессия: () => null, токен: async () => null, now: () => ДАТА });
   const шкала = await p.шкалаКласса('5a');
-  assert.deepEqual(шкала, { пройдено: 0, цель: 0, герои: [] });
+  assert.deepEqual(шкала, { сдано: 0, задано: 0, процент: 0, герои: [] });
 });
 
 // ── Общее устройство ─────────────────────────────────────────

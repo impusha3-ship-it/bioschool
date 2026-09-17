@@ -19,11 +19,11 @@ const ДАННЫЕ = {
   */
   leaderboard: {
     '7a': {
-      s1: { xp: 900, hwXp: 300, weekId: НЕДЕЛЯ, weekXp: 200, hwWeekXp: 40, lessonsDone: 4 },
-      s2: { xp: 200, hwXp: 120, weekId: НЕДЕЛЯ, weekXp: 100, hwWeekXp: 90, lessonsDone: 2 },
-      s3: { xp: 800, hwXp: 500, weekId: '2026-W35', weekXp: 90, hwWeekXp: 70, lessonsDone: 6 },
+      s1: { xp: 900, hwXp: 300, weekId: НЕДЕЛЯ, weekXp: 200, hwWeekXp: 40, lessonsDone: 4, hwDone: 2 },
+      s2: { xp: 200, hwXp: 120, weekId: НЕДЕЛЯ, weekXp: 100, hwWeekXp: 90, lessonsDone: 2, hwDone: 1 },
+      s3: { xp: 800, hwXp: 500, weekId: '2026-W35', weekXp: 90, hwWeekXp: 70, lessonsDone: 6, hwDone: 2 },
     },
-    '5b': { s4: { xp: 250, hwXp: 200, weekId: НЕДЕЛЯ, weekXp: 80, hwWeekXp: 60, lessonsDone: 3 } },
+    '5b': { s4: { xp: 250, hwXp: 200, weekId: НЕДЕЛЯ, weekXp: 80, hwWeekXp: 60, lessonsDone: 3, hwDone: 1 } },
   },
   assignments: { '7a': { u1: {}, u2: {} }, '5b': { u1: {} } },
 };
@@ -114,15 +114,17 @@ test('по каждому классу свой счёт и свои герои'
 
   assert.equal(седьмой.title, '7А');
   assert.deepEqual(седьмой.неделя.map((с) => с.имя), ['Баранец София', 'Алёшин Юрий']);
-  // Цель считается сама: трое учеников на два заданных урока.
-  assert.equal(седьмой.цель, 6);
-  assert.equal(седьмой.пройдено, 12);
+  // Задано: трое учеников на два заданных урока. Сдано — по числу сданных
+  // работ, а не по урокам, пройденным в тренажёре (их у класса 12).
+  assert.equal(седьмой.задано, 6);
+  assert.equal(седьмой.сдано, 5);
+  assert.equal(седьмой.процент, 83);
 });
 
 test('класс без заданных уроков не делит на ноль', () => {
   const данные = { ...ДАННЫЕ, assignments: {} };
   const седьмой = собрать(данные).классы.find((к) => к.id === '7a');
-  assert.equal(седьмой.цель, 0);
+  assert.equal(седьмой.задано, 0);
   assert.equal(седьмой.процент, 0);
 });
 
@@ -149,5 +151,5 @@ test('ученик без единого балла в списки не лез�
   const данные = { ...ДАННЫЕ, leaderboard: {} };
   assert.deepEqual(собрать(данные).школа.всегда, []);
   const седьмой = собрать(данные).классы.find((к) => к.id === '7a');
-  assert.equal(седьмой.пройдено, 0);
+  assert.equal(седьмой.сдано, 0);
 });
