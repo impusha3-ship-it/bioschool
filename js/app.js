@@ -279,6 +279,12 @@ async function renderSourcesPage() {
             ),
           ])
         : null,
+      el(
+        'li',
+        {},
+        'Задания в уроках 9 класса взяты из открытого каталога подготовки к ОГЭ ' +
+          '(bio-oge.sdamgia.ru); разборы к ним написаны для этого сайта',
+      ),
       el('li', {}, 'Servier Medical Art — CC BY 4.0, smart.servier.com'),
       el('li', {}, 'NIH BioArt Source — public domain, bioart.niaid.nih.gov'),
       el('li', {}, 'BioIcons — bioicons.com'),

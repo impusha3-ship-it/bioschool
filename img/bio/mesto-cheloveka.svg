@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 344" role="img" aria-label="Место человека в системе органического мира, ступенями сверху вниз: домен Эукариоты, царство Животные, подцарство Многоклеточные, тип Хордовые, класс Млекопитающие, отряд Приматы, семейство Гоминиды, род Человек, вид Человек разумный. Каждая следующая ступень — часть предыдущей. Внизу пояснение: человекообразные обезьяны человеку ближайшая родня, но не предки: это разные ветви эволюции.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Место человека в системе органического мира</text>
+  </g>
+  <rect class="d-capsule" x="12" y="34" width="296" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="49" font-size="11.5" text-anchor="middle">Домен: Эукариоты</text>
+  <rect class="d-capsule" x="20" y="62" width="280" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="77" font-size="11.5" text-anchor="middle">Царство: Животные</text>
+  <rect class="d-capsule" x="28" y="90" width="264" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="105" font-size="11.5" text-anchor="middle">Подцарство: Многоклеточные</text>
+  <rect class="d-capsule" x="36" y="118" width="248" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="133" font-size="11.5" text-anchor="middle">Тип: Хордовые</text>
+  <rect class="d-capsule" x="44" y="146" width="232" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="161" font-size="11.5" text-anchor="middle">Класс: Млекопитающие</text>
+  <rect class="d-capsule" x="52" y="174" width="216" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="189" font-size="11.5" text-anchor="middle">Отряд: Приматы</text>
+  <rect class="d-capsule" x="60" y="202" width="200" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="217" font-size="11.5" text-anchor="middle">Семейство: Гоминиды</text>
+  <rect class="d-capsule" x="68" y="230" width="184" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="245" font-size="11.5" text-anchor="middle">Род: Человек</text>
+  <rect class="d-capsule" x="76" y="258" width="168" height="22" rx="11"/>
+  <text class="d-capsule-t" x="160" y="273" font-size="11.5" text-anchor="middle">Вид: Человек разумный</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="296" x2="312" y2="296"/>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="314">Каждая ступень — часть предыдущей</text>
+    <text x="8" y="330">Обезьяны — родня, но не предки</text>
+  </g>
+</svg>

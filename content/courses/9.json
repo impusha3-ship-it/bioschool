@@ -1,0 +1,24 @@
+{
+  "grade": 9,
+  "title": "9 класс",
+  "subtitle": "Человек: строение, работа организма и здоровье",
+  "sections": [
+    {
+      "id": "chelovek-biosocialnyy-vid",
+      "title": "Человек — биосоциальный вид",
+      "hours": 3,
+      "lessons": [
+        { "id": "9-nauki-o-cheloveke", "title": "Науки о человеке" },
+        { "id": "9-chelovek-chast-prirody", "title": "Человек как часть природы" }
+      ]
+    },
+    {
+      "id": "struktura-organizma",
+      "title": "Структура организма человека",
+      "hours": 3,
+      "lessons": [
+        { "id": "9-stroenie-kletki", "title": "Строение и химический состав клетки" }
+      ]
+    }
+  ]
+}
