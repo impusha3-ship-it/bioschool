@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 452" role="img" aria-label="Восемь систем органов человека: у каждой названы органы и работа. Опорно-двигательная: кости, суставы, связки, скелетные мышцы; опора, движение, защита органов. Пищеварительная: рот, пищевод, желудок, кишечник, печень; переваривание и всасывание пищи. Дыхательная: нос, гортань, трахея, бронхи, лёгкие; кислород внутрь, углекислый газ наружу. Кровеносная: сердце, артерии, вены, капилляры, кровь; переносит вещества по всему телу. Выделительная: почки, мочеточники, мочевой пузырь; выводит лишнюю воду и вредные вещества. Эндокринная: железы внутренней секреции; управляет через вещества в крови. Нервная: головной и спинной мозг, нервы; управляет через сигналы, быстро. Система органов размножения: половые железы и половые пути; продолжение рода. Внизу вывод: система — группа органов с общей работой, а все системы вместе составляют целостный организм.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Восемь систем органов</text>
+  </g>
+
+  <g class="d-stem-end"><circle cx="16" cy="38" r="3"/></g>
+  <text class="d-row" x="28" y="42" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Опорно-двигательная</text>
+  <text class="d-head" x="28" y="56" font-size="10" font-family="system-ui, sans-serif">кости, суставы, связки, скелетные мышцы</text>
+  <text class="d-head" x="28" y="69" font-size="10" font-family="system-ui, sans-serif">опора, движение, защита органов</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="84" r="3"/></g>
+  <text class="d-row" x="28" y="88" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Пищеварительная</text>
+  <text class="d-head" x="28" y="102" font-size="10" font-family="system-ui, sans-serif">рот, пищевод, желудок, кишечник, печень</text>
+  <text class="d-head" x="28" y="115" font-size="10" font-family="system-ui, sans-serif">переваривание и всасывание пищи</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="130" r="3"/></g>
+  <text class="d-row" x="28" y="134" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Дыхательная</text>
+  <text class="d-head" x="28" y="148" font-size="10" font-family="system-ui, sans-serif">нос, гортань, трахея, бронхи, лёгкие</text>
+  <text class="d-head" x="28" y="161" font-size="10" font-family="system-ui, sans-serif">кислород внутрь, углекислый газ наружу</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="176" r="3"/></g>
+  <text class="d-row" x="28" y="180" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Кровеносная</text>
+  <text class="d-head" x="28" y="194" font-size="10" font-family="system-ui, sans-serif">сердце, артерии, вены, капилляры, кровь</text>
+  <text class="d-head" x="28" y="207" font-size="10" font-family="system-ui, sans-serif">переносит вещества по всему телу</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="222" r="3"/></g>
+  <text class="d-row" x="28" y="226" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Выделительная</text>
+  <text class="d-head" x="28" y="240" font-size="10" font-family="system-ui, sans-serif">почки, мочеточники, мочевой пузырь</text>
+  <text class="d-head" x="28" y="253" font-size="10" font-family="system-ui, sans-serif">выводит лишнюю воду и вредные вещества</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="268" r="3"/></g>
+  <text class="d-row" x="28" y="272" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Эндокринная</text>
+  <text class="d-head" x="28" y="286" font-size="10" font-family="system-ui, sans-serif">железы внутренней секреции</text>
+  <text class="d-head" x="28" y="299" font-size="10" font-family="system-ui, sans-serif">управляет через вещества в крови</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="314" r="3"/></g>
+  <text class="d-row" x="28" y="318" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Нервная</text>
+  <text class="d-head" x="28" y="332" font-size="10" font-family="system-ui, sans-serif">головной и спинной мозг, нервы</text>
+  <text class="d-head" x="28" y="345" font-size="10" font-family="system-ui, sans-serif">управляет через сигналы, быстро</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="360" r="3"/></g>
+  <text class="d-row" x="28" y="364" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Органов размножения</text>
+  <text class="d-head" x="28" y="378" font-size="10" font-family="system-ui, sans-serif">половые железы и половые пути</text>
+  <text class="d-head" x="28" y="391" font-size="10" font-family="system-ui, sans-serif">продолжение рода</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="406" x2="312" y2="406"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="424">Система — группа органов с общей работой,</text>
+    <text x="8" y="440">а все системы вместе и есть организм</text>
+  </g>
+</svg>
