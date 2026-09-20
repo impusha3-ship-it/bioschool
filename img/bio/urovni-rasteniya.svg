@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 296" role="img" aria-label="Уровни организации растительного организма, снизу вверх. Клетка — например, клетка кожицы листа. Ткань — группа сходных клеток, например покровная ткань. Орган — состоит из тканей, например лист. Организм — все органы вместе, например берёза. Каждая следующая ступень включает предыдущую. Внизу пояснение: у низших растений, то есть у водорослей, тканей и органов нет, их тело называют слоевищем или талломом.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Из чего сложено растение</text>
+  </g>
+
+  <rect class="d-capsule" x="14" y="26" width="128" height="30" rx="15"/>
+  <text class="d-capsule-t" x="78" y="46" font-size="13" text-anchor="middle">Клетка</text>
+  <rect class="d-capsule" x="14" y="84" width="128" height="30" rx="15"/>
+  <text class="d-capsule-t" x="78" y="104" font-size="13" text-anchor="middle">Ткань</text>
+  <rect class="d-capsule" x="14" y="142" width="128" height="30" rx="15"/>
+  <text class="d-capsule-t" x="78" y="162" font-size="13" text-anchor="middle">Орган</text>
+  <rect class="d-capsule" x="14" y="200" width="128" height="30" rx="15"/>
+  <text class="d-capsule-t" x="78" y="220" font-size="13" text-anchor="middle">Организм</text>
+
+  <!-- Стрелки снизу вверх: каждая ступень входит в следующую. -->
+  <g class="d-stem" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M78 84 V56 M72 62 L78 56 L84 62"/>
+    <path d="M78 142 V114 M72 120 L78 114 L84 120"/>
+    <path d="M78 200 V172 M72 178 L78 172 L84 178"/>
+  </g>
+
+  <g class="d-row" font-size="11.5" font-family="system-ui, sans-serif">
+    <text x="156" y="38">клетка кожицы листа</text>
+    <text x="156" y="52">— и таких клеток много</text>
+    <text x="156" y="96">покровная ткань:</text>
+    <text x="156" y="110">сходные клетки вместе</text>
+    <text x="156" y="154">лист — из нескольких</text>
+    <text x="156" y="168">тканей сразу</text>
+    <text x="156" y="212">берёза: корень, стебель,</text>
+    <text x="156" y="226">листья, цветки, плоды</text>
+  </g>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="246" x2="312" y2="246"/>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="264">У низших растений — водорослей — тканей</text>
+    <text x="8" y="278">и органов нет: их тело называют слоевищем</text>
+    <text x="8" y="292">(талломом)</text>
+  </g>
+</svg>

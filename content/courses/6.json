@@ -1,0 +1,17 @@
+{
+  "grade": 6,
+  "title": "6 класс",
+  "subtitle": "Ботаника: строение и жизнь растительного организма",
+  "sections": [
+    {
+      "id": "rastitelnyy-organizm",
+      "title": "Растительный организм",
+      "hours": 8,
+      "lessons": [
+        { "id": "6-botanika-nauka", "title": "Ботаника — наука о растениях" },
+        { "id": "6-priznaki-rasteniy", "title": "Общие признаки и уровни организации растительного организма" },
+        { "id": "6-sporovye-i-semennye", "title": "Споровые и семенные растения" }
+      ]
+    }
+  ]
+}
