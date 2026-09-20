@@ -10,7 +10,9 @@
       "lessons": [
         { "id": "6-botanika-nauka", "title": "Ботаника — наука о растениях" },
         { "id": "6-priznaki-rasteniy", "title": "Общие признаки и уровни организации растительного организма" },
-        { "id": "6-sporovye-i-semennye", "title": "Споровые и семенные растения" }
+        { "id": "6-sporovye-i-semennye", "title": "Споровые и семенные растения" },
+        { "id": "6-rastitelnaya-kletka", "title": "Растительная клетка, её изучение", "lab": true },
+        { "id": "6-himicheskiy-sostav", "title": "Химический состав клетки", "lab": true }
       ]
     }
   ]
