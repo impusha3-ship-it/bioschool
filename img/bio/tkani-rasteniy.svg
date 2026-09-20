@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 330" role="img" aria-label="Пять видов растительных тканей. Образовательная: её клетки делятся, и растение растёт; находится на кончике корня, на верхушке побега и в камбии. Покровная: защищает от внешней среды; это кожица листа и пробка на стволе. Механическая: даёт прочность и опору; это волокна в стебле. Проводящая: переносит растворы веществ; это сосуды и ситовидные трубки. Основная: фотосинтез, запас веществ и запас воздуха; это мякоть листа, клубень, стебель. Внизу вывод: строение клеток каждой ткани подчинено её работе.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Пять растительных тканей</text>
+  </g>
+  <g class="d-stem-end"><circle cx="16" cy="40" r="3"/></g>
+  <text class="d-row" x="28" y="44" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Образовательная</text>
+  <text class="d-head" x="28" y="60" font-size="11.5" font-family="system-ui, sans-serif">клетки делятся — растение растёт</text>
+  <text class="d-head" x="28" y="74" font-size="11" font-family="system-ui, sans-serif">кончик корня, верхушка побега, камбий</text>
+  <g class="d-stem-end"><circle cx="16" cy="90" r="3"/></g>
+  <text class="d-row" x="28" y="94" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Покровная</text>
+  <text class="d-head" x="28" y="110" font-size="11.5" font-family="system-ui, sans-serif">защищает от внешней среды</text>
+  <text class="d-head" x="28" y="124" font-size="11" font-family="system-ui, sans-serif">кожица листа, пробка на стволе</text>
+  <g class="d-stem-end"><circle cx="16" cy="140" r="3"/></g>
+  <text class="d-row" x="28" y="144" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Механическая</text>
+  <text class="d-head" x="28" y="160" font-size="11.5" font-family="system-ui, sans-serif">даёт прочность и опору</text>
+  <text class="d-head" x="28" y="174" font-size="11" font-family="system-ui, sans-serif">волокна в стебле</text>
+  <g class="d-stem-end"><circle cx="16" cy="190" r="3"/></g>
+  <text class="d-row" x="28" y="194" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Проводящая</text>
+  <text class="d-head" x="28" y="210" font-size="11.5" font-family="system-ui, sans-serif">переносит растворы веществ</text>
+  <text class="d-head" x="28" y="224" font-size="11" font-family="system-ui, sans-serif">сосуды и ситовидные трубки</text>
+  <g class="d-stem-end"><circle cx="16" cy="240" r="3"/></g>
+  <text class="d-row" x="28" y="244" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Основная</text>
+  <text class="d-head" x="28" y="260" font-size="11.5" font-family="system-ui, sans-serif">фотосинтез, запас, воздух</text>
+  <text class="d-head" x="28" y="274" font-size="11" font-family="system-ui, sans-serif">мякоть листа, клубень, стебель</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="286" x2="312" y2="286"/>
+  </g>
+
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="304">Клетки устроены так, как того требует</text>
+    <text x="8" y="320">работа ткани</text>
+  </g>
+</svg>
