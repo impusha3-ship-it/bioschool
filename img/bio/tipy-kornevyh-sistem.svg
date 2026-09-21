@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 336" role="img" aria-label="Корни и корневые системы. Три вида корней, их различают по тому, откуда корень вырос. Главный — один, вырастает из зародышевого корешка семени. Боковые — отходят от главного и от придаточных. Придаточные — вырастают на стебле, а у некоторых растений и на листьях. Два типа корневых систем, их различают по тому, какой корень сильнее. Стержневая: главный корень сильнее всех, такая система у большинства двудольных — у моркови, свёклы, щавеля. Мочковатая: она из придаточных и боковых корней, а главный слаб или рано отмирает; такая система у однодольных — у пшеницы, ячменя, лука, чеснока. Внизу вывод: вид корня говорит о том, откуда он вырос, а тип системы — о том, какой из корней главный.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Корни и корневые системы</text>
+  </g>
+
+  <text class="d-row" x="8" y="40" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Три вида корней</text>
+  <text class="d-head" x="8" y="54" font-size="10" font-family="system-ui, sans-serif">различают по тому, откуда корень вырос</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="70" r="3"/></g>
+  <text class="d-row" x="28" y="74" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Главный</text>
+  <text class="d-head" x="28" y="87" font-size="10" font-family="system-ui, sans-serif">один, из зародышевого корешка семени</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="102" r="3"/></g>
+  <text class="d-row" x="28" y="106" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Боковые</text>
+  <text class="d-head" x="28" y="119" font-size="10" font-family="system-ui, sans-serif">отходят от главного и от придаточных</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="134" r="3"/></g>
+  <text class="d-row" x="28" y="138" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Придаточные</text>
+  <text class="d-head" x="28" y="151" font-size="10" font-family="system-ui, sans-serif">вырастают на стебле, иногда на листьях</text>
+
+  <text class="d-row" x="8" y="178" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Два типа корневых систем</text>
+  <text class="d-head" x="8" y="192" font-size="10" font-family="system-ui, sans-serif">различают по тому, какой корень сильнее</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="208" r="3"/></g>
+  <text class="d-row" x="28" y="212" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Стержневая</text>
+  <text class="d-head" x="28" y="225" font-size="10" font-family="system-ui, sans-serif">главный корень сильнее всех</text>
+  <text class="d-head" x="28" y="238" font-size="10" font-family="system-ui, sans-serif">у двудольных: морковь, свёкла, щавель</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="256" r="3"/></g>
+  <text class="d-row" x="28" y="260" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Мочковатая</text>
+  <text class="d-head" x="28" y="273" font-size="10" font-family="system-ui, sans-serif">из придаточных и боковых, главный слаб</text>
+  <text class="d-head" x="28" y="286" font-size="10" font-family="system-ui, sans-serif">у однодольных: пшеница, лук, чеснок</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="302" x2="312" y2="302"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="318">Вид корня — откуда он вырос,</text>
+    <text x="8" y="328">тип системы — какой из них главный</text>
+  </g>
+</svg>

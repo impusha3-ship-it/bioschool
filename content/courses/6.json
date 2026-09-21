@@ -23,7 +23,8 @@
       "title": "Строение и многообразие покрытосеменных растений",
       "hours": 11,
       "lessons": [
-        { "id": "6-stroenie-semyan", "title": "Строение семян", "lab": true }
+        { "id": "6-stroenie-semyan", "title": "Строение семян", "lab": true },
+        { "id": "6-vidy-korney", "title": "Виды корней и типы корневых систем", "lab": true }
       ]
     }
   ]
