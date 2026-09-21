@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-label="Зерновка пшеницы в разрезе. Снаружи её одевает околоплодник, сросшийся с семенной кожурой так плотно, что разделить их невозможно, — поэтому зерновка считается плодом, а не семенем. Почти весь объём внутри занимает эндосперм, запас питательных веществ. Внизу сбоку лежит небольшой зародыш: у него зародышевый корешок, стебелёк, почечка и одна-единственная семядоля. Внизу вывод: у пшеницы запас лежит в эндосперме, а у фасоли — в самих семядолях.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Зерновка пшеницы</text>
+  </g>
+
+  <g class="d-sub">
+    <path d="M78 41 C106 41 130 73 130 115 C130 157 106 189 78 189 C50 189 26 157 26 115 C26 73 50 41 78 41 Z"/>
+  </g>
+  <g class="d-ento">
+    <path d="M78 52 C101 52 120 80 120 115 C120 143 106 168 86 176 L86 60 Z"/>
+    <path d="M78 52 C55 52 36 80 36 115 C36 143 50 168 70 176 L70 60 Z"/>
+  </g>
+  <g class="d-ekto">
+    <path d="M70 140 C60 146 56 160 60 174 C64 184 72 188 78 188 C84 188 92 184 96 174 C100 160 96 146 86 140 Z"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1.2" fill="none">
+    <path d="M140 54 L112 62"/>
+    <path d="M140 104 L92 112"/>
+    <path d="M140 154 L98 168"/>
+  </g>
+
+  <text class="d-row" x="146" y="58" font-size="10.5" font-weight="650" font-family="system-ui, sans-serif">Околоплодник сросся</text>
+  <text class="d-head" x="146" y="71" font-size="10.5" font-family="system-ui, sans-serif">с семенной кожурой</text>
+
+  <text class="d-row" x="146" y="108" font-size="10.5" font-weight="650" font-family="system-ui, sans-serif">Эндосперм — запас</text>
+  <text class="d-head" x="146" y="121" font-size="10.5" font-family="system-ui, sans-serif">питательных веществ</text>
+
+  <text class="d-row" x="146" y="158" font-size="10.5" font-weight="650" font-family="system-ui, sans-serif">Зародыш: корешок,</text>
+  <text class="d-head" x="146" y="171" font-size="10.5" font-family="system-ui, sans-serif">стебелёк, почечка</text>
+  <text class="d-head" x="146" y="184" font-size="10.5" font-family="system-ui, sans-serif">и одна семядоля</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="206" x2="312" y2="206"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="224">У пшеницы запас лежит в эндосперме,</text>
+    <text x="8" y="240">у фасоли — в самих семядолях</text>
+  </g>
+</svg>

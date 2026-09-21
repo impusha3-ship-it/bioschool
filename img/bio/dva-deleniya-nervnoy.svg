@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 272" role="img" aria-label="Нервную систему человека делят дважды и по разным правилам. По анатомическому принципу, то есть по тому, где часть находится: центральная — головной и спинной мозг; периферическая — нервы, нервные узлы, сплетения и окончания. По анатомо-функциональному принципу, то есть по тому, чем часть управляет: соматическая — скелетные мышцы, и работает она по нашей воле; вегетативная — внутренние органы, и работает она помимо воли. Внизу вывод: система одна, делят её дважды и по разным правилам, поэтому одна и та же её часть попадает сразу в два списка.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Одна система, два деления</text>
+  </g>
+
+  <text class="d-row" x="8" y="40" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">По анатомическому принципу</text>
+  <text class="d-head" x="8" y="54" font-size="10" font-family="system-ui, sans-serif">делят по тому, где часть находится</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="70" r="3"/></g>
+  <text class="d-row" x="28" y="74" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Центральная</text>
+  <text class="d-head" x="28" y="87" font-size="10" font-family="system-ui, sans-serif">головной и спинной мозг</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="102" r="3"/></g>
+  <text class="d-row" x="28" y="106" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Периферическая</text>
+  <text class="d-head" x="28" y="119" font-size="10" font-family="system-ui, sans-serif">нервы, узлы, сплетения, окончания</text>
+
+  <text class="d-row" x="8" y="142" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">По анатомо-функциональному</text>
+  <text class="d-head" x="8" y="156" font-size="10" font-family="system-ui, sans-serif">делят по тому, чем часть управляет</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="172" r="3"/></g>
+  <text class="d-row" x="28" y="176" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Соматическая</text>
+  <text class="d-head" x="28" y="189" font-size="10" font-family="system-ui, sans-serif">скелетные мышцы, по нашей воле</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="204" r="3"/></g>
+  <text class="d-row" x="28" y="208" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Вегетативная</text>
+  <text class="d-head" x="28" y="221" font-size="10" font-family="system-ui, sans-serif">внутренние органы, помимо воли</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="236" x2="312" y2="236"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="252">Система одна: одна и та же её часть</text>
+    <text x="8" y="264">попадает сразу в оба списка</text>
+  </g>
+</svg>

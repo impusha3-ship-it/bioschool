@@ -17,6 +17,14 @@
         { "id": "6-tkani-rasteniy", "title": "Растительные ткани, их функции", "lab": true },
         { "id": "6-organy-rasteniy", "title": "Органы растений", "lab": true }
       ]
+    },
+    {
+      "id": "stroenie-pokrytosemennyh",
+      "title": "Строение и многообразие покрытосеменных растений",
+      "hours": 11,
+      "lessons": [
+        { "id": "6-stroenie-semyan", "title": "Строение семян", "lab": true }
+      ]
     }
   ]
 }
