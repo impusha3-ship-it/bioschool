@@ -307,5 +307,88 @@
         3
       ]
     }
+  },
+  "3": {
+    "6-botanika-nauka": {
+      "q-6bn-hw-razdely": [
+        4,
+        3,
+        0,
+        2,
+        1
+      ]
+    },
+    "6-himicheskiy-sostav": {
+      "q-6hs-hw-gruppy": [
+        0,
+        4,
+        2,
+        1,
+        3
+      ]
+    },
+    "6-priznaki-rasteniy": {
+      "q-6pr-hw-fotosintez": [
+        1,
+        4,
+        0,
+        2,
+        3
+      ]
+    },
+    "6-rastitelnaya-kletka": {
+      "q-6rk-hw-tolko-u-rasteniy": [
+        2,
+        1,
+        4,
+        3,
+        0
+      ]
+    },
+    "6-sporovye-i-semennye": {
+      "q-6ss-hw-shishka": [
+        0,
+        2,
+        4,
+        1,
+        3
+      ]
+    },
+    "6-tkani-rasteniy": {
+      "q-6tk-hw-osnovnaya": [
+        1,
+        0,
+        4,
+        2,
+        3
+      ]
+    },
+    "9-chelovek-chast-prirody": {
+      "q-9chp-hw-primaty": [
+        0,
+        2,
+        4,
+        1,
+        3
+      ]
+    },
+    "9-nauki-o-cheloveke": {
+      "q-9nch-hw-biosocialnyy": [
+        1,
+        0,
+        3,
+        4,
+        2
+      ]
+    },
+    "9-stroenie-kletki": {
+      "q-9sk-hw-veshchestva": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ]
+    }
   }
 }

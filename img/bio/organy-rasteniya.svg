@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 362" role="img" aria-label="Органы цветкового растения, разделённые на две группы. Вегетативные органы отвечают за рост, питание и обмен веществ. Корень закрепляет растение и всасывает воду с минеральными солями. Побег — это стебель, листья и почки вместе. Стебель проводит вещества вверх и вниз. Лист создаёт органические вещества на свету. Генеративные органы отвечают за половое размножение. Цветок — укороченный побег для размножения. Плод защищает семена и разносит их. Семя содержит зародыш и запас питательных веществ. Внизу вывод: у каждого органа своё строение под ту работу, которую он делает.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Органы цветкового растения</text>
+  </g>
+
+  <text class="d-row" x="8" y="40" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Вегетативные</text>
+  <text class="d-head" x="8" y="54" font-size="10" font-family="system-ui, sans-serif">рост, питание, обмен веществ</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="70" r="3"/></g>
+  <text class="d-row" x="28" y="74" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Корень</text>
+  <text class="d-head" x="28" y="87" font-size="10" font-family="system-ui, sans-serif">закрепляет, всасывает воду и соли</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="102" r="3"/></g>
+  <text class="d-row" x="28" y="106" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Побег</text>
+  <text class="d-head" x="28" y="119" font-size="10" font-family="system-ui, sans-serif">стебель, листья и почки вместе</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="134" r="3"/></g>
+  <text class="d-row" x="28" y="138" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Стебель</text>
+  <text class="d-head" x="28" y="151" font-size="10" font-family="system-ui, sans-serif">проводит вещества вверх и вниз</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="166" r="3"/></g>
+  <text class="d-row" x="28" y="170" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Лист</text>
+  <text class="d-head" x="28" y="183" font-size="10" font-family="system-ui, sans-serif">создаёт органические вещества на свету</text>
+
+  <text class="d-row" x="8" y="212" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Генеративные</text>
+  <text class="d-head" x="8" y="226" font-size="10" font-family="system-ui, sans-serif">половое размножение</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="242" r="3"/></g>
+  <text class="d-row" x="28" y="246" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Цветок</text>
+  <text class="d-head" x="28" y="259" font-size="10" font-family="system-ui, sans-serif">укороченный побег для размножения</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="274" r="3"/></g>
+  <text class="d-row" x="28" y="278" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Плод</text>
+  <text class="d-head" x="28" y="291" font-size="10" font-family="system-ui, sans-serif">защищает семена и разносит их</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="306" r="3"/></g>
+  <text class="d-row" x="28" y="310" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Семя</text>
+  <text class="d-head" x="28" y="323" font-size="10" font-family="system-ui, sans-serif">зародыш и запас питательных веществ</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="336" x2="312" y2="336"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="354">У каждого органа своё строение — под свою работу</text>
+  </g>
+</svg>

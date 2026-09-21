@@ -21,6 +21,14 @@
         { "id": "9-tkani-cheloveka", "title": "Типы тканей организма человека", "lab": "практическая" },
         { "id": "9-organy-i-sistemy", "title": "Органы и системы органов человека", "lab": "практическая" }
       ]
+    },
+    {
+      "id": "neyrogumoralnaya-regulyaciya",
+      "title": "Нейрогуморальная регуляция",
+      "hours": 8,
+      "lessons": [
+        { "id": "9-nervnye-kletki-refleks", "title": "Нервные клетки. Рефлекс. Рецепторы" }
+      ]
     }
   ]
 }

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 256" role="img" aria-label="Два способа управлять организмом. Нервная регуляция: сигнал — нервный импульс, ток по нерву; скорость до ста метров в секунду; действует, только пока идёт импульс; пример — отдёрнул руку от горячего. Гуморальная регуляция: сигнал — гормон, его разносит кровь; доходит медленно, нужен ток крови; зато действует долго после выделения; пример — адреналин при испуге. Внизу вывод: противопоставлять их нельзя, вместе они и есть нейрогуморальная регуляция.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Два способа управлять организмом</text>
+  </g>
+
+  <g class="d-stem-end"><circle cx="16" cy="38" r="3"/></g>
+  <text class="d-row" x="28" y="42" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Нервная регуляция</text>
+  <text class="d-head" x="28" y="58" font-size="10.5" font-family="system-ui, sans-serif">сигнал — нервный импульс, ток по нерву</text>
+  <text class="d-head" x="28" y="72" font-size="10.5" font-family="system-ui, sans-serif">скорость до 100 метров в секунду</text>
+  <text class="d-head" x="28" y="86" font-size="10.5" font-family="system-ui, sans-serif">действует, только пока идёт импульс</text>
+  <text class="d-head" x="28" y="100" font-size="10.5" font-family="system-ui, sans-serif">пример: отдёрнул руку от горячего</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="126" r="3"/></g>
+  <text class="d-row" x="28" y="130" font-size="12" font-weight="650" font-family="system-ui, sans-serif">Гуморальная регуляция</text>
+  <text class="d-head" x="28" y="146" font-size="10.5" font-family="system-ui, sans-serif">сигнал — гормон, его разносит кровь</text>
+  <text class="d-head" x="28" y="160" font-size="10.5" font-family="system-ui, sans-serif">доходит медленно: нужен ток крови</text>
+  <text class="d-head" x="28" y="174" font-size="10.5" font-family="system-ui, sans-serif">зато действует долго после выделения</text>
+  <text class="d-head" x="28" y="188" font-size="10.5" font-family="system-ui, sans-serif">пример: адреналин при испуге</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="210" x2="312" y2="210"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="228">Противопоставлять их нельзя: вместе</text>
+    <text x="8" y="244">они и есть нейрогуморальная регуляция</text>
+  </g>
+</svg>
