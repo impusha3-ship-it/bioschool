@@ -8,7 +8,7 @@ import {
   СТАТУСЫ,
 } from '../teacher/data.js';
 import { loadLesson, loadCourse } from '../content.js';
-import { максимумРазвёрнутого } from '../homework/pochyot.js';
+import { максимумРазвёрнутого, развёрнутыеЗадания } from '../homework/pochyot.js';
 import { показатьКлассы, показатьНазначение } from './teacher-classes.js';
 import { показатьПрогресс } from './teacher-progress.js';
 
@@ -296,14 +296,17 @@ async function показатьУрок(холст, всё, lessonId, перес
     ученик, и цены ответа в баллах. Цена — не украшение: у тридцати пяти
     уроков развёрнутое задание стоит три балла, а кнопок в панели было три
     штуки, 0-1-2, и поставить высший балл было физически нечем.
+
+    Берутся оба места, где живут развёрнутые задания. Раньше бралось одно —
+    `homework.open`, — и развёрнутый вопрос из `homework.questions` доезжал
+    до учителя голым ответом: ни формулировки, ни ключа.
   */
   let задания = new Map();
   let макс = 3;
   let бедаСУроком = false;
   try {
     const урок = await loadLesson(lessonId);
-    const открытые = урок.homework?.open ?? [];
-    for (const q of открытые) задания.set(q.id, q);
+    for (const q of развёрнутыеЗадания(урок)) задания.set(q.id, q);
     макс = максимумРазвёрнутого(урок);
   } catch {
     бедаСУроком = true;
