@@ -11,13 +11,31 @@ import { loadFigure, parseSvg } from '../ui/figure.js';
  *
  * `disabled` — поля не принимают ввод (просмотр).
  * `key` — рядом с верными вариантами стоит пометка (просмотр учителя).
+ * `наИзменение` — зовётся после каждой правки ответа. Поле само никуда
+ *   ничего не сохраняет: в тренажёре хранить нечего, а домашка кладёт
+ *   черновик в sessionStorage и делает это одна.
  *
  * Ответ, уже лежащий в `ответы`, подставляется в поля. Это то, чем разбор
  * сданной работы отличается от чистого бланка: ученик должен видеть не пустой
  * вопрос с пометкой «неверно», а то, что он сам тогда выбрал.
  */
 export function questionField(q, ответы = {}, настройки = {}) {
-  const { document: doc = globalThis.document, disabled = false, key = false } = настройки;
+  const {
+    document: doc = globalThis.document,
+    disabled = false,
+    key = false,
+    наИзменение = null,
+  } = настройки;
+
+  /** Ответ записан — сообщаем наружу. Сбой слушателя не должен ломать ввод. */
+  const записан = () => {
+    if (!наИзменение) return;
+    try {
+      наИзменение(ответы, q.id);
+    } catch {
+      // Не сохранилось — ученик хотя бы продолжает отвечать.
+    }
+  };
   const e = (tag, attrs, children) => el(tag, attrs, children, { document: doc });
 
   const данный = ответы[q.id];
@@ -44,12 +62,14 @@ export function questionField(q, ответы = {}, настройки = {}) {
       вход.addEventListener('change', () => {
         if (q.type === 'choice') {
           ответы[q.id] = index;
+          записан();
           return;
         }
         const набор = new Set(ответы[q.id] ?? []);
         if (вход.checked) набор.add(index);
         else набор.delete(index);
         ответы[q.id] = [...набор];
+        записан();
       });
 
       const метка = e(
@@ -73,7 +93,7 @@ export function questionField(q, ответы = {}, настройки = {}) {
       disabled: disabled ? 'true' : null,
     });
     if (данный !== undefined && данный !== null) поле.value = String(данный);
-    поле.addEventListener('input', () => { ответы[q.id] = поле.value; });
+    поле.addEventListener('input', () => { ответы[q.id] = поле.value; записан(); });
     входы.push(поле);
     тело.push(поле);
   } else {
@@ -84,7 +104,7 @@ export function questionField(q, ответы = {}, настройки = {}) {
       disabled: disabled ? 'true' : null,
     });
     if (данный !== undefined && данный !== null) поле.value = String(данный);
-    поле.addEventListener('input', () => { ответы[q.id] = поле.value; });
+    поле.addEventListener('input', () => { ответы[q.id] = поле.value; записан(); });
     входы.push(поле);
     тело.push(поле);
   }

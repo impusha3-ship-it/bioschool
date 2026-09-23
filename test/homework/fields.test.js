@@ -335,3 +335,67 @@ test('поле развёрнутого ответа после проверки
   const поле = собрать(element).find((n) => n.className === 'q__open');
   assert.equal(поле.attributes.disabled, 'true');
 });
+
+/*
+  Вкладки урока — это адреса, и переход на «Конспект» и обратно собирает
+  домашку заново. До 23 сентября 2026 ответы жили только в памяти страницы, и
+  ученик, сходивший свериться с конспектом, возвращался к пустому бланку.
+
+  Чинится это снаружи — черновиком в sessionStorage, — но поле обязано о
+  каждой правке сообщать, иначе сохранять будет нечего. Проверяется поэтому
+  не сохранение, а сам сигнал: он идёт из всех четырёх видов полей.
+*/
+test('поле сообщает о каждой правке ответа', () => {
+  const позвали = [];
+  const наИзменение = (ответы, id) => позвали.push([id, JSON.parse(JSON.stringify(ответы[id]))]);
+
+  const ответы = {};
+  const выборПоле = questionField(выбор, ответы, { document: document(), наИзменение });
+  const входы = собрать(выборПоле.element).filter((n) => n.className === 'q__input');
+  входы[2].checked = true;
+  входы[2].listeners.change[0]();
+
+  const множ = { id: 'q7', type: 'multi', text: 'Отметь верное', options: ['А', 'Б', 'В'], correct: [0, 2] };
+  const множПоле = questionField(множ, ответы, { document: document(), наИзменение });
+  const галки = собрать(множПоле.element).filter((n) => n.className === 'q__input');
+  галки[0].checked = true;
+  галки[0].listeners.change[0]();
+
+  const короткий = { id: 'q8', type: 'short', text: 'Одним словом', answers: ['корень'] };
+  const короткоеПоле = questionField(короткий, ответы, { document: document(), наИзменение });
+  const строка = собрать(короткоеПоле.element).find((n) => n.className === 'q__short');
+  строка.value = 'корень';
+  строка.listeners.input[0]();
+
+  const развёрнутый = { id: 'q9', type: 'open', prompt: 'Объясни', maxScore: 3 };
+  const развёрнутоеПоле = questionField(развёрнутый, ответы, { document: document(), наИзменение });
+  const область = собрать(развёрнутоеПоле.element).find((n) => n.className === 'q__open');
+  область.value = 'мой ответ';
+  область.listeners.input[0]();
+
+  assert.deepEqual(позвали, [
+    ['q1', 2],
+    ['q7', [0]],
+    ['q8', 'корень'],
+    ['q9', 'мой ответ'],
+  ]);
+});
+
+test('без слушателя поле работает как прежде, а его поломка не ломает ввод', () => {
+  const ответы = {};
+  const безСлушателя = questionField(выбор, ответы, { document: document() });
+  const входы = собрать(безСлушателя.element).filter((n) => n.className === 'q__input');
+  входы[1].checked = true;
+  входы[1].listeners.change[0]();
+  assert.equal(ответы.q1, 1);
+
+  const сПоломкой = questionField(
+    { ...выбор, id: 'q1b' },
+    ответы,
+    { document: document(), наИзменение: () => { throw new Error('хранилище недоступно'); } },
+  );
+  const другие = собрать(сПоломкой.element).filter((n) => n.className === 'q__input');
+  другие[0].checked = true;
+  assert.doesNotThrow(() => другие[0].listeners.change[0]());
+  assert.equal(ответы.q1b, 0, 'ответ всё равно записан');
+});

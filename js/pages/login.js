@@ -1,5 +1,5 @@
 import { el, clear } from '../ui/dom.js';
-import { взятьВозврат } from '../auth/vozvrat.js';
+import { взятьВозврат, стеретьЧерновики } from '../auth/vozvrat.js';
 import { progress } from '../progress/index.js';
 import { createLogin } from '../auth/login.js';
 import { isValidPin, PIN_LENGTH } from '../auth/pin.js';
@@ -28,8 +28,10 @@ function renderWhoAmI(session) {
   const выйти = el('button', { class: 'button button--quiet', type: 'button' }, 'Выйти');
   выйти.addEventListener('click', () => {
     login.logout();
-    // Иначе на общем компьютере следующий увидел бы в шапке чужие баллы.
+    // Иначе на общем компьютере следующий увидел бы в шапке чужие баллы,
+    // а в бланке домашки — чужие галочки из недописанного черновика.
     progress.забыть();
+    стеретьЧерновики();
     location.hash = '#/login';
     location.reload();
   });
