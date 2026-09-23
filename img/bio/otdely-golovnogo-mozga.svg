@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" role="img" aria-label="Шесть отделов головного мозга, перечисленных снизу вверх, от спинного мозга. Продолговатый мозг: дыхание, сосуды, чихание, кашель, глотание. Мост: часть ствола, пути между отделами. Мозжечок: поза, тонус мышц, точность движений. Средний мозг: четверохолмие, зрение и слух начерно. Промежуточный мозг: таламус и гипоталамус, голод, жажда, боль. Большие полушария: кора, вся сознательная деятельность. Внизу вывод: снизу лежит то, без чего не жить, сверху — то, чем мы думаем.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Шесть отделов головного мозга</text>
+  </g>
+  <text class="d-head" x="8" y="34" font-size="10" font-family="system-ui, sans-serif">снизу вверх, от спинного мозга</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="54" r="3"/></g>
+  <text class="d-row" x="28" y="58" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Продолговатый мозг</text>
+  <text class="d-head" x="28" y="71" font-size="10" font-family="system-ui, sans-serif">дыхание, сосуды, чихание, кашель, глотание</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="86" r="3"/></g>
+  <text class="d-row" x="28" y="90" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Мост</text>
+  <text class="d-head" x="28" y="103" font-size="10" font-family="system-ui, sans-serif">часть ствола: пути между отделами</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="118" r="3"/></g>
+  <text class="d-row" x="28" y="122" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Мозжечок</text>
+  <text class="d-head" x="28" y="135" font-size="10" font-family="system-ui, sans-serif">поза, тонус мышц, точность движений</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="150" r="3"/></g>
+  <text class="d-row" x="28" y="154" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Средний мозг</text>
+  <text class="d-head" x="28" y="167" font-size="10" font-family="system-ui, sans-serif">четверохолмие: зрение и слух начерно</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="182" r="3"/></g>
+  <text class="d-row" x="28" y="186" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Промежуточный мозг</text>
+  <text class="d-head" x="28" y="199" font-size="10" font-family="system-ui, sans-serif">таламус и гипоталамус: голод, жажда, боль</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="214" r="3"/></g>
+  <text class="d-row" x="28" y="218" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Большие полушария</text>
+  <text class="d-head" x="28" y="231" font-size="10" font-family="system-ui, sans-serif">кора: вся сознательная деятельность</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="248" x2="312" y2="248"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="264">Снизу — то, без чего не жить,</text>
+    <text x="8" y="276">сверху — то, чем мы думаем</text>
+  </g>
+</svg>

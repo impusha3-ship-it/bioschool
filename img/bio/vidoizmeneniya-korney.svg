@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 308" role="img" aria-label="Пять видоизменений корней, у каждого названы растения и работа. Корнеплод: редис, свёкла, репа, морковь; запас питательных веществ, и в его образовании участвуют главный корень и низ стебля. Корневые клубни: георгина, чистяк; запас в утолщённых боковых или придаточных корнях. Корни-прицепки: плющ; ими растение цепляется за опору и выносит листья к свету. Воздушные корни: орхидеи на стволах деревьев; поглощают дождевую воду прямо из воздуха. Дыхательные корни: ива ломкая на топких берегах; растут вертикально вверх за кислородом. Внизу вывод: корень меняется там, где обычным корнем не прожить.">
+  <g class="d-head" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Пять видоизменений корней</text>
+  </g>
+  <text class="d-head" x="8" y="34" font-size="10" font-family="system-ui, sans-serif">корень берётся за работу, которой у него не было</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="54" r="3"/></g>
+  <text class="d-row" x="28" y="58" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Корнеплод</text>
+  <text class="d-head" x="28" y="71" font-size="10" font-family="system-ui, sans-serif">редис, свёкла, репа, морковь</text>
+  <text class="d-head" x="28" y="84" font-size="10" font-family="system-ui, sans-serif">запас; это главный корень и низ стебля</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="102" r="3"/></g>
+  <text class="d-row" x="28" y="106" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Корневые клубни</text>
+  <text class="d-head" x="28" y="119" font-size="10" font-family="system-ui, sans-serif">георгина, чистяк</text>
+  <text class="d-head" x="28" y="132" font-size="10" font-family="system-ui, sans-serif">запас в боковых и придаточных корнях</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="150" r="3"/></g>
+  <text class="d-row" x="28" y="154" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Корни-прицепки</text>
+  <text class="d-head" x="28" y="167" font-size="10" font-family="system-ui, sans-serif">плющ</text>
+  <text class="d-head" x="28" y="180" font-size="10" font-family="system-ui, sans-serif">держат на опоре, выносят листья к свету</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="198" r="3"/></g>
+  <text class="d-row" x="28" y="202" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Воздушные корни</text>
+  <text class="d-head" x="28" y="215" font-size="10" font-family="system-ui, sans-serif">орхидеи на стволах деревьев</text>
+  <text class="d-head" x="28" y="228" font-size="10" font-family="system-ui, sans-serif">поглощают дождевую воду из воздуха</text>
+
+  <g class="d-stem-end"><circle cx="16" cy="246" r="3"/></g>
+  <text class="d-row" x="28" y="250" font-size="11.5" font-weight="650" font-family="system-ui, sans-serif">Дыхательные корни</text>
+  <text class="d-head" x="28" y="263" font-size="10" font-family="system-ui, sans-serif">ива ломкая на топких берегах</text>
+  <text class="d-head" x="28" y="276" font-size="10" font-family="system-ui, sans-serif">растут вверх — за кислородом</text>
+
+  <g class="d-eq-rule">
+    <line x1="8" y1="288" x2="312" y2="288"/>
+  </g>
+  <g class="d-verdict" font-size="11" font-family="system-ui, sans-serif">
+    <text x="8" y="299">Корень меняется там, где обычным не прожить</text>
+  </g>
+</svg>

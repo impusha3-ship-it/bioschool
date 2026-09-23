@@ -24,7 +24,8 @@
       "hours": 11,
       "lessons": [
         { "id": "6-stroenie-semyan", "title": "Строение семян", "lab": true },
-        { "id": "6-vidy-korney", "title": "Виды корней и типы корневых систем", "lab": true }
+        { "id": "6-vidy-korney", "title": "Виды корней и типы корневых систем", "lab": true },
+        { "id": "6-vidoizmeneniya-korney", "title": "Видоизменения корней" }
       ]
     }
   ]
