@@ -9,6 +9,7 @@ import { renderLoginPage, renderTeacherLoginPage, auth } from './pages/login.js'
 import { renderTeacherPage } from './pages/teacher.js';
 import { renderMePage } from './pages/me.js';
 import { renderTabloPage } from './pages/tablo.js';
+import { renderModelsPage } from './pages/models.js';
 import { progress } from './progress/index.js';
 import { итог } from './progress/core.js';
 import { createПроверки } from './homework/proverki.js';
@@ -25,6 +26,7 @@ const PAGES = {
   teacherLogin: renderTeacherLoginPage,
   me: renderMePage,
   tablo: renderTabloPage,
+  models: renderModelsPage,
   sources: renderSourcesPage,
   notfound: renderNotFoundPage,
 };
@@ -284,6 +286,12 @@ async function renderSourcesPage() {
         {},
         'Задания в уроках 9 класса взяты из открытого каталога подготовки к ОГЭ ' +
           '(bio-oge.sdamgia.ru); разборы к ним написаны для этого сайта',
+      ),
+      el(
+        'li',
+        {},
+        'Трёхмерная модель клетки построена на three.js r128 — MIT, three.js Authors, threejs.org. '
+        + 'Библиотека лежит в репозитории сайта (js/vendor), вместе с OrbitControls из её примеров',
       ),
       el('li', {}, 'Servier Medical Art — CC BY 4.0, smart.servier.com'),
       el('li', {}, 'NIH BioArt Source — public domain, bioart.niaid.nih.gov'),

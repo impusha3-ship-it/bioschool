@@ -158,7 +158,8 @@ body {
 .app[data-page='class'],
 .app[data-page='teacher'],
 .app[data-page='me'],
-.app[data-page='tablo'] { max-width: var(--measure-wide); }
+.app[data-page='tablo'],
+.app[data-page='models'] { max-width: var(--measure-wide); }
 
 
 /* ── Плашка «учитель проверил» ──────────────────────────────
@@ -2338,3 +2339,226 @@ h3 {
   font-size: clamp(15px, 1.6vw, 18px);
   font-weight: 650;
 }
+
+
+/* ── Модели ──────────────────────────────────────────────────
+
+   Трёхмерная клетка. Полотно живёт на тёмной подложке — по той же причине,
+   по которой тёмная подложка у заглавия главной: полупрозрачная мембрана и
+   светящиеся органоиды на гербарной бумаге теряют края, а на тёмном видны
+   в обеих темах одинаково.
+*/
+.models__lead {
+  max-width: var(--measure-prose);
+  color: var(--ink-soft);
+}
+
+.models__stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: min(70vh, 620px);
+  margin-top: calc(var(--step) * 5);
+  overflow: hidden;
+  border: 1px solid var(--masthead-line);
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle at 32% 26%, #263127 0%, var(--masthead) 68%);
+  /*
+    Пальцем поперёк — поворот модели, пальцем вдоль — прокрутка страницы.
+    Отдать модели оба движения нельзя: она занимает пол-экрана телефона, и
+    тогда мимо неё не пролистать дальше. Поворот вокруг своей оси — то, ради
+    чего модель и смотрят, — остаётся.
+  */
+  touch-action: pan-y;
+}
+
+.models__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+.models__canvas:active { cursor: grabbing; }
+
+/* Слой подписей. Сам слой не ловит указатель — иначе не повернуть клетку;
+   ловят только сами подписи. */
+.models__labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.models__label {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--step) * 1.5);
+  padding: 2px calc(var(--step) * 2);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--masthead-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--masthead) 82%, transparent);
+  color: var(--masthead-ink);
+  font-family: var(--font-ui);
+  font-size: var(--t-micro);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.models__label::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dot);
+}
+.models__label[hidden] { display: none; }
+.models__label--on {
+  border-color: color-mix(in srgb, var(--dot) 70%, transparent);
+  background: var(--masthead);
+  font-size: var(--t-small);
+}
+
+.models__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--step) * 2);
+  margin-top: calc(var(--step) * 3);
+}
+
+.models__tool {
+  min-height: var(--tap);
+  padding: 0 calc(var(--step) * 4);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: var(--t-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+}
+.models__tool[aria-pressed='true'] {
+  border-color: color-mix(in srgb, var(--moss) 50%, transparent);
+  background: color-mix(in srgb, var(--moss) 14%, transparent);
+  color: var(--moss-deep);
+}
+@media (hover: hover) and (pointer: fine) {
+  .models__tool:hover { border-color: var(--moss); color: var(--ink); }
+}
+
+.models__hint {
+  max-width: var(--measure-prose);
+  margin: calc(var(--step) * 3) 0 0;
+  color: var(--ink-faint);
+  font-size: var(--t-small);
+}
+
+/* Список слева, карточка справа. На телефоне — друг под другом, и первым
+   идёт список: карточка без выбора пуста. */
+.models__body {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: calc(var(--step) * 6);
+  align-items: start;
+  margin-top: calc(var(--step) * 6);
+}
+@media (max-width: 720px) {
+  .models__body { grid-template-columns: 1fr; gap: calc(var(--step) * 5); }
+}
+
+.models__group + .models__group { margin-top: calc(var(--step) * 4); }
+.models__group-title {
+  margin: 0 0 calc(var(--step) * 2);
+  color: var(--ink-faint);
+  font-family: var(--font-ui);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.models__group ul { margin: 0; padding: 0; list-style: none; }
+.models__group li + li { margin-top: 2px; }
+
+.models__pick {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--step) * 2);
+  width: 100%;
+  min-height: 36px;
+  padding: calc(var(--step) * 1.5) calc(var(--step) * 2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: var(--t-small);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.models__pick[aria-pressed='true'] {
+  border-color: color-mix(in srgb, var(--moss) 35%, transparent);
+  background: color-mix(in srgb, var(--moss) 12%, transparent);
+  color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .models__pick:not([aria-pressed='true']):hover {
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    color: var(--ink);
+  }
+}
+
+/* Точка цвета органоида: тот же цвет, которым он покрашен в модели, — по
+   нему и находят его глазами, а не по чтению подписей. */
+.models__dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--dot);
+}
+
+.models__card {
+  padding: calc(var(--step) * 5);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-rest), var(--edge-top);
+}
+.models__card h2 { margin: 0; font-size: var(--t-h2); }
+.models__card h3 {
+  margin: calc(var(--step) * 4) 0 calc(var(--step) * 1);
+  color: var(--ink-faint);
+  font-family: var(--font-ui);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.models__card p { margin: calc(var(--step) * 2) 0 0; }
+.models__card ul { margin: calc(var(--step) * 2) 0 0; padding-left: 1.2em; }
+.models__card li + li { margin-top: calc(var(--step) * 1); }
+.models__card-type {
+  color: var(--moss);
+  font-family: var(--font-ui);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+.models__card--empty { color: var(--ink-faint); }
+.models__card--empty p { margin: 0; }
+
+/* Если трёхмерного не вышло — плоская схема и дорога в урок, а не пустая
+   рамка: ученик не должен решить, что сломался он. */
+.models__fallback {
+  max-width: var(--measure-prose);
+  margin-top: calc(var(--step) * 5);
+  padding: calc(var(--step) * 5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-sunk);
+}
+.models__fallback p { margin: 0 0 calc(var(--step) * 3); }
+.models__fallback-why { color: var(--ink-faint); font-size: var(--t-small); }
+.models__fallback-img { display: block; width: 100%; height: auto; }

@@ -46,6 +46,10 @@ export function parseRoute(hash) {
     return { name: 'tablo', params: {} };
   }
 
+  if (parts[0] === 'models' && parts.length === 1) {
+    return { name: 'models', params: {} };
+  }
+
   if (parts[0] === 'sources' && parts.length === 1) {
     return { name: 'sources', params: {} };
   }

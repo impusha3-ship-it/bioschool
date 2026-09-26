@@ -41,6 +41,10 @@ test('страница источников', () => {
   assert.deepEqual(parseRoute('#/sources'), { name: 'sources', params: {} });
 });
 
+test('раздел моделей', () => {
+  assert.deepEqual(parseRoute('#/models'), { name: 'models', params: {} });
+});
+
 test('неизвестный адрес даёт notfound и сохраняет путь', () => {
   assert.deepEqual(parseRoute('#/чепуха/тут'), {
     name: 'notfound',
