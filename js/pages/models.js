@@ -163,7 +163,38 @@ export async function renderModelsPage() {
     расставить();
   });
 
-  const инструменты = el('div', { class: 'models__tools' }, [кРазрез, кПодписи, кВращение, кСброс]);
+  /*
+    Во весь экран. Разворачивается весь раздел, а не одно полотно: кнопки и
+    карточка органоида должны остаться под рукой — иначе, развернув клетку на
+    проектор, учитель теряет и разрез, и подписи, и текст, ради которого её
+    открыли. Полотно в этом режиме занимает первый экран, список и карточка
+    остаются под ним.
+
+    Кнопка появляется, только если браузер это правда умеет: на айфоне
+    полноэкранным умеет становиться одно видео, и мёртвая кнопка там хуже,
+    чем её отсутствие.
+  */
+  const кЭкран = кнопка('Во весь экран', 'Развернуть раздел на весь экран');
+  const наВесьЭкран = обёртка.requestFullscreen ?? обёртка.webkitRequestFullscreen;
+  const свернуть = document.exitFullscreen ?? document.webkitExitFullscreen;
+  const развёрнут = () => (document.fullscreenElement ?? document.webkitFullscreenElement) === обёртка;
+  const умеет = Boolean(наВесьЭкран && свернуть && (document.fullscreenEnabled ?? true));
+
+  const отметитьЭкран = () => отметить(кЭкран, развёрнут());
+  if (умеет) {
+    кЭкран.addEventListener('click', () => {
+      // Отказ проглатывается: браузер вправе не пустить, и тогда просто
+      // ничего не происходит — состояние кнопки ставит само событие.
+      const обещание = развёрнут() ? свернуть.call(document) : наВесьЭкран.call(обёртка);
+      if (обещание?.catch) обещание.catch(() => {});
+    });
+    document.addEventListener('fullscreenchange', отметитьЭкран);
+    document.addEventListener('webkitfullscreenchange', отметитьЭкран);
+  }
+
+  const инструменты = el('div', { class: 'models__tools' }, [
+    кРазрез, кПодписи, кВращение, кСброс, умеет ? кЭкран : null,
+  ]);
 
   // ---------- список органоидов ----------
   const кнопкиСписка = new Map();
@@ -338,6 +369,8 @@ export async function renderModelsPage() {
       ставилась = true;
     } else if (ставилась) {
       наблюдатель?.disconnect();
+      document.removeEventListener('fullscreenchange', отметитьЭкран);
+      document.removeEventListener('webkitfullscreenchange', отметитьЭкран);
       модель.остановить();
       return;
     }

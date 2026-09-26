@@ -2448,6 +2448,43 @@ h3 {
   .models__tool:hover { border-color: var(--moss); color: var(--ink); }
 }
 
+/*
+  Во весь экран разворачивается весь раздел, а не одно полотно: кнопки и
+  карточка органоида должны остаться под рукой. Убирается только то, что на
+  проекторе читать никто не станет, — вводный абзац и строчка с подсказкой;
+  заголовок остаётся, по нему в классе понимают, что показывают.
+
+  Правила продублированы под `-webkit-`: объединить их в один список нельзя —
+  браузер, не знающий чужого префикса, выбрасывает всё правило целиком.
+*/
+.models:fullscreen {
+  max-width: none;
+  padding: calc(var(--step) * 4) calc(var(--step) * 6);
+  overflow-y: auto;
+  background: var(--paper);
+}
+.models:fullscreen > .models__lead,
+.models:fullscreen > .models__hint { display: none; }
+.models:fullscreen .models__stage {
+  aspect-ratio: auto;
+  height: max(320px, 100vh - 190px);
+  max-height: none;
+}
+
+.models:-webkit-full-screen {
+  max-width: none;
+  padding: calc(var(--step) * 4) calc(var(--step) * 6);
+  overflow-y: auto;
+  background: var(--paper);
+}
+.models:-webkit-full-screen > .models__lead,
+.models:-webkit-full-screen > .models__hint { display: none; }
+.models:-webkit-full-screen .models__stage {
+  aspect-ratio: auto;
+  height: max(320px, 100vh - 190px);
+  max-height: none;
+}
+
 .models__hint {
   max-width: var(--measure-prose);
   margin: calc(var(--step) * 3) 0 0;
