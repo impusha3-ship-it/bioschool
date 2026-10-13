@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-label="Три разреза моря у берега, рядом друг с другом. Слева береговой риф: от острова вниз уходит берег, и прямо у него, на мелководье, поднимается известковая постройка кораллов почти до самой поверхности воды. В середине барьерный риф: остров тот же, но постройка отодвинута далеко от берега, а между нею и берегом остаётся полоса воды — лагуна. Справа атолл: острова над водой уже нет, его прежние очертания показаны пунктиром под водой, а на его месте поднимаются две стенки рифа — в разрезе это кольцо, внутри которого озеро морской воды, лагуна. На вершине каждой постройки, чуть ниже поверхности воды, сидят живые коралловые полипы. Внизу условие: мадрепоровым кораллам нужна чистая солёная вода теплее двадцати градусов и глубина не больше пятидесяти метров, поэтому рифы есть только в тропиках.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Что строят мадрепоровые кораллы</text>
+  </g>
+
+  <g class="d-water">
+    <rect x="8" y="46" width="144" height="140"/>
+    <rect x="168" y="46" width="144" height="140"/>
+    <rect x="328" y="46" width="144" height="140"/>
+  </g>
+  <g class="d-mark" stroke-width="1.2" fill="none">
+    <path d="M8 46 H152"/>
+    <path d="M168 46 H312"/>
+    <path d="M328 46 H472"/>
+  </g>
+
+  <g class="d-soil">
+    <rect x="8" y="186" width="144" height="20"/>
+    <rect x="168" y="186" width="144" height="20"/>
+    <rect x="328" y="186" width="144" height="20"/>
+  </g>
+
+  <!-- Суша: в первых двух разрезах остров над водой, в третьем он уже опустился. -->
+  <g class="d-soil">
+    <path d="M8 206 L8 70 L32 26 L62 206 Z"/>
+    <path d="M168 206 L168 84 L186 34 L206 206 Z"/>
+  </g>
+  <g class="d-mark" stroke-width="1.4" stroke-dasharray="4 4" fill="none">
+    <path d="M352 206 L368 130 L384 130 L400 206"/>
+  </g>
+
+  <!-- Известковая постройка: она растёт вверх, пока хватает света и тепла. -->
+  <g class="d-reef">
+    <path d="M58 206 L64 60 L88 58 L98 206 Z"/>
+    <path d="M268 206 L274 58 L294 60 L302 206 Z"/>
+    <path d="M332 206 L338 60 L356 58 L364 206 Z"/>
+    <path d="M416 206 L422 58 L440 60 L446 206 Z"/>
+  </g>
+
+  <!-- Живые полипы сидят только на вершине: ниже остался один скелет. -->
+  <g class="d-coral" stroke-width="2" fill="none">
+    <path d="M70 60 V51 M70 54 L65 48 M70 54 L75 48"/>
+    <path d="M83 59 V50 M83 53 L78 48 M83 53 L88 48"/>
+    <path d="M279 59 V50 M279 53 L274 48 M279 53 L284 48"/>
+    <path d="M291 60 V51 M291 54 L286 48 M291 54 L296 48"/>
+    <path d="M346 59 V50 M346 53 L341 48 M346 53 L351 48"/>
+    <path d="M430 59 V50 M430 53 L425 48 M430 53 L435 48"/>
+  </g>
+
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="237" y="114">лагуна</text>
+    <text x="390" y="114">лагуна</text>
+  </g>
+  <g class="d-mark" stroke-width="1.2" fill="none">
+    <path d="M208 124 H266"/>
+    <path d="M366 124 H414"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="8" y="228">Береговой риф</text>
+    <text x="168" y="228">Барьерный риф</text>
+    <text x="328" y="228">Атолл</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="8" y="244">постройка стоит вплотную</text>
+    <text x="8" y="256">к берегу, на мелководье</text>
+    <text x="168" y="244">постройка отодвинута,</text>
+    <text x="168" y="256">между ней и берегом вода</text>
+    <text x="328" y="244">острова нет, осталось</text>
+    <text x="328" y="256">кольцо рифа с озером внутри</text>
+  </g>
+
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M240 268 V280"/>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="294">Нужна чистая солёная вода теплее +20 °C и глубина до 50 м</text>
+  </g>
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="312">Поэтому рифы есть в тропиках, а у холодных берегов их нет.</text>
+  </g>
+</svg>

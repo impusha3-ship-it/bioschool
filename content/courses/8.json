@@ -24,7 +24,9 @@
         { "id": "8-zhgutikonoscy-i-infuzorii", "title": "Жгутиконосцы и инфузории", "lab": true },
         { "id": "8-mnogoobrazie-prosteyshih", "title": "Многообразие и значение простейших в природе и жизни человека" },
         { "id": "8-gubki", "title": "Губки" },
-        { "id": "8-kishechnopolostnye", "title": "Общая характеристика кишечнополостных", "lab": true }
+        { "id": "8-kishechnopolostnye", "title": "Общая характеристика кишечнополостных", "lab": true },
+        { "id": "8-mnogoobrazie-kishechnopolostnyh", "title": "Многообразие кишечнополостных. Значение кишечнополостных в природе и жизни человека", "lab": true },
+        { "id": "8-ploskie-chervi", "title": "Черви. Плоские черви" }
       ]
     }
   ]
