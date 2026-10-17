@@ -36,14 +36,31 @@ export function статусКлетки({ назначено, работа }) {
  * Чистая функция: получает уже загруженные данные и ничего не запрашивает.
  */
 export function собратьЖурнал({ classId, students = {}, assignments = {}, submissions = {} }) {
-  const уроки = Object.entries(assignments[classId] ?? {})
-    .map(([lessonId, a]) => ({ lessonId, ...a }))
-    .sort((a, b) => (a.assignedAt ?? 0) - (b.assignedAt ?? 0));
-
   const ученики = Object.entries(students)
     .filter(([, s]) => s.classId === classId)
     .map(([id, s]) => ({ id, name: s.name }))
     .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+  /*
+    Кнопка «Убрать» не стирает задание, а ставит ему `isOpen: false`: сданные
+    работы и выставленные за них оценки терять нельзя. Плата за это — столбцы
+    закрытых уроков копились в журнале навсегда, и у 5 класса их набралось
+    около десятка при семи уроках, по которым хоть что-то сдали.
+
+    Поэтому закрытый урок показывается, только если по нему есть хотя бы одна
+    работа: пустой столбец не несёт ничего, а столбец с работами несёт оценки.
+    Считаются работы учеников только этого класса — чужая работа по тому же
+    уроку столбец удерживать не должна.
+
+    Отсутствие пометки — не закрытость: `isOpen` появился позже первых
+    заданий, и старые записи без него остаются в журнале.
+  */
+  const естьРаботы = (lessonId) => ученики.some((у) => submissions[у.id]?.[lessonId]);
+
+  const уроки = Object.entries(assignments[classId] ?? {})
+    .map(([lessonId, a]) => ({ lessonId, ...a }))
+    .filter((у) => у.isOpen !== false || естьРаботы(у.lessonId))
+    .sort((a, b) => (a.assignedAt ?? 0) - (b.assignedAt ?? 0));
 
   const строки = ученики.map((ученик) => {
     const работы = submissions[ученик.id] ?? {};
