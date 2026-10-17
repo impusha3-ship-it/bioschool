@@ -26,7 +26,8 @@
         { "id": "8-gubki", "title": "Губки" },
         { "id": "8-kishechnopolostnye", "title": "Общая характеристика кишечнополостных", "lab": true },
         { "id": "8-mnogoobrazie-kishechnopolostnyh", "title": "Многообразие кишечнополостных. Значение кишечнополостных в природе и жизни человека", "lab": true },
-        { "id": "8-ploskie-chervi", "title": "Черви. Плоские черви" }
+        { "id": "8-ploskie-chervi", "title": "Черви. Плоские черви" },
+        { "id": "8-parazity-ploskie-chervi", "title": "Паразитические плоские черви", "lab": true }
       ]
     }
   ]
