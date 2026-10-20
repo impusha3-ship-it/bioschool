@@ -1358,6 +1358,15 @@ h3 {
 */
 .figure__svg .d-wall-skin ellipse { fill: var(--sprout); fill-opacity: 0.5; stroke: var(--moss); }
 .figure__svg .d-parenchyma ellipse { fill: var(--iodine); fill-opacity: 0.22; stroke: var(--iodine); stroke-opacity: 0.5; }
+
+/*
+  Те же три класса, но для `path`. Разрез кости не описать эллипсом: у него
+  расширенные головки и узкое тело, и рисуется он кривой. Без этих правил
+  фигура остаётся без заливки, то есть чёрной, — ровно так и вышло с первой
+  версией `trubchataya-kost.svg`.
+*/
+.figure__svg .d-wall-skin path { fill: var(--sprout); fill-opacity: 0.5; stroke: var(--moss); }
+.figure__svg .d-parenchyma path { fill: var(--iodine); fill-opacity: 0.22; stroke: var(--iodine); stroke-opacity: 0.5; }
 .figure__svg .d-polost ellipse { fill: var(--paper-raised); stroke: var(--methylene); stroke-dasharray: 5 4; }
 
 /*

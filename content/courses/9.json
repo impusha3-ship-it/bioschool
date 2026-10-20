@@ -33,7 +33,16 @@
         { "id": "9-golovnoy-mozg", "title": "Головной мозг, его строение и функции", "lab": "практическая" },
         { "id": "9-vegetativnaya-nervnaya", "title": "Вегетативная нервная система", "lab": "самонаблюдение" },
         { "id": "9-narusheniya-nervnoy", "title": "Нарушения в работе нервной системы и их предупреждение" },
-        { "id": "9-zhelezy-vnutrenney-sekrecii", "title": "Железы внутренней секреции и их функции" }
+        { "id": "9-zhelezy-vnutrenney-sekrecii", "title": "Железы внутренней секреции и их функции" },
+        { "id": "9-narusheniya-zhelez", "title": "Нарушения деятельности эндокринных желёз и их предупреждение" }
+      ]
+    },
+    {
+      "id": "opora-i-dvizhenie",
+      "title": "Опора и движение",
+      "hours": 5,
+      "lessons": [
+        { "id": "9-kosti-sostav-stroenie", "title": "Кости, их химический состав, строение. Типы костей", "lab": "практическая" }
       ]
     }
   ]
