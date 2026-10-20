@@ -62,3 +62,41 @@ test('конфиг без пар отвергается', () => {
     /Игре «match» нужны пары/,
   );
 });
+
+/*
+  Переставлять ответ ученик должен мочь до самой сдачи: до 19 октября 2026
+  сложенную пару нельзя было разобрать, а одно правое могло оказаться в двух
+  парах сразу.
+*/
+test('нажатие по сложенной паре разбивает её и берёт левое в руку', () => {
+  const game = createMatchGame(CONFIG, опции());
+  game.selectLeft('nucleus');
+  game.selectRight('nucleus');
+  assert.equal(game.getResult().correct, 1);
+
+  game.selectLeft('nucleus');
+  assert.equal(game.getResult().correct, 0, 'пара разобрана');
+  game.selectRight('chloroplast');
+  assert.equal(game.getResult().details.find((x) => x.id === 'nucleus').got, 'chloroplast',
+    'левое осталось в руке и легло в новую пару');
+});
+
+test('нажатие по занятому правому без выбора разбивает пару', () => {
+  const game = createMatchGame(CONFIG, опции());
+  game.selectLeft('nucleus');
+  game.selectRight('nucleus');
+  game.selectRight('nucleus');
+  assert.equal(game.getResult().details.find((x) => x.id === 'nucleus').got, null);
+});
+
+test('одно правое держит только одну пару', () => {
+  const game = createMatchGame(CONFIG, опции());
+  game.selectLeft('nucleus');
+  game.selectRight('wall');
+  game.selectLeft('chloroplast');
+  game.selectRight('wall');
+
+  const d = game.getResult().details;
+  assert.equal(d.find((x) => x.id === 'chloroplast').got, 'wall');
+  assert.equal(d.find((x) => x.id === 'nucleus').got, null, 'прежняя пара распалась');
+});
