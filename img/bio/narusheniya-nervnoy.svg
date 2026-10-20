@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-label="Нарушения в работе нервной системы делятся на две группы. Слева врождённые: они возникают ещё до рождения ребёнка. Это микроцефалия, когда мозг недоразвит и его масса не достигает килограмма, и гидроцефалия, когда объём мозга увеличен из-за нарушения оттока спинномозговой жидкости. Справа приобретённые, их гораздо больше, и у них три причины. Инфекции: менингит, полиомиелит, бешенство, столбняк. Яды: соли свинца, кадмия и ртути, алкоголь, никотин, пары при токсикомании. Травмы: удар по голове и сотрясение мозга. Рядом пояснение, что источники ядов близки: выхлопные газы оседают в почве, соли металлов собирает грибница, поэтому грибы у автомобильных трасс не собирают. Внизу предупреждение: нервные клетки не делятся, мозг не восстанавливает себя сам, и любой погибший нейрон потерян навсегда.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Откуда берутся нарушения в работе нервной системы</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="12" y="28" width="200" height="44" rx="8"/>
+    <rect x="252" y="28" width="216" height="44" rx="8"/>
+  </g>
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="24" y="48">Врождённые</text>
+    <text x="264" y="48">Приобретённые</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="24" y="64">возникают до рождения</text>
+    <text x="264" y="64">их гораздо больше</text>
+  </g>
+
+  <g class="d-stem" stroke-width="1.6" fill="none">
+    <path d="M112 72 V88"/>
+    <path d="M360 72 V88"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M112 96 L108 88 L116 88 Z"/>
+    <path d="M360 96 L356 88 L364 88 Z"/>
+  </g>
+
+  <g class="d-sub">
+    <rect x="12" y="100" width="200" height="110" rx="6"/>
+    <rect x="252" y="100" width="216" height="34" rx="6"/>
+    <rect x="252" y="138" width="216" height="34" rx="6"/>
+    <rect x="252" y="176" width="216" height="34" rx="6"/>
+  </g>
+
+  <g class="d-capsule-t" font-size="11" font-family="system-ui, sans-serif">
+    <text x="24" y="120">Микроцефалия</text>
+    <text x="24" y="166">Гидроцефалия</text>
+    <text x="262" y="117">Инфекции</text>
+    <text x="262" y="155">Яды</text>
+    <text x="262" y="193">Травмы</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="24" y="136">мозг недоразвит, его масса</text>
+    <text x="24" y="148">не достигает килограмма</text>
+    <text x="24" y="182">объём мозга увеличен:</text>
+    <text x="24" y="194">нарушен отток жидкости</text>
+    <text x="262" y="129">менингит, полиомиелит, бешенство</text>
+    <text x="262" y="167">соли металлов, алкоголь, никотин</text>
+    <text x="262" y="205">удар по голове — сотрясение мозга</text>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="12" y="234">Источники ядов ближе, чем кажется: выхлопные газы оседают в почве,</text>
+    <text x="12" y="246">а соли металлов собирает грибница — поэтому грибы у автомобильных</text>
+    <text x="12" y="258">трасс не собирают.</text>
+  </g>
+
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M240 270 V282"/>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="298">Нервные клетки не делятся: мозг не восстанавливает себя сам</text>
+  </g>
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="314">Поэтому погибший нейрон потерян навсегда.</text>
+  </g>
+</svg>

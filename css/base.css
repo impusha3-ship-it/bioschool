@@ -1351,6 +1351,31 @@ h3 {
 .figure__svg .d-wall-fibre { stroke: var(--fuchsin); stroke-opacity: 0.8; }
 
 /*
+  Поперечные разрезы червей. Паренхима и полость — главное, чем плоский червь
+  отличается от круглого, и различать их надо с одного взгляда: паренхима
+  закрашена целиком (места внутри нет), полость оставлена цветом бумаги и
+  обведена пунктиром (место есть, и оно занято жидкостью).
+*/
+.figure__svg .d-wall-skin ellipse { fill: var(--sprout); fill-opacity: 0.5; stroke: var(--moss); }
+.figure__svg .d-parenchyma ellipse { fill: var(--iodine); fill-opacity: 0.22; stroke: var(--iodine); stroke-opacity: 0.5; }
+.figure__svg .d-polost ellipse { fill: var(--paper-raised); stroke: var(--methylene); stroke-dasharray: 5 4; }
+
+/*
+  Два отдела вегетативной нервной системы. Цвет здесь несёт смысл: отделы
+  действуют на один и тот же орган противоположно, и в таблице влияний глаз
+  должен различать столбцы раньше, чем прочитает слова. Симпатический —
+  цвет тревоги и нагрузки, парасимпатический — спокойный зелёный.
+*/
+.figure__svg .d-simp-t { fill: var(--fuchsin); }
+.figure__svg .d-parasimp-t { fill: var(--moss-deep); }
+.figure__svg .d-simp { stroke: var(--fuchsin); }
+.figure__svg .d-parasimp { stroke: var(--moss); }
+
+/* Кровь как путь гормона: она же разносит их по всему телу. */
+.figure__svg .d-vessel { stroke: var(--fuchsin); }
+.figure__svg .d-vessel rect { fill: var(--fuchsin); fill-opacity: 0.14; stroke: var(--fuchsin); stroke-opacity: 0.6; }
+
+/*
   Хламидомонада. Схема переработана с Викисклада, и там части нарисованы
   путями, а не прямоугольниками и эллипсами, — те же классы приходится
   повторить для path. Обводки тонкие: в исходнике они долями единицы, и

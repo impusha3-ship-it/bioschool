@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="Три типа желёз, нарисованных рядом. Слева железа внешней секреции: от неё вниз отходит выводящий проток, и секрет уходит по нему в полость тела или наружу; так устроены слюнные, потовые и сальные железы. В середине железа внутренней секреции: выводящего протока у неё нет вовсе, это отмечено перечёркнутым знаком, и гормоны поступают прямо в кровь. Это гипофиз, щитовидная железа, надпочечники. Справа смешанная железа: от неё идут сразу два пути — проток в полость тела и гормон прямо в кровь; так работают поджелудочная железа и половые железы. Вывод: тип железы определяет не её размер и не то, что она вырабатывает, а наличие выводящего протока.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Три типа желёз: всё решает выводящий проток</text>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="10" y="36">Внешней секреции</text>
+    <text x="172" y="36">Внутренней секреции</text>
+    <text x="336" y="36">Смешанная</text>
+  </g>
+
+  <g class="d-capsule">
+    <rect x="40" y="56" width="80" height="50" rx="10"/>
+    <rect x="202" y="56" width="80" height="50" rx="10"/>
+    <rect x="366" y="56" width="80" height="50" rx="10"/>
+  </g>
+  <g class="d-capsule-t" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="86">железа</text>
+    <text x="242" y="86">железа</text>
+    <text x="406" y="86">железа</text>
+  </g>
+
+  <!-- Проток: он есть у первой и у третьей, и ведёт он НЕ в кровь. -->
+  <g class="d-stem" stroke-width="3" fill="none">
+    <path d="M80 106 V150"/>
+    <path d="M376 106 V150"/>
+  </g>
+  <g class="d-stem-end">
+    <path d="M80 158 L74 148 L86 148 Z"/>
+    <path d="M376 158 L370 148 L382 148 Z"/>
+  </g>
+  <g class="d-label" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="132">проток</text>
+    <text x="376" y="132">проток</text>
+  </g>
+
+  <!-- Гормон: прямо в кровь, у второй и у третьей. -->
+  <g class="d-vessel" stroke-width="3" fill="none">
+    <path d="M242 106 V150"/>
+    <path d="M436 106 V150"/>
+  </g>
+  <g class="d-simp-t">
+    <path d="M242 158 L236 148 L248 148 Z"/>
+    <path d="M436 158 L430 148 L442 148 Z"/>
+  </g>
+  <g class="d-simp-t" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="242" y="132">гормон</text>
+    <text x="436" y="132">гормон</text>
+  </g>
+
+  <!-- Протока у железы внутренней секреции нет вовсе. -->
+  <g class="d-no" stroke-width="2.2" fill="none">
+    <path d="M190 118 L206 134 M206 118 L190 134"/>
+  </g>
+  <g class="d-label" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="198" y="146">протока нет</text>
+  </g>
+
+  <!-- Куда что приходит: полость тела отдельно, кровь отдельно. -->
+  <g class="d-sub">
+    <rect x="10" y="160" width="140" height="20" rx="4"/>
+    <rect x="336" y="160" width="66" height="20" rx="4"/>
+  </g>
+  <g class="d-vessel">
+    <rect x="172" y="160" width="140" height="20" rx="4"/>
+    <rect x="408" y="160" width="62" height="20" rx="4"/>
+  </g>
+  <g class="d-label" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="174">полость тела или наружу</text>
+    <text x="369" y="174">полость</text>
+  </g>
+  <g class="d-simp-t" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="242" y="174">кровь</text>
+    <text x="439" y="174">кровь</text>
+  </g>
+
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="10" y="204">секрет уходит по протоку,</text>
+    <text x="10" y="216">в кровь он не попадает</text>
+    <text x="10" y="234">слюнные, потовые,</text>
+    <text x="10" y="246">сальные железы</text>
+    <text x="172" y="204">протоков нет вовсе, гормоны</text>
+    <text x="172" y="216">идут прямо в кровь</text>
+    <text x="172" y="234">гипофиз, щитовидная</text>
+    <text x="172" y="246">железа, надпочечники</text>
+    <text x="336" y="204">одни клетки в проток,</text>
+    <text x="336" y="216">другие — в кровь</text>
+    <text x="336" y="234">поджелудочная</text>
+    <text x="336" y="246">и половые железы</text>
+  </g>
+
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M240 262 V274"/>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="290">Тип железы определяет не размер и не секрет, а наличие протока</text>
+  </g>
+</svg>

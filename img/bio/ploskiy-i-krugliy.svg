@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 340" role="img" aria-label="Сравнение плоского и круглого червя. Сверху два поперечных разреза. Слева плоский червь: тело сильно сплющено, стенка из покрова и трёх слоёв мышц, а всё пространство внутри заполнено мягкой тканью — паренхимой, свободного места нет. Справа круглый червь: тело круглое в поперечном разрезе, под плотной кутикулой лежит один слой продольных мышц, а внутри свободная первичная полость, заполненная полостной жидкостью, в которой лежат органы. Снизу те же два червя сбоку, с кишечником. У плоского кишечник разветвлён и замкнут: отверстие одно — рот, и непереваренные остатки выходят через него же. У круглого кишечник сквозной: он начинается ртом и заканчивается анальным отверстием. Главный вывод: у круглых червей появились полость тела и второе отверстие кишечника.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="14">Что нового у круглых червей</text>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" font-family="system-ui, sans-serif">
+    <text x="10" y="36">Плоский червь</text>
+    <text x="268" y="36">Круглый червь</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="10" y="50">поперечный разрез</text>
+    <text x="268" y="50">поперечный разрез</text>
+  </g>
+
+  <!-- Слева: тело сплющено, свободного места внутри нет. -->
+  <g class="d-wall-skin">
+    <ellipse cx="118" cy="110" rx="92" ry="44"/>
+  </g>
+  <g class="d-parenchyma">
+    <ellipse cx="118" cy="110" rx="84" ry="36"/>
+  </g>
+  <g class="d-cell-nucleus">
+    <circle cx="84" cy="104" r="10"/>
+    <circle cx="152" cy="104" r="10"/>
+    <circle cx="118" cy="126" r="8"/>
+  </g>
+
+  <!-- Справа: тело круглое, внутри свободная полость с жидкостью. -->
+  <g class="d-wall-skin">
+    <ellipse cx="362" cy="110" rx="54" ry="54"/>
+  </g>
+  <g class="d-polost">
+    <ellipse cx="362" cy="110" rx="46" ry="46"/>
+  </g>
+  <g class="d-cell-nucleus">
+    <circle cx="342" cy="96" r="10"/>
+    <circle cx="380" cy="102" r="9"/>
+    <circle cx="358" cy="132" r="10"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1" fill="none">
+    <path d="M118 168 V154"/>
+    <path d="M362 178 V164"/>
+  </g>
+  <g class="d-label" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="118" y="180">всё внутри забито паренхимой:</text>
+    <text x="118" y="192">полости тела нет</text>
+    <text x="362" y="190">первичная полость с жидкостью,</text>
+    <text x="362" y="202">в ней лежат органы</text>
+  </g>
+
+  <!-- Внизу те же черви сбоку: один выход и два. -->
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="10" y="226">вид сбоку</text>
+    <text x="268" y="226">вид сбоку</text>
+  </g>
+  <g class="d-leaf">
+    <path d="M30 242 C30 234 38 232 60 232 L176 232 C198 232 206 234 206 242 C206 250 198 252 176 252 L60 252 C38 252 30 250 30 242 Z"/>
+    <path d="M288 242 C288 234 296 232 318 232 L434 232 C456 232 464 234 464 242 C464 250 456 252 434 252 L318 252 C296 252 288 250 288 242 Z"/>
+  </g>
+  <g class="d-stem" stroke-width="2" fill="none">
+    <path d="M46 242 H150"/>
+    <path d="M100 242 L120 236 M100 242 L120 248 M130 242 L150 236 M130 242 L150 248"/>
+    <path d="M304 242 H448"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="46" cy="242" r="4"/>
+    <circle cx="304" cy="242" r="4"/>
+    <circle cx="448" cy="242" r="4"/>
+  </g>
+  <g class="d-label" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="118" y="272">кишечник замкнут: отверстие одно — рот,</text>
+    <text x="118" y="284">через него же выходят остатки</text>
+    <text x="376" y="272">кишечник сквозной: рот в начале,</text>
+    <text x="376" y="284">анальное отверстие в конце</text>
+  </g>
+
+  <g class="d-warn" stroke-width="1.4" fill="none">
+    <path d="M240 296 V308"/>
+  </g>
+  <g class="d-warn-t" font-size="11" font-weight="650" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="322">Два приобретения: полость тела и второе отверстие кишечника</text>
+  </g>
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="338">Зато мышц стало меньше: у круглых только продольные.</text>
+  </g>
+</svg>
