@@ -1370,6 +1370,16 @@ h3 {
 .figure__svg .d-polost ellipse { fill: var(--paper-raised); stroke: var(--methylene); stroke-dasharray: 5 4; }
 
 /*
+  Та же ловушка в третий раз: правило мышечного слоя написано под `rect`,
+  а на разрезе дождевого червя слой — кольцо, то есть ellipse. Без этой
+  строки кольцевые мышцы заливаются чёрным.
+*/
+.figure__svg .d-wall-muscle ellipse { fill: var(--fuchsin); fill-opacity: 0.12; stroke: var(--fuchsin); stroke-opacity: 0.5; }
+
+/* Сосуд на поперечном разрезе — кружок, а не полоска вдоль тела. */
+.figure__svg .d-vessel circle { fill: var(--fuchsin); fill-opacity: 0.35; stroke: var(--fuchsin); }
+
+/*
   Два отдела вегетативной нервной системы. Цвет здесь несёт смысл: отделы
   действуют на один и тот же орган противоположно, и в таблице влияний глаз
   должен различать столбцы раньше, чем прочитает слова. Симпатический —

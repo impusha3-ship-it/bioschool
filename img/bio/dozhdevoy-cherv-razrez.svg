@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 296" role="img" aria-label="Поперечный разрез дождевого червя. Снаружи кожа с тонкой кутикулой, под ней слой кольцевых мышц, а под ним слой продольных: их волокна перерезаны поперёк и видны кружками. Кожа и мышцы вместе образуют кожно-мускульный мешок. Внутри мешка вторичная полость тела — целом, заполненная жидкостью. В полости сверху вниз лежат спинной кровеносный сосуд, кишка, брюшной кровеносный сосуд и брюшная нервная цепочка. Снизу по бокам из тела торчат щетинки. В каждом сегменте всё это повторяется заново.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Поперечный разрез дождевого червя</text>
+  </g>
+
+  <!-- Стенка тела: кожа с кутикулой снаружи, под ней два слоя мышц. -->
+  <g class="d-wall-skin">
+    <ellipse cx="210" cy="150" rx="86" ry="86"/>
+  </g>
+  <g class="d-wall-muscle">
+    <ellipse cx="210" cy="150" rx="80" ry="80"/>
+    <ellipse cx="210" cy="150" rx="72" ry="72"/>
+  </g>
+  <!-- Продольные волокна перерезаны поперёк — на срезе они и видны кружками. -->
+  <g class="d-wall-fibre" fill="none" stroke-width="1">
+    <circle cx="277" cy="150" r="2.4"/>
+    <circle cx="273" cy="173" r="2.4"/>
+    <circle cx="261" cy="193" r="2.4"/>
+    <circle cx="244" cy="208" r="2.4"/>
+    <circle cx="222" cy="216" r="2.4"/>
+    <circle cx="198" cy="216" r="2.4"/>
+    <circle cx="177" cy="208" r="2.4"/>
+    <circle cx="159" cy="193" r="2.4"/>
+    <circle cx="147" cy="173" r="2.4"/>
+    <circle cx="143" cy="150" r="2.4"/>
+    <circle cx="147" cy="127" r="2.4"/>
+    <circle cx="159" cy="107" r="2.4"/>
+    <circle cx="177" cy="92" r="2.4"/>
+    <circle cx="198" cy="84" r="2.4"/>
+    <circle cx="222" cy="84" r="2.4"/>
+    <circle cx="244" cy="92" r="2.4"/>
+    <circle cx="261" cy="107" r="2.4"/>
+    <circle cx="273" cy="127" r="2.4"/>
+  </g>
+
+  <!-- Вторичная полость тела: в ней и лежит всё хозяйство червя. -->
+  <g class="d-polost">
+    <ellipse cx="210" cy="150" rx="62" ry="62"/>
+  </g>
+  <g class="d-leaf">
+    <ellipse cx="210" cy="146" rx="22" ry="22"/>
+  </g>
+  <g class="d-vessel">
+    <circle cx="210" cy="112" r="6"/>
+    <circle cx="210" cy="182" r="6"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="210" cy="200" r="7"/>
+  </g>
+
+  <!-- Щетинки: четыре пары, все на брюшной стороне. -->
+  <g class="d-stem" stroke-width="2.5" fill="none">
+    <path d="M259 220 L270 236"/>
+    <path d="M239 231 L245 248"/>
+    <path d="M181 231 L175 248"/>
+    <path d="M161 220 L150 236"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1" fill="none">
+    <path d="M120 88 L142 102"/>
+    <path d="M120 124 L135 136"/>
+    <path d="M120 160 L143 152"/>
+    <path d="M120 200 L152 230"/>
+    <path d="M300 92 L217 109"/>
+    <path d="M300 126 L258 130"/>
+    <path d="M300 160 L233 152"/>
+    <path d="M300 194 L217 183"/>
+    <path d="M300 226 L218 203"/>
+  </g>
+
+  <g class="d-label" font-size="10" text-anchor="end" font-family="system-ui, sans-serif">
+    <text x="116" y="92">кожа с кутикулой</text>
+    <text x="116" y="128">кольцевые мышцы</text>
+    <text x="116" y="164">продольные мышцы</text>
+    <text x="116" y="204">щетинки</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="304" y="96">спинной сосуд</text>
+    <text x="304" y="130">целом: вторичная полость</text>
+    <text x="304" y="164">кишка</text>
+    <text x="304" y="198">брюшной сосуд</text>
+    <text x="304" y="230">брюшная нервная цепочка</text>
+  </g>
+
+  <g class="d-label" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="268">Кожа и оба слоя мышц срослись — это кожно-мускульный мешок.</text>
+    <text x="240" y="284">В каждом сегменте всё нарисованное повторяется заново.</text>
+  </g>
+</svg>

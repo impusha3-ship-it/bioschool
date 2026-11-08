@@ -28,7 +28,8 @@
         { "id": "8-mnogoobrazie-kishechnopolostnyh", "title": "Многообразие кишечнополостных. Значение кишечнополостных в природе и жизни человека", "lab": true },
         { "id": "8-ploskie-chervi", "title": "Черви. Плоские черви" },
         { "id": "8-parazity-ploskie-chervi", "title": "Паразитические плоские черви", "lab": true },
-        { "id": "8-kruglye-chervi", "title": "Круглые черви" }
+        { "id": "8-kruglye-chervi", "title": "Круглые черви" },
+        { "id": "8-kolchatye-chervi", "title": "Кольчатые черви", "lab": true }
       ]
     }
   ]

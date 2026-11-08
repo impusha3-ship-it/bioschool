@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 330" role="img" aria-label="Три поперечных разреза: плоский, круглый и кольчатый черви. У плоского червя тело сплющено, и всё пространство внутри заполнено паренхимой — полости тела нет вовсе. У круглого червя тело круглое, внутри есть первичная полость с жидкостью, но стенки её ничем не выстланы. У кольчатого червя полость вторичная: она выстлана по краю слоем покровных клеток, внутри неё лежат кишка, спинной и брюшной кровеносные сосуды и брюшная нервная цепочка. Только у кольчатых червей есть замкнутая кровеносная система, тело поделено на сегменты с повторяющимися в каждом органами и брюшная нервная цепочка с узлом в каждом сегменте.">
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="16">Что прибавилось у кольчатых червей</text>
+  </g>
+
+  <g class="d-capsule-t" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="42">Плоский червь</text>
+    <text x="240" y="42">Круглый червь</text>
+    <text x="398" y="42">Кольчатый червь</text>
+  </g>
+  <g class="d-label" font-size="10" font-family="system-ui, sans-serif">
+    <text x="8" y="58">поперечные разрезы</text>
+  </g>
+
+  <!-- Плоский: внутри места нет совсем. -->
+  <g class="d-wall-skin">
+    <ellipse cx="80" cy="130" rx="68" ry="32"/>
+  </g>
+  <g class="d-parenchyma">
+    <ellipse cx="80" cy="130" rx="60" ry="24"/>
+  </g>
+  <g class="d-cell-nucleus">
+    <circle cx="54" cy="126" r="9"/>
+    <circle cx="106" cy="126" r="9"/>
+    <circle cx="80" cy="144" r="7"/>
+  </g>
+
+  <!-- Круглый: полость есть, но стенки её голые. -->
+  <g class="d-wall-skin">
+    <ellipse cx="240" cy="130" rx="46" ry="46"/>
+  </g>
+  <g class="d-polost">
+    <ellipse cx="240" cy="130" rx="38" ry="38"/>
+  </g>
+  <g class="d-cell-nucleus">
+    <circle cx="224" cy="118" r="9"/>
+    <circle cx="256" cy="124" r="8"/>
+    <circle cx="238" cy="150" r="9"/>
+  </g>
+
+  <!-- Кольчатый: та же полость, но выстлана клетками, и в ней уже целое хозяйство. -->
+  <g class="d-wall-skin">
+    <ellipse cx="398" cy="130" rx="46" ry="46"/>
+  </g>
+  <g class="d-polost">
+    <ellipse cx="398" cy="130" rx="38" ry="38"/>
+  </g>
+  <g class="d-cell-nucleus">
+    <circle cx="398" cy="92" r="2.6"/>
+    <circle cx="417" cy="97" r="2.6"/>
+    <circle cx="431" cy="111" r="2.6"/>
+    <circle cx="436" cy="130" r="2.6"/>
+    <circle cx="431" cy="149" r="2.6"/>
+    <circle cx="417" cy="163" r="2.6"/>
+    <circle cx="398" cy="168" r="2.6"/>
+    <circle cx="379" cy="163" r="2.6"/>
+    <circle cx="365" cy="149" r="2.6"/>
+    <circle cx="360" cy="130" r="2.6"/>
+    <circle cx="365" cy="111" r="2.6"/>
+    <circle cx="379" cy="97" r="2.6"/>
+  </g>
+  <g class="d-leaf">
+    <ellipse cx="398" cy="126" rx="14" ry="14"/>
+  </g>
+  <g class="d-vessel">
+    <circle cx="398" cy="103" r="5"/>
+    <circle cx="398" cy="149" r="5"/>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="398" cy="160" r="3.5"/>
+  </g>
+
+  <g class="d-lead" stroke-width="1" fill="none">
+    <path d="M80 190 V164"/>
+    <path d="M240 190 V178"/>
+    <path d="M398 190 V178"/>
+  </g>
+  <g class="d-label" font-size="10" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="80" y="204">паренхима:</text>
+    <text x="80" y="216">полости тела нет</text>
+    <text x="240" y="204">первичная полость:</text>
+    <text x="240" y="216">стенки не выстланы</text>
+    <text x="398" y="204">вторичная полость:</text>
+    <text x="398" y="216">выстлана клетками</text>
+  </g>
+
+  <g class="d-head" font-size="11" font-weight="650" font-family="system-ui, sans-serif">
+    <text x="8" y="248">Только у кольчатых</text>
+  </g>
+  <g class="d-stem-end">
+    <circle cx="14" cy="264" r="3.5"/>
+    <circle cx="14" cy="280" r="3.5"/>
+    <circle cx="14" cy="296" r="3.5"/>
+  </g>
+  <g class="d-row" font-size="11" font-family="system-ui, sans-serif">
+    <text x="28" y="268">кровеносная система, и сразу замкнутая: кровь идёт только по сосудам</text>
+    <text x="28" y="284">тело поделено на сегменты, и в каждом повторяется один набор органов</text>
+    <text x="28" y="300">брюшная нервная цепочка: в каждом сегменте свой нервный узел</text>
+  </g>
+
+  <g class="d-verdict" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">
+    <text x="240" y="322">Сложнее не вообще, а по частям: полость, кровь, сегменты</text>
+  </g>
+</svg>
