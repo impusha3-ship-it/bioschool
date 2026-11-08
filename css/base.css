@@ -1380,6 +1380,32 @@ h3 {
 .figure__svg .d-vessel circle { fill: var(--fuchsin); fill-opacity: 0.35; stroke: var(--fuchsin); }
 
 /*
+  Объёмный вырез двух сегментов дождевого червя — переработка рисунка Reytan
+  с Викисклада (общественное достояние). Здесь у одного органа по два-три
+  класса, и это не прихоть: рисунок объёмный, и объём держится разницей
+  светлого и тёмного. Сведи оттенки в один — и вырез станет плоским пятном,
+  в котором не разобрать, где верх, а где срез.
+*/
+.figure__svg .d-worm-wall { fill: var(--sprout); fill-opacity: 0.5; }
+.figure__svg .d-worm-wall-light { fill: var(--sprout); fill-opacity: 0.3; }
+.figure__svg .d-worm-wall-dark { fill: var(--sprout); fill-opacity: 0.72; }
+.figure__svg .d-worm-wall-inner { fill: var(--fuchsin); fill-opacity: 0.16; }
+/* Срез — это срез, а не орган: он нейтрально-серый, иначе спорит с кишкой. */
+.figure__svg .d-worm-cut { fill: var(--ink-muted); fill-opacity: 0.22; }
+.figure__svg .d-worm-gut { fill: var(--iodine); fill-opacity: 0.5; }
+.figure__svg .d-worm-gut-light { fill: var(--iodine); fill-opacity: 0.3; }
+.figure__svg .d-worm-gut-dark { fill: var(--iodine); fill-opacity: 0.7; }
+.figure__svg .d-worm-vessel { fill: var(--fuchsin); fill-opacity: 0.75; }
+.figure__svg .d-worm-septum { fill: var(--methylene); fill-opacity: 0.2; }
+.figure__svg .d-worm-septum-light { fill: var(--methylene); fill-opacity: 0.1; }
+.figure__svg .d-worm-nephridium { fill: var(--methylene); fill-opacity: 0.45; }
+.figure__svg .d-worm-nephridium-light { fill: var(--methylene); fill-opacity: 0.25; }
+.figure__svg .d-worm-nerve { fill: var(--ink-muted); }
+.figure__svg .d-worm-nerve-dark { fill: var(--ink-soft); }
+.figure__svg .d-worm-line { fill: var(--ink-soft); }
+.figure__svg .d-worm-stroke { fill: none; stroke: var(--ink-soft); stroke-width: 6; }
+
+/*
   Два отдела вегетативной нервной системы. Цвет здесь несёт смысл: отделы
   действуют на один и тот же орган противоположно, и в таблице влияний глаз
   должен различать столбцы раньше, чем прочитает слова. Симпатический —
