@@ -65,3 +65,27 @@ test('цепочка короче двух элементов отвергает
     /Игре «order» нужна цепочка хотя бы из двух элементов/,
   );
 });
+
+/*
+  Снять можно любой шаг, а не только последний (правка от 19 октября 2026).
+  Пока снимался лишь последний, ошибку в начале приходилось разбирать до неё
+  с конца, и ученик видел это как «ответ не поменять».
+*/
+test('из цепочки убирается любой шаг, остальные держат порядок', () => {
+  const game = createOrderGame(CONFIG, опции());
+  const [первый, второй, третий] = CONFIG.sequence;
+  game.pick(первый);
+  game.pick(второй);
+  game.pick(третий);
+
+  assert.equal(game.убрать(0), true);
+  assert.deepEqual(game.getPicked(), [второй, третий]);
+});
+
+test('убрать несуществующий шаг нельзя', () => {
+  const game = createOrderGame(CONFIG, опции());
+  game.pick(CONFIG.sequence[0]);
+  assert.equal(game.убрать(5), false);
+  assert.equal(game.убрать(-1), false);
+  assert.deepEqual(game.getPicked(), [CONFIG.sequence[0]]);
+});

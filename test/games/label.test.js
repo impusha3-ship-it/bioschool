@@ -69,3 +69,39 @@ test('конфиг без картинки отвергается', () => {
     /Игре «label» нужна схема/,
   );
 });
+
+/*
+  Переставлять ответ ученик должен мочь до самой сдачи. До 19 октября 2026
+  поставленная подпись не снималась никак, а поставленная на занятую точку
+  вытесняла прежнюю молча: та оставалась засчитанной, но на схеме её уже не
+  было — ни увидеть, ни исправить.
+*/
+test('подпись с точки снимается обратно', () => {
+  const game = createLabelGame(CONFIG, опции());
+  game.selectLabel('wall');
+  game.placeOnTarget('wall');
+  assert.equal(game.getResult().correct, 1);
+
+  game.placeOnTarget('wall'); // ничего не выбрано — значит, снимаем
+  const d = game.getResult().details.find((x) => x.id === 'wall');
+  assert.equal(d.got, null, 'подпись вернулась в банк');
+  assert.equal(game.getResult().correct, 0);
+});
+
+test('подпись на занятой точке вытесняет прежнюю, а не прячет её', () => {
+  const game = createLabelGame(CONFIG, опции());
+  game.selectLabel('wall');
+  game.placeOnTarget('nucleus');
+  game.selectLabel('nucleus');
+  game.placeOnTarget('nucleus');
+
+  const d = game.getResult().details;
+  assert.equal(d.find((x) => x.id === 'nucleus').got, 'nucleus', 'новая подпись стоит');
+  assert.equal(d.find((x) => x.id === 'wall').got, null, 'прежняя вернулась в банк');
+  assert.equal(game.getResult().correct, 1);
+});
+
+test('нажатие по пустой точке без выбора ничего не делает', () => {
+  const game = createLabelGame(CONFIG, опции());
+  assert.equal(game.placeOnTarget('wall'), false);
+});

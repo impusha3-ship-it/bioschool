@@ -44,7 +44,7 @@ export function createMatchGame(config, { document: doc = globalThis.document, r
     leftCol.replaceChildren(
       ...pairs.map((p) => {
         const btn = makeButton(p.left, selected === p.id, p.id in placements);
-        btn.addEventListener('click', () => state.select(p.id));
+        btn.addEventListener('click', () => выбратьЛевое(p.id));
         return btn;
       }),
     );
@@ -52,9 +52,7 @@ export function createMatchGame(config, { document: doc = globalThis.document, r
     rightCol.replaceChildren(
       ...rightOrder.map((id) => {
         const btn = makeButton(byId.get(id).right, false, занятыеСправа.has(id));
-        btn.addEventListener('click', () => {
-          if (state.getSelected() !== null) state.place(id);
-        });
+        btn.addEventListener('click', () => выбратьПравое(id));
         return btn;
       }),
     );
@@ -72,6 +70,39 @@ export function createMatchGame(config, { document: doc = globalThis.document, r
     return btn;
   }
 
+  /** Кто занял это правое. `null` — свободно. */
+  function чьёПравое(id) {
+    return Object.entries(state.getPlacements()).find(([, цель]) => цель === id)?.[0] ?? null;
+  }
+
+  /*
+    Переставлять ответ ученик должен мочь до самой сдачи. До 19 октября 2026
+    сложенную пару нельзя было разобрать никак, а одно правое могло оказаться
+    сразу в двух парах: вторая ложилась поверх первой, и обе считались.
+
+    Поэтому нажатие по сложенной паре её разбивает — и сразу берёт левое в
+    руку: ученик передумал и перекладывает, а не ищет, как отменить.
+  */
+  function выбратьЛевое(id) {
+    if (id in state.getPlacements()) state.remove(id);
+    return state.select(id);
+  }
+
+  function выбратьПравое(id) {
+    const чьё = чьёПравое(id);
+
+    // Ничего не выбрано — значит, нажали по занятому, чтобы разбить пару.
+    if (state.getSelected() === null) {
+      if (чьё === null) return false;
+      state.remove(чьё);
+      return true;
+    }
+
+    // Одно правое — одной паре: прежнее сочетание уступает место.
+    if (чьё !== null && чьё !== state.getSelected()) state.remove(чьё);
+    return state.place(id);
+  }
+
   state.onChange(render);
   render();
 
@@ -81,7 +112,7 @@ export function createMatchGame(config, { document: doc = globalThis.document, r
     isComplete: () => state.isComplete(),
     reset: () => state.reset(),
     onChange: (fn) => state.onChange(fn),
-    selectLeft: (id) => state.select(id),
-    selectRight: (id) => state.place(id),
+    selectLeft: выбратьЛевое,
+    selectRight: выбратьПравое,
   };
 }

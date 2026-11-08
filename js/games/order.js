@@ -47,12 +47,14 @@ export function createOrderGame(config, { document: doc = globalThis.document, r
         btn.className = 'game__chip game__chip--placed';
         btn.setAttribute('type', 'button');
         btn.textContent = text;
-        // Снять можно только последний: иначе цепочка рвётся посередине.
-        if (index === picked.length - 1) {
-          btn.addEventListener('click', () => undo());
-        } else {
-          btn.setAttribute('disabled', 'true');
-        }
+        /*
+           Снять можно любой шаг, а не только последний. Цепочка при этом не
+           рвётся: оставшиеся просто сдвигаются и держат свой порядок. Пока
+           снимался лишь последний, ошибку в начале приходилось разбирать
+           до неё с конца — а ученик видел это как «ответ не поменять».
+         */
+        btn.setAttribute('aria-label', `${text} — нажми, чтобы убрать`);
+        btn.addEventListener('click', () => убрать(index));
         li.append(btn);
         return li;
       }),
@@ -86,12 +88,21 @@ export function createOrderGame(config, { document: doc = globalThis.document, r
     return true;
   }
 
+  /** Убирает шаг из цепочки — любой, не только последний. */
+  function убрать(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= picked.length) return false;
+    picked.splice(index, 1);
+    notify();
+    return true;
+  }
+
   render();
 
   return {
     element,
     pick,
     undo,
+    убрать,
     getPicked: () => [...picked],
     isComplete: () => picked.length === sequence.length,
     reset() {

@@ -93,7 +93,10 @@ export function createLabelGame(config, { document: doc = globalThis.document, r
       point.setAttribute('type', 'button');
       point.setAttribute('style', `left:${target.x}%;top:${target.y}%`);
       point.textContent = занят ? byLabelId.get(занят).text : '';
-      point.setAttribute('aria-label', занят ? byLabelId.get(занят).text : 'Пустая точка');
+      point.setAttribute(
+        'aria-label',
+        занят ? `${byLabelId.get(занят).text} — нажми, чтобы снять` : 'Пустая точка',
+      );
       point.addEventListener('click', () => placeOnTarget(target.id));
       stage.append(point);
       pointNodes.push(point);
@@ -113,9 +116,33 @@ export function createLabelGame(config, { document: doc = globalThis.document, r
     return true;
   }
 
+  /**
+   * Нажатие по точке: поставить выбранную подпись, снять стоящую или
+   * заменить одну другой.
+   *
+   * Переставлять ответ ученик должен мочь до самой сдачи. До 19 октября
+   * 2026 поставленная подпись не снималась никак: из банка она исчезала, а
+   * нажатие по точке ничего не делало. Хуже того, подпись, поставленную на
+   * занятую точку, движок принимал второй: прежняя оставалась засчитанной
+   * на той же точке, но на схеме её уже не было — ни увидеть, ни исправить.
+   */
   function placeOnTarget(targetId) {
-    if (selectedLabel === null) return false;
-    if (byLabelId.get(selectedLabel).real) state.placeFor(selectedLabel, targetId);
+    const стоит = Object.entries(state.getPlacements())
+      .find(([, цель]) => цель === targetId)?.[0] ?? null;
+
+    // Ничего не выбрано — значит, нажали по занятой точке, чтобы снять.
+    if (selectedLabel === null) {
+      if (стоит === null) return false;
+      state.remove(стоит);
+      render();
+      return true;
+    }
+
+    if (byLabelId.get(selectedLabel).real) {
+      // Вытесненная подпись возвращается в банк, а не пропадает.
+      if (стоит !== null && стоит !== selectedLabel) state.remove(стоит);
+      state.placeFor(selectedLabel, targetId);
+    }
     selectedLabel = null;
     render();
     return true;
