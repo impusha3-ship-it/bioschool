@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 224" role="img" aria-label="Сгибание и разгибание локтя. При сгибании выделена мышца на передней стороне плеча, при разгибании — мышца на задней стороне.">
+  <g class="d-row" fill="#29331f" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+    <text x="80" y="23">Сгибание</text><text x="240" y="23">Разгибание</text>
+    <text x="80" y="195"><tspan x="80">Активнее</tspan><tspan x="80" dy="16">двуглавая мышца</tspan></text>
+    <text x="240" y="195"><tspan x="240">Активнее</tspan><tspan x="240" dy="16">трёхглавая мышца</tspan></text>
+  </g>
+  <g stroke="#b79663" stroke-width="9" stroke-linecap="round" fill="none">
+    <path d="M58 51L63 114L117 79 M216 51L221 114L242 164"/>
+  </g>
+  <g fill="#e6cc9f" stroke="#a58253" stroke-width="2">
+    <circle cx="63" cy="114" r="6"/><circle cx="221" cy="114" r="6"/>
+  </g>
+  <g fill="#bd6f61" stroke="#864b40" stroke-width="1.4">
+    <path d="M59 49Q90 61 76 103L72 110Q67 97 69 77Q67 60 59 49Z"/>
+    <path d="M215 49Q189 70 212 108L221 117Q216 99 215 77Q215 64 215 49Z"/>
+  </g>
+  <g fill="none" stroke="#658052" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M119 140Q134 124 132 105 M126 112L132 105L138 112 M275 109Q281 133 264 150 M273 148L264 150L265 141"/>
+  </g>
+</svg>
