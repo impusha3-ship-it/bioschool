@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 230" role="img" aria-label="Строение побега: стебель, узлы, междоузлие, лист и две почки">
+  <g class="d-stem" fill="none" stroke="#647c48" stroke-width="4" stroke-linecap="round">
+    <path d="M151 208L162 45 M155 148Q131 135 105 115 M159 104Q184 90 203 84"/>
+  </g>
+  <g class="d-leaf" fill="#c6d8a7" stroke="#567341">
+    <path d="M105 115Q72 104 70 78Q104 83 105 115Z M203 84Q207 55 238 58Q228 84 203 84Z"/>
+    <path d="M162 45Q152 32 164 20Q173 34 162 45Z M155 148Q142 138 148 126Q159 129 155 148Z"/>
+  </g>
+  <g class="d-row" fill="#29331f">
+    <circle cx="159" cy="104" r="3"/><circle cx="155" cy="148" r="3"/>
+  </g>
+  <g fill="none" stroke="#82916e" stroke-width="1.2">
+    <path d="M170 32H186 M161 104H195 M145 132H110L98 152H12 M153 185H198 M179 106H185V147H179 M185 127H197"/>
+  </g>
+  <g class="d-row" font-family="system-ui, sans-serif" font-size="12" fill="#29331f">
+    <text x="190" y="36">Верхушечная почка</text><text x="200" y="108">Узел</text>
+    <text x="201" y="131">Междоузлие</text><text x="12" y="169">Пазушная почка</text>
+    <text x="202" y="189">Стебель</text>
+  </g>
+</svg>
