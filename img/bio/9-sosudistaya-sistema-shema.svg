@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 244" role="img" aria-label="Большой круг: левый желудочек, аорта, капилляры органов, полые вены, правое предсердие. Малый круг: правый желудочек, лёгочные артерии, капилляры лёгких, лёгочные вены, левое предсердие.">
+  <g fill="none" stroke-width="2">
+    <path stroke="#b56a50" d="M17 46v86"/><path stroke="#567a95" d="M17 132v88"/>
+    <path stroke="#567a95" d="M172 46v86"/><path stroke="#b56a50" d="M172 132v88"/>
+    <path stroke="#567a95" d="m13 215 4 5 4-5"/><path stroke="#b56a50" d="m168 215 4 5 4-5"/>
+  </g>
+  <g font-family="system-ui, sans-serif" class="d-row" font-size="11">
+    <g font-size="12" font-weight="650"><text x="8" y="22">Большой круг</text><text x="163" y="22">Малый круг</text></g>
+    <text x="28" y="54">Левый желудочек</text><text x="183" y="54">Правый желудочек</text>
+    <text x="28" y="96">Аорта и артерии</text><text x="183" y="96">Лёгочные артерии</text>
+    <text x="28" y="136">Капилляры органов</text><text x="183" y="136">Капилляры лёгких</text>
+    <text x="28" y="176">Вены и полые вены</text><text x="183" y="176">Лёгочные вены</text>
+    <text x="28" y="219">Правое предсердие</text><text x="183" y="219">Левое предсердие</text>
+  </g>
+</svg>

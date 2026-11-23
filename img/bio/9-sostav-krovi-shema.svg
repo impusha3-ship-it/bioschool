@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 174" role="img" aria-label="Слева округлые безъядерные эритроциты человека. Справа более крупные овальные эритроциты лягушки с тёмными ядрами.">
+  <g font-family="system-ui, sans-serif" text-anchor="middle" class="d-row">
+    <text x="80" y="22" font-size="12">Человек</text>
+    <text x="240" y="22" font-size="12">Лягушка</text>
+    <text x="80" y="148" font-size="11">Без ядра</text>
+    <text x="240" y="148" font-size="11">Ядро в центре</text>
+    <text x="160" y="169" font-size="11">Размеры показаны условно</text>
+  </g>
+  <path d="M160 32v104" stroke="#768a60" stroke-dasharray="3 3"/>
+  <g fill="#dc8c83" stroke="#9a514d" stroke-width="1.5">
+    <circle cx="49" cy="71" r="15"/><circle cx="107" cy="62" r="15"/><circle cx="80" cy="109" r="15"/>
+    <ellipse cx="212" cy="67" rx="31" ry="17" transform="rotate(-18 212 67)"/>
+    <ellipse cx="267" cy="109" rx="31" ry="17" transform="rotate(14 267 109)"/>
+  </g>
+  <g fill="#f2c2ad">
+    <circle cx="49" cy="71" r="7"/><circle cx="107" cy="62" r="7"/><circle cx="80" cy="109" r="7"/>
+  </g>
+  <g fill="#694357">
+    <ellipse cx="212" cy="67" rx="9" ry="6" transform="rotate(-18 212 67)"/>
+    <ellipse cx="267" cy="109" rx="9" ry="6" transform="rotate(14 267 109)"/>
+  </g>
+</svg>

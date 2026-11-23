@@ -46,6 +46,28 @@
         { "id": "9-skelet-cheloveka", "title": "Скелет человека, строение его отделов и функции", "lab": "практическая" },
         { "id": "9-myshechnaya-sistema", "title": "Мышечная система человека", "lab": "практическая" }
       ]
+    },
+    {
+      "id": "vnutrennyaya-sreda",
+      "title": "Внутренняя среда организма",
+      "hours": 4,
+      "lessons": [
+        { "id": "9-vnutrennyaya-sreda", "title": "Внутренняя среда организма и её функции" },
+        { "id": "9-sostav-krovi", "title": "Состав крови", "lab": true },
+        { "id": "9-svertyvanie-i-gruppy-krovi", "title": "Свёртывание крови. Переливание крови. Группы крови" },
+        { "id": "9-immunitet", "title": "Иммунитет и его виды" }
+      ]
+    },
+    {
+      "id": "krovoobrashchenie",
+      "title": "Кровообращение и лимфообращение",
+      "hours": 4,
+      "lessons": [
+        { "id": "9-serdtse", "title": "Органы кровообращения. Строение и работа сердца" },
+        { "id": "9-sosudistaya-sistema", "title": "Сосудистая система", "lab": "практическая" },
+        { "id": "9-regulyatsiya-serdtsa-i-sosudov", "title": "Регуляция деятельности сердца и сосудов", "lab": "практическая" },
+        { "id": "9-profilaktika-sss", "title": "Профилактика сердечно-сосудистых заболеваний. Первая помощь при кровотечениях", "lab": "практическая" }
+      ]
     }
   ]
 }
