@@ -25,7 +25,8 @@ export const СТАТУСЫ = {
 export function статусКлетки({ назначено, работа }) {
   if (!назначено) return СТАТУСЫ.НЕ_ЗАДАНО;
   if (!работа) return СТАТУСЫ.НЕ_СДАНО;
-  const естьРазвёрнутый = Boolean(работа.open && Object.keys(работа.open).length);
+  const естьРазвёрнутый = Object.values(работа.open ?? {})
+    .some((текст) => String(текст ?? '').trim());
   if (естьРазвёрнутый && работа.manualScore === undefined) return СТАТУСЫ.ЖДЁТ;
   if (работа.isLate) return СТАТУСЫ.С_ОПОЗДАНИЕМ;
   return СТАТУСЫ.СДАНО;
