@@ -8,14 +8,42 @@
       "title": "Растительный организм",
       "hours": 8,
       "lessons": [
-        { "id": "6-botanika-nauka", "title": "Ботаника — наука о растениях" },
-        { "id": "6-priznaki-rasteniy", "title": "Общие признаки и уровни организации растительного организма" },
-        { "id": "6-sporovye-i-semennye", "title": "Споровые и семенные растения" },
-        { "id": "6-rastitelnaya-kletka", "title": "Растительная клетка, её изучение", "lab": true },
-        { "id": "6-himicheskiy-sostav", "title": "Химический состав клетки", "lab": true },
-        { "id": "6-zhiznedeyatelnost-kletki", "title": "Жизнедеятельность клетки" },
-        { "id": "6-tkani-rasteniy", "title": "Растительные ткани, их функции", "lab": true },
-        { "id": "6-organy-rasteniy", "title": "Органы растений", "lab": true }
+        {
+          "id": "6-botanika-nauka",
+          "title": "Ботаника — наука о растениях"
+        },
+        {
+          "id": "6-priznaki-rasteniy",
+          "title": "Общие признаки и уровни организации растительного организма"
+        },
+        {
+          "id": "6-sporovye-i-semennye",
+          "title": "Споровые и семенные растения"
+        },
+        {
+          "id": "6-rastitelnaya-kletka",
+          "title": "Растительная клетка, её изучение",
+          "lab": true
+        },
+        {
+          "id": "6-himicheskiy-sostav",
+          "title": "Химический состав клетки",
+          "lab": true
+        },
+        {
+          "id": "6-zhiznedeyatelnost-kletki",
+          "title": "Жизнедеятельность клетки"
+        },
+        {
+          "id": "6-tkani-rasteniy",
+          "title": "Растительные ткани, их функции",
+          "lab": true
+        },
+        {
+          "id": "6-organy-rasteniy",
+          "title": "Органы растений",
+          "lab": true
+        }
       ]
     },
     {
@@ -23,11 +51,38 @@
       "title": "Строение и многообразие покрытосеменных растений",
       "hours": 11,
       "lessons": [
-        { "id": "6-stroenie-semyan", "title": "Строение семян", "lab": true },
-        { "id": "6-vidy-korney", "title": "Виды корней и типы корневых систем", "lab": true },
-        { "id": "6-vidoizmeneniya-korney", "title": "Видоизменения корней" },
-        { "id": "6-pobeg-i-pochki", "title": "Побег. Развитие побега из почки", "lab": true },
-        { "id": "6-stroenie-steblya", "title": "Строение стебля", "lab": true }
+        {
+          "id": "6-stroenie-semyan",
+          "title": "Строение семян",
+          "lab": true
+        },
+        {
+          "id": "6-vidy-korney",
+          "title": "Виды корней и типы корневых систем",
+          "lab": true
+        },
+        {
+          "id": "6-vidoizmeneniya-korney",
+          "title": "Видоизменения корней"
+        },
+        {
+          "id": "6-pobeg-i-pochki",
+          "title": "Побег. Развитие побега из почки",
+          "lab": true
+        },
+        {
+          "id": "6-stroenie-steblya",
+          "title": "Строение стебля",
+          "lab": true
+        },
+        {
+          "id": "6-stroenie-cvetka",
+          "title": "Строение цветка"
+        },
+        {
+          "id": "6-plody",
+          "title": "Плоды и их многообразие"
+        }
       ]
     }
   ]
